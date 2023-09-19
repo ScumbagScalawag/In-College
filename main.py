@@ -15,8 +15,11 @@ def saveUser(username, password):
 
 def loadUsers():
     global user
-    with open("user_file.json", 'r') as database:
-        user = json.load(database)
+    try:
+        with open("user_file.json", 'r') as database:
+            user = json.load(database)
+    except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
+        user = {}  # Initialize to an empty dictionary
 
 #Welcome screen and input
 def printInitialScreen():
