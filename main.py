@@ -19,6 +19,7 @@ def clearScreen():
 # Save username and password to user dictionary and to JSON
 def saveUser(username, password):
     user[username] = password
+    os.chdir(os.path.dirname(__file__))
     with open("user_file.json", "w") as outfile:
         json.dump(user, outfile)
 
@@ -26,6 +27,7 @@ def saveUser(username, password):
 def loadUsers():
     global user
     try:
+        os.chdir(os.path.dirname(__file__))
         with open("user_file.json", 'r') as database:
             user = json.load(database)
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
