@@ -61,7 +61,6 @@ def testJobUnderConstruction(monkeypatch, capfd):
     #See if our input gave us our desired output text
     captured = capfd.readouterr()
     assert "under construction, input anything to return" in captured.out
-    
 def testFindSomeoneConstruction(monkeypatch, capfd):
     input_generator = iter(["2"])
     monkeypatch.setattr('builtins.input', lambda: next(input_generator))
@@ -73,13 +72,30 @@ def testFindSomeoneConstruction(monkeypatch, capfd):
     captured = capfd.readouterr()
     assert "under construction, input anything to return" in captured.out
 
+
+import pytest
+
+
 @pytest.mark.parametrize("input_value", ["1", "2", "3", "4", "5"])
 def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
     input_generator = iter([input_value])
     monkeypatch.setattr('builtins.input', lambda: next(input_generator))
+
     try:
         printSkillScreen()
     except StopIteration:
         pass
+
+    captured = capfd.readouterr()
+    assert "under construction, input anything to return" in captured.out
+def testSkillsReturnButton(input_value, monkeypatch, capfd):
+    input_generator = iter([input_value])
+    monkeypatch.setattr('builtins.input', lambda: next(input_generator))
+
+    try:
+        printSkillScreen()
+    except StopIteration:
+        pass
+
     captured = capfd.readouterr()
     assert "under construction, input anything to return" in captured.out

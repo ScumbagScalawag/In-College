@@ -4,8 +4,15 @@ import json
 user = {}
 MAXUSERS = 5
 
+# Works on Windows and Unix
 def clearScreen():
-    os.system('cls')
+    # Check the operating system and use the appropriate clear command
+    if os.name == 'posix':  # Unix/Linux/MacOS
+        os.system('clear')
+    elif os.name == 'nt':  # Windows
+        os.system('cls')
+    else:
+        print("Unsupported operating system: Cannot clear the screen.")
 
 #Save username and password to user dictionary and to JSON
 def saveUser(username, password):
@@ -15,8 +22,11 @@ def saveUser(username, password):
 
 def loadUsers():
     global user
-    with open("user_file.json", 'r') as database:
-        user = json.load(database)
+    try:
+        with open("user_file.json", 'r') as database:
+            user = json.load(database)
+    except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
+        user = {}  # Initialize to an empty dictionary
 
 #Welcome screen and input
 def printInitialScreen():
@@ -90,7 +100,9 @@ def printNewAccountScreen():
         else:
             printInitialScreen()
     else:
-        print("All permitted accounts have been created, please come back later") #Requirement for 5 accounts response
+        print("All permitted accounts have been created, and come back later") #Requirement for 5 accounts response
+        print("Please press any button to continue")
+        userInput = input()
         printInitialScreen() #Return to inital screen
     return -1
 
@@ -135,6 +147,7 @@ def printMainMenu():
         print("1 - Search for a job")
         print("2 - Find someone that you know")
         print("3 - Learn a skill")
+        print("4 - Log Out")
         userInput = input()
         if userInput == "1":
             printJobSearchScreen()
@@ -143,6 +156,8 @@ def printMainMenu():
             printFriendSearchScreen()
         elif userInput == "3":
             printSkillScreen()
+        elif userInput == "4":
+            printInitialScreen()
         else:
             print("Invalid selection please input \"1\" or \"2\" or \"3\"")
 
