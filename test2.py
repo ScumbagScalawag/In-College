@@ -88,7 +88,26 @@ def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
 
     captured = capfd.readouterr()
     assert "under construction, input anything to return" in captured.out
-def testSkillsReturnButton(input_value, monkeypatch, capfd):
+
+def testSkillsReturnButton(monkeypatch, capfd):
+    input_generator = iter(["6"])
+    monkeypatch.setattr('builtins.input', lambda: next(input_generator))
+
+    try:
+        printSkillScreen()
+    except StopIteration:
+        pass
+
+    captured = capfd.readouterr()
+    main_menu = (
+        "*** Main Menu ***\n"
+        "1 - Search for a job\n"
+        "2 - Find someone that you know\n"
+        "3 - Learn a skill\n"
+    )
+    assert main_menu in captured.out
+@pytest.mark.parametrize("input_value", ["9", "0", "[1", "d", "r"])
+def testSkillsWrongInput(input_value, monkeypatch, capfd):
     input_generator = iter([input_value])
     monkeypatch.setattr('builtins.input', lambda: next(input_generator))
 
@@ -98,4 +117,4 @@ def testSkillsReturnButton(input_value, monkeypatch, capfd):
         pass
 
     captured = capfd.readouterr()
-    assert "under construction, input anything to return" in captured.out
+    assert "Invalid selection please input \"1\" or \"2\" or \"3\" or \"4\" or \"5\" or \"6\"" in captured.out
