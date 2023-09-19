@@ -4,8 +4,15 @@ import json
 user = {}
 MAXUSERS = 5
 
+# Works on Windows and Unix
 def clearScreen():
-    os.system('cls')
+    # Check the operating system and use the appropriate clear command
+    if os.name == 'posix':  # Unix/Linux/MacOS
+        os.system('clear')
+    elif os.name == 'nt':  # Windows
+        os.system('cls')
+    else:
+        print("Unsupported operating system: Cannot clear the screen.")
 
 #Save username and password to user dictionary and to JSON
 def saveUser(username, password):
