@@ -4,6 +4,8 @@
 # DEV Notes
 
 # TESTER Notes
+Use `pytest name_of_file.py` to run tests for that file.
+Use `pytest name_of_file.py::function_name` to run tests for a specific function being tested. 
 
 # SCRUM MASTER Notes
 
