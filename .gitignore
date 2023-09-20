@@ -1,0 +1,2 @@
+# should be ignored by git. Tests should setup and tear down this file as needed
+user_file.json
