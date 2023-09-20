@@ -9,7 +9,7 @@ MAX_LOGIN_ATTEMPTS = 5
 def printLoginScreen():
     # To Do
     clearScreen()
-    user = loadUsers() 
+    user = loadUsers()
     # not used for Epic 1 but the wording in the requirements makes it seem like it might be implemented later
     loginAttempts = 0
 
@@ -32,9 +32,9 @@ def printLoginScreen():
             print("Incorret username / password, please try again")
             loginAttempts = loginAttempts + 1
 
-            # Enforce max login attempts (not required afaik) -noah
-            if loginAttempts >= MAX_LOGIN_ATTEMPTS:
-                break
+            # TODO: Enforce max login attempts (not required afaik) -noah
+            # if loginAttempts >= MAX_LOGIN_ATTEMPTS:
+            #     break
 
     return
 
