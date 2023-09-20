@@ -40,7 +40,7 @@ def printLoginScreen():
 
 
 # Helper: Used in login to check if valid login information
-# TODO: make this function have "user" as an input so we don't have to
+# NOTE: made this function have "user" as an input so we don't have to
 # have a global user (dependency injection) -noah
 def checkLoginInfo(user, username, password):
     for i in user:

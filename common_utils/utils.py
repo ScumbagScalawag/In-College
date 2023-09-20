@@ -13,8 +13,7 @@ def clearScreen():
         print("Unsupported operating system: Cannot clear the screen.")
 
 
-# TODO: probably needs to be loadUsers(user): so we don't have to have a global variable
-# should also return the "user" dict
+# NOTE: returns user so we don't need a global user -noah
 def loadUsers():
     user = {}
     try:

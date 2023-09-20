@@ -46,7 +46,7 @@ def printSkill1Screen():
     print("under construction, input anything to return")
     userInput = input()
 
-    # TODO: return to caller instead  -noah
+    # NOTE: return to caller instead  -noah
     # printSkillScreen()
     return
 
