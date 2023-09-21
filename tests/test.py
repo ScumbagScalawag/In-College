@@ -1,10 +1,9 @@
 import pytest
-from main import printNewAccountScreen, saveUser
-import json
+from common_utils.utils import loadUsers
+from pages.new_user_account import printNewAccountScreen, saveEntireUserDataBase
 
 def testCreateAccountOver5(capfd, monkeypatch):
-    with open("user_file.json", "w") as f:
-        f.write("{}")
+    saveEntireUserDataBase({})
     # Load 5 accounts to Json
     accounts = {
         "Andrew": "Valid123!",
@@ -13,18 +12,20 @@ def testCreateAccountOver5(capfd, monkeypatch):
         "Sandy": "Valid123!",
         "fishy": "Valid123!"
     }
-    #Confirm there is 5 accounts
-    for username, password in accounts.items():
-        saveUser(username, password)
-    with open("user_file.json", "r") as f:
-        users_data = json.load(f)
-    assert len(users_data) == 5
+    #Confirm there are 5 accounts
+    saveEntireUserDataBase(accounts)
+    userDataBase = loadUsers()
+    assert len(userDataBase) == 5
+
     # Test 6th account
     input_generator = iter(["user6", "P@ssword1", "P@ssword1"])
+    print("before 6th iteration input generator")
     monkeypatch.setattr('builtins.input', lambda: next(input_generator))
-    try:
-        printNewAccountScreen()
-    except StopIteration:
-        pass
+    print("after 6th iteration input generator")
+
     captured = capfd.readouterr()
-    assert "All permitted accounts have been created, please come back later" in captured.out
+    printNewAccountScreen()
+    captured = capfd.readouterr()
+    assert "All permitted accounts have been created, and come back later" in captured.out
+
+

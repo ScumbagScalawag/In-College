@@ -86,8 +86,18 @@ def isUniqueUser(user, username):
 
 
 # Helper: Save username and password to user dictionary and to JSON
-def saveUser(user, username, password):
-    user[username] = password
-    os.chdir(os.path.dirname(__file__))
-    with open("user_file.json", "w") as outfile:
-        json.dump(user, outfile)
+def saveUser(userDataBase, username, password):
+    if (getNumUsers(userDataBase) < MAXUSERS):
+        userDataBase[username] = password
+        saveEntireUserDataBase(userDataBase)
+        return 0
+    return -1
+
+
+# Helper: quickly set up user database (user_file.json) with the current DB or fixture 
+def saveEntireUserDataBase(userDataBase):
+    # loads from root directory of project
+    parentDirectory = os.path.dirname(os.path.abspath(__file__))
+    jsonFilePath = os.path.join(parentDirectory, "..", "user_file.json")
+    with open(jsonFilePath, "w") as outfile:
+        json.dump(userDataBase, outfile)
