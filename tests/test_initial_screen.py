@@ -1,8 +1,8 @@
-import pytest
 from main import printInitialScreen
+from pages.initial_screen import printInitialScreen
 
 def testPrintInitialScreen(monkeypatch, capfd):
-    input_generator = iter(["6"])
+    input_generator = iter(["2"])
     monkeypatch.setattr('builtins.input', lambda: next(input_generator))
 
     try:
@@ -11,9 +11,11 @@ def testPrintInitialScreen(monkeypatch, capfd):
         pass
 
     captured = capfd.readouterr()
-    main_menu = (
-        """*** Welcome to InCollege ***\n
-        1 - Login as existing user\n
-        2 - Create a new InCollege account\n"""
-    )
-    assert main_menu in captured.out
+
+    title = "*** Welcome to InCollege ***"
+    existingUser = "1 - Login as existing user"
+    newAccount = "2 - Create a new InCollege account"
+
+    assert title in captured.out
+    assert existingUser in captured.out
+    assert newAccount in captured.out
