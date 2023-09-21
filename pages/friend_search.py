@@ -2,6 +2,8 @@ from common_utils.utils import clearScreen, loadUsers, userSearch
 import os
 import json
 
+JSONFP = os.path.join(os.path.dirname(__file__), '..')
+
 # user selected to find someone that you know
 def printFriendSearchScreen(currentUser=None):
     users = loadUsers()
@@ -46,6 +48,6 @@ def addConnection(users, currentUser, targetUser):
     # find current user's connection list and append target user
     users[currentUserIndex]["connections"].append(targetUser)
     users = {"userlist":users}
-    os.chdir(os.path.dirname(__file__))
+    os.chdir(JSONFP)
     with open("user_file.json", "w") as outfile:
-        json.dump(users, outfile)
+        json.dump(users, outfile, indent=4)

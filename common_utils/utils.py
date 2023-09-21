@@ -1,6 +1,7 @@
 import os
 import json
 
+JSONFP = os.path.join(os.path.dirname(__file__), '..')
 
 # Works on Windows and Unix
 def clearScreen():
@@ -17,9 +18,10 @@ def clearScreen():
 def loadUsers():
     users = []
     try:
-        os.chdir(os.path.dirname(__file__))
+        os.chdir(JSONFP)
         with open("user_file.json", "r") as database:
-            users = json.load(database)["userlist"]
+            users = json.load(database)
+            users = users["userlist"]
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
         print("WARNING: Cannot find JSON DataBase!")  # feel free to comment this message out. I find it helpful -noah
         pass

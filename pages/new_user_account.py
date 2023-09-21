@@ -4,6 +4,7 @@ import os
 import json
 
 MAXUSERS = 5
+JSONFP = os.path.join(os.path.dirname(__file__), '..')
 
 
 # Menu: Add new user account
@@ -80,6 +81,6 @@ def saveUser(users, username, password, firstname, lastname):
                "connections":[]}
     users.append(newUser)
     users = {"userlist":users}
-    os.chdir(os.path.dirname(__file__))
+    os.chdir(JSONFP)
     with open("user_file.json", "w") as outfile:
-        json.dump(users, outfile)
+        json.dump(users, outfile, indent=4)
