@@ -8,23 +8,24 @@ MAXUSERS = 5
 
 # Menu: Add new user account
 def printNewAccountScreen():
-    clearScreen()
     users = loadUsers()
 
     if len(users) < MAXUSERS:  # Requirement for 5 accounts
         while True:
+            clearScreen()
             print("*** Create a new user account ***")
-            print("Username: ", end="")
-            username = input()  # Get username
+            username = input("Username: ")  # Get username
+            # check that username is not already in use
             if not userSearch(users, username=username):
-                print("Password: ", end="")
-                password = input()  # Get password
+                firstname = input("First name: ")
+                lastname = input("Last name: ")
+                password = input("Password: ")  # Get password
                 if checkPasswordSecurity(password):  # Is password secure
-                    print("Confirm password: ", end="")
-                    passwordConfirm = input()  # Get password confirmation
+                    passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
-                        saveUser(users, username, password)  # Add new account
-                        printMainMenu()
+                        saveUser(users, username, password, firstname, lastname)  # Add new account
+                        currentUser = userSearch(users, username=username, returnUsername=True) # get logged in user
+                        printMainMenu(currentUser)
                         return 0
                     else:
                         print("Passwords do not match")
@@ -35,10 +36,12 @@ def printNewAccountScreen():
                     )
             else:
                 print("This username is already in use.")  # wordage taken from roblox.com
+            
+            # Allow return
             while True:
                 confirm = input("Input c to continue or x to return to menu: ").upper()
                 if confirm == "X":
-                    return
+                    return 0
                 elif confirm == "C":
                     break
     print("All permitted accounts have been created, come back later")  # Requirement for 5 accounts response

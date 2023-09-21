@@ -30,4 +30,4 @@ def printInitialScreen():
             break
         else:
             print('Invalid selection please input "1" or "2"')
-    return
+    return 0

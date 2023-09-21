@@ -7,6 +7,6 @@ def printJobSearchScreen():
     print("*** Job Search ***")
     print("under construction, input anything to return")
     userInput = input()
-    return
+    return 0
 
 

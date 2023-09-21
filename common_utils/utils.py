@@ -15,7 +15,7 @@ def clearScreen():
 
 # NOTE: returns user so we don't need a global user -noah
 def loadUsers():
-    users = {}
+    users = []
     try:
         os.chdir(os.path.dirname(__file__))
         with open("user_file.json", "r") as database:
@@ -26,7 +26,7 @@ def loadUsers():
 
     return users
 
-def userSearch(users, username=None, password=None, firstname=None, lastname=None):
+def userSearch(users, username=None, password=None, firstname=None, lastname=None, returnUsername=False):
     # serves as a flag that a previous requirement was used
     # also ensures that it doesn't get false positive for cases like a different user's password for example
     foundUserIndex = None
@@ -78,6 +78,10 @@ def userSearch(users, username=None, password=None, firstname=None, lastname=Non
             if foundUserIndex == None:
                 return False
             
+    # case for if we want to know the username, not just whether it exists
+    if returnUsername:
+        return users[foundUserIndex]["username"]
+
     # if nothing that was searched for is incorrect, it all must have been found
     return True
     
