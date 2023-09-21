@@ -22,7 +22,9 @@ def printFriendSearchScreen(currentUser=None):
                 confirm = input("Would you like to make a connection with {} {}? (y/n)".format(first, last)).upper()
                 while True:
                     if confirm == "Y":
-                        addConnection(users, currentUser, foundUser)
+                        msg = addConnection(users, currentUser, foundUser)
+                        print(msg)
+                        break
                     elif confirm == "N":
                         break
                     else:
@@ -40,14 +42,24 @@ def printFriendSearchScreen(currentUser=None):
                 break
 
 def addConnection(users, currentUser, targetUser):
+    # doesn't let you add yourself
+    if currentUser == targetUser:
+        msg = "You cannot make a connection with yourself"
+        return msg
     # get index of current user
     for i, user in enumerate(users):
         if user["username"] == currentUser:
             currentUserIndex = i
             break
-    # find current user's connection list and append target user
+    # doesn't let you add someone you already added
+    if targetUser in users[currentUserIndex]["connections"]:
+        msg = "You are already connected with this user"
+        return msg
+    # adds target to connections list and updates file
     users[currentUserIndex]["connections"].append(targetUser)
     users = {"userlist":users}
     os.chdir(JSONFP)
     with open("user_file.json", "w") as outfile:
         json.dump(users, outfile, indent=4)
+    msg = "Connection request sent"
+    return msg

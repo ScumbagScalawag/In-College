@@ -6,6 +6,15 @@
             "firstname": "Jo",
             "lastname": "Mama",
             "connections": []
+        },
+        {
+            "username": "tester",
+            "password": "Password2@",
+            "firstname": "Dee",
+            "lastname": "Snuts",
+            "connections": [
+                "admin"
+            ]
         }
     ]
 }
