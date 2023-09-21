@@ -1,33 +1,33 @@
-from common_utils.utils import clearScreen, loadUsers
+from common_utils.utils import clearScreen, loadUsers, userSearch
 from pages.main_menu import printMainMenu
 import os
 import json
 
 MAXUSERS = 5
+JSONFP = os.path.join(os.path.dirname(__file__), '..')
 
 
 # Menu: Add new user account
 def printNewAccountScreen():
-    clearScreen()
-    
-    user = loadUsers()
+    users = loadUsers()
 
-    login = False
-    if getNumUsers(user) < MAXUSERS:  # Requirement for 5 accounts
+    if len(users) < MAXUSERS:  # Requirement for 5 accounts
         while True:
+            clearScreen()
             print("*** Create a new user account ***")
-            print("Username: ", end="")
-            username = input()  # Get username
-            if isUniqueUser(user, username):
-                print("Password: ", end="")
-                password = input()  # Get password
+            username = input("Username: ")  # Get username
+            # check that username is not already in use
+            if not userSearch(users, username=username):
+                firstname = input("First name: ")
+                lastname = input("Last name: ")
+                password = input("Password: ")  # Get password
                 if checkPasswordSecurity(password):  # Is password secure
-                    print("Confirm password: ", end="")
-                    passwordConfirm = input()  # Get password confirmation
+                    passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
-                        saveUser(user, username, password)  # Add new account
-                        login = True
-                        break
+                        saveUser(users, username, password, firstname, lastname)  # Add new account
+                        currentUser = userSearch(users, username=username, returnUsername=True) # get logged in user
+                        printMainMenu(currentUser)
+                        return 0
                     else:
                         print("Passwords do not match")
                 else:
@@ -37,17 +37,18 @@ def printNewAccountScreen():
                     )
             else:
                 print("This username is already in use.")  # wordage taken from roblox.com
-        if login:
-            printMainMenu()
-            return 0 # successfully returns -> user logged in, went to main menu, printMainMenu() returns (user exited or something)
-        # Implicity catches the case where User is somehow not logged in yet 
-        return -1
-    # Implicity catches the case where MAXUSERS > 5; ensures funct always returns -noah
-    print("All permitted accounts have been created, and come back later")  # Requirement for 5 accounts response
+            
+            # Allow return
+            while True:
+                confirm = input("Input c to continue or x to return to menu: ").upper()
+                if confirm == "X":
+                    return 0
+                elif confirm == "C":
+                    break
+    print("All permitted accounts have been created, come back later")  # Requirement for 5 accounts response
     print("Please press any button to continue")
     userInput = input()
     return -1
-
 
 # Helper: Password strength criteria check
 def checkPasswordSecurity(password):
@@ -71,27 +72,7 @@ def checkPasswordSecurity(password):
 
     return False  # Password is invalid
 
-
-# Helper: Used in login to return the number of users
-def getNumUsers(user):
-    return len(user)
-
-
-# Helper: Unique username check
-def isUniqueUser(user, username):
-    for i in user:
-        if i == username:
-            return False  # Username found
-    return True  # Username not found, is unique
-
-
 # Helper: Save username and password to user dictionary and to JSON
-def saveUser(userDataBase, username, password):
-    if (getNumUsers(userDataBase) < MAXUSERS):
-        userDataBase[username] = password
-        saveEntireUserDataBase(userDataBase)
-        return 0
-    return -1
 
 
 # Helper: quickly set up user database (user_file.json) with the current DB or fixture 
@@ -101,3 +82,14 @@ def saveEntireUserDataBase(userDataBase):
     jsonFilePath = os.path.join(parentDirectory, "..", "user_file.json")
     with open(jsonFilePath, "w") as outfile:
         json.dump(userDataBase, outfile)
+def saveUser(users, username, password, firstname, lastname):
+    newUser = {"username":username,
+               "password":password,
+               "firstname":firstname,
+               "lastname":lastname,
+               "connections":[]}
+    users.append(newUser)
+    users = {"userlist":users}
+    os.chdir(JSONFP)
+    with open("user_file.json", "w") as outfile:
+        json.dump(users, outfile, indent=4)

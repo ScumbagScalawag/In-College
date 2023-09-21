@@ -1,6 +1,8 @@
 import os
 import json
 
+JSONFP = os.path.join(os.path.dirname(__file__), "..")
+
 
 # Works on Windows and Unix
 def clearScreen():
@@ -15,16 +17,74 @@ def clearScreen():
 
 # NOTE: returns user so we don't need a global user -noah
 def loadUsers():
-    user = {}
+    users = []
     try:
-        # loads from root directory of project
-        parentDirectory = os.path.dirname(os.path.abspath(__file__))
-        jsonFilePath = os.path.join(parentDirectory, "..", "user_file.json")
-        os.chdir(os.path.dirname(__file__))
-        with open(jsonFilePath, "r") as database:
-            user = json.load(database)
+        os.chdir(JSONFP)
+        with open("user_file.json", "r") as database:
+            users = json.load(database)
+            users = users["userlist"]
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
-        # print("WARNING: There is no JSON DataBase!")  # feel free to comment this message out. I find it helpful -noah
+        print("WARNING: Cannot find JSON DataBase!")  # feel free to comment this message out. I find it helpful -noah
         pass
 
-    return user
+    return users
+
+
+def userSearch(users, username=None, password=None, firstname=None, lastname=None, returnUsername=False):
+    # serves as a flag that a previous requirement was used
+    # also ensures that it doesn't get false positive for cases like a different user's password for example
+    foundUserIndex = None
+
+    # check if username is incorrect
+    if username != None:
+        for i, user in enumerate(users):
+            if user["username"] == username:
+                foundUserIndex = i
+                break
+        if foundUserIndex == None:
+            return False
+
+    # check if password is correct
+    if password != None:
+        if foundUserIndex != None:
+            if users[foundUserIndex]["password"] != password:
+                return False
+        else:
+            for i, user in enumerate(users):
+                if user["password"] == password:
+                    foundUserIndex = i
+                    break
+            if foundUserIndex == None:
+                return False
+
+    # check if firstname is incorrect
+    if firstname != None:
+        if foundUserIndex != None:
+            if users[foundUserIndex]["firstname"] != firstname:
+                return False
+        else:
+            for i, user in enumerate(users):
+                if user["firstname"] == firstname:
+                    foundUserIndex = i
+                    break
+            if foundUserIndex == None:
+                return False
+
+    # check if lastname is incorrect
+    if lastname != None:
+        if foundUserIndex != None:
+            if users[foundUserIndex]["lastname"] != lastname:
+                return False
+        else:
+            for i, user in enumerate(users):
+                if user["lastname"] == lastname:
+                    foundUserIndex = i
+            if foundUserIndex == None:
+                return False
+
+    # case for if we want to know the username, not just whether it exists
+    if returnUsername:
+        return users[foundUserIndex]["username"]
+
+    # if nothing that was searched for is incorrect, it all must have been found
+    return True

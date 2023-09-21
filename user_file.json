@@ -1,1 +1,27 @@
-{"Andrew": "Valid123!", "Candy": "Valid123!", "Bandy": "Valid123!", "Sandy": "Valid123!", "fishy": "Valid123!"}
+{
+    "userlist": [
+        {
+            "username": "admin",
+            "password": "Password1!",
+            "firstname": "Jo",
+            "lastname": "Mama",
+            "connections": []
+        },
+        {
+            "username": "tester",
+            "password": "Password2@",
+            "firstname": "Dee",
+            "lastname": "Snuts",
+            "connections": [
+                "admin"
+            ]
+        },
+        {
+            "username": "asdfasdf",
+            "password": "P@ssw0rd",
+            "firstname": "P@ssw0rd",
+            "lastname": "P@ssw0rd",
+            "connections": []
+        }
+    ]
+}
