@@ -21,25 +21,25 @@ def printLoginScreen():
         # User input recieved
 
         # match username and password
-        userIndex = userSearch(users, username=username, password=password, returnIndex=True)
-        if userIndex != False:  # and loginAttempts <= maximum attempts allowed
+        currentUser = userSearch(users, username=username, password=password, returnUsername=True)
+        if currentUser != False:  # and loginAttempts <= maximum attempts allowed
             # Valid Login
             print("You have successfully logged in")
-            printMainMenu(userIndex)
-            return
+            printMainMenu(currentUser)
+            return 0
         else:
             # Invalid Login
             print("Incorrect username / password, please try again")
             loginAttempts = loginAttempts + 1
-            while True:
-                confirm = input("Input c to continue or x to return to menu: ")
-                if confirm.upper() == "X":
-                    return
-                elif confirm.upper() == "C":
-                    break
-            
+
             # TODO: Enforce max login attempts (not required afaik) -noah
             # if loginAttempts >= MAX_LOGIN_ATTEMPTS:
             #     break
-
-    return
+            
+            # Allow return
+            while True:
+                confirm = input("Input c to continue or x to return to menu: ")
+                if confirm.upper() == "X":
+                    return 0
+                elif confirm.upper() == "C":
+                    break

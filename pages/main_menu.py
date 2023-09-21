@@ -5,7 +5,7 @@ from pages.skill_search import printSkillScreen
 
 
 # User has logged in menu
-def printMainMenu(currentUserIndex):
+def printMainMenu(currentUser):
     clearScreen()
     while True:
         print("*** Main Menu ***")
@@ -18,7 +18,7 @@ def printMainMenu(currentUserIndex):
             printJobSearchScreen()
         elif userInput == "2":
             print("under construction")
-            printFriendSearchScreen(currentUserIndex)
+            printFriendSearchScreen(currentUser)
         elif userInput == "3":
             printSkillScreen()
         elif userInput.upper() == "X":
@@ -27,4 +27,4 @@ def printMainMenu(currentUserIndex):
         else:
             print('Invalid selection please input "1" or "2" or "3"')
 
-    return
+    return 0

@@ -28,7 +28,7 @@ def printSkillScreen():
         else:
             print('Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"')
 
-    return
+    return 0
 
 
 # TODO: make these functions a single generic function  -noah

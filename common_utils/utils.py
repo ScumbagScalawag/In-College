@@ -26,7 +26,7 @@ def loadUsers():
 
     return users
 
-def userSearch(users, username=None, password=None, firstname=None, lastname=None, returnIndex=False):
+def userSearch(users, username=None, password=None, firstname=None, lastname=None, returnUsername=False):
     # serves as a flag that a previous requirement was used
     # also ensures that it doesn't get false positive for cases like a different user's password for example
     foundUserIndex = None
@@ -79,8 +79,8 @@ def userSearch(users, username=None, password=None, firstname=None, lastname=Non
                 return False
             
     # case for if we want to know the username, not just whether it exists
-    if returnIndex:
-        return foundUserIndex
+    if returnUsername:
+        return users[foundUserIndex]["username"]
 
     # if nothing that was searched for is incorrect, it all must have been found
     return True

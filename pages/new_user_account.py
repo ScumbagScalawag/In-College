@@ -9,13 +9,14 @@ MAXUSERS = 5
 # Menu: Add new user account
 def printNewAccountScreen():
     users = loadUsers()
-    
+
     if len(users) < MAXUSERS:  # Requirement for 5 accounts
         while True:
             clearScreen()
             print("*** Create a new user account ***")
             print("Username: ", end="")
             username = input()  # Get username
+            # check that username is not already in use
             if not userSearch(users, username=username):
                 print("Password: ", end="")
                 password = input()  # Get password
@@ -24,8 +25,8 @@ def printNewAccountScreen():
                     passwordConfirm = input()  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
                         saveUser(users, username, password)  # Add new account
-                        userIndex = userSearch(users, username=username, returnIndex=True)
-                        printMainMenu(userIndex)
+                        currentUser = userSearch(users, username=username, returnUsername=True) # get logged in user
+                        printMainMenu(currentUser)
                         return 0
                     else:
                         print("Passwords do not match")
@@ -36,10 +37,12 @@ def printNewAccountScreen():
                     )
             else:
                 print("This username is already in use.")  # wordage taken from roblox.com
+            
+            # Allow return
             while True:
                 confirm = input("Input c to continue or x to return to menu: ").upper()
                 if confirm == "X":
-                    return
+                    return 0
                 elif confirm == "C":
                     break
     print("All permitted accounts have been created, come back later")  # Requirement for 5 accounts response
