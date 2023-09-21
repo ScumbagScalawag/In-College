@@ -8,11 +8,11 @@ MAXUSERS = 5
 
 # Menu: Add new user account
 def printNewAccountScreen():
-    clearScreen()
     users = loadUsers()
-
+    
     if len(users) < MAXUSERS:  # Requirement for 5 accounts
         while True:
+            clearScreen()
             print("*** Create a new user account ***")
             print("Username: ", end="")
             username = input()  # Get username
@@ -24,7 +24,8 @@ def printNewAccountScreen():
                     passwordConfirm = input()  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
                         saveUser(users, username, password)  # Add new account
-                        printMainMenu()
+                        userIndex = userSearch(users, username=username, returnIndex=True)
+                        printMainMenu(userIndex)
                         return 0
                     else:
                         print("Passwords do not match")

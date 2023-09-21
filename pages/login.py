@@ -7,12 +7,12 @@ MAX_LOGIN_ATTEMPTS = 5
 # Menu: Login to user account
 def printLoginScreen():
     # To Do
-    clearScreen()
     users = loadUsers()
     # not used for Epic 1 but the wording in the requirements makes it seem like it might be implemented later
     loginAttempts = 0
 
     while True:
+        clearScreen()
         print(" Login to InCollege ")
         print("Username: ", end="")
         username = input()
@@ -21,10 +21,11 @@ def printLoginScreen():
         # User input recieved
 
         # match username and password
-        if userSearch(users, username=username, password=password):  # and loginAttempts <= maximum attempts allowed
+        userIndex = userSearch(users, username=username, password=password, returnIndex=True)
+        if userIndex != False:  # and loginAttempts <= maximum attempts allowed
             # Valid Login
             print("You have successfully logged in")
-            printMainMenu()
+            printMainMenu(userIndex)
             return
         else:
             # Invalid Login
