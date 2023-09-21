@@ -1,1 +1,11 @@
-{"123Password!": "123Password!"}
+{"userlist":
+    [
+        {
+            "username":"admin",
+            "password":"Password1!",
+            "firstname":"Jo",
+            "lastname":"Mama",
+            "connections":[]
+        }
+    ]
+}

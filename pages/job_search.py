@@ -7,8 +7,6 @@ def printJobSearchScreen():
     print("*** Job Search ***")
     print("under construction, input anything to return")
     userInput = input()
-    # printMainMenu()  # Delete me
-    # causing circular import error
     return
 
 
