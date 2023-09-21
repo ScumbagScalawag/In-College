@@ -14,17 +14,16 @@ def printNewAccountScreen():
         while True:
             clearScreen()
             print("*** Create a new user account ***")
-            print("Username: ", end="")
-            username = input()  # Get username
+            username = input("Username: ")  # Get username
             # check that username is not already in use
             if not userSearch(users, username=username):
-                print("Password: ", end="")
-                password = input()  # Get password
+                firstname = input("First name: ")
+                lastname = input("Last name: ")
+                password = input("Password: ")  # Get password
                 if checkPasswordSecurity(password):  # Is password secure
-                    print("Confirm password: ", end="")
-                    passwordConfirm = input()  # Get password confirmation
+                    passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
-                        saveUser(users, username, password)  # Add new account
+                        saveUser(users, username, password, firstname, lastname)  # Add new account
                         currentUser = userSearch(users, username=username, returnUsername=True) # get logged in user
                         printMainMenu(currentUser)
                         return 0
