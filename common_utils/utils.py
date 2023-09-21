@@ -17,11 +17,14 @@ def clearScreen():
 def loadUsers():
     user = {}
     try:
+        # loads from root directory of project
+        parentDirectory = os.path.dirname(os.path.abspath(__file__))
+        jsonFilePath = os.path.join(parentDirectory, "..", "user_file.json")
         os.chdir(os.path.dirname(__file__))
-        with open("user_file.json", "r") as database:
+        with open(jsonFilePath, "r") as database:
             user = json.load(database)
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
-        print("WARNING: There is no JSON DataBase!")  # feel free to comment this message out. I find it helpful -noah
+        # print("WARNING: There is no JSON DataBase!")  # feel free to comment this message out. I find it helpful -noah
         pass
 
     return user
