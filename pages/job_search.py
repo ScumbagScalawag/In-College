@@ -2,11 +2,10 @@ import json
 import os
 
 from common_utils.utils import clearScreen, loadJobs, loadUsers
-from pages.main_menu import printMainMenu
 
 MAXJOBS = 5
 JSONFP = os.path.join(os.path.dirname(__file__), "..")
-JSONFP2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
+JSONFP2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
 
 def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
@@ -22,12 +21,15 @@ def saveJob(jobs, title, description, employer, location, salary, firstname, las
 
     jobs.append(newJob)
     saveJobDatabase(JSONFP2, jobs)
+    return
 
 
 def saveJobDatabase(jsonFilePath, jobs):
     jobDB = {"joblist": jobs}
     with open(jsonFilePath, "w") as outfile:
         json.dump(jobDB, outfile, indent=4)
+
+    return
 
 
 # user selected to do a job search
@@ -44,10 +46,12 @@ def printJobSearchScreen(currentUser):
             jobSearch()
         elif userInput == "2":
             createJob(currentUser)
+            break
         elif userInput == "3":
-            printMainMenu(currentUser)
+            break
         else:
             print('Invalid selection please input "1" or "2" or "3"')
+    return
 
 
 def jobSearch():
@@ -85,6 +89,8 @@ def createJob(currentUser):
             firstname = users[currentUserIndex]["firstname"]
             lastname = users[currentUserIndex]["lastname"]
             saveJob(jobs, title, description, employer, location, salary, firstname, lastname)
+            clearScreen()
+            return
 
     print("All permitted jobs have been posted, please try again later")  # Requirement for 5 accounts response
     print("Please press any button to continue")

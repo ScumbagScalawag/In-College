@@ -1,20 +1,11 @@
 {
     "userlist": [
         {
-            "username": "admin",
-            "password": "Password1!",
-            "firstname": "A",
-            "lastname": "B",
+            "username": "asdfasdf",
+            "password": "P@ssw0rd",
+            "firstname": "Noah",
+            "lastname": "McIvor",
             "connections": []
-        },
-        {
-            "username": "tester",
-            "password": "Password2@",
-            "firstname": "C",
-            "lastname": "D",
-            "connections": [
-                "admin"
-            ]
         }
     ]
 }
