@@ -1,6 +1,6 @@
 from common_utils.utils import clearScreen
-from pages.job_search import printJobSearchScreen
 from pages.friend_search import printFriendSearchScreen
+from pages.job_search import printJobSearchScreen
 from pages.skill_search import printSkillScreen
 
 
@@ -12,10 +12,10 @@ def printMainMenu(currentUser):
         print("1 - Search for a job")
         print("2 - Find someone that you know")
         print("3 - Learn a skill")
-        print("X - Log Out") # TODO: make common helper function to assign consistent logout symbol, like "X" -noah
+        print("X - Log Out")  # TODO: make common helper function to assign consistent logout symbol, like "X" -noah
         userInput = input()
         if userInput == "1":
-            printJobSearchScreen()
+            printJobSearchScreen(currentUser)
         elif userInput == "2":
             print("under construction")
             printFriendSearchScreen(currentUser)
