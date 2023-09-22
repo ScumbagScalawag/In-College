@@ -4,7 +4,8 @@ import os
 import json
 
 MAXUSERS = 5
-JSONFP = os.path.join(os.path.dirname(__file__), '..')
+JSONFP = os.path.join(os.path.dirname(__file__), "..")
+JSONFP2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 
 
 # Menu: Add new user account
@@ -15,29 +16,37 @@ def printNewAccountScreen():
         while True:
             clearScreen()
             print("*** Create a new user account ***")
-            username = input("Username: ")  # Get username
+            print("Username: ", end="")
+            username = input("")  # Get username
             # check that username is not already in use
             if not userSearch(users, username=username):
-                firstname = input("First name: ")
-                lastname = input("Last name: ")
-                password = input("Password: ")  # Get password
+                print(
+                    "First name: ", end=""
+                )  # Changed from input("...") to print("...", end="") for testing
+                firstname = input("")
+                print("Last name: ", end="")
+                lastname = input("")
+                print("Password: ", end="")
+                password = input("")  # Get password
                 if checkPasswordSecurity(password):  # Is password secure
                     passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
                         saveUser(users, username, password, firstname, lastname)  # Add new account
-                        currentUser = userSearch(users, username=username, returnUsername=True) # get logged in user
+                        currentUser = userSearch(
+                            users, username=username, returnUsername=True
+                        )  # get logged in user
                         printMainMenu(currentUser)
                         return 0
                     else:
                         print("Passwords do not match")
                 else:
                     print(
-                        "Password Requirements: minimum of 8 characters, maximum of 12 characters"
+                        "Password Requirements: minimum of 8 characters, maximum of 12 characters, "
                         "at least 1 capital letter, at least 1 digit, at least 1 special character"
                     )
             else:
                 print("This username is already in use.")  # wordage taken from roblox.com
-            
+
             # Allow return
             while True:
                 confirm = input("Input c to continue or x to return to menu: ").upper()
@@ -45,10 +54,14 @@ def printNewAccountScreen():
                     return 0
                 elif confirm == "C":
                     break
-    print("All permitted accounts have been created, come back later")  # Requirement for 5 accounts response
-    print("Please press any button to continue")
-    userInput = input()
+    else:
+        print(
+            "All permitted accounts have been created, come back later"
+        )  # Requirement for 5 accounts response
+        print("Please press any button to continue")
+        userInput = input("")
     return -1
+
 
 # Helper: Password strength criteria check
 def checkPasswordSecurity(password):
@@ -72,15 +85,38 @@ def checkPasswordSecurity(password):
 
     return False  # Password is invalid
 
+
 # Helper: Save username and password to user dictionary and to JSON
+
+
+# # Helper: quickly set up user database (user_file.json) with the current DB or fixture
+# def saveDatabase(userDataBase):
+#     # loads from root directory of project
+#     parentDirectory = os.path.dirname(os.path.abspath(__file__))
+#     jsonFilePath = os.path.join(parentDirectory, "..", "user_file.json")
+#     with open(jsonFilePath, "w") as outfile:
+#         json.dump(userDataBase, outfile)
+
+
+# users takes the list, not the entire dict!
 def saveUser(users, username, password, firstname, lastname):
-    newUser = {"username":username,
-               "password":password,
-               "firstname":firstname,
-               "lastname":lastname,
-               "connections":[]}
+    newUser = {
+        "username": username,
+        "password": password,
+        "firstname": firstname,
+        "lastname": lastname,
+        "connections": [],
+    }
     users.append(newUser)
-    users = {"userlist":users}
-    os.chdir(JSONFP)
-    with open("user_file.json", "w") as outfile:
-        json.dump(users, outfile, indent=4)
+    # userDB = {"userlist": users}
+    # os.chdir(JSONFP)
+    # with open("user_file.json", "w") as outfile:
+    #     json.dump(users, outfile, indent=4)
+    saveDatabase(JSONFP2, users)
+
+
+# users takes the list, not the entire dict!
+def saveDatabase(jsonFilePath, users):
+    userDB = {"userlist": users}
+    with open(jsonFilePath, "w") as outfile:
+        json.dump(userDB, outfile, indent=4)

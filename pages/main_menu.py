@@ -12,8 +12,8 @@ def printMainMenu(currentUser):
         print("1 - Search for a job")
         print("2 - Find someone that you know")
         print("3 - Learn a skill")
-        print("X - Log Out") # TODO: make common helper function to assign consistent logout symbol, like "X" -noah
-        userInput = input()
+        print("X - Log Out")
+        userInput = input("")
         if userInput == "1":
             printJobSearchScreen()
         elif userInput == "2":
