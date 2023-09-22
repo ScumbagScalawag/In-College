@@ -21,10 +21,10 @@ def saveJob(jobs, title, description, employer, location, salary, firstname, las
     }
 
     jobs.append(newJob)
-    saveDatabase(JSONFP2, jobs)
+    saveJobDatabase(JSONFP2, jobs)
 
 
-def saveDatabase(jsonFilePath, jobs):
+def saveJobDatabase(jsonFilePath, jobs):
     jobDB = {"joblist": jobs}
     with open(jsonFilePath, "w") as outfile:
         json.dump(jobDB, outfile, indent=4)
