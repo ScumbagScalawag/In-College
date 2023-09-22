@@ -87,7 +87,7 @@ def testJobUnderConstruction(monkeypatch, capfd):
     monkeypatch.setattr("builtins.input", lambda: next(input_generator))
     # Run Inputs untill loop
     try:
-        printMainMenu()
+        printMainMenu(None)
     except StopIteration:
         pass
     # See if our input gave us our desired output text
@@ -96,10 +96,10 @@ def testJobUnderConstruction(monkeypatch, capfd):
 
 
 def testFindSomeoneConstruction(monkeypatch, capfd):
-    input_generator = iter(["2"])
+    input_generator = iter(["1"])
     monkeypatch.setattr("builtins.input", lambda: next(input_generator))
     try:
-        printMainMenu()
+        printMainMenu(None)
     except StopIteration:
         pass
 
