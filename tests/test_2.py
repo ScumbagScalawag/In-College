@@ -123,24 +123,29 @@ def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
     assert "under construction, input anything to return" in captured.out
 
 
-# def testSkillsReturnButton(monkeypatch, capfd):
-#     input_generator = iter(["6"])
-#     monkeypatch.setattr("builtins.input", lambda: next(input_generator))
-#     try:
-#         printSkillScreen()
-#     except StopIteration:
-#         pass
-#     captured = capfd.readouterr()
+def testSkillsReturnButton(monkeypatch, capfd):
+    input_generator = iter(["6"])  # causes skill screen to break
+    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    assert printSkillScreen() == 0  # break from skill screen loop causes return 0
 
-#     title = "*** Main Menu ***"
-#     job = "1 - Search for a job"
-#     findSomeone = "2 - Find someone that you know"
-#     skill = "3 - Learn a skill"
+    # monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    # try:
+    #     printSkillScreen()
+    # except StopIteration:
+    #     pass
+    # assert excinfo.value.code == 0  # Check if the exit code is 0 when "break" is reached
 
-#     assert title in captured.out
-#     assert job in captured.out
-#     assert findSomeone in captured.out
-#     assert skill in captured.out
+    # captured = capfd.readouterr()
+
+    # title = "*** Main Menu ***"
+    # job = "1 - Search for a job"
+    # findSomeone = "2 - Find someone that you know"
+    # skill = "3 - Learn a skill"
+
+    # assert title in captured.out
+    # assert job in captured.out
+    # assert findSomeone in captured.out
+    # assert skill in captured.out
 
 
 @pytest.mark.parametrize("input_value", ["9", "0", "[1", "d", "r"])
