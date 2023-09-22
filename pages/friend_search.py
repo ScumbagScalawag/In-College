@@ -42,6 +42,7 @@ def printFriendSearchScreen(currentUser=None):
                 break
 
 def addConnection(users, currentUser, targetUser):
+    currentUserIndex = None
     # doesn't let you add yourself
     if currentUser == targetUser:
         msg = "You cannot make a connection with yourself"
