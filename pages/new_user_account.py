@@ -20,7 +20,9 @@ def printNewAccountScreen():
             username = input("")  # Get username
             # check that username is not already in use
             if not userSearch(users, username=username):
-                print("First name: ", end="") #Changed from input("...") to print("...", end="") for testing
+                print(
+                    "First name: ", end=""
+                )  # Changed from input("...") to print("...", end="") for testing
                 firstname = input("")
                 print("Last name: ", end="")
                 lastname = input("")
@@ -39,7 +41,7 @@ def printNewAccountScreen():
                         print("Passwords do not match")
                 else:
                     print(
-                        "Password Requirements: minimum of 8 characters, maximum of 12 characters"
+                        "Password Requirements: minimum of 8 characters, maximum of 12 characters, "
                         "at least 1 capital letter, at least 1 digit, at least 1 special character"
                     )
             else:
@@ -53,7 +55,9 @@ def printNewAccountScreen():
                 elif confirm == "C":
                     break
     else:
-        print("All permitted accounts have been created, come back later")  # Requirement for 5 accounts response
+        print(
+            "All permitted accounts have been created, come back later"
+        )  # Requirement for 5 accounts response
         print("Please press any button to continue")
         userInput = input("")
     return -1
