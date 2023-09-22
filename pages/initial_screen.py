@@ -1,13 +1,20 @@
 from common_utils.utils import clearScreen
+from pages.friend_search import printFriendSearchScreen
 from pages.login import printLoginScreen
 from pages.new_user_account import printNewAccountScreen
-from pages.friend_search import printFriendSearchScreen
 
 
 # Welcome screen and input
 def printInitialScreen():
     clearScreen()
     while True:
+        print("*** Welcome to InCollege ***")
+        print("Success Story")
+
+        print("Press any button to continue")
+        tempInput = input()
+        clearScreen()
+
         print("*** Welcome to InCollege ***")
         print("1 - Login as existing user")
         print("2 - Create a new InCollege account")
