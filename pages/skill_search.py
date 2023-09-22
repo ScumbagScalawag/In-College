@@ -1,5 +1,13 @@
 from common_utils.utils import clearScreen
 
+SKILL_LIST = [
+    {"name": "Skating", "desc": "under construction, input anything to return"},
+    {"name": "Cooking", "desc": "under construction, input anything to return"},
+    {"name": "Driving", "desc": "under construction, input anything to return"},
+    {"name": "Painting", "desc": "under construction, input anything to return"},
+    {"name": "Whistling", "desc": "under construction, input anything to return"},
+]
+
 
 # user has selected to "Learn a skill"
 def printSkillScreen():
@@ -14,15 +22,15 @@ def printSkillScreen():
         print("6 - Return to main menu")
         userInput = input("")
         if userInput == "1":
-            printSkill1Screen()
+            printSkillFromList("Skating")
         elif userInput == "2":
-            printSkill2Screen()
+            printSkillFromList("Cooking")
         elif userInput == "3":
-            printSkill3Screen()
+            printSkillFromList("Driving")
         elif userInput == "4":
-            printSkill4Screen()
+            printSkillFromList("Painting")
         elif userInput == "5":
-            printSkill5Screen()
+            printSkillFromList("Whistling")
         elif userInput == "6":
             break  # returns to caller (main menu) when you "exit"
         else:
@@ -33,61 +41,15 @@ def printSkillScreen():
 
 # TODO: make these functions a single generic function  -noah
 # Used with printSkillScreen below To Do in future sprints
-def printSkill1Screen():
-    # TODO: might not need to cls to make the skill viewing a "single page"
-    clearScreen()
-    print("*** Learn Skating ***")
-    print("under construction, input anything to return")
-    userInput = input("")
+def printSkillFromList(skillName):
+    skillIndex = None
+    for i, skill in enumerate(SKILL_LIST):
+        if skill["name"] == skillName:
+            skillIndex = i
+            break
+    if skillIndex == None:
+        return -1
+    print("*** Learn {} ***".format(SKILL_LIST[skillIndex]["name"]))
+    print(SKILL_LIST[skillIndex]["desc"])
 
-    # NOTE: return to caller instead  -noah
-    # printSkillScreen()
-    return
-
-
-def printSkill2Screen():
-    clearScreen()
-    print("*** Learn Cooking ***")
-    print("under construction, input anything to return")
-    userInput = input("")
-    # printSkillScreen()
-
-    # TODO: return to caller instead  -noah
-    # printSkillScreen()
-    return
-
-
-def printSkill3Screen():
-    clearScreen()
-    print("*** Learn Driving ***")
-    print("under construction, input anything to return")
-    userInput = input("")
-    # printSkillScreen()
-
-    # TODO: return to caller instead  -noah
-    # printSkillScreen()
-    return
-
-
-def printSkill4Screen():
-    clearScreen()
-    print("*** Learn Painting ***")
-    print("under construction, input anything to return")
-    userInput = input("")
-    # printSkillScreen()
-
-    # TODO: return to caller instead  -noah
-    # printSkillScreen()
-    return
-
-
-def printSkill5Screen():
-    clearScreen()
-    print("*** Learn Whistling ***")
-    print("under construction, input anything to return")
-    userInput = input("")
-    # printSkillScreen()
-
-    # TODO: return to caller instead  -noah
-    # printSkillScreen()
     return
