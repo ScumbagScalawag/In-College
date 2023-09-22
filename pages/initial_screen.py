@@ -9,7 +9,12 @@ def printInitialScreen():
     clearScreen()
     while True:
         print("*** Welcome to InCollege ***")
-        print("Success Story")
+        print("Here is a story from one of our users:")
+        print(
+            """Hi, my name is Jordan and I have been a huge fan of In-College ever since 
+              I learned about it.. 
+              """
+        )
 
         print("Press any button to continue")
         tempInput = input()
