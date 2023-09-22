@@ -33,12 +33,15 @@ def testCreateAccountUnder5(monkeypatch, capfd):
             "connections": ["admin"],
         },
     ]
+
     saveDatabase(JSONFP2, threeAccounts)
 
     input_generator = iter(["usernew", "Johnathan", "Blow", "P@ssw0rd", "P@ssw0rd"])
-    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
+        # captured = capfd.readouterr()
         printNewAccountScreen()
     except StopIteration:
         pass
@@ -57,34 +60,33 @@ def testCreateAccountUnder5(monkeypatch, capfd):
     assert username in captured.out
     assert password in captured.out
 
-
-def testLoginwithMainMenu(monkeypatch, capfd):
-    username = "Andrew"
-    password = "Valid123!"
-    # Check Json for login
-    with open("user_file.json", "w") as f:
-        json.dump({username: password}, f)
-    # Inputs
-    input_generator = iter([username, password, password])
-    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
-    try:
-        printNewAccountScreen()
-    except StopIteration:
-        pass
-    captured = capfd.readouterr()
-    main_menu = (
-        "*** Main Menu ***\n"
-        "1 - Search for a job\n"
-        "2 - Find someone that you know\n"
-        "3 - Learn a skill\n"
-    )
-    assert main_menu in captured.out
+    # Possibly delete below code, it does not test correctly
+    # username = "Andrew"
+    # password = "Valid123!"
+    # # Check Json for login
+    # with open("user_file.json", "w") as f:
+    #     json.dump({username: password}, f)
+    # # Inputs
+    # input_generator = iter([username, password, password])
+    # monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    # try:
+    #     printNewAccountScreen()
+    # except StopIteration:
+    #     pass
+    # captured = capfd.readouterr()
+    # main_menu = (
+    #     "*** Main Menu ***\n"
+    #     "1 - Search for a job\n"
+    #     "2 - Find someone that you know\n"
+    #     "3 - Learn a skill\n"
+    # )
+    # assert main_menu in captured.out
 
 
 def testJobUnderConstruction(monkeypatch, capfd):
     # Setup Inputs
     input_generator = iter(["1"])
-    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     # Run Inputs untill loop
     try:
         printMainMenu(None)
@@ -97,7 +99,7 @@ def testJobUnderConstruction(monkeypatch, capfd):
 
 def testFindSomeoneConstruction(monkeypatch, capfd):
     input_generator = iter(["1"])
-    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
         printMainMenu(None)
     except StopIteration:

@@ -13,7 +13,7 @@ def printMainMenu(currentUser):
         print("2 - Find someone that you know")
         print("3 - Learn a skill")
         print("X - Log Out")
-        userInput = input()
+        userInput = input("")
         if userInput == "1":
             printJobSearchScreen()
         elif userInput == "2":

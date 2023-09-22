@@ -16,12 +16,16 @@ def printNewAccountScreen():
         while True:
             clearScreen()
             print("*** Create a new user account ***")
-            username = input("Username: ")  # Get username
+            print("Username: ", end="")
+            username = input("")  # Get username
             # check that username is not already in use
             if not userSearch(users, username=username):
-                firstname = input("First name: ")
-                lastname = input("Last name: ")
-                password = input("Password: ")  # Get password
+                print("First name: ", end="") #Changed from input("...") to print("...", end="") for testing
+                firstname = input("")
+                print("Last name: ", end="")
+                lastname = input("")
+                print("Password: ", end="")
+                password = input("")  # Get password
                 if checkPasswordSecurity(password):  # Is password secure
                     passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
@@ -48,11 +52,10 @@ def printNewAccountScreen():
                     return 0
                 elif confirm == "C":
                     break
-    print(
-        "All permitted accounts have been created, come back later"
-    )  # Requirement for 5 accounts response
-    print("Please press any button to continue")
-    userInput = input()
+    else:
+        print("All permitted accounts have been created, come back later")  # Requirement for 5 accounts response
+        print("Please press any button to continue")
+        userInput = input("")
     return -1
 
 

@@ -1,5 +1,4 @@
 import json
-
 from common_utils import utils as u
 from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
 from tests.shared import JSONFP2
@@ -64,13 +63,16 @@ def test_CreateAccountOver5(capfd, monkeypatch):
     assert len(userList) == 5
 
     # Test 6th account
-    input_generator = iter(["user6", "P@ssword1", "P@ssword1"])
+    input_generator = iter(["user6", "Jesse", "Small", "P@ssword1", "P@ssword1"])
     # print("before 6th iteration input generator")
-    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     # print("after 6th iteration input generator")
 
     captured = capfd.readouterr()
-    printNewAccountScreen()
+    try:
+        printNewAccountScreen()
+    except StopIteration:
+        pass
     captured = capfd.readouterr()
     assert "All permitted accounts have been created, come back later" in captured.out
 

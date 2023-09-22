@@ -3,7 +3,7 @@ from pages.initial_screen import printInitialScreen
 
 def testPrintInitialScreen(monkeypatch, capfd):
     input_generator = iter(["2"])
-    monkeypatch.setattr('builtins.input', lambda: next(input_generator))
+    monkeypatch.setattr('builtins.input', lambda _: next(input_generator))
 
     try:
         printInitialScreen()
