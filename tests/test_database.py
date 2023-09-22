@@ -26,11 +26,14 @@ def test_saveUser_and_loadUsers_when_database_is_empty():
 
     users = u.loadUsers()
 
+    print(users)
+    print(users[0])
+
     assert users[0] == singleUser
 
 
 def test_saveDatabase():
-    # make sure DB is clean first: 
+    # make sure DB is clean first:
     with open(JSONFP2, "w") as outfile:
         json.dump({}, outfile, indent=4)
 
@@ -57,5 +60,3 @@ def test_saveDatabase():
     users = u.loadUsers()
 
     assert users == userList
-    
-
