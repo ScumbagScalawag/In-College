@@ -17,17 +17,17 @@ def clearScreen():
 
 # NOTE: returns user so we don't need a global user -noah
 def loadUsers():
-    users = []
+    userList = []
     try:
         os.chdir(JSONFP)
         with open("user_file.json", "r") as database:
-            users = json.load(database)
-            users = users["userlist"]
+            userDB = json.load(database)
+            userList = userDB["userlist"]
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
         print("WARNING: Cannot find JSON DataBase!")  # feel free to comment this message out. I find it helpful -noah
         pass
 
-    return users
+    return userList
 
 
 def userSearch(users, username=None, password=None, firstname=None, lastname=None, returnUsername=False):
