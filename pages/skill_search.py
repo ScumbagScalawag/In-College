@@ -12,7 +12,7 @@ def printSkillScreen():
         print("4 - Learn how to paint")
         print("5 - Learn how to whistle")
         print("6 - Return to main menu")
-        userInput = input()
+        userInput = input("")
         if userInput == "1":
             printSkill1Screen()
         elif userInput == "2":
@@ -38,7 +38,7 @@ def printSkill1Screen():
     clearScreen()
     print("*** Learn Skating ***")
     print("under construction, input anything to return")
-    userInput = input()
+    userInput = input("")
 
     # NOTE: return to caller instead  -noah
     # printSkillScreen()
@@ -49,7 +49,7 @@ def printSkill2Screen():
     clearScreen()
     print("*** Learn Cooking ***")
     print("under construction, input anything to return")
-    userInput = input()
+    userInput = input("")
     # printSkillScreen()
 
     # TODO: return to caller instead  -noah
@@ -61,7 +61,7 @@ def printSkill3Screen():
     clearScreen()
     print("*** Learn Driving ***")
     print("under construction, input anything to return")
-    userInput = input()
+    userInput = input("")
     # printSkillScreen()
 
     # TODO: return to caller instead  -noah
@@ -73,7 +73,7 @@ def printSkill4Screen():
     clearScreen()
     print("*** Learn Painting ***")
     print("under construction, input anything to return")
-    userInput = input()
+    userInput = input("")
     # printSkillScreen()
 
     # TODO: return to caller instead  -noah
@@ -85,7 +85,7 @@ def printSkill5Screen():
     clearScreen()
     print("*** Learn Whistling ***")
     print("under construction, input anything to return")
-    userInput = input()
+    userInput = input("")
     # printSkillScreen()
 
     # TODO: return to caller instead  -noah

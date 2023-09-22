@@ -112,7 +112,7 @@ def testFindSomeoneConstruction(monkeypatch, capfd):
 @pytest.mark.parametrize("input_value", ["1", "2", "3", "4", "5"])
 def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
     input_generator = iter([input_value])
-    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
         printSkillScreen()
@@ -125,7 +125,7 @@ def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
 
 def testSkillsReturnButton(monkeypatch, capfd):
     input_generator = iter(["6"])  # causes skill screen to break
-    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     assert printSkillScreen() == 0  # break from skill screen loop causes return 0
 
     # monkeypatch.setattr("builtins.input", lambda: next(input_generator))
@@ -151,7 +151,7 @@ def testSkillsReturnButton(monkeypatch, capfd):
 @pytest.mark.parametrize("input_value", ["9", "0", "[1", "d", "r"])
 def testSkillsWrongInput(input_value, monkeypatch, capfd):
     input_generator = iter([input_value])
-    monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
         printSkillScreen()
