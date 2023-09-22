@@ -4,13 +4,22 @@
 # DEV Notes
 
 # TESTER Notes
-Use `pytest name_of_file.py` to run tests for that file.
-Use `pytest name_of_file.py::function_name` to run tests for a specific function being tested. 
+Run all test in project:
+```
+pytest
+```
+
+Name **all** tests either starting with `test_` or ending with `_test` for pytest to detect them automatically 
+
+- Use `pytest name_of_file.py` to run tests for that file.
+- Use `pytest name_of_file.py::function_name` to run tests for a specific function being tested. 
 
 Use the `-v` option (which stands for `--verbose`) to see more info on the test(s) ran:
 ```
 pytest <name-of-file> -v
 ```
+
+
 
 # SCRUM MASTER Notes
 

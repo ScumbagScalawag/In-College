@@ -35,7 +35,7 @@ def printLoginScreen():
             # TODO: Enforce max login attempts (not required afaik) -noah
             # if loginAttempts >= MAX_LOGIN_ATTEMPTS:
             #     break
-            
+
             # Allow return
             while True:
                 confirm = input("Input c to continue or x to return to menu: ")

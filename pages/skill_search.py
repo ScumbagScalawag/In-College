@@ -1,27 +1,13 @@
 from common_utils.utils import clearScreen
 
 SKILL_LIST = [
-    {
-        "name":"Skating",
-        "desc":"under construction, input anything to return"
-    },
-    {
-        "name":"Cooking",
-        "desc":"under construction, input anything to return"
-    },
-    {
-        "name":"Driving",
-        "desc":"under construction, input anything to return"
-    },
-    {
-        "name":"Painting",
-        "desc":"under construction, input anything to return"
-    },
-    {
-        "name":"Whistling",
-        "desc":"under construction, input anything to return"
-    },
+    {"name": "Skating", "desc": "under construction, input anything to return"},
+    {"name": "Cooking", "desc": "under construction, input anything to return"},
+    {"name": "Driving", "desc": "under construction, input anything to return"},
+    {"name": "Painting", "desc": "under construction, input anything to return"},
+    {"name": "Whistling", "desc": "under construction, input anything to return"},
 ]
+
 
 # user has selected to "Learn a skill"
 def printSkillScreen():
@@ -34,7 +20,7 @@ def printSkillScreen():
         print("4 - Learn how to paint")
         print("5 - Learn how to whistle")
         print("6 - Return to main menu")
-        userInput = input()
+        userInput = input("")
         if userInput == "1":
             printSkillFromList("Skating")
         elif userInput == "2":
@@ -46,7 +32,7 @@ def printSkillScreen():
         elif userInput == "5":
             printSkillFromList("Whistling")
         elif userInput == "6":
-            break # returns to caller (main menu) when you "exit"
+            break  # returns to caller (main menu) when you "exit"
         else:
             print('Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"')
 
