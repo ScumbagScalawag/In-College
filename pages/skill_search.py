@@ -37,26 +37,20 @@ def printSkillScreen():
         userInput = input()
         if userInput == "1":
             printSkillFromList("Skating")
-            break
         elif userInput == "2":
             printSkillFromList("Cooking")
-            break
         elif userInput == "3":
             printSkillFromList("Driving")
-            break
         elif userInput == "4":
             printSkillFromList("Painting")
-            break
         elif userInput == "5":
             printSkillFromList("Whistling")
-            break
         elif userInput == "6":
-            # printMainMenu()
             break # returns to caller (main menu) when you "exit"
         else:
             print('Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"')
 
-    return
+    return 0
 
 
 # TODO: make these functions a single generic function  -noah
