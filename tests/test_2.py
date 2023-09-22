@@ -2,22 +2,40 @@ import pytest
 from pages.new_user_account import printNewAccountScreen
 from pages.main_menu import printMainMenu
 from pages.skill_search import printSkillScreen
-from pages.new_user_account import saveEntireUserDataBase
+from pages.new_user_account import saveDatabase
+from tests.shared import JSONFP2
 import json
 
 
 def testCreateAccountUnder5(monkeypatch, capfd):
     # Make sure Json is clear
-    # saveEntireUserDataBase({})
     # Test with 3 accounts
-    accounts = {
-        "Tomas": "Valid123!",
-        "Carry": "Valid123!",
-        "Tools": "Valid123!",
-    }
-    saveEntireUserDataBase(accounts)
+    threeAccounts = [
+        {
+            "username": "dummy",
+            "password": "Password1!",
+            "firstname": "Jo",
+            "lastname": "Mama",
+            "connections": [],
+        },
+        {
+            "username": "sillyBoi",
+            "password": "Password2@",
+            "firstname": "Dee",
+            "lastname": "Snuts",
+            "connections": ["notKaren", "dummy"],
+        },
+        {
+            "username": "dummyDude",
+            "password": "Password2@",
+            "firstname": "Dee",
+            "lastname": "Snuts",
+            "connections": ["admin"],
+        },
+    ]
+    saveDatabase(JSONFP2, threeAccounts)
 
-    input_generator = iter(["usernew", "P@ssw0rd", "P@ssw0rd"])
+    input_generator = iter(["usernew", "Johnathan", "Blow", "P@ssw0rd", "P@ssw0rd"])
     monkeypatch.setattr("builtins.input", lambda: next(input_generator))
 
     try:
@@ -27,11 +45,15 @@ def testCreateAccountUnder5(monkeypatch, capfd):
     captured = capfd.readouterr()
 
     title = "*** Create a new user account ***\n"
-    username =  "Username:"
+    firstname = "First name:"
+    lastname = "Last name:"
+    username = "Username:"
     password = "Password:"
 
-    # Better approach than whole-sale output assertions 
+    # Better approach than whole-sale output assertions
     assert title in captured.out
+    assert firstname in captured.out
+    assert lastname in captured.out
     assert username in captured.out
     assert password in captured.out
 
@@ -50,7 +72,12 @@ def testLoginwithMainMenu(monkeypatch, capfd):
     except StopIteration:
         pass
     captured = capfd.readouterr()
-    main_menu = "*** Main Menu ***\n" "1 - Search for a job\n" "2 - Find someone that you know\n" "3 - Learn a skill\n"
+    main_menu = (
+        "*** Main Menu ***\n"
+        "1 - Search for a job\n"
+        "2 - Find someone that you know\n"
+        "3 - Learn a skill\n"
+    )
     assert main_menu in captured.out
 
 
@@ -103,9 +130,9 @@ def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
 #         pass
 #     captured = capfd.readouterr()
 
-#     title = "*** Main Menu ***" 
-#     job = "1 - Search for a job" 
-#     findSomeone = "2 - Find someone that you know" 
+#     title = "*** Main Menu ***"
+#     job = "1 - Search for a job"
+#     findSomeone = "2 - Find someone that you know"
 #     skill = "3 - Learn a skill"
 
 #     assert title in captured.out
