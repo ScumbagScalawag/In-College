@@ -115,12 +115,10 @@ def test_saveDatabase():
         },
     ]
 
-    userDB = {"userlist": userList}
-
     print(userList)
     # print(userDB)
 
-    saveDatabase(JSONFP2, userDB)
+    saveDatabase(JSONFP2, userList)
     loadedUsers = u.loadUsers()
     # print("loadedusers", loadedUsers)
     print(u.loadUsers())
