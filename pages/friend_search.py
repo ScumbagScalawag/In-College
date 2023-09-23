@@ -2,7 +2,8 @@ from common_utils.utils import clearScreen, loadUsers, userSearch
 import os
 import json
 
-JSONFP = os.path.join(os.path.dirname(__file__), '..')
+JSONFP = os.path.join(os.path.dirname(__file__), "..")
+
 
 # user selected to find someone that you know
 def printFriendSearchScreen(currentUser=None):
@@ -19,7 +20,9 @@ def printFriendSearchScreen(currentUser=None):
             print("They are a part of the InCollege system")
             # If logged in, friend request?
             if currentUser != None:
-                confirm = input("Would you like to make a connection with {} {}? (y/n)".format(first, last)).upper()
+                confirm = input(
+                    "Would you like to make a connection with {} {}? (y/n)".format(first, last)
+                ).upper()
                 while True:
                     if confirm == "Y":
                         msg = addConnection(users, currentUser, foundUser)
@@ -29,9 +32,11 @@ def printFriendSearchScreen(currentUser=None):
                         break
                     else:
                         confirm = input("Please input y or n: ").upper()
+            else:
+                return -1
         # If not found, display
         else:
-            print("They are not yet a part of the InCollege system yet")    
+            print("They are not yet a part of the InCollege system yet")
 
         # Allow return
         while True:
@@ -40,6 +45,7 @@ def printFriendSearchScreen(currentUser=None):
                 return 0
             elif confirm == "C":
                 break
+
 
 def addConnection(users, currentUser, targetUser):
     currentUserIndex = None
@@ -58,7 +64,7 @@ def addConnection(users, currentUser, targetUser):
         return msg
     # adds target to connections list and updates file
     users[currentUserIndex]["connections"].append(targetUser)
-    users = {"userlist":users}
+    users = {"userlist": users}
     os.chdir(JSONFP)
     with open("user_file.json", "w") as outfile:
         json.dump(users, outfile, indent=4)

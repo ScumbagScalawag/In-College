@@ -3,7 +3,8 @@ from tests.shared import JSONFP2
 from pages.friend_search import printFriendSearchScreen  # Search Screen here to preload database
 from pages.new_user_account import saveDatabase  # Used to setup database
 import json
-#TODO import single user and fourAccoutns from shared.py remove originals below
+
+# TODO import single user and fourAccoutns from shared.py remove originals below
 singleUser = {
     "username": "asdfasdf",
     "password": "P@ssw0rd",
@@ -44,7 +45,8 @@ fourAccounts = [
     },
 ]
 
-#TODO Paramertirize the tests
+
+# TODO Paramertirize the tests
 def testFriendSearchInSystem(monkeypatch, capfd):
     # in system
     saveDatabase(JSONFP2, fourAccounts)
@@ -92,12 +94,13 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
         assert r in captured.out  # Friend not found in system
 
 
+# User not logged in handled with return to -1
 def testFriendSearchNotLoggedIn(monkeypatch, capfd):
     saveDatabase(JSONFP2, fourAccounts)
     input_generator = iter(
         [
-            "Foam",
-            "Earplugs",
+            "Jo",
+            "Mama",
             "Y",
             "X",
         ]  # Y is not used will cause it to ask for input again of X or C
@@ -105,5 +108,5 @@ def testFriendSearchNotLoggedIn(monkeypatch, capfd):
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
         assert printFriendSearchScreen() == -1  # Tests edge cases of not logged in
-    except:
+    except StopIteration:
         pass
