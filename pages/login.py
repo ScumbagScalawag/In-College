@@ -15,9 +15,9 @@ def printLoginScreen():
         clearScreen()
         print(" Login to InCollege ")
         print("Username: ", end="")
-        username = input()
+        username = input("")
         print("Password: ", end="")
-        password = input()
+        password = input("")
         # User input recieved
 
         # match username and password

@@ -102,26 +102,6 @@ fiveJobs = [
 ]  # Used to test over maximum number of jobs
 
 
-def testJobSearchConstruction(monkeypatch, capfd):
-    mock_input = ["1", "anything"]
-    input_generator = iter(mock_input)
-    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-    try:
-        assert printJobSearchScreen(singleUser["username"]) == 0  # Successful search
-    except StopIteration:
-        pass
-    captured = capfd.readouterr()  # assert captured
-    responses = [
-        "*** Job Search ***",
-        "1 - Search for Job/Internship",
-        "2 - Post Job/Internship",
-        "3 - Return to Main Menu",
-        "under construction, input anything to return",
-    ]
-    for r in responses:
-        assert r in captured.out  # Friend successfully added
-
-
 @pytest.mark.parametrize(
     "mock_input,responses,startingJobDB,expectedReturn",
     [
@@ -195,22 +175,8 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
         assert printJobSearchScreen(singleUser["username"]) == expectedReturn  # Successful search
-    except:
+    except StopIteration:
         pass
     captured = capfd.readouterr()  # assert captured
     for r in responses:
         assert r in captured.out  # Friend successfully added
-
-
-def testJobUnderConstruction(monkeypatch, capfd):
-    # Setup Inputs
-    input_generator = iter(["1"])
-    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-    # Run Inputs untill loop
-    try:
-        printMainMenu(None)
-    except StopIteration:
-        pass
-    # See if our input gave us our desired output text
-    captured = capfd.readouterr()
-    assert "under construction, input anything to return" in captured.out
