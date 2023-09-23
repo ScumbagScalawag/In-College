@@ -167,6 +167,7 @@ fiveJobs = [
             None,
         ),
     ],
+    ids=["JobSearchUnderConstruction", "CreateJob", "MaxJobsReached", "ReturnMain", "InvalidSelection"]
 )
 def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypatch, capfd):
     saveDatabase(JSONFP2, singleUser)

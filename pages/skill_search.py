@@ -51,5 +51,5 @@ def printSkillFromList(skillName):
         return -1
     print("*** Learn {} ***".format(SKILL_LIST[skillIndex]["name"]))
     print(SKILL_LIST[skillIndex]["desc"])
-
+    input("")
     return

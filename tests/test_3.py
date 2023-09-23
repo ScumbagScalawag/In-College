@@ -11,6 +11,7 @@ from pages.new_user_account import printNewAccountScreen
         "UPPERCASEONLY!",  # No digit
         "NoSpecialChars1",  # No special character
     ],
+    ids=["TooShort", "TooLong", "NoCapital", "NoDigit", "NoSpecial"]
 )
 def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     input_generator = iter(["username", "TestFirstName", "TestLastName", password_input, password_input])

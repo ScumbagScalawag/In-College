@@ -1,50 +1,8 @@
 import pytest
-from tests.shared import JSONFP2
+from tests.shared import JSONFP2, singleUser, fourAccounts
 from pages.friend_search import printFriendSearchScreen  # Search Screen here to preload database
 from pages.new_user_account import saveDatabase  # Used to setup database
 import json
-
-# TODO import single user and fourAccoutns from shared.py remove originals below
-singleUser = {
-    "username": "asdfasdf",
-    "password": "P@ssw0rd",
-    "firstname": "Noah",
-    "lastname": "McIvor",
-    "connections": [],
-}
-
-# threeAccounts + singleUser = fourAccounts
-fourAccounts = [
-    {
-        "username": "asdfasdf",
-        "password": "P@ssw0rd",
-        "firstname": "Noah",
-        "lastname": "McIvor",
-        "connections": [],
-    },
-    {
-        "username": "dummy",
-        "password": "Password1!",
-        "firstname": "Jo",
-        "lastname": "Mama",
-        "connections": [],
-    },
-    {
-        "username": "sillyBoi",
-        "password": "Password2@",
-        "firstname": "Dee",
-        "lastname": "Snuts",
-        "connections": ["dummy"],
-    },
-    {
-        "username": "dummyDude",
-        "password": "Password2@",
-        "firstname": "Dee",
-        "lastname": "Snuts",
-        "connections": [],
-    },
-]
-
 
 # TODO Paramertirize the tests
 def testFriendSearchInSystem(monkeypatch, capfd):
