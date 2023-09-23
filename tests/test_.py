@@ -12,6 +12,60 @@ singleUser = {
 }
 
 
+def testCreateAccountUnder5(monkeypatch, capfd):
+    # Make sure Json is clear
+    # Test with 3 accounts
+    threeAccounts = [
+        {
+            "username": "dummy",
+            "password": "Password1!",
+            "firstname": "Jo",
+            "lastname": "Mama",
+            "connections": [],
+        },
+        {
+            "username": "sillyBoi",
+            "password": "Password2@",
+            "firstname": "Dee",
+            "lastname": "Snuts",
+            "connections": ["notKaren", "dummy"],
+        },
+        {
+            "username": "dummyDude",
+            "password": "Password2@",
+            "firstname": "Dee",
+            "lastname": "Snuts",
+            "connections": ["admin"],
+        },
+    ]
+
+    saveDatabase(JSONFP2, threeAccounts)
+
+    input_generator = iter(["usernew", "Johnathan", "Blow", "P@ssw0rd", "P@ssw0rd"])
+    # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+
+    try:
+        # captured = capfd.readouterr()
+        printNewAccountScreen()
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+
+    title = "*** Create a new user account ***\n"
+    firstname = "First name:"
+    lastname = "Last name:"
+    username = "Username:"
+    password = "Password:"
+
+    # Better approach than whole-sale output assertions
+    assert title in captured.out
+    assert firstname in captured.out
+    assert lastname in captured.out
+    assert username in captured.out
+    assert password in captured.out
+
+
 def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
     saveDatabase(JSONFP2, [])
