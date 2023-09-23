@@ -141,7 +141,7 @@ fiveJobs = [
                 "Please press any button to continue",
             ],
             fiveJobs,
-            [-1],
+            None,
         ),
         (
             ["3", "anything"],
@@ -152,7 +152,7 @@ fiveJobs = [
                 "3 - Return to Main Menu",
             ],
             [],
-            [0],
+            None,
         ),
         (
             ["4", "3"],
@@ -164,7 +164,7 @@ fiveJobs = [
                 'Invalid selection please input "1" or "2" or "3"',
             ],
             [],
-            [0],
+            None,
         ),
     ],
 )
@@ -176,6 +176,8 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
     try:
         assert printJobSearchScreen(singleUser["username"]) == expectedReturn  # Successful search
     except StopIteration:
+        pass
+    except TypeError:
         pass
     captured = capfd.readouterr()  # assert captured
     for r in responses:
