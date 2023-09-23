@@ -4,6 +4,7 @@ import os
 from common_utils.utils import clearScreen, loadJobs, loadUsers
 
 MAXJOBS = 5
+# TODO fix JSONFP and JSONFP2, should not be here, should probably be a variable called in from utils or something
 JSONFP = os.path.join(os.path.dirname(__file__), "..")
 JSONFP2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
@@ -32,15 +33,16 @@ def saveJobDatabase(jsonFilePath, jobs):
     return
 
 
+# TODO check currentUser is not none
 # user selected to do a job search
-def printJobSearchScreen(currentUser):
+def printJobSearchScreen(currentUser=None):
     clearScreen()
     while True:
         print("*** Job Search ***")
         print("1 - Search for Job/Internship")
         print("2 - Post Job/Internship")
         print("3 - Return to Main Menu")
-        userInput = input()
+        userInput = input("")
 
         if userInput == "1":
             jobSearch()
@@ -59,10 +61,11 @@ def jobSearch():
     clearScreen()
     print("*** Job Search ***")
     print("under construction, input anything to return")
-    userInput = input()
+    userInput = input("")
     return 0
 
 
+# TODO check validity of inputs
 def createJob(currentUser):
     jobs = loadJobs()
     users = loadUsers()
@@ -78,22 +81,23 @@ def createJob(currentUser):
             salary = input("Salary: ")  # get salary
 
             # setting currentUserIndex = 0
-            currentUserIndex = 0
+            currentUserIndex = None
             # get index of current user
             for i, user in enumerate(users):
                 if user["username"] == currentUser:
                     currentUserIndex = i
                     break
+
             # retrieving first and last name from current user
             firstname = users[currentUserIndex]["firstname"]
             lastname = users[currentUserIndex]["lastname"]
             saveJob(jobs, title, description, employer, location, salary, firstname, lastname)
-            clearScreen()
+            clearScreen()  # TODO I don't think this is needed
             return
 
     print(
         "All permitted jobs have been posted, please try again later"
     )  # Requirement for 5 accounts response
     print("Please press any button to continue")
-    tempInput = input()
+    tempInput = input("")
     return -1

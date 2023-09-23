@@ -1,47 +1,38 @@
 {
     "joblist": [
         {
-            "title": "a",
-            "description": "b",
-            "employer": "s",
-            "location": "b",
-            "salary": "d",
+            "title": "Software Engineer",
+            "description": "Developing software applications",
+            "employer": "Company A",
+            "location": "San Francisco, CA",
+            "salary": "90000",
             "firstname": "Noah",
             "lastname": "McIvor"
         },
         {
-            "title": "s",
-            "description": "s",
-            "employer": "s",
-            "location": "s",
-            "salary": "s",
+            "title": "Data Analyst",
+            "description": "Analyzing data and generating reports",
+            "employer": "Data Analytics Inc.",
+            "location": "New York, NY",
+            "salary": "75000",
             "firstname": "Noah",
             "lastname": "McIvor"
         },
         {
-            "title": "s",
-            "description": "s",
-            "employer": "s",
-            "location": "s",
-            "salary": "s",
+            "title": "Potato Masher",
+            "description": "Mashes potatos and mixes in butter",
+            "employer": "JP Morgan",
+            "location": "Miami, FL",
+            "salary": "1000000",
             "firstname": "Noah",
             "lastname": "McIvor"
         },
         {
-            "title": "s",
-            "description": "s",
-            "employer": "s",
-            "location": "s",
-            "salary": "s",
-            "firstname": "Noah",
-            "lastname": "McIvor"
-        },
-        {
-            "title": "a",
-            "description": "a",
-            "employer": "a",
-            "location": "a",
-            "salary": "a",
+            "title": "Magician",
+            "description": "Maintain linux servers",
+            "employer": "Amazon",
+            "location": "Miami, OH",
+            "salary": "275000",
             "firstname": "Noah",
             "lastname": "McIvor"
         }

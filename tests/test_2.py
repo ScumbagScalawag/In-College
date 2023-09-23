@@ -82,33 +82,6 @@ def testCreateAccountUnder5(monkeypatch, capfd):
     # )
     # assert main_menu in captured.out
 
-
-def testJobUnderConstruction(monkeypatch, capfd):
-    # Setup Inputs
-    input_generator = iter(["1"])
-    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-    # Run Inputs untill loop
-    try:
-        printMainMenu(None)
-    except StopIteration:
-        pass
-    # See if our input gave us our desired output text
-    captured = capfd.readouterr()
-    assert "under construction, input anything to return" in captured.out
-
-
-def testFindSomeoneConstruction(monkeypatch, capfd):
-    input_generator = iter(["1"])
-    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-    try:
-        printMainMenu(None)
-    except StopIteration:
-        pass
-
-    captured = capfd.readouterr()
-    assert "under construction, input anything to return" in captured.out
-
-
 @pytest.mark.parametrize("input_value", ["1", "2", "3", "4", "5"])
 def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
     input_generator = iter([input_value])

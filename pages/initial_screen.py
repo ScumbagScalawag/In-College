@@ -20,7 +20,7 @@ succeed in my early career development. """
         )
 
         print("Press any button to continue")
-        tempInput = input()
+        tempInput = input("")
         clearScreen()
 
         print("*** Welcome to InCollege ***")
