@@ -3,6 +3,8 @@ import os
 
 JSONFP = os.path.join(os.path.dirname(__file__), "..")
 
+JSONFP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
+
 
 # Works on Windows and Unix
 def clearScreen():
@@ -15,16 +17,24 @@ def clearScreen():
         print("Unsupported operating system: Cannot clear the screen.")
 
 
+def pathToUserFile(relativePath, dataBaseName):
+    # return os.path.join(os.path.dirname(os.path.abspath(__file__)), relativePath, dataBaseName)
+    calling_file_directory = os.path.dirname(os.path.abspath(__file__))
+    full_path = os.path.join(calling_file_directory, relativePath, dataBaseName)
+    return full_path
+
+
 # NOTE: returns user so we don't need a global user -noah
 def loadUsers():
     users = []
     try:
-        os.chdir(JSONFP)
-        with open("user_file.json", "r") as database:
+        with open(pathToUserFile("..", "user_file.json"), "r") as database:
             users = json.load(database)
             users = users["userlist"]
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
-        print("WARNING: Cannot find JSON DataBase!")  # feel free to comment this message out. I find it helpful -noah
+        print(
+            "WARNING: Cannot find JSON DataBase!"
+        )  # feel free to comment this message out. I find it helpful -noah
         pass
 
     return users
@@ -38,13 +48,17 @@ def loadJobs():
             jobs = json.load(database)
             jobs = jobs["joblist"]
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
-        print("WARNING: Cannot find JSON DataBase!")  # feel free to comment this message out. I find it helpful -noah
+        print(
+            "WARNING: Cannot find JSON DataBase!"
+        )  # feel free to comment this message out. I find it helpful -noah
         pass
 
     return jobs
 
 
-def userSearch(users, username=None, password=None, firstname=None, lastname=None, returnUsername=False):
+def userSearch(
+    users, username=None, password=None, firstname=None, lastname=None, returnUsername=False
+):
     # serves as a flag that a previous requirement was used
     # also ensures that it doesn't get false positive for cases like a different user's password for example
     foundUserIndex = None

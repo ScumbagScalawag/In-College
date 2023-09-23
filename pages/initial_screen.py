@@ -29,7 +29,7 @@ succeed in my early career development. """
         print("3 - Find InCollege users")
         print("X - Close Program")
 
-        userInput = input()
+        userInput = input("")
 
         if userInput == "1":
             # Login as existing user. Go to Login page

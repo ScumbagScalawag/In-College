@@ -60,39 +60,4 @@ def jobSearch():
     print("*** Job Search ***")
     print("under construction, input anything to return")
     userInput = input()
-
-    return
-
-
-def createJob(currentUser):
-    jobs = loadJobs()
-    users = loadUsers()
-
-    if len(jobs) < MAXJOBS:  # Requirement for 5 job postings
-        while True:
-            clearScreen()
-            print("*** Create a new job posting ***")
-            title = input("Job Title: ")  # get job title
-            description = input("Brief Description of the Job: ")  # get description of job
-            employer = input("Employer: ")  # get employer
-            location = input("Location: ")  # get location
-            salary = input("Salary: ")  # get salary
-
-            # setting currentUserIndex = 0
-            currentUserIndex = 0
-            # get index of current user
-            for i, user in enumerate(users):
-                if user["username"] == currentUser:
-                    currentUserIndex = i
-                    break
-            # retrieving first and last name from current user
-            firstname = users[currentUserIndex]["firstname"]
-            lastname = users[currentUserIndex]["lastname"]
-            saveJob(jobs, title, description, employer, location, salary, firstname, lastname)
-            clearScreen()
-            return
-
-    print("All permitted jobs have been posted, please try again later")  # Requirement for 5 accounts response
-    print("Please press any button to continue")
-    tempInput = input()
-    return -1
+    return 0
