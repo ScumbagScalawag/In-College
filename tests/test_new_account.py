@@ -1,59 +1,14 @@
 import json
 from common_utils import utils as u
 from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
-from tests.shared import JSONFP2
-
-singleUser = {
-    "username": "asdfasdf",
-    "password": "P@ssw0rd",
-    "firstname": "Noah",
-    "lastname": "McIvor",
-    "connections": [],
-}
+from tests.shared import JSONFP2, singleUser, threeAccounts, fiveAccounts
+import pytest
 
 
 def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
     saveDatabase(JSONFP2, [])
     # Load 5 accounts to Json
-
-    fiveAccounts = [
-        {
-            "username": "dummy",
-            "password": "Password1!",
-            "firstname": "Jo",
-            "lastname": "Mama",
-            "connections": [],
-        },
-        {
-            "username": "sillyBoi",
-            "password": "Password2@",
-            "firstname": "Dee",
-            "lastname": "Snuts",
-            "connections": ["notKaren", "dummy"],
-        },
-        {
-            "username": "dummyDude",
-            "password": "Password2@",
-            "firstname": "Dee",
-            "lastname": "Snuts",
-            "connections": ["admin"],
-        },
-        {
-            "username": "notKaren",
-            "password": "Password2@",
-            "firstname": "Dee",
-            "lastname": "Snuts",
-            "connections": ["dummy"],
-        },
-        {
-            "username": "theSilliestOfAll",
-            "password": "Password2@",
-            "firstname": "Dee",
-            "lastname": "Snuts",
-            "connections": [""],
-        },
-    ]
 
     saveDatabase(JSONFP2, fiveAccounts)
 
@@ -80,29 +35,6 @@ def test_CreateAccountOver5(capfd, monkeypatch):
 def testCreateAccountUnder5(monkeypatch, capfd):
     # Make sure Json is clear
     # Test with 3 accounts
-    threeAccounts = [
-        {
-            "username": "dummy",
-            "password": "Password1!",
-            "firstname": "Jo",
-            "lastname": "Mama",
-            "connections": [],
-        },
-        {
-            "username": "sillyBoi",
-            "password": "Password2@",
-            "firstname": "Dee",
-            "lastname": "Snuts",
-            "connections": ["notKaren", "dummy"],
-        },
-        {
-            "username": "dummyDude",
-            "password": "Password2@",
-            "firstname": "Dee",
-            "lastname": "Snuts",
-            "connections": ["admin"],
-        },
-    ]
 
     saveDatabase(JSONFP2, threeAccounts)
 
@@ -129,6 +61,31 @@ def testCreateAccountUnder5(monkeypatch, capfd):
     assert lastname in captured.out
     assert username in captured.out
     assert password in captured.out
+
+
+@pytest.mark.parametrize(
+    "password_input",
+    [
+        "small",  # Too short
+        "tkskadkkasdasdlsldlas",  # Too long
+        "lowercase123!",  # No capital letter
+        "UPPERCASEONLY!",  # No digit
+        "NoSpecialChars1",  # No special character
+    ],
+    ids=["TooShort", "TooLong", "NoCapital", "NoDigit", "NoSpecial"],
+)
+def test_invalid_password_criteria(password_input, monkeypatch, capfd):
+    input_generator = iter(
+        ["username", "TestFirstName", "TestLastName", password_input, password_input]
+    )
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    try:
+        printNewAccountScreen()
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    error_message = "Password Requirements: minimum of 8 characters, maximum of 12 characters, at least 1 capital letter, at least 1 digit, at least 1 special character"
+    assert error_message in captured.out
 
 
 def test_saveUser_and_loadUsers_when_database_is_empty():

@@ -11,6 +11,30 @@ singleUser = {
     "connections": [],
 }
 
+threeAccounts = [
+    {
+        "username": "dummy",
+        "password": "Password1!",
+        "firstname": "Jo",
+        "lastname": "Mama",
+        "connections": [],
+    },
+    {
+        "username": "sillyBoi",
+        "password": "Password2@",
+        "firstname": "Dee",
+        "lastname": "Snuts",
+        "connections": ["notKaren", "dummy"],
+    },
+    {
+        "username": "dummyDude",
+        "password": "Password2@",
+        "firstname": "Dee",
+        "lastname": "Snuts",
+        "connections": ["admin"],
+    },
+]
+
 fourAccounts = [
     {
         "username": "asdfasdf",
@@ -39,5 +63,43 @@ fourAccounts = [
         "firstname": "Dee",
         "lastname": "Snuts",
         "connections": [],
+    },
+]
+
+fiveAccounts = [
+    {
+        "username": "dummy",
+        "password": "Password1!",
+        "firstname": "Jo",
+        "lastname": "Mama",
+        "connections": [],
+    },
+    {
+        "username": "sillyBoi",
+        "password": "Password2@",
+        "firstname": "Dee",
+        "lastname": "Snuts",
+        "connections": ["notKaren", "dummy"],
+    },
+    {
+        "username": "dummyDude",
+        "password": "Password2@",
+        "firstname": "Dee",
+        "lastname": "Snuts",
+        "connections": ["admin"],
+    },
+    {
+        "username": "notKaren",
+        "password": "Password2@",
+        "firstname": "Dee",
+        "lastname": "Snuts",
+        "connections": ["dummy"],
+    },
+    {
+        "username": "theSilliestOfAll",
+        "password": "Password2@",
+        "firstname": "Dee",
+        "lastname": "Snuts",
+        "connections": [""],
     },
 ]
