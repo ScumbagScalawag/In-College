@@ -1,6 +1,6 @@
 from common_utils.utils import clearScreen
-from pages.job_search import printJobSearchScreen
 from pages.friend_search import printFriendSearchScreen
+from pages.job_search import printJobSearchScreen
 from pages.skill_search import printSkillScreen
 
 
@@ -15,7 +15,7 @@ def printMainMenu(currentUser):
         print("X - Log Out")
         userInput = input("")
         if userInput == "1":
-            printJobSearchScreen()
+            printJobSearchScreen(currentUser)
         elif userInput == "2":
             print("under construction")
             printFriendSearchScreen(currentUser)

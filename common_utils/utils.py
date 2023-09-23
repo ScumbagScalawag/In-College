@@ -1,7 +1,7 @@
-import os
 import json
+import os
 
-JSONFP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
+JSONFP = os.path.join(os.path.dirname(__file__), "..")
 
 
 # Works on Windows and Unix
@@ -36,6 +36,22 @@ def loadUsers():
         pass
 
     return users
+
+
+def loadJobs():
+    jobs = []
+    try:
+        os.chdir(JSONFP)
+        with open("jobs.json", "r") as database:
+            jobs = json.load(database)
+            jobs = jobs["joblist"]
+    except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
+        print(
+            "WARNING: Cannot find JSON DataBase!"
+        )  # feel free to comment this message out. I find it helpful -noah
+        pass
+
+    return jobs
 
 
 def userSearch(

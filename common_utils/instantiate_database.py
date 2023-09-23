@@ -1,5 +1,6 @@
-from pages.new_user_account import saveDatabase
 import os
+
+from pages.new_user_account import saveDatabase
 
 JSONFP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 
