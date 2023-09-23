@@ -1,8 +1,6 @@
 import json
 import os
 
-JSONFP = os.path.join(os.path.dirname(__file__), "..")
-
 JSONFP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 
 
