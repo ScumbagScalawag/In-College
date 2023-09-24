@@ -1,13 +1,9 @@
 import json
-import os
 
-from common_utils.utils import clearScreen, loadJobs, loadUsers
+from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP
 from pages.under_construction import underConstructionMessage
 
 MAXJOBS = 5
-# TODO fix JSONFP and JSONFP2, should not be here, should probably be a variable called in from utils or something
-JSONFP = os.path.join(os.path.dirname(__file__), "..")
-JSONFP2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
 
 def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
@@ -22,7 +18,7 @@ def saveJob(jobs, title, description, employer, location, salary, firstname, las
     }
 
     jobs.append(newJob)
-    saveJobDatabase(JSONFP2, jobs)
+    saveJobDatabase(JSON_JOBS_FP, jobs)
     return
 
 

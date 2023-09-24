@@ -1,11 +1,8 @@
-from common_utils.utils import clearScreen, loadUsers, userSearch
+from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
 from pages.main_menu import printMainMenu
-import os
 import json
 
 MAXUSERS = 5
-JSONFP = os.path.join(os.path.dirname(__file__), "..")
-JSONFP2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 
 
 # Menu: Add new user account
@@ -86,18 +83,6 @@ def checkPasswordSecurity(password):
     return False  # Password is invalid
 
 
-# Helper: Save username and password to user dictionary and to JSON
-
-
-# # Helper: quickly set up user database (user_file.json) with the current DB or fixture
-# def saveDatabase(userDataBase):
-#     # loads from root directory of project
-#     parentDirectory = os.path.dirname(os.path.abspath(__file__))
-#     jsonFilePath = os.path.join(parentDirectory, "..", "user_file.json")
-#     with open(jsonFilePath, "w") as outfile:
-#         json.dump(userDataBase, outfile)
-
-
 # users takes the list, not the entire dict!
 def saveUser(users, username, password, firstname, lastname):
     newUser = {
@@ -108,11 +93,7 @@ def saveUser(users, username, password, firstname, lastname):
         "connections": [],
     }
     users.append(newUser)
-    # userDB = {"userlist": users}
-    # os.chdir(JSONFP)
-    # with open("user_file.json", "w") as outfile:
-    #     json.dump(users, outfile, indent=4)
-    saveDatabase(JSONFP2, users)
+    saveDatabase(JSON_USERS_FP, users)
 
 
 # users takes the list, not the entire dict!

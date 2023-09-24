@@ -18,7 +18,6 @@ my friends and peers. I even found my first internship through In-College and wi
 be starting there next month! I can't thank In-College enough for helping me 
 succeed in my early career development. """
         )
-
         print("Press any button to continue")
         tempInput = input("")
         clearScreen()

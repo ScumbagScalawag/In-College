@@ -1,8 +1,5 @@
-from common_utils.utils import clearScreen, loadUsers, userSearch
-import os
+from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
 import json
-
-JSONFP = os.path.join(os.path.dirname(__file__), "..")
 
 
 # user selected to find someone that you know
@@ -65,8 +62,7 @@ def addConnection(users, currentUser, targetUser):
     # adds target to connections list and updates file
     users[currentUserIndex]["connections"].append(targetUser)
     users = {"userlist": users}
-    os.chdir(JSONFP)
-    with open("user_file.json", "w") as outfile:
+    with open(JSON_USERS_FP, "w") as outfile:
         json.dump(users, outfile, indent=4)
     msg = "Connection request sent"
     return msg

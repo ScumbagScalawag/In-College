@@ -1,7 +1,7 @@
 import os
 
-JSONFP2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
-JSONFPJ = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
+JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
+JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
 # Users ------- [[[
 singleUser = {

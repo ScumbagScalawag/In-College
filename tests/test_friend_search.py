@@ -1,5 +1,5 @@
 import pytest
-from tests.shared import JSONFP2, singleUser, fourAccounts
+from tests.shared import JSON_USERS_FP, singleUser, fourAccounts
 from pages.friend_search import printFriendSearchScreen  # Search Screen here to preload database
 from pages.new_user_account import saveDatabase  # Used to setup database
 import json
@@ -7,7 +7,7 @@ import json
 # TODO Paramertirize the tests
 def testFriendSearchInSystem(monkeypatch, capfd):
     # in system
-    saveDatabase(JSONFP2, fourAccounts)
+    saveDatabase(JSON_USERS_FP, fourAccounts)
     input_generator = iter(["Dee", "Snuts", "Y", "X"])
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
@@ -26,7 +26,7 @@ def testFriendSearchInSystem(monkeypatch, capfd):
 
 
 def testFriendSearchNotInSystem(monkeypatch, capfd):
-    saveDatabase(JSONFP2, fourAccounts)
+    saveDatabase(JSON_USERS_FP, fourAccounts)
     # Not in system
     input_generator = iter(
         [
@@ -54,7 +54,7 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
 
 # User not logged in handled with return to -1
 def testFriendSearchNotLoggedIn(monkeypatch, capfd):
-    saveDatabase(JSONFP2, fourAccounts)
+    saveDatabase(JSON_USERS_FP, fourAccounts)
     input_generator = iter(
         [
             "Jo",

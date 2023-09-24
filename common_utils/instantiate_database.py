@@ -1,8 +1,8 @@
 import os
 
 from pages.new_user_account import saveDatabase
+from common_utils.utils import JSON_USERS_FP
 
-JSONFP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 
 userDB = {
     "userlist": [
@@ -23,4 +23,4 @@ userDB = {
     ]
 }
 
-saveDatabase(JSONFP, userDB)
+saveDatabase(JSON_USERS_FP, userDB)

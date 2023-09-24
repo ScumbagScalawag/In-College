@@ -1,15 +1,15 @@
 import json
 from common_utils import utils as u
 from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
-from tests.shared import JSONFP2, singleUser, threeAccounts, fiveAccounts
+from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
 import pytest
 
 
 def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
-    saveDatabase(JSONFP2, [])
+    saveDatabase(JSON_USERS_FP, [])
     # Load 5 accounts to Json
-    saveDatabase(JSONFP2, fiveAccounts)
+    saveDatabase(JSON_USERS_FP, fiveAccounts)
 
     # Confirm there are 5 accounts
     userList = u.loadUsers()
@@ -35,7 +35,7 @@ def testCreateAccountUnder5(monkeypatch, capfd):
     # Make sure Json is clear
     # Test with 3 accounts
 
-    saveDatabase(JSONFP2, threeAccounts)
+    saveDatabase(JSON_USERS_FP, threeAccounts)
 
     input_generator = iter(["usernew", "Johnathan", "Blow", "P@ssw0rd", "P@ssw0rd"])
     # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
@@ -107,7 +107,7 @@ def test_saveUser_and_loadUsers_when_database_is_empty():
 
 def test_saveDatabase():
     # make sure DB is clean first:
-    with open(JSONFP2, "w") as outfile:
+    with open(JSON_USERS_FP, "w") as outfile:
         json.dump({}, outfile, indent=4)
 
     userList = [
@@ -130,7 +130,7 @@ def test_saveDatabase():
     print(userList)
     # print(userDB)
 
-    saveDatabase(JSONFP2, userList)
+    saveDatabase(JSON_USERS_FP, userList)
     loadedUsers = u.loadUsers()
     # print("loadedusers", loadedUsers)
     print(u.loadUsers())

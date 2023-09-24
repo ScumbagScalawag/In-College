@@ -2,7 +2,7 @@ import pytest
 from pages.new_user_account import saveDatabase
 from pages.job_search import printJobSearchScreen, saveJobDatabase
 from pages.under_construction import underConstructionMessage
-from tests.shared import JSONFP2, JSONFPJ, singleUser, fourJobs, fiveJobs
+from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs
 
 
 @pytest.mark.parametrize(
@@ -79,8 +79,8 @@ from tests.shared import JSONFP2, JSONFPJ, singleUser, fourJobs, fiveJobs
     ],
 )
 def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypatch, capfd):
-    saveDatabase(JSONFP2, singleUser)
-    saveJobDatabase(JSONFPJ, startingJobDB)
+    saveDatabase(JSON_USERS_FP, singleUser)
+    saveJobDatabase(JSON_JOBS_FP, startingJobDB)
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
