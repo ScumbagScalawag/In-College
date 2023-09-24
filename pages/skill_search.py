@@ -1,4 +1,4 @@
-from common_utils.utils import clearScreen
+from common_utils.utils import clearScreen, printOptionList
 from pages.under_construction import underConstructionMessage
 
 SKILL_LIST = [
@@ -10,8 +10,7 @@ SKILL_LIST = [
 ]
 
 
-def skillOptionsList():
-    return [
+skillOptionsList = [
         "*** Learn a skill ***",
         "1 - Learn how to skate",
         "2 - Learn how to cook",
@@ -25,11 +24,11 @@ def skillOptionsList():
 # user has selected to "Learn a skill"
 def printSkillScreen():
     clearScreen()
-    skills = skillOptionsList()
+
     while True:
-        for skill in skills:
-            print(skill)
+        printOptionList(skillOptionsList)
         userInput = input("")
+
         if userInput == "1":
             printSkillFromList("Skating")
         elif userInput == "2":

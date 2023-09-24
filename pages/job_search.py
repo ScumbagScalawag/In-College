@@ -1,6 +1,6 @@
 import json
 
-from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP
+from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList
 from pages.under_construction import underConstructionMessage
 
 MAXJOBS = 5
@@ -30,23 +30,20 @@ def saveJobDatabase(jsonFilePath, jobs):
     return
 
 
-def jobOptionsList():
-    return [
-        "*** Job Search ***",
-        "1 - Search for Job/Internship",
-        "2 - Post Job/Internship",
-        "3 - Return to Main Menu",
-    ]
+jobOptionsList = [
+    "*** Job Search ***",
+    "1 - Search for Job/Internship",
+    "2 - Post Job/Internship",
+    "3 - Return to Main Menu",
+]
 
 
 # TODO check currentUser is not none
 # user selected to do a job search
 def printJobSearchScreen(currentUser=None):
     clearScreen()
-    options = jobOptionsList()
     while True:
-        for option in options:
-            print(option)
+        printOptionList(jobOptionsList)
         userInput = input("")
 
         if userInput == "1":

@@ -5,6 +5,12 @@ JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "
 JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
 
+# Use this for making options lists in pages
+def printOptionList(options):
+    for option in options:
+        print(option)
+
+
 # Works on Windows and Unix
 def clearScreen():
     # Check the operating system and use the appropriate clear command

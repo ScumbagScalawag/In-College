@@ -1,4 +1,4 @@
-from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
+from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP, printOptionList
 import json
 
 
@@ -7,8 +7,7 @@ def printFriendSearchScreen(currentUser=None):
     users = loadUsers()
     while True:
         clearScreen()
-        print("*** Find A Friend ***")
-        print("Search for someone you know on InCollege")
+        printOptionList(friendSearchOptionList)
         first = input("First name: ")
         last = input("Last name: ")
         # If found, display
@@ -42,6 +41,12 @@ def printFriendSearchScreen(currentUser=None):
                 return 0
             elif confirm == "C":
                 break
+
+
+friendSearchOptionList = [
+    "*** Find A Friend ***",
+    "Search for someone you know on InCollege",
+]
 
 
 def addConnection(users, currentUser, targetUser):

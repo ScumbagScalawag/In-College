@@ -1,4 +1,4 @@
-from common_utils.utils import clearScreen
+from common_utils.utils import clearScreen, printOptionList
 from pages.friend_search import printFriendSearchScreen
 from pages.login import printLoginScreen
 from pages.new_user_account import printNewAccountScreen
@@ -11,9 +11,7 @@ def printInitialScreen():
         printTestimonialPage()
         clearScreen()
 
-        options = initialScreenOptionsList
-        for option in options:
-            print(option)
+        printOptionList(initialScreenOptionsList)
 
         userInput = input("")
 
@@ -34,6 +32,12 @@ def printInitialScreen():
     return 0
 
 
+def printTestimonialPage():
+    printOptionList(testimonialOutputList)
+    tempInput = input("")
+    return
+
+
 testimonialOutputList = [
     "*** Welcome to InCollege ***",
     "Here is a story from one of our users:",
@@ -47,16 +51,10 @@ succeed in my early career development. """,
 ]
 
 
-def printTestimonialPage():
-    for output in testimonialOutputList:
-        print(output)
-    tempInput = input("")
-    return
-
 initialScreenOptionsList = [
-        "*** Welcome to InCollege ***",
-        "1 - Login as existing user",
-        "2 - Create a new InCollege account",
-        "3 - Find InCollege users",
-        "X - Close Program",
-    ]
+    "*** Welcome to InCollege ***",
+    "1 - Login as existing user",
+    "2 - Create a new InCollege account",
+    "3 - Find InCollege users",
+    "X - Close Program",
+]
