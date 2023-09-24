@@ -1,11 +1,9 @@
 import json
-import os
 
-from common_utils.utils import clearScreen, loadJobs, loadUsers
+from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList
+from pages.under_construction import underConstructionMessage
 
 MAXJOBS = 5
-JSONFP = os.path.join(os.path.dirname(__file__), "..")
-JSONFP2 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
 
 def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
@@ -20,7 +18,7 @@ def saveJob(jobs, title, description, employer, location, salary, firstname, las
     }
 
     jobs.append(newJob)
-    saveJobDatabase(JSONFP2, jobs)
+    saveJobDatabase(JSON_JOBS_FP, jobs)
     return
 
 
@@ -32,15 +30,21 @@ def saveJobDatabase(jsonFilePath, jobs):
     return
 
 
+jobOptionsList = [
+    "*** Job Search ***",
+    "1 - Search for Job/Internship",
+    "2 - Post Job/Internship",
+    "3 - Return to Main Menu",
+]
+
+
+# TODO check currentUser is not none
 # user selected to do a job search
-def printJobSearchScreen(currentUser):
+def printJobSearchScreen(currentUser=None):
     clearScreen()
     while True:
-        print("*** Job Search ***")
-        print("1 - Search for Job/Internship")
-        print("2 - Post Job/Internship")
-        print("3 - Return to Main Menu")
-        userInput = input()
+        printOptionList(jobOptionsList)
+        userInput = input("")
 
         if userInput == "1":
             jobSearch()
@@ -58,11 +62,12 @@ def jobSearch():
     # under construction, not needed in EPIC2
     clearScreen()
     print("*** Job Search ***")
-    print("under construction, input anything to return")
-    userInput = input()
+    print(underConstructionMessage())
+    userInput = input("")
     return 0
 
 
+# TODO check validity of inputs
 def createJob(currentUser):
     jobs = loadJobs()
     users = loadUsers()
@@ -78,22 +83,23 @@ def createJob(currentUser):
             salary = input("Salary: ")  # get salary
 
             # setting currentUserIndex = 0
-            currentUserIndex = 0
+            currentUserIndex = None
             # get index of current user
             for i, user in enumerate(users):
                 if user["username"] == currentUser:
                     currentUserIndex = i
                     break
+
             # retrieving first and last name from current user
             firstname = users[currentUserIndex]["firstname"]
             lastname = users[currentUserIndex]["lastname"]
             saveJob(jobs, title, description, employer, location, salary, firstname, lastname)
-            clearScreen()
+            clearScreen()  # TODO I don't think this is needed
             return
 
     print(
         "All permitted jobs have been posted, please try again later"
     )  # Requirement for 5 accounts response
     print("Please press any button to continue")
-    tempInput = input()
+    tempInput = input("")
     return -1

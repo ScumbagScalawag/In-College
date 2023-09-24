@@ -1,16 +1,13 @@
-from common_utils.utils import clearScreen, loadUsers, userSearch
-import os
+from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP, printOptionList
 import json
 
-JSONFP = os.path.join(os.path.dirname(__file__), '..')
 
 # user selected to find someone that you know
 def printFriendSearchScreen(currentUser=None):
     users = loadUsers()
     while True:
         clearScreen()
-        print("*** Find A Friend ***")
-        print("Search for someone you know on InCollege")
+        printOptionList(friendSearchOptionList)
         first = input("First name: ")
         last = input("Last name: ")
         # If found, display
@@ -19,7 +16,9 @@ def printFriendSearchScreen(currentUser=None):
             print("They are a part of the InCollege system")
             # If logged in, friend request?
             if currentUser != None:
-                confirm = input("Would you like to make a connection with {} {}? (y/n)".format(first, last)).upper()
+                confirm = input(
+                    "Would you like to make a connection with {} {}? (y/n)".format(first, last)
+                ).upper()
                 while True:
                     if confirm == "Y":
                         msg = addConnection(users, currentUser, foundUser)
@@ -29,9 +28,11 @@ def printFriendSearchScreen(currentUser=None):
                         break
                     else:
                         confirm = input("Please input y or n: ").upper()
+            else:
+                return -1
         # If not found, display
         else:
-            print("They are not yet a part of the InCollege system yet")    
+            print("They are not yet a part of the InCollege system yet")
 
         # Allow return
         while True:
@@ -40,6 +41,13 @@ def printFriendSearchScreen(currentUser=None):
                 return 0
             elif confirm == "C":
                 break
+
+
+friendSearchOptionList = [
+    "*** Find A Friend ***",
+    "Search for someone you know on InCollege",
+]
+
 
 def addConnection(users, currentUser, targetUser):
     currentUserIndex = None
@@ -58,9 +66,8 @@ def addConnection(users, currentUser, targetUser):
         return msg
     # adds target to connections list and updates file
     users[currentUserIndex]["connections"].append(targetUser)
-    users = {"userlist":users}
-    os.chdir(JSONFP)
-    with open("user_file.json", "w") as outfile:
+    users = {"userlist": users}
+    with open(JSON_USERS_FP, "w") as outfile:
         json.dump(users, outfile, indent=4)
     msg = "Connection request sent"
     return msg

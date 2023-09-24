@@ -1,7 +1,14 @@
 import json
 import os
 
-JSONFP = os.path.join(os.path.dirname(__file__), "..")
+JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
+JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
+
+
+# Use this for making options lists in pages
+def printOptionList(options):
+    for option in options:
+        print(option)
 
 
 # Works on Windows and Unix
@@ -41,8 +48,7 @@ def loadUsers():
 def loadJobs():
     jobs = []
     try:
-        os.chdir(JSONFP)
-        with open("jobs.json", "r") as database:
+        with open(JSON_JOBS_FP, "r") as database:
             jobs = json.load(database)
             jobs = jobs["joblist"]
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
