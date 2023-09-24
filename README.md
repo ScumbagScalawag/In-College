@@ -1,9 +1,9 @@
 # In-College
-## CEN4020-New-Mexico Project
+CEN4020-New-Mexico Project
 
-# DEV Notes
+### DEV Notes
 
-# TESTER Notes
+### TESTER Notes
 Run all test in project:
 ```
 pytest
@@ -21,10 +21,10 @@ pytest <name-of-file> -v
 
 
 
-# SCRUM MASTER Notes
+### SCRUM MASTER Notes
 
 
-# Project Structure
+### Project Structure
 Video explaining the absolute imports:
 https://youtu.be/ZBYDbAQKs3I?si=XXohK3xVkVzkuz1N
 
@@ -32,16 +32,16 @@ Here's a video explaianing the how Imports work:
 https://youtu.be/cONc0NcKE7s?si=JcMNeAfxNZNh0AZ3
 
 
-# Setup & Config Stuff
+### Setup & Config Stuff
 Please type in these codes into VSCode's extenion tab and download
 so we can all work with the same formatting rules. 
 
-## Python Formatter: 
+#### Python Formatter: 
 ```
 ms-python.black-formatter
 ```
 
-## Python Import Formatter: 
+#### Python Import Formatter: 
 ```
 ms-python.isort
 ```
