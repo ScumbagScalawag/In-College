@@ -1,8 +1,5 @@
 import pytest
 from pages.skill_search import printSkillScreen
-from pages.new_user_account import saveDatabase
-from tests.shared import JSONFP2
-import json
 
 
 @pytest.mark.parametrize(
@@ -167,24 +164,24 @@ def testSkillsScreen(mock_input, responses, expectedReturn, monkeypatch, capfd):
 #     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 #     assert printSkillScreen() == 0  # break from skill screen loop causes return 0
 
-    # monkeypatch.setattr("builtins.input", lambda: next(input_generator))
-    # try:
-    #     printSkillScreen()
-    # except StopIteration:
-    #     pass
-    # assert excinfo.value.code == 0  # Check if the exit code is 0 when "break" is reached
+# monkeypatch.setattr("builtins.input", lambda: next(input_generator))
+# try:
+#     printSkillScreen()
+# except StopIteration:
+#     pass
+# assert excinfo.value.code == 0  # Check if the exit code is 0 when "break" is reached
 
-    # captured = capfd.readouterr()
+# captured = capfd.readouterr()
 
-    # title = "*** Main Menu ***"
-    # job = "1 - Search for a job"
-    # findSomeone = "2 - Find someone that you know"
-    # skill = "3 - Learn a skill"
+# title = "*** Main Menu ***"
+# job = "1 - Search for a job"
+# findSomeone = "2 - Find someone that you know"
+# skill = "3 - Learn a skill"
 
-    # assert title in captured.out
-    # assert job in captured.out
-    # assert findSomeone in captured.out
-    # assert skill in captured.out
+# assert title in captured.out
+# assert job in captured.out
+# assert findSomeone in captured.out
+# assert skill in captured.out
 
 
 # @pytest.mark.parametrize("input_value", ["9", "0", "[1", "d", "r"])

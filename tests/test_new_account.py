@@ -9,7 +9,6 @@ def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
     saveDatabase(JSONFP2, [])
     # Load 5 accounts to Json
-
     saveDatabase(JSONFP2, fiveAccounts)
 
     # Confirm there are 5 accounts
