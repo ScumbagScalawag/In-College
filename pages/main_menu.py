@@ -2,6 +2,7 @@ from common_utils.utils import clearScreen
 from pages.friend_search import printFriendSearchScreen
 from pages.job_search import printJobSearchScreen
 from pages.skill_search import printSkillScreen
+from pages.under_construction import underConstructionMessage
 
 
 # User has logged in menu
@@ -17,7 +18,7 @@ def printMainMenu(currentUser):
         if userInput == "1":
             printJobSearchScreen(currentUser)
         elif userInput == "2":
-            print("under construction")
+            print(underConstructionMessage())
             printFriendSearchScreen(currentUser)
         elif userInput == "3":
             printSkillScreen()

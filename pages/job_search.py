@@ -2,6 +2,7 @@ import json
 import os
 
 from common_utils.utils import clearScreen, loadJobs, loadUsers
+from pages.under_construction import underConstructionMessage
 
 MAXJOBS = 5
 # TODO fix JSONFP and JSONFP2, should not be here, should probably be a variable called in from utils or something
@@ -33,15 +34,23 @@ def saveJobDatabase(jsonFilePath, jobs):
     return
 
 
+def jobOptionsList():
+    return [
+        "*** Job Search ***",
+        "1 - Search for Job/Internship",
+        "2 - Post Job/Internship",
+        "3 - Return to Main Menu",
+    ]
+
+
 # TODO check currentUser is not none
 # user selected to do a job search
 def printJobSearchScreen(currentUser=None):
     clearScreen()
+    options = jobOptionsList()
     while True:
-        print("*** Job Search ***")
-        print("1 - Search for Job/Internship")
-        print("2 - Post Job/Internship")
-        print("3 - Return to Main Menu")
+        for option in options:
+            print(option)
         userInput = input("")
 
         if userInput == "1":
@@ -60,7 +69,7 @@ def jobSearch():
     # under construction, not needed in EPIC2
     clearScreen()
     print("*** Job Search ***")
-    print("under construction, input anything to return")
+    print(underConstructionMessage())
     userInput = input("")
     return 0
 

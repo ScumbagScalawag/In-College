@@ -1,5 +1,6 @@
 import pytest
 from pages.skill_search import printSkillScreen
+from pages.under_construction import underConstructionMessage
 
 
 @pytest.mark.parametrize(
@@ -16,7 +17,7 @@ from pages.skill_search import printSkillScreen
                 "5 - Learn how to whistle",
                 "6 - Return to main menu",
                 "*** Learn ",
-                "under construction, input anything to return",
+                underConstructionMessage(),
             ],
             None,
         ),
@@ -31,7 +32,7 @@ from pages.skill_search import printSkillScreen
                 "5 - Learn how to whistle",
                 "6 - Return to main menu",
                 "*** Learn ",
-                "under construction, input anything to return",
+                underConstructionMessage(),
             ],
             None,
         ),
@@ -46,7 +47,7 @@ from pages.skill_search import printSkillScreen
                 "5 - Learn how to whistle",
                 "6 - Return to main menu",
                 "*** Learn ",
-                "under construction, input anything to return",
+                underConstructionMessage(),
             ],
             None,
         ),
@@ -61,7 +62,7 @@ from pages.skill_search import printSkillScreen
                 "5 - Learn how to whistle",
                 "6 - Return to main menu",
                 "*** Learn ",
-                "under construction, input anything to return",
+                underConstructionMessage(),
             ],
             None,
         ),
@@ -76,7 +77,7 @@ from pages.skill_search import printSkillScreen
                 "5 - Learn how to whistle",
                 "6 - Return to main menu",
                 "*** Learn ",
-                "under construction, input anything to return",
+                underConstructionMessage(),
             ],
             None,
         ),

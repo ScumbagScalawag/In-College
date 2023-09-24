@@ -1,25 +1,34 @@
 from common_utils.utils import clearScreen
+from pages.under_construction import underConstructionMessage
 
 SKILL_LIST = [
-    {"name": "Skating", "desc": "under construction, input anything to return"},
-    {"name": "Cooking", "desc": "under construction, input anything to return"},
-    {"name": "Driving", "desc": "under construction, input anything to return"},
-    {"name": "Painting", "desc": "under construction, input anything to return"},
-    {"name": "Whistling", "desc": "under construction, input anything to return"},
+    {"name": "Skating", "desc": underConstructionMessage()},
+    {"name": "Cooking", "desc": underConstructionMessage()},
+    {"name": "Driving", "desc": underConstructionMessage()},
+    {"name": "Painting", "desc": underConstructionMessage()},
+    {"name": "Whistling", "desc": underConstructionMessage()},
 ]
+
+
+def skillOptionsList():
+    return [
+        "*** Learn a skill ***",
+        "1 - Learn how to skate",
+        "2 - Learn how to cook",
+        "3 - Learn how to drive",
+        "4 - Learn how to paint",
+        "5 - Learn how to whistle",
+        "6 - Return to main menu",
+    ]
 
 
 # user has selected to "Learn a skill"
 def printSkillScreen():
     clearScreen()
+    skills = skillOptionsList()
     while True:
-        print("*** Learn a skill ***")
-        print("1 - Learn how to skate")
-        print("2 - Learn how to cook")
-        print("3 - Learn how to drive")
-        print("4 - Learn how to paint")
-        print("5 - Learn how to whistle")
-        print("6 - Return to main menu")
+        for skill in skills:
+            print(skill)
         userInput = input("")
         if userInput == "1":
             printSkillFromList("Skating")

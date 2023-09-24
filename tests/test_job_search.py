@@ -1,7 +1,9 @@
 import pytest
 from pages.new_user_account import saveDatabase
 from pages.job_search import printJobSearchScreen, saveJobDatabase
+from pages.under_construction import underConstructionMessage
 from tests.shared import JSONFP2, JSONFPJ, singleUser, fourJobs, fiveJobs
+
 
 @pytest.mark.parametrize(
     "mock_input,responses,startingJobDB,expectedReturn",
@@ -13,7 +15,7 @@ from tests.shared import JSONFP2, JSONFPJ, singleUser, fourJobs, fiveJobs
                 "1 - Search for Job/Internship",
                 "2 - Post Job/Internship",
                 "3 - Return to Main Menu",
-                "under construction, input anything to return",
+                underConstructionMessage(),
             ],
             [],
             [0],
@@ -68,7 +70,13 @@ from tests.shared import JSONFP2, JSONFPJ, singleUser, fourJobs, fiveJobs
             None,
         ),
     ],
-    ids=["JobSearchUnderConstruction", "CreateJob", "MaxJobsReached", "ReturnMain", "InvalidSelection"]
+    ids=[
+        "JobSearchUnderConstruction",
+        "CreateJob",
+        "MaxJobsReached",
+        "ReturnMain",
+        "InvalidSelection",
+    ],
 )
 def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypatch, capfd):
     saveDatabase(JSONFP2, singleUser)
