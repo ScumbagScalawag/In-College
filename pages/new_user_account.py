@@ -1,4 +1,4 @@
-from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
+from common_utils.utils import clearScreen, loadUsers, userSearch, saveUserDatabase
 from pages.main_menu import printMainMenu
 import json
 
@@ -28,7 +28,7 @@ def printNewAccountScreen():
                 if checkPasswordSecurity(password):  # Is password secure
                     passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
-                        saveUser(users, username, password, firstname, lastname)  # Add new account
+                        addUser(users, username, password, firstname, lastname)  # Add new account
                         currentUser = userSearch(
                             users, username=username, returnUsername=True
                         )  # get logged in user
@@ -84,7 +84,7 @@ def checkPasswordSecurity(password):
 
 
 # users takes the list, not the entire dict!
-def saveUser(users, username, password, firstname, lastname):
+def addUser(users, username, password, firstname, lastname):
     newUser = {
         "username": username,
         "password": password,
@@ -93,11 +93,4 @@ def saveUser(users, username, password, firstname, lastname):
         "connections": [],
     }
     users.append(newUser)
-    saveDatabase(JSON_USERS_FP, users)
-
-
-# users takes the list, not the entire dict!
-def saveDatabase(jsonFilePath, users):
-    userDB = {"userlist": users}
-    with open(jsonFilePath, "w") as outfile:
-        json.dump(userDB, outfile, indent=4)
+    saveUserDatabase(users)

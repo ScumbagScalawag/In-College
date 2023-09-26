@@ -1,12 +1,12 @@
 import json
 
-from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList
+from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList, getIndex
 from pages.under_construction import underConstructionMessage
 
 MAXJOBS = 5
 
 
-def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
+def addJob(jobs, title, description, employer, location, salary, firstname, lastname):
     newJob = {
         "title": title,
         "description": description,
@@ -18,15 +18,15 @@ def saveJob(jobs, title, description, employer, location, salary, firstname, las
     }
 
     jobs.append(newJob)
-    saveJobDatabase(JSON_JOBS_FP, jobs)
+    saveJobDatabase(jobs)
     return
 
 
-def saveJobDatabase(jsonFilePath, jobs):
+def saveJobDatabase(jobs):
     jobDB = {"joblist": jobs}
-    with open(jsonFilePath, "w") as outfile:
+    with open(JSON_JOBS_FP, "w") as outfile:
         json.dump(jobDB, outfile, indent=4)
-
+    
     return
 
 
@@ -82,19 +82,13 @@ def createJob(currentUser):
             location = input("Location: ")  # get location
             salary = input("Salary: ")  # get salary
 
-            # setting currentUserIndex = 0
-            currentUserIndex = None
             # get index of current user
-            for i, user in enumerate(users):
-                if user["username"] == currentUser:
-                    currentUserIndex = i
-                    break
+            currentUserIndex = getIndex(currentUser)
 
             # retrieving first and last name from current user
             firstname = users[currentUserIndex]["firstname"]
             lastname = users[currentUserIndex]["lastname"]
-            saveJob(jobs, title, description, employer, location, salary, firstname, lastname)
-            clearScreen()  # TODO I don't think this is needed
+            addJob(jobs, title, description, employer, location, salary, firstname, lastname)
             return
 
     print(

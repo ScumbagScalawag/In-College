@@ -1,11 +1,9 @@
 import os
 
-from pages.new_user_account import saveDatabase
-from common_utils.utils import JSON_USERS_FP
+from common_utils.utils import saveUserDatabase
 
 
-userDB = {
-    "userlist": [
+userlist =  [
         {
             "username": "admin",
             "password": "Password1!",
@@ -21,6 +19,6 @@ userDB = {
             "connections": ["admin"],
         },
     ]
-}
 
-saveDatabase(JSON_USERS_FP, userDB)
+
+saveUserDatabase(userlist)

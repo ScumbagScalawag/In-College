@@ -1,15 +1,14 @@
 import json
 from common_utils import utils as u
-from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
+from common_utils.utils import saveUserDatabase
+from pages.new_user_account import printNewAccountScreen, addUser
 from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
 import pytest
 
 
 def test_CreateAccountOver5(capfd, monkeypatch):
-    # ensure DB is empty first
-    saveDatabase(JSON_USERS_FP, [])
     # Load 5 accounts to Json
-    saveDatabase(JSON_USERS_FP, fiveAccounts)
+    saveUserDatabase(fiveAccounts)
 
     # Confirm there are 5 accounts
     userList = u.loadUsers()
@@ -35,7 +34,7 @@ def testCreateAccountUnder5(monkeypatch, capfd):
     # Make sure Json is clear
     # Test with 3 accounts
 
-    saveDatabase(JSON_USERS_FP, threeAccounts)
+    saveUserDatabase(threeAccounts)
 
     input_generator = iter(["usernew", "Johnathan", "Blow", "P@ssw0rd", "P@ssw0rd"])
     # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
@@ -87,9 +86,9 @@ def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     assert error_message in captured.out
 
 
-def test_saveUser_and_loadUsers_when_database_is_empty():
+def test_addUser_and_loadUsers_when_database_is_empty():
     # [] -> "database is empty"
-    saveUser(
+    addUser(
         [],
         singleUser["username"],
         singleUser["password"],
@@ -130,7 +129,7 @@ def test_saveDatabase():
     print(userList)
     # print(userDB)
 
-    saveDatabase(JSON_USERS_FP, userList)
+    saveUserDatabase(userList)
     loadedUsers = u.loadUsers()
     # print("loadedusers", loadedUsers)
     print(u.loadUsers())

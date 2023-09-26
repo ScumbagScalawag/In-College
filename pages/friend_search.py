@@ -1,4 +1,4 @@
-from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP, printOptionList
+from common_utils.utils import clearScreen, loadUsers, userSearch, printOptionList, getIndex, saveUserDatabase
 import json
 
 
@@ -56,18 +56,13 @@ def addConnection(users, currentUser, targetUser):
         msg = "You cannot make a connection with yourself"
         return msg
     # get index of current user
-    for i, user in enumerate(users):
-        if user["username"] == currentUser:
-            currentUserIndex = i
-            break
+    currentUserIndex = getIndex(currentUser)
     # doesn't let you add someone you already added
     if targetUser in users[currentUserIndex]["connections"]:
         msg = "You are already connected with this user"
         return msg
     # adds target to connections list and updates file
     users[currentUserIndex]["connections"].append(targetUser)
-    users = {"userlist": users}
-    with open(JSON_USERS_FP, "w") as outfile:
-        json.dump(users, outfile, indent=4)
+    saveUserDatabase(users)
     msg = "Connection request sent"
     return msg

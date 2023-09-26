@@ -1,15 +1,14 @@
 import json
 import os
 
-JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
-JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
+JSON_USERS_FP = os.path.join(os.path.dirname(__file__), "..", "user_file.json")
+JSON_JOBS_FP = os.path.join(os.path.dirname(__file__), "..", "jobs.json")
 
 
 # Use this for making options lists in pages
 def printOptionList(options):
     for option in options:
         print(option)
-
 
 # Works on Windows and Unix
 def clearScreen():
@@ -21,19 +20,11 @@ def clearScreen():
     else:
         print("Unsupported operating system: Cannot clear the screen.")
 
-
-def pathToUserFile(relativePath, dataBaseName):
-    # return os.path.join(os.path.dirname(os.path.abspath(__file__)), relativePath, dataBaseName)
-    calling_file_directory = os.path.dirname(os.path.abspath(__file__))
-    full_path = os.path.join(calling_file_directory, relativePath, dataBaseName)
-    return full_path
-
-
 # NOTE: returns user so we don't need a global user -noah
 def loadUsers():
     users = []
     try:
-        with open(pathToUserFile("..", "user_file.json"), "r") as database:
+        with open(JSON_USERS_FP, "r") as database:
             users = json.load(database)
             users = users["userlist"]
     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
@@ -120,3 +111,18 @@ def userSearch(
 
     # if nothing that was searched for is incorrect, it all must have been found
     return True
+
+# takes username, returns index in users list
+def getIndex(users, username):
+    userIndex = None
+    for i, user in enumerate(users):
+        if user["username"] == username:
+            userIndex = i
+            break
+    return userIndex
+
+# users takes the list, not the entire dict!
+def saveUserDatabase(users):
+    userDB = {"userlist": users}
+    with open(JSON_JOBS_FP, "w") as outfile:
+        json.dump(userDB, outfile, indent=4)
