@@ -1,6 +1,8 @@
 # should be ignored by git. Tests should setup and tear down this file as needed
-**/*/user_file.json
+**/user_file.json
 user_file.json
+**/jobs.json
+jobs.json
 
 **/__pycache__/
 __pycache__/

@@ -2,7 +2,8 @@ from common_utils.utils import clearScreen, printOptionList
 from pages.friend_search import printFriendSearchScreen
 from pages.login import printLoginScreen
 from pages.new_user_account import printNewAccountScreen
-
+from pages.link_screens import printUsefulLinkScreen, printImportantLinkScreen
+from pages.main_menu import printMainMenu
 
 # Welcome screen and input
 def printInitialScreen():
@@ -17,13 +18,25 @@ def printInitialScreen():
 
         if userInput == "1":
             # Login as existing user. Go to Login page
-            printLoginScreen()
+            currentUser = printLoginScreen()
+            if currentUser != None:
+                printMainMenu(currentUser)
         elif userInput == "2":
             # Create a new account. Go to create account page
-            printNewAccountScreen()
+            currentUser = printNewAccountScreen()
+            if currentUser != None:
+                printMainMenu(currentUser)
         elif userInput == "3":
             # Search for users
             printFriendSearchScreen()
+        elif userInput == "4":
+            # Open main menu, login if an account was created at this screen
+            currentUser = printUsefulLinkScreen()
+            if currentUser != None:
+                printMainMenu(currentUser)
+        elif userInput == "5":
+            # Go to important links page
+            printImportantLinkScreen()
         elif userInput.upper() == "X":
             print("Exiting InCollege")
             break
@@ -56,5 +69,7 @@ initialScreenOptionsList = [
     "1 - Login as existing user",
     "2 - Create a new InCollege account",
     "3 - Find InCollege users",
-    "X - Close Program",
+    "4 - Useful Links",
+    "5 - InCollege Important Links",
+    "X - Close Program"
 ]

@@ -1,5 +1,4 @@
 from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
-from pages.main_menu import printMainMenu
 import json
 
 MAXUSERS = 5
@@ -32,8 +31,7 @@ def printNewAccountScreen():
                         currentUser = userSearch(
                             users, username=username, returnUsername=True
                         )  # get logged in user
-                        printMainMenu(currentUser)
-                        return 0
+                        return currentUser
                     else:
                         print("Passwords do not match")
                 else:
@@ -48,7 +46,7 @@ def printNewAccountScreen():
             while True:
                 confirm = input("Input c to continue or x to return to menu: ").upper()
                 if confirm == "X":
-                    return 0
+                    return None
                 elif confirm == "C":
                     break
     else:

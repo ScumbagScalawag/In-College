@@ -1,5 +1,4 @@
 from common_utils.utils import clearScreen, userSearch, loadUsers
-from pages.main_menu import printMainMenu
 
 MAX_LOGIN_ATTEMPTS = 5
 
@@ -25,8 +24,7 @@ def printLoginScreen():
         if currentUser != False:  # and loginAttempts <= maximum attempts allowed
             # Valid Login
             print("You have successfully logged in")
-            printMainMenu(currentUser)
-            return 0
+            return currentUser
         else:
             # Invalid Login
             print("Incorrect username / password, please try again")
@@ -40,6 +38,6 @@ def printLoginScreen():
             while True:
                 confirm = input("Input c to continue or x to return to menu: ")
                 if confirm.upper() == "X":
-                    return 0
+                    return None
                 elif confirm.upper() == "C":
                     break
