@@ -61,11 +61,23 @@ def loadJobs():
 
 
 def userSearch(
-    users, username=None, password=None, firstname=None, lastname=None, returnUsername=False
+    users, username=None, password=None, firstname=None, lastname=None, returnUsername=False, excludeList = []
 ):
     # serves as a flag that a previous requirement was used
     # also ensures that it doesn't get false positive for cases like a different user's password for example
     foundUserIndex = None
+
+    # creates exact copy of users so as not to modify outside users list
+    users = users[:]
+
+    # excludes users from search if requested
+    if len(excludeList) != 0:
+        matchlist = []
+        for i, user in enumerate(users):
+            if user["username"] in excludeList:
+                matchlist.append(i)
+        for match in reversed(matchlist):
+            users.pop(match)
 
     # check if username is incorrect
     if username != None:

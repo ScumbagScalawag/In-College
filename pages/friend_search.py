@@ -10,9 +10,66 @@ def printFriendSearchScreen(currentUser=None):
         printOptionList(friendSearchOptionList)
         first = input("First name: ")
         last = input("Last name: ")
+
+        # check for multiple users
+        foundUserList = []
+        foundUser = None
+        while True:
+            foundUser = userSearch(users, firstname=first, lastname=last, returnUsername=True, excludeList=foundUserList)
+            if foundUser != False:
+                foundUserList.append(foundUser)
+            else:
+                break
+
+        # if multiple users found, ask which username
+        # cancellation flag
+        flag = 0
+        if len(foundUserList) > 1:
+            print("Found multiple users with that name")
+            print("Which are you looking for?")
+            while True:
+                for i, user in enumerate(foundUserList):
+                    optionNum = i + 1
+                    print(optionNum, "-", user)
+                print("X - None of the above")
+                notInt = 0
+                userInput = input("")
+
+                # check if it is X, or make it an int
+                if userInput.upper() == "X":
+                    flag = 1
+                    break
+                else:
+                    try:
+                        userInput = int(userInput)
+                    except:
+                        notInt = 1
+
+                # not an int
+                if notInt:
+                    pass
+                # not an option
+                elif userInput < 1 or userInput > len(foundUserList):
+                    pass
+                # otherwise, select option
+                else:
+                    i = userInput - 1
+                    foundUser = foundUserList[i]
+                    break
+                # print message before reiterating options
+                print("Invalid input, select one of the following options:")
+
+        # if only one user in list, use that one
+        elif len(foundUserList) == 1:
+            foundUser = foundUserList[0]
+
+        # skip making connection if user not found or not selected from list
+        if flag:
+            pass
+        elif foundUser == False:
+            print("They are not yet a part of the InCollege system yet")
         # If found, display
-        foundUser = userSearch(users, firstname=first, lastname=last, returnUsername=True)
-        if foundUser != False:
+        else:
             print("They are a part of the InCollege system")
             # If logged in, friend request?
             if currentUser != None:
@@ -31,8 +88,7 @@ def printFriendSearchScreen(currentUser=None):
             else:
                 return -1
         # If not found, display
-        else:
-            print("They are not yet a part of the InCollege system yet")
+        
 
         # Allow return
         while True:
