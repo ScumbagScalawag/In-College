@@ -28,11 +28,11 @@ def printGeneralScreen(currentUser=None):
         elif userInput == "3":
             printPress()
         elif userInput == "4":
-            continue
+            printBlog()
         elif userInput == "5":
-            continue
+            printCareers()
         elif userInput == "6":
-            continue
+            printDevelopers()
         # option only available in logged out mode
         elif userInput == "7" and currentUser == None:
             currentUser = printNewAccountScreen()
@@ -55,6 +55,7 @@ generalOptionsList = [
 #"7 - Sign up", <- appended only if not logged in
 #"X - Return to previous menu" <- appended every time
 
+#TODO Clean this up to match other pages
 def printHelpCenter():
     clearScreen()
     print(
@@ -65,6 +66,7 @@ Press any button to return''')
     userInput = input("")
     return
 
+#TODO Clean this up to match other pages
 def printAbout():
     clearScreen()
     print(
@@ -78,6 +80,7 @@ Press any button to return'''
     userInput = input("")
     return
 
+#TODO Clean this up to match other pages
 def printPress():
     clearScreen()
     print(

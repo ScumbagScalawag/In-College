@@ -2,6 +2,8 @@ from common_utils.utils import clearScreen, printOptionList
 from pages.new_user_account import printNewAccountScreen
 from pages.links_general import printGeneralScreen
 from pages.under_construction import underConstructionMessage
+#TODO: 1. Split up link_screen into its respective pages
+#TODO: 2. Fix the test imports for new pages once
 
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
 def printUsefulLinkScreen(currentUser=None):
@@ -54,7 +56,7 @@ def printImportantLinkScreen():
             continue
         elif userInput == "X":
             break
-
+        #TODO: Invalid Input
     return 0
 
 def printBrowseInCollege():

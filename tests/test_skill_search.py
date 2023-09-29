@@ -1,5 +1,5 @@
 import pytest
-from pages.skill_search import printSkillScreen
+from pages.skill_search import printSkillScreen, skillOptionsList
 from pages.under_construction import underConstructionMessage
 
 
@@ -10,13 +10,7 @@ from pages.under_construction import underConstructionMessage
         (
             ["1", "anything"],
             [
-                "*** Learn a skill ***",
-                "1 - Learn how to skate",
-                "2 - Learn how to cook",
-                "3 - Learn how to drive",
-                "4 - Learn how to paint",
-                "5 - Learn how to whistle",
-                "6 - Return to main menu",
+                *skillOptionsList,
                 "*** Learn ",
                 underConstructionMessage(),
             ],

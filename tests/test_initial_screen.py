@@ -1,18 +1,19 @@
 from main import printInitialScreen
-from pages.initial_screen import printInitialScreen
+from pages.initial_screen import printInitialScreen, initialScreenOptionsList, testimonialOutputList
 import pytest
+
+# TODO: Possibly combine into *testimonialOutputList, *initialScreenOptionsList, *XoptionsList for testing. Xoptions list is not uniformly implemented so would need to be implemented and then imported to work.
+# - Lots of imports, + Simpler Code
+
+
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
     [
         (
             ["anything", "1"],
             [
-                "*** Welcome to InCollege ***",
-                "Here is a story from one of our users:",
-                "1 - Login as existing user",
-                "2 - Create a new InCollege account",
-                "3 - Find InCollege users",
-                "X - Close Program",
+                *testimonialOutputList,
+                *initialScreenOptionsList,
                 "Login to InCollege",
                 "Username: ",
             ],
@@ -21,63 +22,76 @@ import pytest
         (
             ["anything", "2"],  # New account screen
             [
-                "*** Welcome to InCollege ***",
-                "Here is a story from one of our users:",
-                "1 - Login as existing user",
-                "2 - Create a new InCollege account",
-                "3 - Find InCollege users",
-                "X - Close Program",
+                *testimonialOutputList,
+                *initialScreenOptionsList,
+                "*** Create a new user account ***",
+                "Username: ",
             ],
             [],
         ),
         (
             ["anything", "3"],  # Search for friend user
             [
-                "*** Welcome to InCollege ***",
-                "Here is a story from one of our users:",
-                "1 - Login as existing user",
-                "2 - Create a new InCollege account",
-                "3 - Find InCollege users",
-                "X - Close Program",
-                "*** Find A Friend ***",
+                *testimonialOutputList,
+                *initialScreenOptionsList,
+                "*** Find A Friend ***",  # TODO: Later down the line. Simplify other functions to use similar logic as friendSearchOptionList, might clutter up testing imports though
                 "Search for someone you know on InCollege",
+            ],
+            [],
+        ),
+        (
+            ["anything", "4"],
+            [
+                *testimonialOutputList,
+                *initialScreenOptionsList,
+                "*** Useful Links ***",  # TODO: *usefulLinksOptionsList
+            ],
+            [],
+        ),
+        (
+            ["anything", "5"],
+            [
+                *testimonialOutputList,
+                *initialScreenOptionsList,
+                "*** InCollege Important Links ***",  # TODO: *importantLinksOptionsList
             ],
             [],
         ),
         (
             ["anything", "X"],
             [
-                "*** Welcome to InCollege ***",
-                "Here is a story from one of our users:",
-                "1 - Login as existing user",
-                "2 - Create a new InCollege account",
-                "3 - Find InCollege users",
-                "X - Close Program",
+                *testimonialOutputList,
+                *initialScreenOptionsList,
                 "Exiting InCollege",
             ],
-            [0],
+            0,
         ),
         (
             ["anything", "FoamEarplugs"],
             [
-                "*** Welcome to InCollege ***",
-                "1 - Login as existing user",
-                "2 - Create a new InCollege account",
-                "3 - Find InCollege users",
-                "X - Close Program",
+                *testimonialOutputList,
+                *initialScreenOptionsList,
                 'Invalid selection please input "1" or "2"',
             ],
             [],
         ),
     ],
-    ids=["1-Login", "2-CreateNewAccount", "3-FindSomeone", "X-Close", "InvalidSelection"],
+    ids=[
+        "1-Login",
+        "2-CreateNewAccount",
+        "3-FindSomeone",
+        "4-UsefulLinks",
+        "5-ImportantLinks",
+        "X-Close",
+        "InvalidSelection",
+    ],
 )
 def testPrintInitial(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
-        printInitialScreen()
+        assert printInitialScreen() == expectedReturn
     except StopIteration:
         pass
     captured = capfd.readouterr()

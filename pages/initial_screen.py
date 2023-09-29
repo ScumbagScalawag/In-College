@@ -5,6 +5,7 @@ from pages.new_user_account import printNewAccountScreen
 from pages.link_screens import printUsefulLinkScreen, printImportantLinkScreen
 from pages.main_menu import printMainMenu
 
+
 # Welcome screen and input
 def printInitialScreen():
     clearScreen()
@@ -71,5 +72,5 @@ initialScreenOptionsList = [
     "3 - Find InCollege users",
     "4 - Useful Links",
     "5 - InCollege Important Links",
-    "X - Close Program"
+    "X - Close Program",
 ]

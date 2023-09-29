@@ -11,7 +11,7 @@ singleUser = {
     "lastname": "McIvor",
     "connections": [],
 }
-
+# Three Accounts does not include single user
 threeAccounts = [
     {
         "username": "dummy",
@@ -35,7 +35,7 @@ threeAccounts = [
         "connections": ["admin"],
     },
 ]
-
+# four accounts = three + single user
 fourAccounts = [
     {
         "username": "asdfasdf",
@@ -66,7 +66,7 @@ fourAccounts = [
         "connections": [],
     },
 ]
-
+# 5 = 3 + 1 + 1
 fiveAccounts = [
     {
         "username": "dummy",

@@ -37,13 +37,21 @@ def testCreateAccountUnder5(monkeypatch, capfd):
 
     saveDatabase(JSON_USERS_FP, threeAccounts)
 
-    input_generator = iter(["usernew", "Johnathan", "Blow", "P@ssw0rd", "P@ssw0rd"])
+    input_generator = iter(
+        [
+            singleUser["username"],
+            singleUser["firstname"],
+            singleUser["lastname"],
+            singleUser["password"],
+            singleUser["password"],
+        ]
+    )
     # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
         # captured = capfd.readouterr()
-        printNewAccountScreen()
+        assert printNewAccountScreen() == singleUser["username"]
     except StopIteration:
         pass
     captured = capfd.readouterr()
