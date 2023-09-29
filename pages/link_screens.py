@@ -1,5 +1,7 @@
 from common_utils.utils import clearScreen, printOptionList
 from pages.new_user_account import printNewAccountScreen
+from pages.links_general import printGeneralScreen
+from pages.under_construction import underConstructionMessage
 
 # WIP none of the buttons do anything yet
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
@@ -10,13 +12,15 @@ def printUsefulLinkScreen(currentUser=None):
         userInput = input("")
 
         if userInput == "1":
-            continue
+            currentUser = printGeneralScreen()
+            if currentUser != None:
+                break
         elif userInput == "2":
-            continue
+            printBrowseInCollege()
         elif userInput == "3":
-            continue
+            printBusinessSolutions()
         elif userInput == "4":
-            continue
+            printDirectories()
         elif userInput == "X":
             break
 
@@ -54,6 +58,21 @@ def printImportantLinkScreen():
 
     return 0
 
+def printBrowseInCollege():
+    print("*** Browse InCollege ***")
+    print(underConstructionMessage)
+    userInput = input("")
+    return
+def printBusinessSolutions():
+    print("*** Business Solutions ***")
+    print(underConstructionMessage)
+    userInput = input("")
+    return
+def printDirectories():
+    print("*** Directories ***")
+    print(underConstructionMessage)
+    userInput = input("")
+    return
 
 usefulLinksOptionsList = [
     "*** Useful Links ***",
