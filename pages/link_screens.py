@@ -3,7 +3,6 @@ from pages.new_user_account import printNewAccountScreen
 from pages.links_general import printGeneralScreen
 from pages.under_construction import underConstructionMessage
 
-# WIP none of the buttons do anything yet
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
 def printUsefulLinkScreen(currentUser=None):
     while True:

@@ -6,25 +6,38 @@ from pages.under_construction import underConstructionMessage
 def printGeneralScreen(currentUser=None):
     while True:
         clearScreen()
-        printOptionList(generalOptionsList)
+        # copies default options
+        modifiedOptionsList = generalOptionsList
+        
+        # adds extra sign up option if not signed in already
+        if currentUser == None:
+            modifiedOptionsList.append("7 - Sign up")
+        
+        # adds return option everytime, has to do this after sign up to be at bottom
+        modifiedOptionsList.append("X - Return to previous menu")
+
+        # print menu
+        printOptionList(modifiedOptionsList)
         userInput = input("")
 
+        # process input
         if userInput == "1":
-            currentUser = printNewAccountScreen()
-            if currentUser != None:
-                break
-        elif userInput == "2":
             printHelpCenter()
-        elif userInput == "3":
+        elif userInput == "2":
             printAbout()
-        elif userInput == "4":
+        elif userInput == "3":
             printPress()
+        elif userInput == "4":
+            continue
         elif userInput == "5":
             continue
         elif userInput == "6":
             continue
-        elif userInput == "7":
-            continue
+        # option only available in logged out mode
+        elif userInput == "7" and currentUser == None:
+            currentUser = printNewAccountScreen()
+            if currentUser != None:
+                break
         elif userInput == "X":
             break
 
@@ -32,15 +45,15 @@ def printGeneralScreen(currentUser=None):
 
 generalOptionsList = [
     "*** General ***",
-    "1 - Sign up",
-    "2 - Help Center",
-    "3 - About",
-    "4 - Press",
-    "5 - Blog",
-    "6 - Careers",
-    "7 - Developers",
-    "X - Return to previous menu"
-]
+    "1 - Help Center",
+    "2 - About",
+    "3 - Press",
+    "4 - Blog",
+    "5 - Careers",
+    "6 - Developers"
+    ]
+#"7 - Sign up", <- appended only if not logged in
+#"X - Return to previous menu" <- appended every time
 
 def printHelpCenter():
     clearScreen()
