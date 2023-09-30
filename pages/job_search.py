@@ -86,6 +86,7 @@ def createJob(currentUser):
             currentUserIndex = None
             # get index of current user
             for i, user in enumerate(users):
+                print(user)
                 if user["username"] == currentUser:
                     currentUserIndex = i
                     break

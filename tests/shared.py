@@ -4,13 +4,15 @@ JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "
 JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
 # Users ------- [[[
-singleUser = {
-    "username": "asdfasdf",
-    "password": "P@ssw0rd",
-    "firstname": "Noah",
-    "lastname": "McIvor",
-    "connections": [],
-}
+singleUser = [
+    {
+        "username": "asdfasdf",
+        "password": "P@ssw0rd",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "connections": [],
+    },
+]
 # Three Accounts does not include single user
 threeAccounts = [
     {

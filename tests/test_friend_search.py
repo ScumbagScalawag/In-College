@@ -1,6 +1,9 @@
 import pytest
 from tests.shared import JSON_USERS_FP, singleUser, fourAccounts
-from pages.friend_search import printFriendSearchScreen  # Search Screen here to preload database
+from pages.friend_search import (
+    printFriendSearchScreen,
+    friendSearchOptionList,
+)  # Search Screen here to preload database
 from pages.new_user_account import saveDatabase  # Used to setup database
 import json
 
@@ -8,16 +11,22 @@ import json
 def testFriendSearchInSystem(monkeypatch, capfd):
     # in system
     saveDatabase(JSON_USERS_FP, fourAccounts)
-    input_generator = iter(["Dee", "Snuts", "Y", "X"])
+    input_generator = iter(
+        [
+            "Dee",
+            "Snuts",
+            "Y",
+            "X",
+        ]
+    )
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printFriendSearchScreen(singleUser["username"]) == 0  # Successful search
+        assert printFriendSearchScreen(singleUser[0]["username"]) == 0  # Successful search
     except StopIteration:
         pass
     captured = capfd.readouterr()  # assert captured
     responses = [
-        "*** Find A Friend ***",
-        "Search for someone you know on InCollege",
+        *friendSearchOptionList,
         "They are a part of the InCollege system",
         "Connection request sent",
     ]
@@ -38,14 +47,13 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
     )  # Note: Do not add a user "Foam Earplugs" into the test cases or this will not work as intended
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printFriendSearchScreen(singleUser["username"]) == 0  # Successful search
+        assert printFriendSearchScreen(singleUser[0]["username"]) == 0  # Successful search
     except StopIteration:
         pass
     captured = capfd.readouterr()
     # assert captured
     responses = [
-        "*** Find A Friend ***",
-        "Search for someone you know on InCollege",
+        *friendSearchOptionList,
         "They are not yet a part of the InCollege system yet",
     ]
     for r in responses:

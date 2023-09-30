@@ -1,73 +1,69 @@
-import json
-from common_utils import utils as u
-from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
-from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
 import pytest
 
+import json
+from common_utils.utils import loadUsers
+from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
+from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
 
-def test_CreateAccountOver5(capfd, monkeypatch):
-    # ensure DB is empty first
-    saveDatabase(JSON_USERS_FP, [])
-    # Load 5 accounts to Json
-    saveDatabase(JSON_USERS_FP, fiveAccounts)
 
-    # Confirm there are 5 accounts
-    userList = u.loadUsers()
-    print(userList)
-    assert len(userList) == 5
-
-    # Test 6th account
-    input_generator = iter(["user6", "Jesse", "Small", "P@ssword1", "P@ssword1"])
-    # print("before 6th iteration input generator")
+@pytest.mark.parametrize(
+    "mock_input,responses,startingUserDB,numUsers,expectedReturn",
+    [
+        (
+            ["user6", "Jesse", "Small", "P@ssword1", "P@ssword1", "anything"],
+            [
+                "All permitted accounts have been created, come back later",
+                "Please press any button to continue",
+            ],
+            fiveAccounts,
+            5,
+            -1,
+        ),
+        (
+            [
+                singleUser[0]["username"],
+                singleUser[0]["firstname"],
+                singleUser[0]["lastname"],
+                singleUser[0]["password"],
+                singleUser[0]["password"],
+            ],
+            [
+                "*** Create a new user account ***",
+                "First name:",
+                "Last name:",
+                "Username:",
+                "Password:",
+                # "Some message about job being created"
+            ],
+            threeAccounts,
+            3,
+            singleUser[0]["username"],
+        ),
+    ],
+    ids=[
+        "CreateAccountOver5",
+        "CreateAccountUnder5",
+    ],
+)
+def testCreateAccount(
+    mock_input, responses, startingUserDB, numUsers, expectedReturn, monkeypatch, capfd
+):
+    input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-    # print("after 6th iteration input generator")
 
-    captured = capfd.readouterr()
+    saveDatabase(JSON_USERS_FP, startingUserDB)
+    userList = loadUsers()
+    if numUsers is not None:
+        # If error here, then the database is the issue not the create account logic
+        assert len(userList) == numUsers
     try:
-        printNewAccountScreen()
+        assert printNewAccountScreen() == expectedReturn  # Successful search
     except StopIteration:
         pass
-    captured = capfd.readouterr()
-    assert "All permitted accounts have been created, come back later" in captured.out
+    captured = capfd.readouterr()  # assert captured
+    for r in responses:
+        assert r in captured.out  # Friend successfully added
 
-
-def testCreateAccountUnder5(monkeypatch, capfd):
-    # Make sure Json is clear
-    # Test with 3 accounts
-
-    saveDatabase(JSON_USERS_FP, threeAccounts)
-
-    input_generator = iter(
-        [
-            singleUser["username"],
-            singleUser["firstname"],
-            singleUser["lastname"],
-            singleUser["password"],
-            singleUser["password"],
-        ]
-    )
-    # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
-    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-
-    try:
-        # captured = capfd.readouterr()
-        assert printNewAccountScreen() == singleUser["username"]
-    except StopIteration:
-        pass
-    captured = capfd.readouterr()
-
-    title = "*** Create a new user account ***\n"
-    firstname = "First name:"
-    lastname = "Last name:"
-    username = "Username:"
-    password = "Password:"
-
-    # Better approach than whole-sale output assertions
-    assert title in captured.out
-    assert firstname in captured.out
-    assert lastname in captured.out
-    assert username in captured.out
-    assert password in captured.out
 
 
 @pytest.mark.parametrize(
@@ -79,9 +75,16 @@ def testCreateAccountUnder5(monkeypatch, capfd):
         "UPPERCASEONLY!",  # No digit
         "NoSpecialChars1",  # No special character
     ],
-    ids=["TooShort", "TooLong", "NoCapital", "NoDigit", "NoSpecial"],
+    ids=[
+        "TooShort",
+        "TooLong",
+        "NoCapital",
+        "NoDigit",
+        "NoSpecial",
+    ],
 )
 def test_invalid_password_criteria(password_input, monkeypatch, capfd):
+    saveDatabase(JSON_USERS_FP, threeAccounts)
     input_generator = iter(
         ["username", "TestFirstName", "TestLastName", password_input, password_input]
     )
@@ -99,18 +102,18 @@ def test_saveUser_and_loadUsers_when_database_is_empty():
     # [] -> "database is empty"
     saveUser(
         [],
-        singleUser["username"],
-        singleUser["password"],
-        singleUser["firstname"],
-        singleUser["lastname"],
+        singleUser[0]["username"],
+        singleUser[0]["password"],
+        singleUser[0]["firstname"],
+        singleUser[0]["lastname"],
     )
 
-    users = u.loadUsers()
+    users = loadUsers()
 
     print(users)
     print(users[0])
 
-    assert users[0] == singleUser
+    assert users[0] == singleUser[0]
 
 
 def test_saveDatabase():
@@ -139,8 +142,8 @@ def test_saveDatabase():
     # print(userDB)
 
     saveDatabase(JSON_USERS_FP, userList)
-    loadedUsers = u.loadUsers()
+    loadedUsers = loadUsers()
     # print("loadedusers", loadedUsers)
-    print(u.loadUsers())
+    print(loadUsers())
 
     assert loadedUsers == userList

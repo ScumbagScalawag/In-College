@@ -2,7 +2,7 @@ import pytest
 from pages.links_general import printGeneralScreen, generalOptionsList
 from tests.shared import threeAccounts, singleUser, fourAccounts, JSON_USERS_FP
 from pages.new_user_account import saveDatabase
-
+#TODO Rename this file when general gets its own .py file name
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
     [
@@ -110,17 +110,17 @@ def testPrintGeneralSignUp(monkeypatch, capfd):
     saveDatabase(JSON_USERS_FP, threeAccounts)
     mock_input = [
         "7",
-        singleUser["username"],
-        singleUser["firstname"],
-        singleUser["lastname"],
-        singleUser["password"],
-        singleUser["password"],
+        singleUser[0]["username"],
+        singleUser[0]["firstname"],
+        singleUser[0]["lastname"],
+        singleUser[0]["password"],
+        singleUser[0]["password"],
     ]
     responses = [
         *generalOptionsList,
         "*** Create a new user account ***",
     ]
-    expectedReturn = singleUser["username"]
+    expectedReturn = singleUser[0]["username"]
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
@@ -142,11 +142,11 @@ def testPrintGeneralSignUpNotShown(monkeypatch, capfd):
     responses_missing = [
         "7 - Sign up",
     ]
-    expectedReturn = singleUser["username"]
+    expectedReturn = singleUser[0]["username"]
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printGeneralScreen(singleUser["username"]) == expectedReturn
+        assert printGeneralScreen(singleUser[0]["username"]) == expectedReturn
     except StopIteration:
         pass
     captured = capfd.readouterr()
