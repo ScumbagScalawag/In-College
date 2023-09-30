@@ -3,7 +3,6 @@ from pages.skill_search import printSkillScreen, skillOptionsList
 from common_utils.messages import underConstructionMessage
 
 
-
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
     [
@@ -118,6 +117,7 @@ def testSkillsScreen(mock_input, responses, expectedReturn, monkeypatch, capfd):
     for r in responses:
         assert r in captured.out
 
+
 @pytest.mark.parametrize("input_value", ["1", "2", "3", "4", "5"])
 def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
     input_generator = iter([input_value])
@@ -130,6 +130,7 @@ def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
 
     captured = capfd.readouterr()
     assert underConstructionMessage() in captured.out
+
 
 @pytest.mark.parametrize("input_value", ["9", "0", "[1", "d", "r"])
 def testSkillsWrongInput(input_value, monkeypatch, capfd):

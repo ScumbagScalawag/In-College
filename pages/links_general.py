@@ -62,7 +62,6 @@ generalOptionsList = [
 # "X - Return to previous menu" <- appended every time
 
 
-# TODO Clean this up to match other pages
 def printHelpCenter():
     clearScreen()
     printOptionList(helpOptions)
@@ -73,7 +72,6 @@ def printHelpCenter():
 helpOptions = ["*** Help Center ***", "We're here to help!", "\n", anyButtonToContinueMessage()]
 
 
-# TODO Clean this up to match other pages
 def printAbout():
     clearScreen()
     printOptionList(aboutOptions)
@@ -90,7 +88,6 @@ aboutOptions = [
 ]
 
 
-# TODO Clean this up to match other pages
 def printPress():
     clearScreen()
     printOptionList(pressOptions)
