@@ -1,4 +1,5 @@
 from common_utils.utils import clearScreen, printOptionList
+from common_utils.messages import anyButtonToContinueMessage
 from pages.friend_search import printFriendSearchScreen
 from pages.login import printLoginScreen
 from pages.new_user_account import printNewAccountScreen
@@ -61,7 +62,7 @@ a website dedicated to college students, and to be able to connect with all of
 my friends and peers. I even found my first internship through In-College and will
 be starting there next month! I can't thank In-College enough for helping me 
 succeed in my early career development. """,
-    "Press any button to continue",
+    anyButtonToContinueMessage(),
 ]
 
 

@@ -1,4 +1,5 @@
 from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
+from common_utils.messages import anyButtonToContinueMessage
 import json
 
 MAXUSERS = 5
@@ -53,7 +54,7 @@ def printNewAccountScreen():
         print(
             "All permitted accounts have been created, come back later"
         )  # Requirement for 5 accounts response
-        print("Please press any button to continue")
+        print(anyButtonToContinueMessage())
         userInput = input("")
     return -1
 

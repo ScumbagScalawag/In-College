@@ -1,7 +1,7 @@
 import json
 
 from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList
-from common_utils.messages import underConstructionMessage
+from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
 
 MAXJOBS = 5
 
@@ -100,6 +100,6 @@ def createJob(currentUser):
     print(
         "All permitted jobs have been posted, please try again later"
     )  # Requirement for 5 accounts response
-    print("Please press any button to continue")
+    print(anyButtonToContinueMessage())
     tempInput = input("")
     return -1

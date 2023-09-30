@@ -1,6 +1,11 @@
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import returnToPreviousMenuMessage, underConstructionMessage
+from common_utils.messages import (
+    anyButtonToContinueMessage,
+    returnToPreviousMenuMessage,
+    underConstructionMessage,
+)
 from pages.new_user_account import printNewAccountScreen
+
 
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
 def printGeneralScreen(currentUser=None):
@@ -8,11 +13,11 @@ def printGeneralScreen(currentUser=None):
         clearScreen()
         # copies default options
         modifiedOptionsList = generalOptionsList
-        
+
         # adds extra sign up option if not signed in already
         if currentUser == None:
             modifiedOptionsList.append("7 - Sign up")
-        
+
         # adds return option everytime, has to do this after sign up to be at bottom
         modifiedOptionsList.append(returnToPreviousMenuMessage())
 
@@ -43,6 +48,7 @@ def printGeneralScreen(currentUser=None):
 
     return currentUser
 
+
 generalOptionsList = [
     "*** General ***",
     "1 - Help Center",
@@ -50,61 +56,78 @@ generalOptionsList = [
     "3 - Press",
     "4 - Blog",
     "5 - Careers",
-    "6 - Developers"
-    ]
-#"7 - Sign up", <- appended only if not logged in
-#"X - Return to previous menu" <- appended every time
+    "6 - Developers",
+]
+# "7 - Sign up", <- appended only if not logged in
+# "X - Return to previous menu" <- appended every time
 
-#TODO Clean this up to match other pages
+
+# TODO Clean this up to match other pages
 def printHelpCenter():
     clearScreen()
-    print(
-'''*** Help Center ***
-We're here to help!
-
-Press any button to return''')
+    printOptionList(helpOptions)
     userInput = input("")
     return
 
-#TODO Clean this up to match other pages
+
+helpOptions = ["*** Help Center ***", "We're here to help!", "\n", anyButtonToContinueMessage()]
+
+
+# TODO Clean this up to match other pages
 def printAbout():
     clearScreen()
-    print(
-'''*** About ***
-In College: Welcome to In College, the world's largest
-college student network with many users in many countries
-and territories worldwide
-
-Press any button to return'''
-    )
+    printOptionList(aboutOptions)
     userInput = input("")
     return
 
-#TODO Clean this up to match other pages
+
+aboutOptions = [
+    "*** About ***",
+    """In College: Welcome to In College, the world's largest
+    college student network with many users in many countries
+    and territories worldwide\n""",
+    anyButtonToContinueMessage(),
+]
+
+
+# TODO Clean this up to match other pages
 def printPress():
     clearScreen()
-    print(
-'''*** Press ***
-In College Pressroom: Stay on top of the latest
-news, updates, and reports
-
-Press any button to return'''
-    )
+    printOptionList(pressOptions)
     userInput = input("")
     return
+
+
+pressOptions = [
+    "*** Press ***",
+    """In College Pressroom: Stay on top of the latest
+    news, updates, and reports\n""",
+    anyButtonToContinueMessage(),
+]
+
 
 def printBlog():
-    print("*** Blog ***")
-    print(underConstructionMessage())
+    printOptionList(blogOptions)
     userInput = input("")
     return
+
+
+blogOptions = ["*** Blog ***\n", underConstructionMessage()]
+
+
 def printCareers():
-    print("*** Careers ***")
-    print(underConstructionMessage())
+    printOptionList(careersOptions)
     userInput = input("")
     return
+
+
+careersOptions = ["*** Careers ***\n", underConstructionMessage()]
+
+
 def printDevelopers():
-    print("*** Developers ***")
-    print(underConstructionMessage())
+    printOptionList(developersOptions)
     userInput = input("")
     return
+
+
+developersOptions = ["*** Developers ***\n", underConstructionMessage()]

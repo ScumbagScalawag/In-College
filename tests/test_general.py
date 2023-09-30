@@ -1,69 +1,49 @@
 import pytest
-from pages.links_general import printGeneralScreen, generalOptionsList
+from pages.links_general import (
+    printGeneralScreen,
+    generalOptionsList,
+    aboutOptions,
+    pressOptions,
+    blogOptions,
+    careersOptions,
+    developersOptions,
+    helpOptions,
+)
 from tests.shared import threeAccounts, singleUser, fourAccounts, JSON_USERS_FP
 from pages.new_user_account import saveDatabase
+
 
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
     [
         (
             ["1"],  # HelpCenter
-            [
-                *generalOptionsList,
-                """*** Help Center ***
-We're here to help!
-
-Press any button to return""",
-            ],
+            [*generalOptionsList, *helpOptions],
             [],
         ),
         (
             ["2"],  # About
-            [
-                *generalOptionsList,
-                """*** About ***
-In College: Welcome to In College, the world's largest
-college student network with many users in many countries
-and territories worldwide
-
-Press any button to return""",
-            ],
+            [*generalOptionsList, *aboutOptions],
             [],
         ),
         (
             ["3"],  # Press
-            [
-                *generalOptionsList,
-                """*** Press ***
-In College Pressroom: Stay on top of the latest
-news, updates, and reports
-
-Press any button to return""",
-            ],
+            [*generalOptionsList, *pressOptions],
             [],
         ),
         (
             ["4"],  # Blog
-            [
-                *generalOptionsList,
-                "*** Blog ***",
-            ],
+            [*generalOptionsList, *blogOptions],
             [],
         ),
         (
             ["5"],  # Careers
-            [
-                *generalOptionsList,
-                "*** Careers ***",
-            ],
+            [*generalOptionsList, *careersOptions],
             [],
         ),
         (
             ["6"],  # Developers
-            [
-                *generalOptionsList,
-                "*** Developers ***",
-            ],
+            [*generalOptionsList, *developersOptions],
             [],
         ),
         (
@@ -134,7 +114,7 @@ def testPrintGeneralSignUp(monkeypatch, capfd):
 
 # Test to see if option 7 shows up if logged in
 def testPrintGeneralSignUpNotShown(monkeypatch, capfd):
-    saveDatabase(JSON_USERS_FP, fourAccounts) #not needed but just incase
+    saveDatabase(JSON_USERS_FP, fourAccounts)  # not needed but just incase
     mock_input = ["anything"]
     responses = [
         *generalOptionsList,

@@ -1,7 +1,7 @@
 import pytest
 from pages.new_user_account import saveDatabase
 from pages.job_search import printJobSearchScreen, saveJobDatabase
-from common_utils.messages import underConstructionMessage
+from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
 from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs
 
 
@@ -41,7 +41,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
                 "2 - Post Job/Internship",
                 "3 - Return to Main Menu",
                 "All permitted jobs have been posted, please try again later",
-                "Please press any button to continue",
+                anyButtonToContinueMessage(),
             ],
             fiveJobs,
             None,
