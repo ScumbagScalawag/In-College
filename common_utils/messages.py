@@ -6,3 +6,6 @@ def returnToPreviousMenuMessage():
 
 def anyButtonToContinueMessage():
     return "Press any button to continue"
+
+def invalidInput(allowedInput):
+    return "Invalid selection please input" + allowedInput
