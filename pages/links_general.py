@@ -1,6 +1,6 @@
 from common_utils.utils import clearScreen, printOptionList
+from common_utils.messages import underConstructionMessage
 from pages.new_user_account import printNewAccountScreen
-from pages.under_construction import underConstructionMessage
 
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
 def printGeneralScreen(currentUser=None):
@@ -95,16 +95,16 @@ Press any button to return'''
 
 def printBlog():
     print("*** Blog ***")
-    print(underConstructionMessage)
+    print(underConstructionMessage())
     userInput = input("")
     return
 def printCareers():
     print("*** Careers ***")
-    print(underConstructionMessage)
+    print(underConstructionMessage())
     userInput = input("")
     return
 def printDevelopers():
     print("*** Developers ***")
-    print(underConstructionMessage)
+    print(underConstructionMessage())
     userInput = input("")
     return

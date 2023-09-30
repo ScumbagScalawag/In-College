@@ -2,7 +2,7 @@ import pytest
 from pages.link_screens import printUsefulLinkScreen, usefulLinksOptionsList
 
 # underConstructionMessage = "under construction, input anything to return" #
-from pages.under_construction import underConstructionMessage
+from common_utils.messages import underConstructionMessage
 
 
 @pytest.mark.parametrize(

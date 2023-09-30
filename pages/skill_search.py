@@ -1,5 +1,5 @@
 from common_utils.utils import clearScreen, printOptionList
-from pages.under_construction import underConstructionMessage
+from common_utils.messages import underConstructionMessage
 
 SKILL_LIST = [
     {"name": "Skating", "desc": underConstructionMessage()},
@@ -11,14 +11,14 @@ SKILL_LIST = [
 
 
 skillOptionsList = [
-        "*** Learn a skill ***",
-        "1 - Learn how to skate",
-        "2 - Learn how to cook",
-        "3 - Learn how to drive",
-        "4 - Learn how to paint",
-        "5 - Learn how to whistle",
-        "6 - Return to main menu",
-    ]
+    "*** Learn a skill ***",
+    "1 - Learn how to skate",
+    "2 - Learn how to cook",
+    "3 - Learn how to drive",
+    "4 - Learn how to paint",
+    "5 - Learn how to whistle",
+    "6 - Return to main menu",
+]
 
 
 # user has selected to "Learn a skill"

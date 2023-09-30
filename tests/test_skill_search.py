@@ -1,6 +1,6 @@
 import pytest
 from pages.skill_search import printSkillScreen, skillOptionsList
-from pages.under_construction import underConstructionMessage
+from common_utils.messages import underConstructionMessage
 
 
 
@@ -129,7 +129,7 @@ def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
         pass
 
     captured = capfd.readouterr()
-    assert "under construction, input anything to return" in captured.out
+    assert underConstructionMessage() in captured.out
 
 @pytest.mark.parametrize("input_value", ["9", "0", "[1", "d", "r"])
 def testSkillsWrongInput(input_value, monkeypatch, capfd):

@@ -1,9 +1,10 @@
 from common_utils.utils import clearScreen, printOptionList
-from pages.new_user_account import printNewAccountScreen
+from common_utils.messages import underConstructionMessage
 from pages.links_general import printGeneralScreen
-from pages.under_construction import underConstructionMessage
-#TODO: 1. Split up link_screen into its respective pages
-#TODO: 2. Fix the test imports for new pages once
+
+# TODO: 1. Split up link_screen into its respective pages
+# TODO: 2. Fix the test imports for new pages once
+
 
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
 def printUsefulLinkScreen(currentUser=None):
@@ -26,6 +27,7 @@ def printUsefulLinkScreen(currentUser=None):
             break
 
     return currentUser
+
 
 # opens important links menu
 def printImportantLinkScreen():
@@ -56,24 +58,30 @@ def printImportantLinkScreen():
             continue
         elif userInput == "X":
             break
-        #TODO: Invalid Input
+        # TODO: Invalid Input
     return 0
+
 
 def printBrowseInCollege():
     print("*** Browse InCollege ***")
-    print(underConstructionMessage)
+    print(underConstructionMessage())
     userInput = input("")
     return
+
+
 def printBusinessSolutions():
     print("*** Business Solutions ***")
-    print(underConstructionMessage)
+    print(underConstructionMessage())
     userInput = input("")
     return
+
+
 def printDirectories():
     print("*** Directories ***")
-    print(underConstructionMessage)
+    print(underConstructionMessage())
     userInput = input("")
     return
+
 
 usefulLinksOptionsList = [
     "*** Useful Links ***",
@@ -81,7 +89,7 @@ usefulLinksOptionsList = [
     "2 - Browse InCollege",
     "3 - Business Solutions",
     "4 - Directories",
-    "X - Return to previous menu"
+    "X - Return to previous menu",
 ]
 
 importantLinksOptionsList = [
@@ -96,5 +104,5 @@ importantLinksOptionsList = [
     "8 - Brand Policy",
     "9 - Guest Controls",
     "10 - Languages",
-    "X - Return to previous menu"
+    "X - Return to previous menu",
 ]

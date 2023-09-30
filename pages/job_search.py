@@ -1,7 +1,7 @@
 import json
 
 from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList
-from pages.under_construction import underConstructionMessage
+from common_utils.messages import underConstructionMessage
 
 MAXJOBS = 5
 

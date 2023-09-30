@@ -1,7 +1,7 @@
 import pytest
 from pages.new_user_account import saveDatabase
 from pages.job_search import printJobSearchScreen, saveJobDatabase
-from pages.under_construction import underConstructionMessage
+from common_utils.messages import underConstructionMessage
 from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs
 
 
