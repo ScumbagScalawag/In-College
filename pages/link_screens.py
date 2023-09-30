@@ -1,5 +1,5 @@
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import underConstructionMessage
+from common_utils.messages import returnToPreviousMenuMessage, underConstructionMessage
 from pages.links_general import printGeneralScreen
 
 # TODO: 1. Split up link_screen into its respective pages
@@ -89,7 +89,7 @@ usefulLinksOptionsList = [
     "2 - Browse InCollege",
     "3 - Business Solutions",
     "4 - Directories",
-    "X - Return to previous menu",
+    returnToPreviousMenuMessage(),
 ]
 
 importantLinksOptionsList = [
@@ -104,5 +104,5 @@ importantLinksOptionsList = [
     "8 - Brand Policy",
     "9 - Guest Controls",
     "10 - Languages",
-    "X - Return to previous menu",
+    returnToPreviousMenuMessage(),
 ]

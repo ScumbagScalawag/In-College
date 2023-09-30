@@ -1,5 +1,5 @@
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import underConstructionMessage
+from common_utils.messages import returnToPreviousMenuMessage, underConstructionMessage
 from pages.new_user_account import printNewAccountScreen
 
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
@@ -14,7 +14,7 @@ def printGeneralScreen(currentUser=None):
             modifiedOptionsList.append("7 - Sign up")
         
         # adds return option everytime, has to do this after sign up to be at bottom
-        modifiedOptionsList.append("X - Return to previous menu")
+        modifiedOptionsList.append(returnToPreviousMenuMessage())
 
         # print menu
         printOptionList(modifiedOptionsList)
