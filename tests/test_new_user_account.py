@@ -71,11 +71,11 @@ def testCreateAccountUnder5(monkeypatch, capfd):
         ),
         (
             [
-                singleUser[0]["username"],
-                singleUser[0]["firstname"],
-                singleUser[0]["lastname"],
-                singleUser[0]["password"],
-                singleUser[0]["password"],
+                singleUser["username"],
+                singleUser["firstname"],
+                singleUser["lastname"],
+                singleUser["password"],
+                singleUser["password"],
             ],
             [
                 "*** Create a new user account ***",
@@ -87,7 +87,7 @@ def testCreateAccountUnder5(monkeypatch, capfd):
             ],
             threeAccounts,
             3,
-            singleUser[0]["username"],
+            singleUser["username"],
         ),
     ],
     ids=[
