@@ -21,15 +21,16 @@ def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]
         userInput = input("")
 
         if userInput == "1":
-            currentUser = toggleUserEmailSubscription()
+            currentUser = toggleUserEmailSubscription(currentUser)
+            # make sure DB/Json is updated too
             userDB.updateUser(currentUser)
             continue
         elif userInput == "2":
-            currentUser = toggleUserSmsSubscription()
+            currentUser = toggleUserSmsSubscription(currentUser)
             userDB.updateUser(currentUser)
             continue
         elif userInput == "3":
-            currentUser = toggleUserTargetedAds()
+            currentUser = toggleUserTargetedAds(currentUser)
             userDB.updateUser(currentUser)
             continue
         elif userInput.upper() == "X":

@@ -21,16 +21,16 @@ def printUsefulLinkScreen(currentUser: Optional[User] = None) -> Optional[User]:
         userInput = input("")
 
         if userInput == "1":
-            currentUser = printGeneralScreen()
+            currentUser = printGeneralScreen(currentUser)
             if currentUser != None:
                 break
         elif userInput == "2":
-            printBrowseInCollege()
+            currentUser = printBrowseInCollege(currentUser)
         elif userInput == "3":
-            printBusinessSolutions()
+            currentUser = printBusinessSolutions(currentUser)
         elif userInput == "4":
-            printDirectories()
-        elif userInput == "X":
+            currentUser = printDirectories(currentUser)
+        elif userInput.upper() == "X":
             break
 
     return currentUser
@@ -53,7 +53,7 @@ def printImportantLinkScreen(currentUser: Optional[User] = None) -> Optional[Use
         elif userInput == "4":
             continue
         elif userInput == "5":
-            printPrivacyPolicyPage(currentUser)
+            currentUser = printPrivacyPolicyPage(currentUser)
             continue
         elif userInput == "6":
             continue
@@ -69,29 +69,28 @@ def printImportantLinkScreen(currentUser: Optional[User] = None) -> Optional[Use
             break
         else:
             invalidInput("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, or X")
-        # TODO: Invalid Input
-    return 0
+    return currentUser
 
 
-def printBrowseInCollege():
+def printBrowseInCollege(currentUser: Optional[User] = None) -> Optional[User]:
     print("*** Browse InCollege ***")
     print(underConstructionMessage())
     userInput = input("")
-    return
+    return currentUser
 
 
-def printBusinessSolutions():
+def printBusinessSolutions(currentUser: Optional[User] = None) -> Optional[User]:
     print("*** Business Solutions ***")
     print(underConstructionMessage())
     userInput = input("")
-    return
+    return currentUser
 
 
-def printDirectories():
+def printDirectories(currentUser: Optional[User] = None) -> Optional[User]:
     print("*** Directories ***")
     print(underConstructionMessage())
     userInput = input("")
-    return
+    return currentUser
 
 
 usefulLinksOptionsList = [

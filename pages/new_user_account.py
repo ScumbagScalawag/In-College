@@ -1,3 +1,4 @@
+from typing import Optional
 from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
 from common_utils.messages import anyButtonToContinueMessage
 from common_utils.types.user import User
@@ -8,10 +9,14 @@ MAXUSERS = 5
 
 
 # Menu: Add new user account
-def printNewAccountScreen() -> User | None:
+def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
     # users = loadUsers()
     userDB = UserDatabase()
     userDB.loadUsers()
+
+    if currentUser is not None:
+        print("You are already Logged in. Please log out to create another account.")
+        return currentUser
 
     if len(userDB.userlist) < MAXUSERS:  # Requirement for 5 accounts
         while True:

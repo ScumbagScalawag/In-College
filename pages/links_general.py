@@ -1,3 +1,5 @@
+from typing import Optional
+from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
 from common_utils.messages import (
     anyButtonToContinueMessage,
@@ -8,7 +10,7 @@ from pages.new_user_account import printNewAccountScreen
 
 
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
-def printGeneralScreen(currentUser=None):
+def printGeneralScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
         # copies default options
@@ -43,7 +45,7 @@ def printGeneralScreen(currentUser=None):
             currentUser = printNewAccountScreen()
             if currentUser != None:
                 break
-        elif userInput == "X":
+        elif userInput.upper() == "X":
             break
 
     return currentUser
@@ -62,21 +64,21 @@ generalOptionsList = [
 # "X - Return to previous menu" <- appended every time
 
 
-def printHelpCenter():
+def printHelpCenter(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     printOptionList(helpOptions)
     userInput = input("")
-    return
+    return currentUser
 
 
 helpOptions = ["*** Help Center ***", "We're here to help!", "\n", anyButtonToContinueMessage()]
 
 
-def printAbout():
+def printAbout(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     printOptionList(aboutOptions)
     userInput = input("")
-    return
+    return currentUser
 
 
 aboutOptions = [
@@ -88,11 +90,11 @@ aboutOptions = [
 ]
 
 
-def printPress():
+def printPress(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     printOptionList(pressOptions)
     userInput = input("")
-    return
+    return currentUser
 
 
 pressOptions = [
@@ -103,28 +105,28 @@ pressOptions = [
 ]
 
 
-def printBlog():
+def printBlog(currentUser: Optional[User] = None) -> Optional[User]:
     printOptionList(blogOptions)
     userInput = input("")
-    return
+    return currentUser
 
 
 blogOptions = ["*** Blog ***\n", underConstructionMessage()]
 
 
-def printCareers():
+def printCareers(currentUser: Optional[User] = None) -> Optional[User]:
     printOptionList(careersOptions)
     userInput = input("")
-    return
+    return currentUser
 
 
 careersOptions = ["*** Careers ***\n", underConstructionMessage()]
 
 
-def printDevelopers():
+def printDevelopers(currentUser: Optional[User] = None) -> Optional[User]:
     printOptionList(developersOptions)
     userInput = input("")
-    return
+    return currentUser
 
 
 developersOptions = ["*** Developers ***\n", underConstructionMessage()]

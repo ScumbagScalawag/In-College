@@ -67,12 +67,12 @@ class UserDatabase:
         return False
 
     # pass username, not User.
-    def getUser(self, username: str):
+    def getUser(self, username: str) -> Optional[User]:
         for user in self.userlist:
             if user.username == username:
                 return user
 
-        return False
+        return None
 
     def userSearch(self, firstname, lastname) -> Optional[User]:
         for user in self.userlist:

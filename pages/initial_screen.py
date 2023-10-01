@@ -12,9 +12,15 @@ from pages.main_menu import printMainMenu
 # Welcome screen and input
 def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
+
     while True:
         printTestimonialPage()
         clearScreen()
+
+        # for testing context
+        # print(type(currentUser))
+        # print(currentUser)
+        # print("\n")
 
         printOptionList(initialScreenOptionsList)
 
@@ -42,8 +48,7 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
             # Go to important links page
             currentUser = printImportantLinkScreen(currentUser)
         elif userInput == "6":
-            # Go to important links page
-            printMainMenu(currentUser)
+            currentUser = printMainMenu(currentUser)
         elif userInput.upper() == "X":
             print("Exiting InCollege")
             break
