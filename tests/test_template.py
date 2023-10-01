@@ -62,6 +62,7 @@ def testTempName(mock_input, responses, expectedReturn, monkeypatch, capfd):
 # can be used for individual tests: use case of needing to save a database before hand for a single test
 # if multiple tests, can be done with @pytest.mark.parametrize, read documentation on how to change it
 # to change paramertize to handle the loading of diffrent databases, make a new variable for them have it be included in the test's function definition NAME(monkeypatch, capfd, ..., NEWVARIABLE)
+# look at new_user_account tests and job search tests to see paramertized implementation of it
 def testWithDatabaseSet(monkeypatch, capfd):
     saveDatabase(JSON_USERS_FP, fourAccounts)
     input_generator = iter(

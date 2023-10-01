@@ -1,11 +1,12 @@
+import pytest
 import json
 from common_utils import utils as u
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
 from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
-import pytest
 
+from common_utils.utils import loadUsers #TODO
 
 def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
@@ -53,8 +54,58 @@ def testCreateAccountUnder5(monkeypatch, capfd):
         ]
     )
     # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
+
+
+@pytest.mark.parametrize(
+    "mock_input,responses,startingUserDB,numUsers,expectedReturn",
+    [
+        (
+            ["user6", "Jesse", "Small", "P@ssword1", "P@ssword1", "anything"],
+            [
+                "All permitted accounts have been created, come back later",
+                "Please press any button to continue",
+            ],
+            fiveAccounts,
+            5,
+            -1,
+        ),
+        (
+            [
+                singleUser[0]["username"],
+                singleUser[0]["firstname"],
+                singleUser[0]["lastname"],
+                singleUser[0]["password"],
+                singleUser[0]["password"],
+            ],
+            [
+                "*** Create a new user account ***",
+                "First name:",
+                "Last name:",
+                "Username:",
+                "Password:",
+                # "Some message about job being created"
+            ],
+            threeAccounts,
+            3,
+            singleUser[0]["username"],
+        ),
+    ],
+    ids=[
+        "CreateAccountOver5",
+        "CreateAccountUnder5",
+    ],
+)
+def testCreateAccount(
+    mock_input, responses, startingUserDB, numUsers, expectedReturn, monkeypatch, capfd
+):
+    input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
+    saveDatabase(JSON_USERS_FP, startingUserDB)
+    userList = loadUsers()
+    if numUsers is not None:
+        # If error here, then the database is the issue not the create account logic
+        assert len(userList) == numUsers
     try:
         # captured = capfd.readouterr()
         userContext = printNewAccountScreen()
@@ -65,20 +116,10 @@ def testCreateAccountUnder5(monkeypatch, capfd):
             print("Something went wrong assigning user context!")
     except StopIteration:
         pass
-    captured = capfd.readouterr()
+    captured = capfd.readouterr()  # assert captured
+    for r in responses:
+        assert r in captured.out  # Friend successfully added
 
-    title = "*** Create a new user account ***\n"
-    firstname = "First name:"
-    lastname = "Last name:"
-    username = "Username:"
-    password = "Password:"
-
-    # Better approach than whole-sale output assertions
-    assert title in captured.out
-    assert firstname in captured.out
-    assert lastname in captured.out
-    assert username in captured.out
-    assert password in captured.out
 
 
 @pytest.mark.parametrize(
@@ -90,7 +131,13 @@ def testCreateAccountUnder5(monkeypatch, capfd):
         "UPPERCASEONLY!",  # No digit
         "NoSpecialChars1",  # No special character
     ],
-    ids=["TooShort", "TooLong", "NoCapital", "NoDigit", "NoSpecial"],
+    ids=[
+        "TooShort",
+        "TooLong",
+        "NoCapital",
+        "NoDigit",
+        "NoSpecial",
+    ],
 )
 def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     # ensure DB is empty first

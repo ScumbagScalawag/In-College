@@ -1,6 +1,6 @@
 import pytest
 from pages.new_user_account import saveDatabase
-from pages.job_search import printJobSearchScreen, saveJobDatabase
+from pages.job_search import printJobSearchScreen, saveJobDatabase, jobOptionsList
 from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
 from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs
 
@@ -11,10 +11,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
         (
             ["1", "anything"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+                *jobOptionsList,
                 underConstructionMessage(),
             ],
             [],
@@ -23,23 +20,17 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
         (
             ["2", "Code Tester", "Test Code for hours", "Mr. Roth", "Home", "100"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+                *jobOptionsList,
                 "*** Create a new job posting ***",
                 # "Some message about job being created"
             ],
             fourJobs,
-            [0],
+            None,
         ),
         (
             ["2", "anything"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+               *jobOptionsList,
                 "All permitted jobs have been posted, please try again later",
                 anyButtonToContinueMessage(),
             ],
@@ -49,10 +40,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
         (
             ["3", "anything"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+                *jobOptionsList,
             ],
             [],
             singleUser["username"],
@@ -60,10 +48,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
         (
             ["4", "3"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+                *jobOptionsList,
                 'Invalid selection please input "1" or "2" or "3"',
             ],
             [],
@@ -71,10 +56,10 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
         ),
     ],
     ids=[
-        "JobSearchUnderConstruction",
-        "CreateJob",
-        "MaxJobsReached",
-        "ReturnMain",
+        "1-JobSearchUnderConstruction",
+        "2-CreateJob",
+        "2-MaxJobsReached",
+        "3-ReturnMain",
         "InvalidSelection",
     ],
 )
@@ -84,10 +69,8 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printJobSearchScreen(singleUser["username"]) == expectedReturn  # Successful search
+        assert printJobSearchScreen(singleUser[0]["username"]) == expectedReturn  # Successful search
     except StopIteration:
-        pass
-    except TypeError:
         pass
     captured = capfd.readouterr()  # assert captured
     for r in responses:
