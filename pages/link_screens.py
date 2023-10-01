@@ -1,6 +1,7 @@
 from common_utils.utils import clearScreen, printOptionList
 from common_utils.messages import returnToPreviousMenuMessage, underConstructionMessage
 from pages.links_general import printGeneralScreen
+from pages.privacy_policy import printPrivacyPolicyPage
 
 # TODO: 1. Split up link_screen into its respective pages
 # TODO: 2. Fix the test imports for new pages once
@@ -33,6 +34,7 @@ def printUsefulLinkScreen(currentUser=None):
 def printImportantLinkScreen():
     while True:
         clearScreen()
+        print("-----printImportantLinkScreen")
         printOptionList(importantLinksOptionsList)
         userInput = input("")
 
@@ -45,6 +47,7 @@ def printImportantLinkScreen():
         elif userInput == "4":
             continue
         elif userInput == "5":
+            printPrivacyPolicyPage()
             continue
         elif userInput == "6":
             continue
@@ -56,7 +59,7 @@ def printImportantLinkScreen():
             continue
         elif userInput == "10":
             continue
-        elif userInput == "X":
+        elif userInput.upper() == "X":
             break
         # TODO: Invalid Input
     return 0
