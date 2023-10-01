@@ -61,7 +61,7 @@ def loadJobs():
 
 
 def userSearch(
-    users, username=None, password=None, firstname=None, lastname=None, returnUsername=False
+    users, username=None, password=None, firstname=None, lastname=None, returnUsername=False, returnUserObject=False
 ):
     # serves as a flag that a previous requirement was used
     # also ensures that it doesn't get false positive for cases like a different user's password for example
@@ -117,6 +117,10 @@ def userSearch(
     # case for if we want to know the username, not just whether it exists
     if returnUsername:
         return users[foundUserIndex]["username"]
+
+    # case for if we want to return the entire user Object
+    if returnUserObject:
+        return users[foundUserIndex]
 
     # if nothing that was searched for is incorrect, it all must have been found
     return True

@@ -3,7 +3,7 @@ from common_utils.utils import clearScreen, printOptionList
 from pages.guest_controls import printGuestControlsPage
 
 
-def printPrivacyPolicyPage():
+def printPrivacyPolicyPage(currentUser=None):
     while True:
         # clearScreen()
         print("-----printPrivacyPolicyPage")

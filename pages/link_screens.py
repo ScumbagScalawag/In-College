@@ -1,5 +1,9 @@
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import returnToPreviousMenuMessage, underConstructionMessage
+from common_utils.messages import (
+    invalidInput,
+    returnToPreviousMenuMessage,
+    underConstructionMessage,
+)
 from pages.links_general import printGeneralScreen
 from pages.privacy_policy import printPrivacyPolicyPage
 
@@ -31,7 +35,7 @@ def printUsefulLinkScreen(currentUser=None):
 
 
 # opens important links menu
-def printImportantLinkScreen():
+def printImportantLinkScreen(currentUser=None):
     while True:
         clearScreen()
         print("-----printImportantLinkScreen")
@@ -47,7 +51,7 @@ def printImportantLinkScreen():
         elif userInput == "4":
             continue
         elif userInput == "5":
-            printPrivacyPolicyPage()
+            printPrivacyPolicyPage(currentUser)
             continue
         elif userInput == "6":
             continue
@@ -61,6 +65,8 @@ def printImportantLinkScreen():
             continue
         elif userInput.upper() == "X":
             break
+        else:
+            invalidInput("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, or X")
         # TODO: Invalid Input
     return 0
 
