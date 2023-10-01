@@ -1,3 +1,4 @@
+from typing import List
 from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
 from common_utils.messages import anyButtonToContinueMessage
 import json
@@ -28,7 +29,13 @@ def printNewAccountScreen():
                 if checkPasswordSecurity(password):  # Is password secure
                     passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
-                        saveUser(users, username, password, firstname, lastname)  # Add new account
+                        saveUser(
+                            users,
+                            username,
+                            password,
+                            firstname,
+                            lastname,
+                        )  # Add new account
                         currentUser = userSearch(
                             users, username=username, returnUsername=True
                         )  # get logged in user
@@ -83,13 +90,30 @@ def checkPasswordSecurity(password):
 
 
 # users takes the list, not the entire dict!
-def saveUser(users, username, password, firstname, lastname):
+def saveUser(
+    users: List,
+    username: str = "UNDEFINED",
+    password: str = "UNDEFINED",
+    firstname: str = "UNDEFINED",
+    lastname: str = "UNDEFINED",
+    email: str = "UNDEFINED",
+    phoneNumber: str = "UNDEFINED",
+    emailSub: bool = True,
+    smsSub: bool = True,
+    adSub: bool = True,
+    connections: List = []
+):
     newUser = {
         "username": username,
         "password": password,
         "firstname": firstname,
         "lastname": lastname,
-        "connections": [],
+        "email": email,
+        "phoneNumber": phoneNumber,
+        "emailSub": emailSub,
+        "smsSub": smsSub,
+        "adSub": adSub,
+        "connections": connections
     }
     users.append(newUser)
     saveDatabase(JSON_USERS_FP, users)

@@ -3,7 +3,7 @@ from common_utils.utils import clearScreen, printOptionList
 
 
 def printGuestControlsPage():
-    # clearScreen()
+    clearScreen()
     while True: 
         printOptionList(guestControlsList)
         userInput = input("")

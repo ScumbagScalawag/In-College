@@ -103,6 +103,11 @@ def test_saveUser_and_loadUsers_when_database_is_empty():
         singleUser["password"],
         singleUser["firstname"],
         singleUser["lastname"],
+        singleUser["email"],
+        singleUser["phoneNumber"],
+        singleUser["emailSub"],
+        singleUser["smsSub"],
+        singleUser["adSub"],
     )
 
     users = u.loadUsers()
@@ -118,29 +123,9 @@ def test_saveDatabase():
     with open(JSON_USERS_FP, "w") as outfile:
         json.dump({}, outfile, indent=4)
 
-    userList = [
-        {
-            "username": "admin",
-            "password": "Password1!",
-            "firstname": "Jo",
-            "lastname": "Mama",
-            "connections": [],
-        },
-        {
-            "username": "tester",
-            "password": "Password2@",
-            "firstname": "Dee",
-            "lastname": "Snuts",
-            "connections": ["admin"],
-        },
-    ]
-
-    print(userList)
-    # print(userDB)
+    userList = threeAccounts
 
     saveDatabase(JSON_USERS_FP, userList)
     loadedUsers = u.loadUsers()
-    # print("loadedusers", loadedUsers)
-    print(u.loadUsers())
 
     assert loadedUsers == userList

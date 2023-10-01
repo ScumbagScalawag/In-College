@@ -11,6 +11,11 @@ userDB = {
             "password": "Password1!",
             "firstname": "Jo",
             "lastname": "Mama",
+            "email": "asdfasdf@gmail.com",
+            "phoneNumber": "1932930298",
+            "emailSub": True,
+            "smsSub": True,
+            "adSub": True,
             "connections": [],
         },
         {
@@ -18,6 +23,11 @@ userDB = {
             "password": "Password2@",
             "firstname": "Dee",
             "lastname": "Snuts",
+            "email": "asdfasdf@gmail.com",
+            "phoneNumber": "1932930298",
+            "emailSub": True,
+            "smsSub": True,
+            "adSub": True,
             "connections": ["admin"],
         },
     ]
