@@ -1,3 +1,5 @@
+from typing import Optional
+from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
 from common_utils.messages import (
     invalidInput,
@@ -12,7 +14,7 @@ from pages.privacy_policy import printPrivacyPolicyPage
 
 
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
-def printUsefulLinkScreen(currentUser=None):
+def printUsefulLinkScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
         printOptionList(usefulLinksOptionsList)
@@ -35,7 +37,7 @@ def printUsefulLinkScreen(currentUser=None):
 
 
 # opens important links menu
-def printImportantLinkScreen(currentUser=None):
+def printImportantLinkScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
         print("-----printImportantLinkScreen")

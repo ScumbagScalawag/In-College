@@ -1,30 +1,30 @@
+from typing import Optional
+from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import underConstructionMessage
 from pages.friend_search import printFriendSearchScreen
 from pages.job_search import printJobSearchScreen
 from pages.skill_search import printSkillScreen
 
 
 # User has logged in menu
-def printMainMenu(currentUser):
+def printMainMenu(currentUser: Optional[User]) -> Optional[User]:
     clearScreen()
     while True:
         printOptionList(mainMenuOptionsList)
         userInput = input("")
         if userInput == "1":
-            printJobSearchScreen(currentUser)
+            currentUser = printJobSearchScreen(currentUser)
         elif userInput == "2":
-            print(underConstructionMessage())
-            printFriendSearchScreen(currentUser)
+            currentUser = printFriendSearchScreen(currentUser)
         elif userInput == "3":
-            printSkillScreen()
+            currentUser = printSkillScreen(currentUser)
         elif userInput.upper() == "X":
             print("Exiting InCollege")
             break
         else:
             print('Invalid selection please input "1" or "2" or "3"')
 
-    return 0
+    return currentUser
 
 
 mainMenuOptionsList = [

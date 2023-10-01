@@ -9,3 +9,6 @@ def anyButtonToContinueMessage():
 
 def invalidInput(allowedInput):
     return "Invalid selection please input" + allowedInput
+
+def mustBeLoggedIn():
+    return "You must be logged in to view this page"

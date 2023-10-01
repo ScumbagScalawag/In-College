@@ -142,7 +142,11 @@ class User:
 
     def addConnection(self, username: str):
         for connection in self.connections:
-            if connection == username:
+            # if connection already exists
+            if username == connection:
+                return False
+            # if you've put your own username
+            if username == self.username:
                 return False
 
         self.connections.append(username)

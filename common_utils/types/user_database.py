@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from common_utils.types.user import User
 import json
 
@@ -74,11 +74,37 @@ class UserDatabase:
 
         return False
 
+    def userSearch(self, firstname, lastname) -> Optional[User]:
+        for user in self.userlist:
+            if user.firstname == firstname and user.lastname == lastname:
+                return user
+
+        return None
+
+
+
+    def login(self, username: str, password: str):
+        for user in self.userlist:
+            if user.username == username and user.password == password:
+                return user
+
+        return None
+
     # SETTERS
     # simply writes the in-memory DB stuff into JSON
     def saveDatabase(self):
         with open(JSON_USERS_FP, "w") as outfile:
             json.dump(self.getDatabaseDict(), outfile, indent=4)
+
+    # Use for modifying users or replacing
+    def updateUser(self, alteredUser: Optional[User]):
+        if alteredUser is None:
+            return False
+        # find by username & replace
+        for user in self.userlist:
+            if user.username == alteredUser.username:
+                user = alteredUser
+        self.saveDatabase()
 
     # saveUser() -> addUser() for conventions sake
     # gets passed a User object

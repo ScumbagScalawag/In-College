@@ -1,3 +1,5 @@
+from typing import Optional
+from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
 from common_utils.messages import anyButtonToContinueMessage
 from pages.friend_search import printFriendSearchScreen
@@ -8,7 +10,7 @@ from pages.main_menu import printMainMenu
 
 
 # Welcome screen and input
-def printInitialScreen():
+def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     while True:
         printTestimonialPage()
@@ -21,30 +23,33 @@ def printInitialScreen():
         if userInput == "1":
             # Login as existing user. Go to Login page
             currentUser = printLoginScreen()
-            if currentUser != None:
-                printMainMenu(currentUser)
+            # if currentUser != None:
+            #     printMainMenu(currentUser)
         elif userInput == "2":
             # Create a new account. Go to create account page
             currentUser = printNewAccountScreen()
-            if currentUser != None:
-                printMainMenu(currentUser)
+            # if currentUser != None:
+            #     printMainMenu(currentUser)
         elif userInput == "3":
             # Search for users
             printFriendSearchScreen()
         elif userInput == "4":
             # Open main menu, login if an account was created at this screen
-            currentUser = printUsefulLinkScreen()
-            if currentUser != None:
-                printMainMenu(currentUser)
+            currentUser = printUsefulLinkScreen(currentUser)
+            # if currentUser != None:
+            #     printMainMenu(currentUser)
         elif userInput == "5":
             # Go to important links page
-            printImportantLinkScreen()
+            currentUser = printImportantLinkScreen(currentUser)
+        elif userInput == "6":
+            # Go to important links page
+            printMainMenu(currentUser)
         elif userInput.upper() == "X":
             print("Exiting InCollege")
             break
         else:
             print('Invalid selection please input "1" or "2"')
-    return 0
+    return currentUser
 
 
 def printTestimonialPage():
@@ -73,5 +78,6 @@ initialScreenOptionsList = [
     "3 - Find InCollege users",
     "4 - Useful Links",
     "5 - InCollege Important Links",
+    "6 - Main Menu",
     "X - Close Program",
 ]

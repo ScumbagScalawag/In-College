@@ -1,4 +1,6 @@
 import json
+from typing import Optional
+from common_utils.types.user import User
 
 from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList
 from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
@@ -40,7 +42,7 @@ jobOptionsList = [
 
 # TODO check currentUser is not none
 # user selected to do a job search
-def printJobSearchScreen(currentUser=None):
+def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     while True:
         printOptionList(jobOptionsList)
@@ -55,7 +57,7 @@ def printJobSearchScreen(currentUser=None):
             break
         else:
             print('Invalid selection please input "1" or "2" or "3"')
-    return
+    return currentUser
 
 
 def jobSearch():

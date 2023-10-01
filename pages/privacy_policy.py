@@ -1,9 +1,10 @@
 from common_utils.messages import returnToPreviousMenuMessage
+from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
 from pages.guest_controls import printGuestControlsPage
 
 
-def printPrivacyPolicyPage(currentUser=None):
+def printPrivacyPolicyPage(currentUser=None) -> User | None:
     while True:
         # clearScreen()
         print("-----printPrivacyPolicyPage")
