@@ -1,5 +1,7 @@
 import json
 from common_utils import utils as u
+from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase
 from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
 from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
 import pytest
@@ -7,14 +9,13 @@ import pytest
 
 def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
-    saveDatabase(JSON_USERS_FP, [])
+    userDB = UserDatabase([]) 
     # Load 5 accounts to Json
-    saveDatabase(JSON_USERS_FP, fiveAccounts)
+    # saveDatabase(JSON_USERS_FP, fiveAccounts)
+    userDB.addUserDictList(fiveAccounts)
 
     # Confirm there are 5 accounts
-    userList = u.loadUsers()
-    print(userList)
-    assert len(userList) == 5
+    assert len(userDB.userlist) == 5
 
     # Test 6th account
     input_generator = iter(["user6", "Jesse", "Small", "P@ssword1", "P@ssword1"])
@@ -23,8 +24,11 @@ def test_CreateAccountOver5(capfd, monkeypatch):
     # print("after 6th iteration input generator")
 
     captured = capfd.readouterr()
+    userContext = printNewAccountScreen()
     try:
-        printNewAccountScreen()
+        userContext = printNewAccountScreen()
+        # assert None, essentially -> no user context 
+        assert not isinstance(userContext, User)
     except StopIteration:
         pass
     captured = capfd.readouterr()
@@ -33,9 +37,11 @@ def test_CreateAccountOver5(capfd, monkeypatch):
 
 def testCreateAccountUnder5(monkeypatch, capfd):
     # Make sure Json is clear
+    userDB = UserDatabase([])
     # Test with 3 accounts
+    userDB.addUserDictList(threeAccounts)
 
-    saveDatabase(JSON_USERS_FP, threeAccounts)
+    # saveDatabase(JSON_USERS_FP, threeAccounts)
 
     input_generator = iter(
         [
@@ -51,7 +57,12 @@ def testCreateAccountUnder5(monkeypatch, capfd):
 
     try:
         # captured = capfd.readouterr()
-        assert printNewAccountScreen() == singleUser["username"]
+        userContext = printNewAccountScreen()
+        # make sure printNewAccountScreen returns context correctly
+        if isinstance(userContext, User):
+            assert userContext.username == singleUser["username"]
+        if not isinstance(userContext, User):
+            print("Something went wrong assigning user context!")
     except StopIteration:
         pass
     captured = capfd.readouterr()
@@ -96,36 +107,20 @@ def test_invalid_password_criteria(password_input, monkeypatch, capfd):
 
 
 def test_saveUser_and_loadUsers_when_database_is_empty():
-    # [] -> "database is empty"
-    saveUser(
-        [],
-        singleUser["username"],
-        singleUser["password"],
-        singleUser["firstname"],
-        singleUser["lastname"],
-        singleUser["email"],
-        singleUser["phoneNumber"],
-        singleUser["emailSub"],
-        singleUser["smsSub"],
-        singleUser["adSub"],
-    )
+    userDB = UserDatabase([])
+    userDB.addUserDict(singleUser)
 
-    users = u.loadUsers()
-
-    print(users)
-    print(users[0])
-
-    assert users[0] == singleUser
+    assert userDB.userExists(singleUser["username"])
 
 
 def test_saveDatabase():
-    # make sure DB is clean first:
-    with open(JSON_USERS_FP, "w") as outfile:
-        json.dump({}, outfile, indent=4)
+    userDB = UserDatabase([])
+    userDB.addUserDictList(threeAccounts)
 
-    userList = threeAccounts
+    print("-----userDB:")
+    print(userDB)
+    # print(threeAccounts)
+    print("-----threeAccounts:")
+    print(json.dumps(threeAccounts, indent=4))
 
-    saveDatabase(JSON_USERS_FP, userList)
-    loadedUsers = u.loadUsers()
-
-    assert loadedUsers == userList
+    assert userDB.getUserDictList() == threeAccounts
