@@ -3,15 +3,19 @@ from tests.shared import JSON_USERS_FP, singleUser, fourAccounts
 from pages.friend_search import printFriendSearchScreen  # Search Screen here to preload database
 from pages.new_user_account import saveDatabase  # Used to setup database
 import json
+from common_utils.types.user_database import UserDatabase
 
 # TODO Paramertirize the tests
 def testFriendSearchInSystem(monkeypatch, capfd):
     # in system
-    saveDatabase(JSON_USERS_FP, fourAccounts)
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)
     input_generator = iter(["Dee", "Snuts", "Y", "X"])
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printFriendSearchScreen(singleUser["username"]) == 0  # Successful search
+        assert (
+            printFriendSearchScreen(singleUser["username"]) == singleUser["username"]
+        )  # Successful search
     except StopIteration:
         pass
     captured = capfd.readouterr()  # assert captured
@@ -38,7 +42,9 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
     )  # Note: Do not add a user "Foam Earplugs" into the test cases or this will not work as intended
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printFriendSearchScreen(singleUser["username"]) == 0  # Successful search
+        assert (
+            printFriendSearchScreen(singleUser["username"]) == singleUser["username"]
+        )  # Successful search
     except StopIteration:
         pass
     captured = capfd.readouterr()
@@ -46,12 +52,13 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
     responses = [
         "*** Find A Friend ***",
         "Search for someone you know on InCollege",
-        "They are not yet a part of the InCollege system yet",
+        "They are not yet a part of the InCollege system yet", 
     ]
     for r in responses:
         assert r in captured.out  # Friend not found in system
 
 
+# TODO Needs fixing of both logic and test
 # User not logged in handled with return to -1
 def testFriendSearchNotLoggedIn(monkeypatch, capfd):
     saveDatabase(JSON_USERS_FP, fourAccounts)

@@ -44,7 +44,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
                 anyButtonToContinueMessage(),
             ],
             fiveJobs,
-            None,
+            singleUser["username"],
         ),
         (
             ["3", "anything"],
@@ -55,7 +55,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
                 "3 - Return to Main Menu",
             ],
             [],
-            None,
+            singleUser["username"],
         ),
         (
             ["4", "3"],
@@ -67,7 +67,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
                 'Invalid selection please input "1" or "2" or "3"',
             ],
             [],
-            None,
+            singleUser["username"],
         ),
     ],
     ids=[

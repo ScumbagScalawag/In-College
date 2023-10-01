@@ -24,7 +24,7 @@ def test_CreateAccountOver5(capfd, monkeypatch):
     # print("after 6th iteration input generator")
 
     captured = capfd.readouterr()
-    userContext = printNewAccountScreen()
+    #userContext = printNewAccountScreen()
     try:
         userContext = printNewAccountScreen()
         # assert None, essentially -> no user context 
@@ -93,6 +93,11 @@ def testCreateAccountUnder5(monkeypatch, capfd):
     ids=["TooShort", "TooLong", "NoCapital", "NoDigit", "NoSpecial"],
 )
 def test_invalid_password_criteria(password_input, monkeypatch, capfd):
+    # ensure DB is empty first
+    userDB = UserDatabase([]) 
+    # Load 3 accounts to Json
+    userDB.addUserDictList(threeAccounts)
+
     input_generator = iter(
         ["username", "TestFirstName", "TestLastName", password_input, password_input]
     )

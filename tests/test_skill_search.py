@@ -86,7 +86,7 @@ from common_utils.messages import underConstructionMessage
                 "5 - Learn how to whistle",
                 "6 - Return to main menu",
             ],
-            0,
+            None,
         ),
         (
             ["FoamEarplugs"],

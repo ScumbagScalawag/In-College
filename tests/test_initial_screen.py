@@ -1,7 +1,8 @@
 from main import printInitialScreen
 from pages.initial_screen import printInitialScreen, initialScreenOptionsList, testimonialOutputList
 import pytest
-
+from common_utils.types.user_database import UserDatabase
+from tests.shared import JSON_USERS_FP, threeAccounts
 # TODO: Possibly combine into *testimonialOutputList, *initialScreenOptionsList, *XoptionsList for testing. Xoptions list is not uniformly implemented so would need to be implemented and then imported to work.
 # - Lots of imports, + Simpler Code
 
@@ -64,7 +65,7 @@ import pytest
                 *initialScreenOptionsList,
                 "Exiting InCollege",
             ],
-            0,
+            None,
         ),
         (
             ["anything", "FoamEarplugs"],
@@ -89,7 +90,9 @@ import pytest
 def testPrintInitial(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-
+    userDB = UserDatabase([])
+    # Load 3 accounts to Json
+    userDB.addUserDictList(threeAccounts)
     try:
         assert printInitialScreen() == expectedReturn
     except StopIteration:

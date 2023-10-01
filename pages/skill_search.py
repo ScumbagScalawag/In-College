@@ -24,7 +24,7 @@ skillOptionsList = [
 
 
 # user has selected to "Learn a skill"
-def printSkillScreen(currenUser: Optional[User]) -> Optional[User]:
+def printSkillScreen(currenUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
 
     while True:
