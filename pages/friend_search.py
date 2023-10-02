@@ -2,7 +2,6 @@ from typing import Optional
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import clearScreen, printOptionList
-import json
 
 
 # user selected to find someone that you know
@@ -21,9 +20,6 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
         if foundUser != None:
             print("They are a part of the InCollege system")
 
-            print(type(currentUser))
-            print(currentUser)
-            print("\n")
             # If logged in, friend request?
             if currentUser != None:
                 confirm = input(
@@ -40,7 +36,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
 
                         # Add connection to currenUser
                         addConnectionValue = currentUser.addConnection(foundUser.username)
-                        if currentUser.addConnection(foundUser.username) != 0:
+                        if addConnectionValue != 0:
                             print(
                                 f"There was an error adding connection. Code {addConnectionValue}"
                             )
