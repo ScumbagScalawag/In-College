@@ -18,9 +18,9 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
         clearScreen()
 
         # for testing context
-        # print(type(currentUser))
-        # print(currentUser)
-        # print("\n")
+        print(type(currentUser))
+        print(currentUser)
+        print("\n")
 
         printOptionList(initialScreenOptionsList)
 
@@ -38,7 +38,7 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
             #     printMainMenu(currentUser)
         elif userInput == "3":
             # Search for users
-            printFriendSearchScreen()
+            currentUser = printFriendSearchScreen(currentUser)
         elif userInput == "4":
             # Open main menu, login if an account was created at this screen
             currentUser = printUsefulLinkScreen(currentUser)
