@@ -56,6 +56,8 @@ class User:
             return self.username == otherUser.username
 
     # GETTERS
+
+    # return the Dict translation
     def toDict(self):
         return {
             "username": self.username,
@@ -71,11 +73,15 @@ class User:
         }
 
     def isConnection(self, username: str):
-        for connection in self.connections:
-            if connection == username:
-                return True
+        if isinstance(username, str):
+            for connection in self.connections:
+                if connection == username:
+                    return True
+        # for case where user(name) is None
+        else:
+            return False
 
-        return True
+        return False
 
     # These can be retrieved manually. like this: userObject.firstname
     # def getUsername(self):
@@ -168,14 +174,14 @@ class User:
         for connection in self.connections:
             # if connection already exists
             if username == connection:
-                return False
+                return 1
             # if you've put your own username
             if username == self.username:
-                return False
+                return 2
 
         self.connections.append(username)
 
-        return True
+        return 0
 
     def removeConnection(self, username: str):
         if not self.isConnection(username):
