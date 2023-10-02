@@ -1,6 +1,6 @@
 from typing import Optional
-from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
-from common_utils.messages import anyButtonToContinueMessage
+from common_utils.utils import clearScreen, JSON_USERS_FP
+from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 import json
@@ -15,7 +15,7 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
     userDB.loadUsers()
 
     if isinstance(currentUser, User):
-        print("You are already Logged in. Please log out to create another account.\n")
+        print(alreadyLoggedIn("Please log out to create another account."))
         return currentUser
 
     if len(userDB.userlist) < MAXUSERS:  # Requirement for 5 accounts
@@ -51,10 +51,12 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
                             # either returns user or False
                             currentUser = userDB.getUser(username)
                             if currentUser == False:
-                                currentUser = None # must return None | User for context
+                                currentUser = None  # must return None | User for context
                             return currentUser
                         else:
-                            print("There was an unexpected problem with adding new account. Please try again.")
+                            print(
+                                "There was an unexpected problem with adding new account. Please try again."
+                            )
                     else:
                         print("Passwords do not match")
                 else:

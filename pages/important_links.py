@@ -1,5 +1,5 @@
 from typing import Optional
-from common_utils.messages import invalidInput, returnToPreviousMenuMessage
+from common_utils.messages import anyButtonToContinueMessage, invalidInput, returnToPreviousMenuMessage
 from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
 from pages.privacy_policy import printPrivacyPolicyPage
@@ -37,6 +37,8 @@ def printImportantLinkScreen(currentUser: Optional[User] = None) -> Optional[Use
             break
         else:
             print(invalidInput("1, 2, 3, 4, 5, 6, 7, 8, 9, 10, or X"))
+            print(anyButtonToContinueMessage())
+            input("")
     return currentUser
 
 

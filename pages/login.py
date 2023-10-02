@@ -1,5 +1,5 @@
 from typing import Optional
-from common_utils.messages import anyButtonToContinueMessage
+from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import clearScreen
@@ -16,7 +16,7 @@ def printLoginScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
     # exit if logged in
     if isinstance(currentUser, User):
-        print("You are already logged in.")
+        print(alreadyLoggedIn("Please log out and log back in to change accounts"))
         print(anyButtonToContinueMessage())
         input("")
         return currentUser
