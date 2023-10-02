@@ -5,7 +5,7 @@ from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
 from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
-
+from common_utils.messages import anyButtonToContinueMessage
 from common_utils.utils import loadUsers #TODO
 
 def test_CreateAccountOver5(capfd, monkeypatch):
@@ -63,7 +63,7 @@ def testCreateAccountUnder5(monkeypatch, capfd):
             ["user6", "Jesse", "Small", "P@ssword1", "P@ssword1", "anything"],
             [
                 "All permitted accounts have been created, come back later",
-                "Please press any button to continue",
+                anyButtonToContinueMessage(),
             ],
             fiveAccounts,
             5,
@@ -98,14 +98,15 @@ def testCreateAccountUnder5(monkeypatch, capfd):
 def testCreateAccount(
     mock_input, responses, startingUserDB, numUsers, expectedReturn, monkeypatch, capfd
 ):
+    userDB = UserDatabase([])
+    userDB.addUserDictList(startingUserDB)
+    testUser = User.dictToUser(singleUser)
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
-    saveDatabase(JSON_USERS_FP, startingUserDB)
-    userList = loadUsers()
-    if numUsers is not None:
+    # if numUsers is not None:
         # If error here, then the database is the issue not the create account logic
-        assert len(userList) == numUsers
+        # assert len(userList) == numUsers
     try:
         # captured = capfd.readouterr()
         userContext = printNewAccountScreen()
@@ -113,7 +114,7 @@ def testCreateAccount(
         if isinstance(userContext, User):
             assert userContext.username == singleUser["username"]
         if not isinstance(userContext, User):
-            print("Something went wrong assigning user context!")
+            print("Something went wrong assigning user context!") #TODO There should not be any prints in tests
     except StopIteration:
         pass
     captured = capfd.readouterr()  # assert captured

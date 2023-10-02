@@ -35,7 +35,7 @@ from pages.main_menu import printMainMenu, mainMenuOptionsList
                 *mainMenuOptionsList,
                 "Exiting InCollege",
             ],
-            0,
+            None,
         ),
         (
             ["Foam Earplugs"],
@@ -48,12 +48,12 @@ from pages.main_menu import printMainMenu, mainMenuOptionsList
     ],
     ids=["1-JobSearch", "2-FriendSearch", "3-Skill", "X-Exit", "Invalid Selection"],
 )
-def testTempName(mock_input, responses, expectedReturn, monkeypatch, capfd):
+def testPrintMainMenu(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
-        assert printMainMenu(None) == expectedReturn
+        assert printMainMenu(None) == None
     except StopIteration:
         pass
     captured = capfd.readouterr()

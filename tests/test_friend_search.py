@@ -35,13 +35,12 @@ def testFriendSearchInSystem(monkeypatch, capfd):
     for r in responses:
         assert r in captured.out  # Friend successfully added
 
-    print(captured.out)
+    # print(captured.out)
 
 
 def testFriendSearchNotInSystem(monkeypatch, capfd):
     userDB = UserDatabase([])
     userDB.addUserDictList(fourAccounts)
-
     testUser = User.dictToUser(singleUser)
 
     # Not in system
@@ -73,7 +72,6 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
 def testFriendSearchNotLoggedIn(monkeypatch, capfd):
     userDB = UserDatabase([])
     userDB.addUserDictList(fourAccounts)
-
     input_generator = iter(
         [
             "Jo",

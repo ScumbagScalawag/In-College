@@ -10,9 +10,13 @@ from pages.links_general import (
     helpOptions,
 )
 from tests.shared import threeAccounts, singleUser, fourAccounts, JSON_USERS_FP
-from pages.new_user_account import saveDatabase
 
-#TODO Rename this file when general gets its own .py file name
+# from pages.new_user_account import saveDatabase
+from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase
+
+
+# TODO Rename this file when general gets its own .py file name
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
     [
@@ -84,27 +88,26 @@ def testPrintGeneralScreen(mock_input, responses, expectedReturn, monkeypatch, c
     for r in responses:
         assert r in captured.out
 
-
-# TODO Test Option 7 Logged in
-def testPrintGeneralSignUp(monkeypatch, capfd):
-    saveDatabase(JSON_USERS_FP, threeAccounts)
+    # TODO Test Option 7 Logged in
+    userDB = UserDatabase([])
+    userDB.addUserDictList(threeAccounts)
+    testUser = User.dictToUser(singleUser)
     mock_input = [
         "7",
-        singleUser[0]["username"],
-        singleUser[0]["firstname"],
-        singleUser[0]["lastname"],
-        singleUser[0]["password"],
-        singleUser[0]["password"],
+        testUser.username,
+        testUser.firstname,
+        testUser.lastname,
+        testUser.password,
+        testUser.password,
     ]
     responses = [
         *generalOptionsList,
         "*** Create a new user account ***",
     ]
-    expectedReturn = singleUser[0]["username"]
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printGeneralScreen() == expectedReturn
+        assert printGeneralScreen() == testUser
     except StopIteration:
         pass
     captured = capfd.readouterr()
@@ -114,7 +117,10 @@ def testPrintGeneralSignUp(monkeypatch, capfd):
 
 # Test to see if option 7 shows up if logged in
 def testPrintGeneralSignUpNotShown(monkeypatch, capfd):
-    saveDatabase(JSON_USERS_FP, fourAccounts)  # not needed but just incase
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)
+    testUser = User.dictToUser(singleUser)
+
     mock_input = ["anything"]
     responses = [
         *generalOptionsList,
@@ -122,11 +128,10 @@ def testPrintGeneralSignUpNotShown(monkeypatch, capfd):
     responses_missing = [
         "7 - Sign up",
     ]
-    expectedReturn = singleUser[0]["username"]
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printGeneralScreen(singleUser[0]["username"]) == expectedReturn
+        assert printGeneralScreen(testUser) == testUser
     except StopIteration:
         pass
     captured = capfd.readouterr()
