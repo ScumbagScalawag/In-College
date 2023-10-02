@@ -20,6 +20,10 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
 
         if foundUser != None:
             print("They are a part of the InCollege system")
+
+            print(type(currentUser))
+            print(currentUser)
+            print("\n")
             # If logged in, friend request?
             if currentUser != None:
                 confirm = input(
@@ -27,8 +31,42 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                 ).upper()
                 while True:
                     if confirm == "Y":
-                        currentUser.addConnection(foundUser.username)
-                        userDB.updateUser(currentUser)
+                        if currentUser.isConnection(foundUser.username):
+                            print("You are already connected with this user")
+                            break
+                        elif currentUser == foundUser:
+                            print("You cannot make a connection with yourself")
+                            break
+                        # Testing Stuff:
+
+                        # foundUser
+                        print("foundUser Type: ", type(currentUser))
+                        print("foundUser: ", foundUser)
+                        print("foundUser.username = ", foundUser.username)
+                        print("userDB: ", userDB)
+
+                        addConnectionValue = currentUser.addConnection(foundUser.username)
+                        if addConnectionValue != 0:
+                            print(
+                                f"There was an error adding connection. Code {addConnectionValue}"
+                            )
+
+                        print("currentUser before updating DB: ", currentUser)
+                        print("DB before updating DB: ", userDB)
+                        updateDBReturn = userDB.updateUser(currentUser)  # NOT WORKING
+                        if updateDBReturn == False:
+                            print("updateUser() has failed")
+
+                        # userDB.saveDatabase()
+                        print("userDB (After being Updated): ", userDB)  # NOT WORKING
+
+                        #testing DB was written to Json File correctly 
+                        loadDB = UserDatabase([])
+                        loadDB.loadUsers()
+                        print("loadDB: Testing that Json was written to: ", loadDB)
+                        # Testing Stuff ^
+
+                        print("Connection request sent")
                         break
                     elif confirm == "N":
                         break
@@ -56,25 +94,25 @@ friendSearchOptionList = [
 
 
 # Depreciated by User.addConnection()
-# def addConnection(users, currentUser, targetUser):
-#     currentUserIndex = None
-#     # doesn't let you add yourself
-#     if currentUser == targetUser:
-#         msg = "You cannot make a connection with yourself"
-#         return msg
-#     # get index of current user
-#     for i, user in enumerate(users):
-#         if user["username"] == currentUser:
-#             currentUserIndex = i
-#             break
-#     # doesn't let you add someone you already added
-#     if targetUser in users[currentUserIndex]["connections"]:
-#         msg = "You are already connected with this user"
-#         return msg
-#     # adds target to connections list and updates file
-#     users[currentUserIndex]["connections"].append(targetUser)
-#     users = {"userlist": users}
-#     with open(JSON_USERS_FP, "w") as outfile:
-#         json.dump(users, outfile, indent=4)
-#     msg = "Connection request sent"
-#     return msg
+def addConnection(users, currentUser, targetUser):
+    currentUserIndex = None
+    # doesn't let you add yourself
+    if currentUser == targetUser:
+        msg = "You cannot make a connection with yourself"
+        return msg
+    # get index of current user
+    for i, user in enumerate(users):
+        if user["username"] == currentUser:
+            currentUserIndex = i
+            break
+    # doesn't let you add someone you already added
+    if targetUser in users[currentUserIndex]["connections"]:
+        msg = "You are already connected with this user"
+        return msg
+    # adds target to connections list and updates file
+    users[currentUserIndex]["connections"].append(targetUser)
+    users = {"userlist": users}
+    with open(JSON_USERS_FP, "w") as outfile:
+        json.dump(users, outfile, indent=4)
+    msg = "Connection request sent"
+    return msg
