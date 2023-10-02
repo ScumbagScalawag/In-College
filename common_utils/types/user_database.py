@@ -1,4 +1,5 @@
 from typing import List, Optional
+from common_utils.types.exceptions import UserNotFoundException
 from common_utils.types.user import User
 import json
 
@@ -81,8 +82,6 @@ class UserDatabase:
 
         return None
 
-
-
     def login(self, username: str, password: str):
         for user in self.userlist:
             if user.username == username and user.password == password:
@@ -100,11 +99,22 @@ class UserDatabase:
     def updateUser(self, alteredUser: Optional[User]):
         if alteredUser is None:
             return False
-        # find by username & replace
-        for user in self.userlist:
-            if user.username == alteredUser.username:
-                user = alteredUser
-        self.saveDatabase()
+        try:
+            # find by username & replace
+            for user in self.userlist:
+                if user.username == alteredUser.username:
+                    # user = alteredUser
+                    user = User.copy(alteredUser)
+                    self.saveDatabase()
+                    return True
+            # If the user was not found
+            raise UserNotFoundException("User not found in the database")
+        except UserNotFoundException as e:
+            print(f"Error: {e}")
+            return False
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            return False
 
     # saveUser() -> addUser() for conventions sake
     # gets passed a User object
