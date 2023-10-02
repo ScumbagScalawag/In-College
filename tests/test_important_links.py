@@ -1,18 +1,13 @@
 import pytest
 
-# underConstructionMessage = "under construction, input anything to return" #
-from common_utils.messages import underConstructionMessage
-from pages.about import printAboutScreen
-from pages.accessibility import printAccessibilityScreen
-from pages.brand_policy import printBrandPolicyScreen
-from pages.cookie_policy import printCookiePolicyScreen
-from pages.copyright_notice import printCopyrightNoticeScreen
-from pages.copyright_policy import printCopyrightPolicyScreen
-from pages.guest_controls import printGuestControlsScreen
+underConstructionMessage = "under construction, input anything to return"  #
+from common_utils.types.user_database import UserDatabase
 from pages.important_links import importantLinksOptionsList, printImportantLinkScreen
-from pages.languages import printLanguagesScreen
-from pages.privacy_policy import printPrivacyPolicyScreen
-from pages.user_agreement import printUserAgreementScreen
+from tests.shared import threeAccounts
+
+
+def tempFunction():  # Temp function is placeholder for function to be imported from test file
+    return
 
 
 @pytest.mark.parametrize(
@@ -45,12 +40,12 @@ from pages.user_agreement import printUserAgreementScreen
         (
             ["4"],  # User Agreement
             [*importantLinksOptionsList, "*** User Agreement ***"],
-            [],
+            [],  # I don't know why the formatting is different for these two
         ),
         (
             ["5"],  # Privacy Policy
             [*importantLinksOptionsList, "*** Privacy Policy ***"],
-            [],
+            [],  # I don't know why the formatting is different for these two
         ),
         (
             ["6"],  # Cookie Policy
@@ -80,7 +75,7 @@ from pages.user_agreement import printUserAgreementScreen
             ["9"],  # Guest Controls
             [
                 *importantLinksOptionsList,
-                "*** Guest Control ***",
+                "You must be logged in to access guest controls.\n",
             ],
             [],
         ),
@@ -125,7 +120,9 @@ from pages.user_agreement import printUserAgreementScreen
 def testPrintUsefulLinkScreen(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-
+    userDB = UserDatabase([])
+    # Load 3 accounts to Json
+    userDB.addUserDictList(threeAccounts)
     try:
         assert printImportantLinkScreen() == expectedReturn
     except StopIteration:
