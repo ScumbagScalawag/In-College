@@ -60,7 +60,7 @@ class UserDatabase:
             userDictList.append(user.toDict())
         return userDictList
 
-    def userExists(self, username):
+    def userExists(self, username: str):
         for user in self.userlist:
             if user.username == username:
                 return True
@@ -96,25 +96,36 @@ class UserDatabase:
             json.dump(self.getDatabaseDict(), outfile, indent=4)
 
     # Use for modifying users or replacing
-    def updateUser(self, alteredUser: Optional[User]):
-        if alteredUser is None:
-            return False
-        try:
-            # find by username & replace
-            for user in self.userlist:
-                if user.username == alteredUser.username:
-                    # user = alteredUser
-                    user = User.copy(alteredUser)
-                    self.saveDatabase()
-                    return True
-            # If the user was not found
-            raise UserNotFoundException("User not found in the database")
-        except UserNotFoundException as e:
-            print(f"Error: {e}")
-            return False
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-            return False
+    # updates the DB entry for the user object you pass in: overwrites all values
+    def updateUser(self, alteredUser: Optional[User]) -> Optional[User]:
+        if isinstance(alteredUser, User):
+            try:
+                # Find the index i of the target User object in userlist
+                for i, user in enumerate(self.userlist):
+                    if user.username == alteredUser.username:
+                        # Copy the values of currentUser into the target User object
+                        target = self.userlist[i]
+                        target.username = alteredUser.username
+                        target.password = alteredUser.password
+                        target.firstname = alteredUser.firstname
+                        target.lastname = alteredUser.lastname
+                        target.email = alteredUser.email
+                        target.phoneNumber = alteredUser.phoneNumber
+                        target.emailSub = alteredUser.emailSub
+                        target.smsSub = alteredUser.smsSub
+                        target.adSub = alteredUser.adSub
+                        target.connections = alteredUser.connections
+                        self.saveDatabase()
+                        return target  # Return the updated User object
+                raise UserNotFoundException("Couldn't find match for user")
+            except UserNotFoundException as e:
+                print(f"Error: {e}")
+                return None
+            except Exception as e:
+                print(f"An unexpected error occurred: {e}")
+                return None
+
+        return None  # User not found in userlist
 
     # saveUser() -> addUser() for conventions sake
     # gets passed a User object
