@@ -1,17 +1,26 @@
+from typing import Optional
+from common_utils.messages import anyButtonToContinueMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-from common_utils.utils import clearScreen, userSearch, loadUsers
+from common_utils.utils import clearScreen
 
 MAX_LOGIN_ATTEMPTS = 5
 
 
 # Menu: Login to user account
-def printLoginScreen() -> User | None:
+def printLoginScreen(currentUser: Optional[User] = None) -> Optional[User]:
     userDB = UserDatabase([])
     userDB.loadUsers()
     # To Do
-    # users = loadUsers()
     # not used for Epic 1 but the wording in the requirements makes it seem like it might be implemented later
+
+    # exit if logged in
+    if isinstance(currentUser, User):
+        print("You are already logged in.")
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
+
     loginAttempts = 0
 
     while True:
@@ -24,7 +33,6 @@ def printLoginScreen() -> User | None:
         # User input recieved
 
         # match username and password
-        # currentUser = userSearch(users, username=username, password=password, returnUsername=True)
         currentUser = userDB.login(username, password)
         if currentUser != None:  # and loginAttempts <= maximum attempts allowed
             # Valid Login

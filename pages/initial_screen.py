@@ -28,12 +28,12 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
         if userInput == "1":
             # Login as existing user. Go to Login page
-            currentUser = printLoginScreen()
+            currentUser = printLoginScreen(currentUser)
             # if currentUser != None:
             #     printMainMenu(currentUser)
         elif userInput == "2":
             # Create a new account. Go to create account page
-            currentUser = printNewAccountScreen()
+            currentUser = printNewAccountScreen(currentUser)
             # if currentUser != None:
             #     printMainMenu(currentUser)
         elif userInput == "3":
