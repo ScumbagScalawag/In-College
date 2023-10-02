@@ -9,7 +9,7 @@ def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]
     userDB = UserDatabase([])
     userDB.loadUsers()
 
-    if currentUser is None:
+    if not isinstance(currentUser, User):
         print("You must be logged in to access guest controls.\n")
         return currentUser
 

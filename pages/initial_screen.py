@@ -18,9 +18,9 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
         clearScreen()
 
         # for testing context
-        print(type(currentUser))
-        print(currentUser)
-        print("\n")
+        # print(type(currentUser))
+        # print(currentUser)
+        # print("\n")
 
         printOptionList(initialScreenOptionsList)
 

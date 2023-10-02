@@ -1,7 +1,7 @@
 from typing import Optional
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP, printOptionList
+from common_utils.utils import clearScreen, printOptionList
 import json
 
 
@@ -37,34 +37,18 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                         elif currentUser == foundUser:
                             print("You cannot make a connection with yourself")
                             break
-                        # Testing Stuff:
 
-                        # foundUser
-                        print("foundUser Type: ", type(currentUser))
-                        print("foundUser: ", foundUser)
-                        print("foundUser.username = ", foundUser.username)
-                        print("userDB: ", userDB)
-
+                        # Add connection to currenUser
                         addConnectionValue = currentUser.addConnection(foundUser.username)
-                        if addConnectionValue != 0:
+                        if currentUser.addConnection(foundUser.username) != 0:
                             print(
                                 f"There was an error adding connection. Code {addConnectionValue}"
                             )
 
-                        print("currentUser before updating DB: ", currentUser)
-                        print("DB before updating DB: ", userDB)
-                        updateDBReturn = userDB.updateUser(currentUser)  # NOT WORKING
+                        # Now, update the DB (object + Json)
+                        updateDBReturn = userDB.updateUser(currentUser)
                         if not isinstance(updateDBReturn, User):
                             print("updateUser() has failed")
-
-                        # userDB.saveDatabase()
-                        print("userDB (After being Updated): ", userDB)  # NOT WORKING
-
-                        #testing DB was written to Json File correctly 
-                        loadDB = UserDatabase([])
-                        loadDB.loadUsers()
-                        print("loadDB: Testing that Json was written to: ", loadDB)
-                        # Testing Stuff ^
 
                         print("Connection request sent")
                         break
@@ -94,25 +78,25 @@ friendSearchOptionList = [
 
 
 # Depreciated by User.addConnection()
-def addConnection(users, currentUser, targetUser):
-    currentUserIndex = None
-    # doesn't let you add yourself
-    if currentUser == targetUser:
-        msg = "You cannot make a connection with yourself"
-        return msg
-    # get index of current user
-    for i, user in enumerate(users):
-        if user["username"] == currentUser:
-            currentUserIndex = i
-            break
-    # doesn't let you add someone you already added
-    if targetUser in users[currentUserIndex]["connections"]:
-        msg = "You are already connected with this user"
-        return msg
-    # adds target to connections list and updates file
-    users[currentUserIndex]["connections"].append(targetUser)
-    users = {"userlist": users}
-    with open(JSON_USERS_FP, "w") as outfile:
-        json.dump(users, outfile, indent=4)
-    msg = "Connection request sent"
-    return msg
+# def addConnection(users, currentUser, targetUser):
+#     currentUserIndex = None
+#     # doesn't let you add yourself
+#     if currentUser == targetUser:
+#         msg = "You cannot make a connection with yourself"
+#         return msg
+#     # get index of current user
+#     for i, user in enumerate(users):
+#         if user["username"] == currentUser:
+#             currentUserIndex = i
+#             break
+#     # doesn't let you add someone you already added
+#     if targetUser in users[currentUserIndex]["connections"]:
+#         msg = "You are already connected with this user"
+#         return msg
+#     # adds target to connections list and updates file
+#     users[currentUserIndex]["connections"].append(targetUser)
+#     users = {"userlist": users}
+#     with open(JSON_USERS_FP, "w") as outfile:
+#         json.dump(users, outfile, indent=4)
+#     msg = "Connection request sent"
+#     return msg
