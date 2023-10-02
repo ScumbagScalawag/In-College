@@ -26,10 +26,34 @@ class User:
         self.adSub = adSub
         self.connections = connections
 
+    # Copy constructor: call like this: newUser = User.copy(userToCopy), where userToCopy: User
+    @classmethod
+    def copy(cls, userToCopy):
+        return cls(
+            username=userToCopy.username,
+            password=userToCopy.password,
+            firstname=userToCopy.firstname,
+            lastname=userToCopy.lastname,
+            email=userToCopy.email,
+            phoneNumber=userToCopy.phoneNumber,
+            emailSub=userToCopy.emailSub,
+            smsSub=userToCopy.smsSub,
+            adSub=userToCopy.adSub,
+            connections=userToCopy.connections.copy(),  # Make a copy of the connections list
+        )
+
     # define what print(userObject) does
     # print(user), where user: User
     def __str__(self):
         return json.dumps(self.toDict(), indent=4)
+
+    # for user1 == user2 expression. otherUser is of type User
+    def __eq__(self, otherUser) -> bool:
+        # in case otherUser is None
+        if not isinstance(otherUser, User):
+            return False
+        else:
+            return self.username == otherUser.username
 
     # GETTERS
     def toDict(self):
