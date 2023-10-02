@@ -1,4 +1,5 @@
 import pytest
+from common_utils.types.user import User
 from tests.shared import JSON_USERS_FP, singleUser, fourAccounts
 from pages.friend_search import (
     printFriendSearchScreen,
@@ -8,25 +9,44 @@ from pages.new_user_account import saveDatabase  # Used to setup database
 import json
 from common_utils.types.user_database import UserDatabase
 
+
 # TODO Paramertirize the tests
 def testFriendSearchInSystem(monkeypatch, capfd):
     # in system
     userDB = UserDatabase([])
     userDB.addUserDictList(fourAccounts)
+
+    # Must create User object from singleUser Dict. See @classmethod dictToUser
+    testUser = User.dictToUser(singleUser)
+
     input_generator = iter(["Dee", "Snuts", "Y", "X"])
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+
     try:
-        assert printFriendSearchScreen(singleUser[0]["username"]) == 0  # Successful search
+        assert (
+            printFriendSearchScreen(testUser) == testUser
+        )  # assert printFriendSearchScreen returns user context correctly
     except StopIteration:
         pass
+
     captured = capfd.readouterr()  # assert captured
     responses = [
         *friendSearchOptionList,
         "They are a part of the InCollege system",
         "Connection request sent",
     ]
-    for r in responses:
-        assert r in captured.out  # Friend successfully added
+    # for r in responses:
+    #     print("----r:", r)
+    #     print("----captured.out:", captured.out)
+    #     assert r in captured.out  # Friend successfully added
+
+    assert responses[0] in captured.out
+    assert responses[1] in captured.out
+    assert responses[2] in captured.out
+    assert responses[3] in captured.out
+    assert responses[4] in captured.out
+
+    print(captured.out)
 
 
 def testFriendSearchNotInSystem(monkeypatch, capfd):
@@ -48,7 +68,6 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
     captured = capfd.readouterr()
     # assert captured
     responses = [
-
         *friendSearchOptionList,
         "They are not yet a part of the InCollege system yet",
     ]
