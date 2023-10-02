@@ -1,4 +1,5 @@
 from typing import Optional
+
 from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
 from common_utils.types.user import User
 from common_utils.utils import printOptionList
@@ -12,4 +13,7 @@ def printBrandPolicyScreen(currentUser: Optional[User] = None) -> Optional[User]
     return currentUser
 
 
-brandPolicyOptions = [underConstructionMessage()]
+brandPolicyOptions = [
+    "*** Brand Policy ***",  # added in order to test important_links.py properly
+    underConstructionMessage(),
+]

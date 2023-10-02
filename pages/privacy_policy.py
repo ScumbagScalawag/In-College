@@ -1,5 +1,9 @@
 from typing import Optional
-from common_utils.messages import anyButtonToContinueMessage, returnToPreviousMenuMessage
+
+from common_utils.messages import (
+    anyButtonToContinueMessage,
+    returnToPreviousMenuMessage,
+)
 from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
 from pages.guest_controls import printGuestControlsScreen
