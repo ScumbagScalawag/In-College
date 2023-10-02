@@ -30,7 +30,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
         (
             ["2", "anything"],
             [
-               *jobOptionsList,
+                *jobOptionsList,
                 "All permitted jobs have been posted, please try again later",
                 anyButtonToContinueMessage(),
             ],
@@ -57,7 +57,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
     ],
     ids=[
         "1-JobSearchUnderConstruction",
-        "2-CreateJob",
+        "2-CreateJob; Currently expected to fail until singleUser variable is fixed",
         "2-MaxJobsReached",
         "3-ReturnMain",
         "InvalidSelection",
@@ -69,7 +69,7 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printJobSearchScreen(singleUser[0]["username"]) == expectedReturn  # Successful search
+        assert printJobSearchScreen(singleUser["username"]) == expectedReturn  # Successful search
     except StopIteration:
         pass
     captured = capfd.readouterr()  # assert captured
