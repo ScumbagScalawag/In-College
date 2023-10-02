@@ -2,8 +2,9 @@ import pytest
 from pages.new_user_account import saveDatabase
 from pages.job_search import printJobSearchScreen, saveJobDatabase, jobOptionsList
 from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
-from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs
-
+from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
+from common_utils.types.user_database import UserDatabase
+from common_utils.types.user import User
 
 @pytest.mark.parametrize(
     "mock_input,responses,startingJobDB,expectedReturn",
@@ -35,7 +36,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
                 anyButtonToContinueMessage(),
             ],
             fiveJobs,
-            singleUser["username"],
+            singleUser,
         ),
         (
             ["3", "anything"],
@@ -64,12 +65,16 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
     ],
 )
 def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypatch, capfd):
-    saveDatabase(JSON_USERS_FP, singleUser)
+    # saveDatabase(JSON_USERS_FP, singleUser)
+    testUser = User.dictToUser(singleUser)
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)
+
     saveJobDatabase(JSON_JOBS_FP, startingJobDB)
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printJobSearchScreen(singleUser["username"]) == expectedReturn  # Successful search
+        assert printJobSearchScreen(testUser) == testUser  # Successful search
     except StopIteration:
         pass
     captured = capfd.readouterr()  # assert captured
