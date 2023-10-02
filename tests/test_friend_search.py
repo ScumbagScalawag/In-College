@@ -35,22 +35,18 @@ def testFriendSearchInSystem(monkeypatch, capfd):
         "They are a part of the InCollege system",
         "Connection request sent",
     ]
-    # for r in responses:
-    #     print("----r:", r)
-    #     print("----captured.out:", captured.out)
-    #     assert r in captured.out  # Friend successfully added
-
-    assert responses[0] in captured.out
-    assert responses[1] in captured.out
-    assert responses[2] in captured.out
-    assert responses[3] in captured.out
-    assert responses[4] in captured.out
+    for r in responses:
+        assert r in captured.out  # Friend successfully added
 
     print(captured.out)
 
 
 def testFriendSearchNotInSystem(monkeypatch, capfd):
-    saveDatabase(JSON_USERS_FP, fourAccounts)
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)
+
+    testUser = User.dictToUser(singleUser)
+
     # Not in system
     input_generator = iter(
         [
@@ -62,7 +58,7 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
     )  # Note: Do not add a user "Foam Earplugs" into the test cases or this will not work as intended
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printFriendSearchScreen(singleUser[0]["username"]) == 0  # Successful search
+        assert printFriendSearchScreen(testUser) == testUser  # Make sure printFriendSearchScreen returns user context
     except StopIteration:
         pass
     captured = capfd.readouterr()
@@ -78,7 +74,9 @@ def testFriendSearchNotInSystem(monkeypatch, capfd):
 # TODO Needs fixing of both logic and test
 # User not logged in handled with return to -1
 def testFriendSearchNotLoggedIn(monkeypatch, capfd):
-    saveDatabase(JSON_USERS_FP, fourAccounts)
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)
+
     input_generator = iter(
         [
             "Jo",
@@ -89,6 +87,6 @@ def testFriendSearchNotLoggedIn(monkeypatch, capfd):
     )
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printFriendSearchScreen() == -1  # Tests edge cases of not logged in
+        assert printFriendSearchScreen() == None  # Tests edge cases of not logged in: ...() defaults to None
     except StopIteration:
         pass
