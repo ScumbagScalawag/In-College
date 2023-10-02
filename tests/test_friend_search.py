@@ -1,12 +1,9 @@
-import pytest
 from common_utils.types.user import User
-from tests.shared import JSON_USERS_FP, singleUser, fourAccounts
+from tests.shared import singleUser, fourAccounts
 from pages.friend_search import (
     printFriendSearchScreen,
     friendSearchOptionList,
 )  # Search Screen here to preload database
-from pages.new_user_account import saveDatabase  # Used to setup database
-import json
 from common_utils.types.user_database import UserDatabase
 
 
