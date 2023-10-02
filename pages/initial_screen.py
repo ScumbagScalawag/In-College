@@ -5,7 +5,8 @@ from common_utils.messages import anyButtonToContinueMessage
 from pages.friend_search import printFriendSearchScreen
 from pages.login import printLoginScreen
 from pages.new_user_account import printNewAccountScreen
-from pages.link_screens import printUsefulLinkScreen, printImportantLinkScreen
+from pages.useful_links import printUsefulLinkScreen
+from pages.important_links import printImportantLinkScreen
 from pages.main_menu import printMainMenu
 
 

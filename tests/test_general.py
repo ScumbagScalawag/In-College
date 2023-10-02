@@ -9,7 +9,7 @@ from pages.links_general import (
     developersOptions,
     helpOptions,
 )
-from tests.shared import threeAccounts, singleUser, fourAccounts, JSON_USERS_FP
+from tests.shared import threeAccounts, singleUser, fourAccounts
 
 # from pages.new_user_account import saveDatabase
 from common_utils.types.user import User

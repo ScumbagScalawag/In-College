@@ -1,8 +1,12 @@
 from main import printInitialScreen
 from pages.initial_screen import printInitialScreen, initialScreenOptionsList, testimonialOutputList
+from pages.important_links import importantLinksOptionsList
+from pages.useful_links import usefulLinksOptionsList
+from pages.friend_search import friendSearchOptionList
 import pytest
 from common_utils.types.user_database import UserDatabase
-from tests.shared import JSON_USERS_FP, threeAccounts
+from tests.shared import threeAccounts
+
 # TODO: Possibly combine into *testimonialOutputList, *initialScreenOptionsList, *XoptionsList for testing. Xoptions list is not uniformly implemented so would need to be implemented and then imported to work.
 # - Lots of imports, + Simpler Code
 
@@ -35,8 +39,7 @@ from tests.shared import JSON_USERS_FP, threeAccounts
             [
                 *testimonialOutputList,
                 *initialScreenOptionsList,
-                "*** Find A Friend ***",  # TODO: Later down the line. Simplify other functions to use similar logic as friendSearchOptionList, might clutter up testing imports though
-                "Search for someone you know on InCollege",
+                *friendSearchOptionList,
             ],
             [],
         ),
@@ -45,17 +48,13 @@ from tests.shared import JSON_USERS_FP, threeAccounts
             [
                 *testimonialOutputList,
                 *initialScreenOptionsList,
-                "*** Useful Links ***",  # TODO: *usefulLinksOptionsList
+                *usefulLinksOptionsList,
             ],
             [],
         ),
         (
             ["anything", "5"],
-            [
-                *testimonialOutputList,
-                *initialScreenOptionsList,
-                "*** InCollege Important Links ***",  # TODO: *importantLinksOptionsList
-            ],
+            [*testimonialOutputList, *initialScreenOptionsList, *importantLinksOptionsList],
             [],
         ),
         (
