@@ -109,7 +109,7 @@ def tempFunction():  # Temp function is placeholder for function to be imported 
         "InvalidSelection",
     ],
 )
-def testPrintGeneralScreen(mock_input, responses, expectedReturn, monkeypatch, capfd):
+def testPrintImportantLinkScreen(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
@@ -120,7 +120,7 @@ def testPrintGeneralScreen(mock_input, responses, expectedReturn, monkeypatch, c
     for r in responses:
         assert r in captured.out
 
-    # TODO Test Option 9 Logged in
+    # TODO Test Option 9 Not Logged in
     userDB = UserDatabase([])
     testUser = User.dictToUser(singleUser)
     mock_input = [
@@ -138,9 +138,9 @@ def testPrintGeneralScreen(mock_input, responses, expectedReturn, monkeypatch, c
         assert r in captured.out
 
 
-# Test to option 9 when not logged in
+# Test to option 9 when logged in
 # TODO: Not sure 100% if this function is correct
-def testPrintGeneralSignUpNotShown(monkeypatch, capfd):
+def testPrintImportantLinkScreenLoggedIn(monkeypatch, capfd):
     userDB = UserDatabase([])
     userDB.addUserDictList(fourAccounts)
     testUser = User.dictToUser(singleUser)
