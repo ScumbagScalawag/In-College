@@ -1,22 +1,24 @@
 from typing import Optional
-from common_utils.messages import returnToPreviousMenuMessage
+from common_utils.messages import anyButtonToContinueMessage, returnToPreviousMenuMessage
 from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
-from pages.guest_controls import printGuestControlsPage
+from pages.guest_controls import printGuestControlsScreen
 
 
-def printPrivacyPolicyPage(currentUser: Optional[User] = None) -> Optional[User]:
+def printPrivacyPolicyScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
         printOptionList(privacyPolicyOptions)
 
         userInput = input("")
         if userInput == "1":
-            currentUser = printGuestControlsPage(currentUser)
+            currentUser = printGuestControlsScreen(currentUser)
         elif userInput.upper() == "X":
             break
         else:
             print('Invalid selection please input "1" or "X"')
+            print(anyButtonToContinueMessage())
+            input("")
     return currentUser
 
 

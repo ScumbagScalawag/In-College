@@ -1,7 +1,7 @@
 from typing import Optional
 from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import anyButtonToContinueMessage
+from common_utils.messages import anyButtonToContinueMessage, invalidInput
 from pages.friend_search import printFriendSearchScreen
 from pages.login import printLoginScreen
 from pages.new_user_account import printNewAccountScreen
@@ -15,7 +15,7 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
 
     while True:
-        printTestimonialPage()
+        printTestimonialScreen()
         clearScreen()
 
         # for testing context
@@ -54,11 +54,11 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
             print("Exiting InCollege")
             break
         else:
-            print('Invalid selection please input "1" or "2"')
+            print(invalidInput("1, 2, 3, 4, 5, 6, or X"))
     return currentUser
 
 
-def printTestimonialPage():
+def printTestimonialScreen():
     printOptionList(testimonialOutputList)
     tempInput = input("")
     return

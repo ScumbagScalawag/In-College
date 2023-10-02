@@ -5,7 +5,7 @@ from common_utils.types.user_database import UserDatabase
 from common_utils.utils import clearScreen, printOptionList
 
 
-def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]:
+def printGuestControlsScreen(currentUser: Optional[User] = None) -> Optional[User]:
     userDB = UserDatabase([])
     userDB.loadUsers()
 
