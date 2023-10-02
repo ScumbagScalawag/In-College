@@ -14,8 +14,8 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
     userDB = UserDatabase()
     userDB.loadUsers()
 
-    if currentUser is not None:
-        print("You are already Logged in. Please log out to create another account.")
+    if isinstance(currentUser, User):
+        print("You are already Logged in. Please log out to create another account.\n")
         return currentUser
 
     if len(userDB.userlist) < MAXUSERS:  # Requirement for 5 accounts

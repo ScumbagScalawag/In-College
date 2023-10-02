@@ -7,8 +7,7 @@ from pages.guest_controls import printGuestControlsPage
 
 def printPrivacyPolicyPage(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
-        # clearScreen()
-        print("-----printPrivacyPolicyPage")
+        clearScreen()
         printOptionList(privacyPolicyOptions)
 
         userInput = input("")

@@ -40,7 +40,6 @@ def printUsefulLinkScreen(currentUser: Optional[User] = None) -> Optional[User]:
 def printImportantLinkScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
-        print("-----printImportantLinkScreen")
         printOptionList(importantLinksOptionsList)
         userInput = input("")
 

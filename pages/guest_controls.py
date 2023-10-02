@@ -1,14 +1,11 @@
 from typing import Optional
-from common_utils.messages import mustBeLoggedIn, returnToPreviousMenuMessage
+from common_utils.messages import invalidInput, mustBeLoggedIn, returnToPreviousMenuMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import clearScreen, printOptionList
 
 
 def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]:
-    # clearScreen() # Probably makes sense to show alongside printPrivacyPolicyPage
-
-    # make sure DB/Json is updated too
     userDB = UserDatabase([])
     userDB.loadUsers()
 
@@ -17,10 +14,13 @@ def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]
         return currentUser
 
     while True:
-        # testing
-        print(type(currentUser))
-        print(currentUser)
+        clearScreen()
 
+        # Title & Input Options
+        printOptionList(guestControlsList)
+        print("\n")
+
+        # Let users know if they are subscribed or not
         if isinstance(currentUser, User):
             sms = "Subscribed" if currentUser.smsSub == True else "Unsubscribed"
             email = "Subscribed" if currentUser.emailSub == True else "Unsubscribed"
@@ -29,20 +29,16 @@ def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]
             sms = "UNKNOWN"
             email = "UNKNOWN"
             ads = "UNKNOWN"
-
         guestSettings = [
             "Current Guest Control Settings",
             f"InCollege Email Subscription: {email}",
             f"InCollege SMS Subscription: {sms}",
             f"InCollege Targeted Advertizing: {ads}",
         ]
-
         printOptionList(guestSettings)
-        print("\n")
-
-        printOptionList(guestControlsList)
         userInput = input("")
 
+        # Take input
         if userInput == "1":
             currentUser = toggleUserEmailSubscription(currentUser)
             # make sure DB/Json is updated too
@@ -59,7 +55,7 @@ def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]
         elif userInput.upper() == "X":
             break
         else:
-            print('Invalid selection please input "1" or "2" or "3" or "X"')
+            print(invalidInput('"1" or "2" or "3" or "X"'))
 
     return currentUser
 
@@ -71,9 +67,6 @@ guestControlsList = [
     "3 - Toggle Targeted Advertizing Features",
     returnToPreviousMenuMessage(),
 ]
-
-# def currentGuestControlsSettings(currentUser: Optional[User] = None) -> Optional[User]:
-
 
 notificationSettingsError = "ERROR: there was a problem with changing notification settings"
 unsubscribeMessage = "You have successfully unsubscribed from InCollege"

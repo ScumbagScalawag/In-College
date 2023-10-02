@@ -54,7 +54,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                         print("currentUser before updating DB: ", currentUser)
                         print("DB before updating DB: ", userDB)
                         updateDBReturn = userDB.updateUser(currentUser)  # NOT WORKING
-                        if updateDBReturn == False:
+                        if not isinstance(updateDBReturn, User):
                             print("updateUser() has failed")
 
                         # userDB.saveDatabase()
