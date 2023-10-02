@@ -1,5 +1,7 @@
 import json
 
+from common_utils.types.exceptions import UnexpectedValueInUserAttribute
+
 
 class User:
     def __init__(
@@ -27,6 +29,7 @@ class User:
         self.connections = connections
 
     # Copy constructor: call like this: newUser = User.copy(userToCopy), where userToCopy: User
+    # WARNING: This creates a NEW object (different place in memeory than original). It is NOT a reference to it
     @classmethod
     def copy(cls, userToCopy):
         return cls(
@@ -83,24 +86,7 @@ class User:
 
         return False
 
-    # These can be retrieved manually. like this: userObject.firstname
-    # def getUsername(self):
-    #     return self.username
-
-    # def getFirstName(self):
-    #     return self.firstname
-
-    # def getLastName(self):
-    #     return self.lastname
-
-    # def getEmail(self):
-    #     return self.email
-
-    # def getPhoneNumber(self):
-    #     return self.phoneNumber
-
-    # def getConnections(self):
-    #     return self.connections
+    # The attributes can be retrieved manually. like this: userObject.firstname
 
     # SETTERS
 
@@ -121,51 +107,44 @@ class User:
             connections=userDict.get("connections", []),
         )
 
-    # These can be set manually. like this: userObject.firstname = "asdf"
-    # def setUsername(self, username: str):
-    #     self.username = username
-
-    # def setPassword(self, password: str):
-    #     self.passoword = password
-
-    # def setFirstname(self, firstname: str):
-    #     self.firstname = firstname
-
-    # def setLastname(self, lastname: str):
-    #     self.lastname = lastname
-
-    # def setEmail(self, email: str):
-    #     self.email = email
-
-    # def setPhoneNumber(self, phoneNumber: str):
-    #     self.phoneNumber = phoneNumber
-
     def toggleEmailSub(self):
-        if self.emailSub == True:
-            self.emailSub = False
-        elif self.emailSub == False:
-            self.emailSub = True
-        else:
+        try:
+            if self.emailSub == True:
+                self.emailSub = False
+            elif self.emailSub == False:
+                self.emailSub = True
+            else:
+                raise UnexpectedValueInUserAttribute("emailSub")
+        except UnexpectedValueInUserAttribute as e:
+            print(f"Error: {e}")
             return False
 
         return True
 
     def toggleSmsSub(self):
-        if self.smsSub == True:
-            self.smsSub = False
-        elif self.smsSub == False:
-            self.smsSub = True
-        else:
+        try:
+            if self.smsSub == True:
+                self.smsSub = False
+            elif self.smsSub == False:
+                self.smsSub = True
+            else:
+                raise UnexpectedValueInUserAttribute("smsSub")
+        except UnexpectedValueInUserAttribute as e:
+            print(f"Error: {e}")
             return False
 
         return True
 
     def toggleAdSub(self):
-        if self.adSub == True:
-            self.adSub = False
-        elif self.adSub == False:
-            self.adSub = True
-        else:
+        try:
+            if self.adSub == True:
+                self.adSub = False
+            elif self.adSub == False:
+                self.adSub = True
+            else:
+                raise UnexpectedValueInUserAttribute("adSub")
+        except UnexpectedValueInUserAttribute as e:
+            print(f"Error: {e}")
             return False
 
         return True

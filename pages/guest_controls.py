@@ -6,7 +6,7 @@ from common_utils.utils import clearScreen, printOptionList
 
 
 def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]:
-    clearScreen()
+    # clearScreen() # Probably makes sense to show alongside printPrivacyPolicyPage
 
     # make sure DB/Json is updated too
     userDB = UserDatabase([])
@@ -17,6 +17,29 @@ def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]
         return currentUser
 
     while True:
+        # testing
+        print(type(currentUser))
+        print(currentUser)
+
+        if isinstance(currentUser, User):
+            sms = "Subscribed" if currentUser.smsSub == True else "Unsubscribed"
+            email = "Subscribed" if currentUser.emailSub == True else "Unsubscribed"
+            ads = "Subscribed" if currentUser.adSub == True else "Unsubscribed"
+        else:
+            sms = "UNKNOWN"
+            email = "UNKNOWN"
+            ads = "UNKNOWN"
+
+        guestSettings = [
+            "Current Guest Control Settings",
+            f"InCollege Email Subscription: {email}",
+            f"InCollege SMS Subscription: {sms}",
+            f"InCollege Targeted Advertizing: {ads}",
+        ]
+
+        printOptionList(guestSettings)
+        print("\n")
+
         printOptionList(guestControlsList)
         userInput = input("")
 
@@ -43,15 +66,18 @@ def printGuestControlsPage(currentUser: Optional[User] = None) -> Optional[User]
 
 guestControlsList = [
     "*** Guest Controls ***",
-    "1 - InCollege Email Subscription",
-    "2 - SMS Subscription",
-    "3 - Targeted Advertizing Features",
+    "1 - Toggle InCollege Email Subscription Status",
+    "2 - Toggle SMS Subscription Status",
+    "3 - Toggle Targeted Advertizing Features",
     returnToPreviousMenuMessage(),
 ]
 
-notificationSettingsError = "ERROR: there was a problem with changing notification settings "
-unsubscribeMessage = "You have successfully unsubscribed from InCollege "
-subscribeMessage = "You have successfully subscribed to InCollege "
+# def currentGuestControlsSettings(currentUser: Optional[User] = None) -> Optional[User]:
+
+
+notificationSettingsError = "ERROR: there was a problem with changing notification settings"
+unsubscribeMessage = "You have successfully unsubscribed from InCollege"
+subscribeMessage = "You have successfully subscribed to InCollege"
 
 
 def toggleUserEmailSubscription(currentUser: Optional[User] = None) -> Optional[User]:
@@ -90,7 +116,8 @@ def toggleUserTargetedAds(currentUser: Optional[User] = None) -> Optional[User]:
     return currentUser
 
 
-def toggleCheck(currentUserBool, originalBool, toggleType):
+# Toggle User boolean values
+def toggleCheck(currentUserBool: bool, originalBool: bool, toggleType: str):
     if originalBool == True:
         if currentUserBool == True:
             print(notificationSettingsError, 2)
