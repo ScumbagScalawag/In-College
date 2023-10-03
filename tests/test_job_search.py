@@ -1,8 +1,7 @@
 import pytest
-from pages.new_user_account import saveDatabase
 from pages.job_search import printJobSearchScreen, saveJobDatabase, jobOptionsList
-from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
-from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
+from common_utils.messages import anyButtonToContinueMessage, invalidInput, underConstructionMessage
+from tests.shared import JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
 from common_utils.types.user_database import UserDatabase
 from common_utils.types.user import User
 
@@ -23,7 +22,7 @@ from common_utils.types.user import User
             [
                 *jobOptionsList,
                 "*** Create a new job posting ***",
-                # "Some message about job being created"
+                "Job Created!",
             ],
             fourJobs,
             None,
@@ -39,7 +38,7 @@ from common_utils.types.user import User
             singleUser,
         ),
         (
-            ["3", "anything"],
+            ["X", "anything"],
             [
                 *jobOptionsList,
             ],
@@ -50,7 +49,7 @@ from common_utils.types.user import User
             ["4", "3"],
             [
                 *jobOptionsList,
-                'Invalid selection please input "1" or "2" or "3"',
+                invalidInput("1, 2, or X")
             ],
             [],
             singleUser["username"],
