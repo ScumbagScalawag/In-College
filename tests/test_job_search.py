@@ -5,6 +5,7 @@ from tests.shared import JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccou
 from common_utils.types.user_database import UserDatabase
 from common_utils.types.user import User
 
+
 @pytest.mark.parametrize(
     "mock_input,responses,startingJobDB,expectedReturn",
     [
@@ -47,17 +48,14 @@ from common_utils.types.user import User
         ),
         (
             ["4", "3"],
-            [
-                *jobOptionsList,
-                invalidInput("1, 2, or X")
-            ],
+            [*jobOptionsList, invalidInput("1, 2, or X")],
             [],
             singleUser["username"],
         ),
     ],
     ids=[
         "1-JobSearchUnderConstruction",
-        "2-CreateJob; Currently expected to fail until singleUser variable is fixed",
+        "2-CreateJob",
         "2-MaxJobsReached",
         "3-ReturnMain",
         "InvalidSelection",
@@ -67,9 +65,8 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
     # saveDatabase(JSON_USERS_FP, singleUser)
     testUser = User.dictToUser(singleUser)
     userDB = UserDatabase([])
-    userDB.addUserDictList(fourAccounts)
-
-    saveJobDatabase(JSON_JOBS_FP, startingJobDB)
+    userDB.addUserDictList(fourAccounts)  # users
+    saveJobDatabase(JSON_JOBS_FP, startingJobDB)  # jobs
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:

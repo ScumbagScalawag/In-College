@@ -1,4 +1,3 @@
-from functools import singledispatch
 from common_utils.types.user import User
 from main import printInitialScreen
 from pages.initial_screen import printInitialScreen, initialScreenOptionsList, testimonialOutputList
@@ -7,9 +6,8 @@ from pages.useful_links import usefulLinksOptionsList
 from pages.friend_search import friendSearchOptionList
 import pytest
 from common_utils.types.user_database import UserDatabase
-from common_utils.messages import invalidInput
 from tests.shared import threeAccounts, singleUser
-
+from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage, invalidInput
 # TODO: Possibly combine into *testimonialOutputList, *initialScreenOptionsList, *XoptionsList for testing. Xoptions list is not uniformly implemented so would need to be implemented and then imported to work.
 # - Lots of imports, + Simpler Code
 
@@ -22,8 +20,8 @@ from tests.shared import threeAccounts, singleUser
             [
                 *testimonialOutputList,
                 *initialScreenOptionsList,
-                "Login to InCollege",
-                "Username: ",
+                alreadyLoggedIn("Please log out and log back in to change accounts"),
+                anyButtonToContinueMessage(),
             ],
             [],
         ),
@@ -32,8 +30,7 @@ from tests.shared import threeAccounts, singleUser
             [
                 *testimonialOutputList,
                 *initialScreenOptionsList,
-                "*** Create a new user account ***",
-                "Username: ",
+                alreadyLoggedIn("Please log out to create another account."),
             ],
             [],
         ),
