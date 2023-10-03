@@ -1,9 +1,15 @@
 import json
 from typing import Optional
 from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase
 
 from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList
-from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
+from common_utils.messages import (
+    anyButtonToContinueMessage,
+    invalidInput,
+    returnToPreviousMenuMessage,
+    underConstructionMessage,
+)
 
 MAXJOBS = 5
 
@@ -36,73 +42,88 @@ jobOptionsList = [
     "*** Job Search ***",
     "1 - Search for Job/Internship",
     "2 - Post Job/Internship",
-    "3 - Return to Main Menu",
+    returnToPreviousMenuMessage(),
 ]
 
 
 # TODO check currentUser is not none
 # user selected to do a job search
 def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
-    clearScreen()
     while True:
+        clearScreen()
         printOptionList(jobOptionsList)
         userInput = input("")
 
         if userInput == "1":
-            jobSearch()
+            currentUser = jobSearch(currentUser)
         elif userInput == "2":
-            createJob(currentUser)
-            break
-        elif userInput == "3":
+            currentUser = createJob(currentUser)
+        elif userInput.upper() == "X":
             break
         else:
-            print('Invalid selection please input "1" or "2" or "3"')
+            print(invalidInput("1, 2, or X"))
+            print(anyButtonToContinueMessage())
+            input("")
+
     return currentUser
 
 
-def jobSearch():
+def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
     # under construction, not needed in EPIC2
     clearScreen()
     print("*** Job Search ***")
     print(underConstructionMessage())
-    userInput = input("")
-    return 0
+    input("")
+    return currentUser
 
 
 # TODO check validity of inputs
-def createJob(currentUser):
+def createJob(currentUser: Optional[User] = None) -> Optional[User]:
+    # Must be logged in to create job
+    if not isinstance(currentUser, User):
+        print("You must be logged in to create a Job.")
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
+
     jobs = loadJobs()
-    users = loadUsers()
+    print(jobs)
+    # users = loadUsers()
+    userDB = UserDatabase([])
+    userDB.loadUsers()
 
     if len(jobs) < MAXJOBS:  # Requirement for 5 job postings
         while True:
             clearScreen()
             print("*** Create a new job posting ***")
-            title = input("Job Title: ")  # get job title
-            description = input("Brief Description of the Job: ")  # get description of job
-            employer = input("Employer: ")  # get employer
-            location = input("Location: ")  # get location
-            salary = input("Salary: ")  # get salary
+            title = input("Job Title: ")
+            description = input("Brief Description of the Job: ")
+            employer = input("Employer: ")
+            location = input("Location: ")
+            salary = input("Salary: ")
 
-            # setting currentUserIndex = 0
-            currentUserIndex = None
-            # get index of current user
-            for i, user in enumerate(users):
-                print(user)
-                if user["username"] == currentUser:
-                    currentUserIndex = i
-                    break
+            try:
+                saveJob(
+                    jobs,
+                    title,
+                    description,
+                    employer,
+                    location,
+                    salary,
+                    currentUser.firstname,
+                    currentUser.lastname,
+                )
+            except:
+                print("Error: There was an error saving the job. Please try again")
+                pass
+            # clearScreen()  # TODO I don't think this is needed
 
-            # retrieving first and last name from current user
-            firstname = users[currentUserIndex]["firstname"]
-            lastname = users[currentUserIndex]["lastname"]
-            saveJob(jobs, title, description, employer, location, salary, firstname, lastname)
-            clearScreen()  # TODO I don't think this is needed
-            return
-
-    print(
-        "All permitted jobs have been posted, please try again later"
-    )  # Requirement for 5 accounts response
+            print("\nJob Created!")
+            break
+    else:
+        print(
+            "All permitted jobs have been posted, please try again later"
+        )  # Requirement for 5 accounts response
     print(anyButtonToContinueMessage())
-    tempInput = input("")
-    return -1
+    input("")
+    return currentUser
