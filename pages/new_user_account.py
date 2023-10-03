@@ -1,22 +1,32 @@
-from common_utils.utils import clearScreen, loadUsers, userSearch, JSON_USERS_FP
-from pages.main_menu import printMainMenu
+from typing import Optional
+from common_utils.utils import clearScreen, JSON_USERS_FP
+from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
+from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase
 import json
 
 MAXUSERS = 5
 
 
 # Menu: Add new user account
-def printNewAccountScreen():
-    users = loadUsers()
+def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
+    # users = loadUsers()
+    userDB = UserDatabase()
+    userDB.loadUsers()
 
-    if len(users) < MAXUSERS:  # Requirement for 5 accounts
+    if isinstance(currentUser, User):
+        print(alreadyLoggedIn("Please log out to create another account."))
+        return currentUser
+
+    if len(userDB.userlist) < MAXUSERS:  # Requirement for 5 accounts
         while True:
             clearScreen()
             print("*** Create a new user account ***")
             print("Username: ", end="")
             username = input("")  # Get username
             # check that username is not already in use
-            if not userSearch(users, username=username):
+            # if not userSearch(users, username=username):
+            if not userDB.userExists(username):
                 print(
                     "First name: ", end=""
                 )  # Changed from input("...") to print("...", end="") for testing
@@ -28,12 +38,25 @@ def printNewAccountScreen():
                 if checkPasswordSecurity(password):  # Is password secure
                     passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
-                        saveUser(users, username, password, firstname, lastname)  # Add new account
-                        currentUser = userSearch(
-                            users, username=username, returnUsername=True
-                        )  # get logged in user
-                        printMainMenu(currentUser)
-                        return 0
+                        newUser = User(
+                            username,
+                            password,
+                            firstname,
+                            lastname,
+                        )
+                        userDB.addUser(newUser)
+
+                        # check if user made it to DB
+                        if userDB.userExists(username):
+                            # either returns user or False
+                            currentUser = userDB.getUser(username)
+                            if currentUser == False:
+                                currentUser = None  # must return None | User for context
+                            return currentUser
+                        else:
+                            print(
+                                "There was an unexpected problem with adding new account. Please try again."
+                            )
                     else:
                         print("Passwords do not match")
                 else:
@@ -48,16 +71,16 @@ def printNewAccountScreen():
             while True:
                 confirm = input("Input c to continue or x to return to menu: ").upper()
                 if confirm == "X":
-                    return 0
+                    return None
                 elif confirm == "C":
                     break
     else:
         print(
             "All permitted accounts have been created, come back later"
         )  # Requirement for 5 accounts response
-        print("Please press any button to continue")
+        print(anyButtonToContinueMessage())
         userInput = input("")
-    return -1
+    return None
 
 
 # Helper: Password strength criteria check
@@ -84,13 +107,30 @@ def checkPasswordSecurity(password):
 
 
 # users takes the list, not the entire dict!
-def saveUser(users, username, password, firstname, lastname):
+def saveUser(
+    users: list,
+    username: str = "UNDEFINED",
+    password: str = "UNDEFINED",
+    firstname: str = "UNDEFINED",
+    lastname: str = "UNDEFINED",
+    email: str = "UNDEFINED",
+    phoneNumber: str = "UNDEFINED",
+    emailSub: bool = True,
+    smsSub: bool = True,
+    adSub: bool = True,
+    connections: list = [],
+):
     newUser = {
         "username": username,
         "password": password,
         "firstname": firstname,
         "lastname": lastname,
-        "connections": [],
+        "email": email,
+        "phoneNumber": phoneNumber,
+        "emailSub": emailSub,
+        "smsSub": smsSub,
+        "adSub": adSub,
+        "connections": connections,
     }
     users.append(newUser)
     saveDatabase(JSON_USERS_FP, users)

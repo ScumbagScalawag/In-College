@@ -1,5 +1,7 @@
+from typing import Optional
+from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
-from pages.under_construction import underConstructionMessage
+from common_utils.messages import underConstructionMessage
 
 SKILL_LIST = [
     {"name": "Skating", "desc": underConstructionMessage()},
@@ -11,18 +13,18 @@ SKILL_LIST = [
 
 
 skillOptionsList = [
-        "*** Learn a skill ***",
-        "1 - Learn how to skate",
-        "2 - Learn how to cook",
-        "3 - Learn how to drive",
-        "4 - Learn how to paint",
-        "5 - Learn how to whistle",
-        "6 - Return to main menu",
-    ]
+    "*** Learn a skill ***",
+    "1 - Learn how to skate",
+    "2 - Learn how to cook",
+    "3 - Learn how to drive",
+    "4 - Learn how to paint",
+    "5 - Learn how to whistle",
+    "6 - Return to main menu",
+]
 
 
 # user has selected to "Learn a skill"
-def printSkillScreen():
+def printSkillScreen(currenUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
 
     while True:
@@ -44,11 +46,9 @@ def printSkillScreen():
         else:
             print('Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"')
 
-    return 0
+    return currenUser
 
 
-# TODO: make these functions a single generic function  -noah
-# Used with printSkillScreen below To Do in future sprints
 def printSkillFromList(skillName):
     skillIndex = None
     for i, skill in enumerate(SKILL_LIST):

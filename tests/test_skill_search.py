@@ -1,8 +1,6 @@
 import pytest
-from pages.skill_search import printSkillScreen
-from pages.under_construction import underConstructionMessage
-
-
+from pages.skill_search import printSkillScreen, skillOptionsList
+from common_utils.messages import underConstructionMessage
 
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
@@ -10,14 +8,7 @@ from pages.under_construction import underConstructionMessage
         (
             ["1", "anything"],
             [
-                "*** Learn a skill ***",
-                "1 - Learn how to skate",
-                "2 - Learn how to cook",
-                "3 - Learn how to drive",
-                "4 - Learn how to paint",
-                "5 - Learn how to whistle",
-                "6 - Return to main menu",
-                "*** Learn ",
+                *skillOptionsList,
                 underConstructionMessage(),
             ],
             None,
@@ -25,14 +16,7 @@ from pages.under_construction import underConstructionMessage
         (
             ["2", "anything"],
             [
-                "*** Learn a skill ***",
-                "1 - Learn how to skate",
-                "2 - Learn how to cook",
-                "3 - Learn how to drive",
-                "4 - Learn how to paint",
-                "5 - Learn how to whistle",
-                "6 - Return to main menu",
-                "*** Learn ",
+                *skillOptionsList,
                 underConstructionMessage(),
             ],
             None,
@@ -40,14 +24,7 @@ from pages.under_construction import underConstructionMessage
         (
             ["3", "anything"],
             [
-                "*** Learn a skill ***",
-                "1 - Learn how to skate",
-                "2 - Learn how to cook",
-                "3 - Learn how to drive",
-                "4 - Learn how to paint",
-                "5 - Learn how to whistle",
-                "6 - Return to main menu",
-                "*** Learn ",
+                *skillOptionsList,
                 underConstructionMessage(),
             ],
             None,
@@ -55,14 +32,7 @@ from pages.under_construction import underConstructionMessage
         (
             ["4", "anything"],
             [
-                "*** Learn a skill ***",
-                "1 - Learn how to skate",
-                "2 - Learn how to cook",
-                "3 - Learn how to drive",
-                "4 - Learn how to paint",
-                "5 - Learn how to whistle",
-                "6 - Return to main menu",
-                "*** Learn ",
+                *skillOptionsList,
                 underConstructionMessage(),
             ],
             None,
@@ -70,14 +40,7 @@ from pages.under_construction import underConstructionMessage
         (
             ["5", "anything"],
             [
-                "*** Learn a skill ***",
-                "1 - Learn how to skate",
-                "2 - Learn how to cook",
-                "3 - Learn how to drive",
-                "4 - Learn how to paint",
-                "5 - Learn how to whistle",
-                "6 - Return to main menu",
-                "*** Learn ",
+                *skillOptionsList,
                 underConstructionMessage(),
             ],
             None,
@@ -85,26 +48,14 @@ from pages.under_construction import underConstructionMessage
         (
             ["6"],
             [
-                "*** Learn a skill ***",
-                "1 - Learn how to skate",
-                "2 - Learn how to cook",
-                "3 - Learn how to drive",
-                "4 - Learn how to paint",
-                "5 - Learn how to whistle",
-                "6 - Return to main menu",
+                *skillOptionsList,
             ],
-            0,
+            None,
         ),
         (
             ["FoamEarplugs"],
             [
-                "*** Learn a skill ***",
-                "1 - Learn how to skate",
-                "2 - Learn how to cook",
-                "3 - Learn how to drive",
-                "4 - Learn how to paint",
-                "5 - Learn how to whistle",
-                "6 - Return to main menu",
+                *skillOptionsList,
                 'Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"',
             ],
             0,
@@ -124,7 +75,18 @@ def testSkillsScreen(mock_input, responses, expectedReturn, monkeypatch, capfd):
     for r in responses:
         assert r in captured.out
 
-@pytest.mark.parametrize("input_value", ["1", "2", "3", "4", "5"])
+
+#Already tested for above
+@pytest.mark.parametrize(
+    "input_value",
+    [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+    ],
+)
 def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
     input_generator = iter([input_value])
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
@@ -135,9 +97,19 @@ def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
         pass
 
     captured = capfd.readouterr()
-    assert "under construction, input anything to return" in captured.out
-
-@pytest.mark.parametrize("input_value", ["9", "0", "[1", "d", "r"])
+    assert underConstructionMessage() in captured.out
+    
+# Already handled above in testSkillsScreen
+@pytest.mark.parametrize(
+    "input_value",
+    [
+        "9",
+        "0",
+        "[1",
+        "d",
+        "r",
+    ],
+)
 def testSkillsWrongInput(input_value, monkeypatch, capfd):
     input_generator = iter([input_value])
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))

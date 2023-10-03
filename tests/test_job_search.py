@@ -1,8 +1,9 @@
 import pytest
-from pages.new_user_account import saveDatabase
-from pages.job_search import printJobSearchScreen, saveJobDatabase
-from pages.under_construction import underConstructionMessage
-from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs
+from pages.job_search import printJobSearchScreen, saveJobDatabase, jobOptionsList
+from common_utils.messages import anyButtonToContinueMessage, invalidInput, underConstructionMessage
+from tests.shared import JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
+from common_utils.types.user_database import UserDatabase
+from common_utils.types.user import User
 
 
 @pytest.mark.parametrize(
@@ -11,10 +12,7 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
         (
             ["1", "anything"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+                *jobOptionsList,
                 underConstructionMessage(),
             ],
             [],
@@ -23,71 +21,57 @@ from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, five
         (
             ["2", "Code Tester", "Test Code for hours", "Mr. Roth", "Home", "100"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+                *jobOptionsList,
                 "*** Create a new job posting ***",
-                # "Some message about job being created"
+                "Job Created!",
             ],
             fourJobs,
-            [0],
+            None,
         ),
         (
             ["2", "anything"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+                *jobOptionsList,
                 "All permitted jobs have been posted, please try again later",
-                "Please press any button to continue",
+                anyButtonToContinueMessage(),
             ],
             fiveJobs,
-            None,
+            singleUser,
         ),
         (
-            ["3", "anything"],
+            ["X", "anything"],
             [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
+                *jobOptionsList,
             ],
             [],
-            None,
+            singleUser["username"],
         ),
         (
             ["4", "3"],
-            [
-                "*** Job Search ***",
-                "1 - Search for Job/Internship",
-                "2 - Post Job/Internship",
-                "3 - Return to Main Menu",
-                'Invalid selection please input "1" or "2" or "3"',
-            ],
+            [*jobOptionsList, invalidInput("1, 2, or X")],
             [],
-            None,
+            singleUser["username"],
         ),
     ],
     ids=[
-        "JobSearchUnderConstruction",
-        "CreateJob",
-        "MaxJobsReached",
-        "ReturnMain",
+        "1-JobSearchUnderConstruction",
+        "2-CreateJob",
+        "2-MaxJobsReached",
+        "3-ReturnMain",
         "InvalidSelection",
     ],
 )
 def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypatch, capfd):
-    saveDatabase(JSON_USERS_FP, singleUser)
-    saveJobDatabase(JSON_JOBS_FP, startingJobDB)
+    # saveDatabase(JSON_USERS_FP, singleUser)
+    testUser = User.dictToUser(singleUser)
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)  # users
+    saveJobDatabase(JSON_JOBS_FP, startingJobDB)  # jobs
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
-        assert printJobSearchScreen(singleUser["username"]) == expectedReturn  # Successful search
+        assert printJobSearchScreen(testUser) == testUser  # Successful search
     except StopIteration:
-        pass
-    except TypeError:
         pass
     captured = capfd.readouterr()  # assert captured
     for r in responses:

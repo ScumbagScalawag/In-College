@@ -1,14 +1,26 @@
-from common_utils.utils import clearScreen, userSearch, loadUsers
-from pages.main_menu import printMainMenu
+from typing import Optional
+from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
+from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase
+from common_utils.utils import clearScreen
 
 MAX_LOGIN_ATTEMPTS = 5
 
 
 # Menu: Login to user account
-def printLoginScreen():
+def printLoginScreen(currentUser: Optional[User] = None) -> Optional[User]:
+    userDB = UserDatabase([])
+    userDB.loadUsers()
     # To Do
-    users = loadUsers()
     # not used for Epic 1 but the wording in the requirements makes it seem like it might be implemented later
+
+    # exit if logged in
+    if isinstance(currentUser, User):
+        print(alreadyLoggedIn("Please log out and log back in to change accounts"))
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
+
     loginAttempts = 0
 
     while True:
@@ -21,12 +33,11 @@ def printLoginScreen():
         # User input recieved
 
         # match username and password
-        currentUser = userSearch(users, username=username, password=password, returnUsername=True)
-        if currentUser != False:  # and loginAttempts <= maximum attempts allowed
+        currentUser = userDB.login(username, password)
+        if currentUser != None:  # and loginAttempts <= maximum attempts allowed
             # Valid Login
             print("You have successfully logged in")
-            printMainMenu(currentUser)
-            return 0
+            return currentUser
         else:
             # Invalid Login
             print("Incorrect username / password, please try again")
@@ -40,6 +51,6 @@ def printLoginScreen():
             while True:
                 confirm = input("Input c to continue or x to return to menu: ")
                 if confirm.upper() == "X":
-                    return 0
+                    return None
                 elif confirm.upper() == "C":
                     break
