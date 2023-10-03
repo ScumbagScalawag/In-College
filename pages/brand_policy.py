@@ -15,5 +15,7 @@ def printBrandPolicyScreen(currentUser: Optional[User] = None) -> Optional[User]
 
 brandPolicyOptions = [
     "*** Brand Policy ***",  # added in order to test important_links.py properly
-    underConstructionMessage(),
+    "The InCollege brand is a valuable asset, symbolizing our commitment to quality.",
+    "InCollege branding should be used consistently and appropriately in all contexts.",
+    "Unauthorized use, alteration, or misrepresentation of the InCollege brand is strictly prohibited",
 ]

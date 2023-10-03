@@ -15,5 +15,7 @@ def printCookiePolicyScreen(currentUser: Optional[User] = None) -> Optional[User
 
 cookiePolicyOptions = [
     "*** Cookie Policy ***",  # added in order to test important_links.py properly
-    underConstructionMessage(),
+    "This application uses cookies to enhance your user experience.",
+    "By using the application, you consent to the use of cookies for this purpose, as agreed upon in the user agreement."
+    "No user-configurable options for managing cookies are available at this time",
 ]
