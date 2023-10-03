@@ -14,7 +14,7 @@ def printGeneralScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
         # copies default options
-        modifiedOptionsList = generalOptionsList
+        modifiedOptionsList = generalOptionsList[:]
 
         # adds extra sign up option if not signed in already
         if currentUser == None:
