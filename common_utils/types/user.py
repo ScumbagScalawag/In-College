@@ -4,6 +4,9 @@ from common_utils.types.exceptions import UnexpectedValueInUserAttribute
 
 
 class User:
+    SUPPORTED_LANGUAGES = ["English", "Spanish"]
+
+    # Constructor (w/ default values)
     def __init__(
         self,
         username: str = "UNDEFINED",
@@ -12,6 +15,7 @@ class User:
         lastname: str = "UNDEFINED",
         email: str = "UNDEFINED",
         phoneNumber: str = "UNDEFINED",
+        language: str = "English",
         emailSub: bool = True,
         smsSub: bool = True,
         adSub: bool = True,
@@ -23,6 +27,7 @@ class User:
         self.lastname = lastname
         self.email = email
         self.phoneNumber = phoneNumber
+        self.language = language
         self.emailSub = emailSub
         self.smsSub = smsSub
         self.adSub = adSub
@@ -39,6 +44,7 @@ class User:
             lastname=userToCopy.lastname,
             email=userToCopy.email,
             phoneNumber=userToCopy.phoneNumber,
+            language=userToCopy.language,
             emailSub=userToCopy.emailSub,
             smsSub=userToCopy.smsSub,
             adSub=userToCopy.adSub,
@@ -69,6 +75,7 @@ class User:
             "lastname": self.lastname,
             "email": self.email,
             "phoneNumber": self.phoneNumber,
+            "language": self.language,
             "emailSub": self.emailSub,
             "smsSub": self.smsSub,
             "adSub": self.adSub,
@@ -101,11 +108,18 @@ class User:
             lastname=userDict.get("lastname", "UNDEFINED"),
             email=userDict.get("email", "UNDEFINED"),
             phoneNumber=userDict.get("phoneNumber", "UNDEFINED"),
+            language=userDict.get("language", "English"),
             emailSub=userDict.get("emailSub", True),
             smsSub=userDict.get("smsSub", True),
             adSub=userDict.get("adSub", True),
             connections=userDict.get("connections", []),
         )
+
+    def setLanguage(self, language):
+        if language in self.SUPPORTED_LANGUAGES:
+            self.language = language
+        else:
+            raise ValueError("Unsupported language")
 
     def toggleEmailSub(self):
         try:

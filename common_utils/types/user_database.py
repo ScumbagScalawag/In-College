@@ -38,6 +38,7 @@ class UserDatabase:
                         lastname=user_data.get("lastname", "UNDEFINED"),
                         email=user_data.get("email", "UNDEFINED"),
                         phoneNumber=user_data.get("phoneNumber", "UNDEFINED"),
+                        language=user_data.get("language", "Engligh"),
                         emailSub=user_data.get("emailSub", True),
                         smsSub=user_data.get("smsSub", True),
                         adSub=user_data.get("adSub", True),
@@ -111,6 +112,7 @@ class UserDatabase:
                         target.lastname = alteredUser.lastname
                         target.email = alteredUser.email
                         target.phoneNumber = alteredUser.phoneNumber
+                        target.language = alteredUser.language
                         target.emailSub = alteredUser.emailSub
                         target.smsSub = alteredUser.smsSub
                         target.adSub = alteredUser.adSub
