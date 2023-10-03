@@ -1,5 +1,5 @@
 from typing import Optional
-from common_utils.messages import invalidInput, mustBeLoggedIn, returnToPreviousMenuMessage
+from common_utils.messages import anyButtonToContinueMessage, invalidInput, mustBeLoggedIn, returnToPreviousMenuMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import clearScreen, printOptionList
@@ -11,6 +11,8 @@ def printGuestControlsScreen(currentUser: Optional[User] = None) -> Optional[Use
 
     if not isinstance(currentUser, User):
         print("You must be logged in to access guest controls.\n")
+        print(anyButtonToContinueMessage())
+        input("")
         return currentUser
 
     while True:

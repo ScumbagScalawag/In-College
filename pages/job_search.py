@@ -3,7 +3,7 @@ from typing import Optional
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 
-from common_utils.utils import clearScreen, loadJobs, loadUsers, JSON_JOBS_FP, printOptionList
+from common_utils.utils import clearScreen, loadJobs, JSON_JOBS_FP, printOptionList
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInput,
