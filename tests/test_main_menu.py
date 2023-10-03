@@ -1,6 +1,6 @@
 import pytest  # needed for pytest
 from pages.main_menu import printMainMenu, mainMenuOptionsList
-
+from common_utils.messages import invalidInput
 
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
@@ -41,7 +41,7 @@ from pages.main_menu import printMainMenu, mainMenuOptionsList
             ["Foam Earplugs"],
             [
                 *mainMenuOptionsList,
-                'Invalid selection please input "1" or "2" or "3"',
+                invalidInput("1, 2, 3, or X"),
             ],
             None,
         ),

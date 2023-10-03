@@ -116,6 +116,7 @@ def testPrintGeneralScreen(mock_input, responses, expectedReturn, monkeypatch, c
 
 
 # Test to see if option 7 shows up if logged in
+#Expected to fail until general screen is fixed.
 def testPrintGeneralSignUpNotShown(monkeypatch, capfd):
     userDB = UserDatabase([])
     userDB.addUserDictList(fourAccounts)
