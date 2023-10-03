@@ -1,5 +1,3 @@
-import os
-
 from pages.new_user_account import saveDatabase
 from common_utils.utils import JSON_USERS_FP
 
@@ -13,6 +11,7 @@ userDB = {
             "lastname": "Mama",
             "email": "asdfasdf@gmail.com",
             "phoneNumber": "1932930298",
+            "language": "English",
             "emailSub": True,
             "smsSub": True,
             "adSub": True,
@@ -25,6 +24,7 @@ userDB = {
             "lastname": "Snuts",
             "email": "asdfasdf@gmail.com",
             "phoneNumber": "1932930298",
+            "language": "Spanish",
             "emailSub": True,
             "smsSub": True,
             "adSub": True,
