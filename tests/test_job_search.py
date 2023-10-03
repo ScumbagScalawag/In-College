@@ -1,10 +1,10 @@
 import pytest
-from pages.new_user_account import saveDatabase
 from pages.job_search import printJobSearchScreen, saveJobDatabase, jobOptionsList
-from common_utils.messages import anyButtonToContinueMessage, underConstructionMessage
-from tests.shared import JSON_USERS_FP, JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
+from common_utils.messages import anyButtonToContinueMessage, invalidInput, underConstructionMessage
+from tests.shared import JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
 from common_utils.types.user_database import UserDatabase
 from common_utils.types.user import User
+
 
 @pytest.mark.parametrize(
     "mock_input,responses,startingJobDB,expectedReturn",
@@ -23,7 +23,7 @@ from common_utils.types.user import User
             [
                 *jobOptionsList,
                 "*** Create a new job posting ***",
-                # "Some message about job being created"
+                "Job Created!",
             ],
             fourJobs,
             None,
@@ -39,7 +39,7 @@ from common_utils.types.user import User
             singleUser,
         ),
         (
-            ["3", "anything"],
+            ["X", "anything"],
             [
                 *jobOptionsList,
             ],
@@ -48,17 +48,14 @@ from common_utils.types.user import User
         ),
         (
             ["4", "3"],
-            [
-                *jobOptionsList,
-                'Invalid selection please input "1" or "2" or "3"',
-            ],
+            [*jobOptionsList, invalidInput("1, 2, or X")],
             [],
             singleUser["username"],
         ),
     ],
     ids=[
         "1-JobSearchUnderConstruction",
-        "2-CreateJob; Currently expected to fail until singleUser variable is fixed",
+        "2-CreateJob",
         "2-MaxJobsReached",
         "3-ReturnMain",
         "InvalidSelection",
@@ -68,9 +65,8 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
     # saveDatabase(JSON_USERS_FP, singleUser)
     testUser = User.dictToUser(singleUser)
     userDB = UserDatabase([])
-    userDB.addUserDictList(fourAccounts)
-
-    saveJobDatabase(JSON_JOBS_FP, startingJobDB)
+    userDB.addUserDictList(fourAccounts)  # users
+    saveJobDatabase(JSON_JOBS_FP, startingJobDB)  # jobs
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:

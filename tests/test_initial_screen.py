@@ -1,3 +1,4 @@
+from common_utils.types.user import User
 from main import printInitialScreen
 from pages.initial_screen import printInitialScreen, initialScreenOptionsList, testimonialOutputList
 from pages.important_links import importantLinksOptionsList
@@ -5,8 +6,8 @@ from pages.useful_links import usefulLinksOptionsList
 from pages.friend_search import friendSearchOptionList
 import pytest
 from common_utils.types.user_database import UserDatabase
-from tests.shared import threeAccounts
-from common_utils.messages import invalidInput
+from tests.shared import threeAccounts, singleUser
+from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage, invalidInput
 # TODO: Possibly combine into *testimonialOutputList, *initialScreenOptionsList, *XoptionsList for testing. Xoptions list is not uniformly implemented so would need to be implemented and then imported to work.
 # - Lots of imports, + Simpler Code
 
@@ -19,8 +20,8 @@ from common_utils.messages import invalidInput
             [
                 *testimonialOutputList,
                 *initialScreenOptionsList,
-                "Login to InCollege",
-                "Username: ",
+                alreadyLoggedIn("Please log out and log back in to change accounts"),
+                anyButtonToContinueMessage(),
             ],
             [],
         ),
@@ -29,8 +30,7 @@ from common_utils.messages import invalidInput
             [
                 *testimonialOutputList,
                 *initialScreenOptionsList,
-                "*** Create a new user account ***",
-                "Username: ",
+                alreadyLoggedIn("Please log out to create another account."),
             ],
             [],
         ),
@@ -92,8 +92,10 @@ def testPrintInitial(mock_input, responses, expectedReturn, monkeypatch, capfd):
     userDB = UserDatabase([])
     # Load 3 accounts to Json
     userDB.addUserDictList(threeAccounts)
+    testUser = User.dictToUser(singleUser)
+
     try:
-        assert printInitialScreen() == expectedReturn
+        assert printInitialScreen(testUser) == testUser
     except StopIteration:
         pass
     captured = capfd.readouterr()
