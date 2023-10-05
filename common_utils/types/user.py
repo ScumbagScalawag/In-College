@@ -19,7 +19,7 @@ class User:
         emailSub: bool = True,
         smsSub: bool = True,
         adSub: bool = True,
-        connections=[],
+        friendRequests=[],
     ):
         self.username = username
         self.password = password
@@ -31,7 +31,7 @@ class User:
         self.emailSub = emailSub
         self.smsSub = smsSub
         self.adSub = adSub
-        self.connections = connections
+        self.friendRequests = friendRequests
 
     # Copy constructor: call like this: newUser = User.copy(userToCopy), where userToCopy: User
     # WARNING: This creates a NEW object (different place in memeory than original). It is NOT a reference to it
@@ -48,7 +48,7 @@ class User:
             emailSub=userToCopy.emailSub,
             smsSub=userToCopy.smsSub,
             adSub=userToCopy.adSub,
-            connections=userToCopy.connections.copy(),  # Make a copy of the connections list
+            friendRequests=userToCopy.friendRequests.copy(),  # Make a copy of the friendRequests list
         )
 
     # define what print(userObject) does
@@ -79,16 +79,17 @@ class User:
             "emailSub": self.emailSub,
             "smsSub": self.smsSub,
             "adSub": self.adSub,
-            "connections": self.connections,
+            "friendRequests": self.friendRequests,
         }
 
-    def isConnection(self, username: str):
+    def hasPendingFriendRequest(self, username: str):
         if isinstance(username, str):
-            for connection in self.connections:
-                if connection == username:
+            for friendRequestUsername in self.friendRequests:
+                if friendRequestUsername == username:
                     return True
-        # for case where user(name) is None
+        # for case where user(name) is None: 
         else:
+            # TODO: make this throw error 
             return False
 
         return False
@@ -112,7 +113,7 @@ class User:
             emailSub=userDict.get("emailSub", True),
             smsSub=userDict.get("smsSub", True),
             adSub=userDict.get("adSub", True),
-            connections=userDict.get("connections", []),
+            friendRequests=userDict.get("friendRequests", []),
         )
 
     def setLanguage(self, language):
@@ -163,23 +164,23 @@ class User:
 
         return True
 
-    def addConnection(self, username: str):
-        for connection in self.connections:
-            # if connection already exists
-            if username == connection:
+    def sendFriendRequest(self, username: str):
+        for friendRequestUsername in self.friendRequests:
+            # if friendRequest already exists
+            if username == friendRequestUsername:
                 return 1
             # if you've put your own username
             if username == self.username:
                 return 2
 
-        self.connections.append(username)
+        self.friendRequests.append(username)
 
         return 0
 
-    def removeConnection(self, username: str):
-        if not self.isConnection(username):
+    def unsendFriendRequest(self, username: str):
+        if not self.hasPendingFriendRequest(username):
             return False
 
-        self.connections.remove(username)
+        self.friendRequests.remove(username)
 
         return True

@@ -15,7 +15,7 @@ singleUser = {
     "emailSub": True,
     "smsSub": True,
     "adSub": True,
-    "connections": [],
+    "friendRequests": [],
 }
 # Three Accounts does not include single user
 threeAccounts = [
@@ -30,7 +30,7 @@ threeAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friendRequests": [],
     },
     {
         "username": "sillyBoi",
@@ -43,7 +43,7 @@ threeAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": ["notKaren", "dummy"],
+        "friendRequests": ["notKaren", "dummy"],
     },
     {
         "username": "dummyDude",
@@ -56,7 +56,7 @@ threeAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": ["admin"],
+        "friendRequests": ["admin"],
     },
 ]
 # four accounts = three + single user
@@ -72,7 +72,7 @@ fourAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friendRequests": [],
     },
     {
         "username": "dummy",
@@ -85,7 +85,7 @@ fourAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friendRequests": [],
     },
     {
         "username": "sillyBoi",
@@ -98,7 +98,7 @@ fourAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": ["dummy"],
+        "friendRequests": ["dummy"],
     },
     {
         "username": "dummyDude",
@@ -111,7 +111,7 @@ fourAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friendRequests": [],
     },
 ]
 # 5 = 3 + 1 + 1
@@ -127,7 +127,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friendRequests": [],
     },
     {
         "username": "sillyBoi",
@@ -140,7 +140,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": ["notKaren", "dummy"],
+        "friendRequests": ["notKaren", "dummy"],
     },
     {
         "username": "dummyDude",
@@ -153,7 +153,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": ["admin"],
+        "friendRequests": ["admin"],
     },
     {
         "username": "notKaren",
@@ -166,7 +166,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": ["dummy"],
+        "friendRequests": ["dummy"],
     },
     {
         "username": "theSilliestOfAll",
@@ -179,7 +179,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [""],
+        "friendRequests": [""],
     },
 ]
 

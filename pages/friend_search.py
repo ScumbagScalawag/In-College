@@ -27,7 +27,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                 ).upper()
                 while True:
                     if confirm == "Y":
-                        if currentUser.isConnection(foundUser.username):
+                        if currentUser.hasPendingFriendRequest(foundUser.username):
                             print("You are already connected with this user")
                             break
                         elif currentUser == foundUser:
@@ -35,7 +35,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                             break
 
                         # Add connection to currenUser
-                        addConnectionValue = currentUser.addConnection(foundUser.username)
+                        addConnectionValue = currentUser.sendFriendRequest(foundUser.username)
                         if addConnectionValue != 0:
                             print(
                                 f"There was an error adding connection. Code {addConnectionValue}"

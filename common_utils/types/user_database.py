@@ -29,20 +29,20 @@ class UserDatabase:
                 # Goes through array of (user) dicts and converts them to array of User for the object
                 # self.userlist = [User(**userData) for userData in userDict.get("userlist", [])]
                 # self.userlist = []
-                for user_data in userDict.get("userlist", []):
+                for userData in userDict.get("userlist", []):
                     user = User(
                         # second arg: default if key not found
-                        username=user_data.get("username", "UNDEFINED"),
-                        password=user_data.get("password", "UNDEFINED"),
-                        firstname=user_data.get("firstname", "UNDEFINED"),
-                        lastname=user_data.get("lastname", "UNDEFINED"),
-                        email=user_data.get("email", "UNDEFINED"),
-                        phoneNumber=user_data.get("phoneNumber", "UNDEFINED"),
-                        language=user_data.get("language", "Engligh"),
-                        emailSub=user_data.get("emailSub", True),
-                        smsSub=user_data.get("smsSub", True),
-                        adSub=user_data.get("adSub", True),
-                        connections=user_data.get("connections", []),
+                        username=userData.get("username", "UNDEFINED"),
+                        password=userData.get("password", "UNDEFINED"),
+                        firstname=userData.get("firstname", "UNDEFINED"),
+                        lastname=userData.get("lastname", "UNDEFINED"),
+                        email=userData.get("email", "UNDEFINED"),
+                        phoneNumber=userData.get("phoneNumber", "UNDEFINED"),
+                        language=userData.get("language", "Engligh"),
+                        emailSub=userData.get("emailSub", True),
+                        smsSub=userData.get("smsSub", True),
+                        adSub=userData.get("adSub", True),
+                        friendRequests=userData.get("friendRequests", []),
                     )
                     self.userlist.append(user)
         except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
@@ -116,7 +116,7 @@ class UserDatabase:
                         target.emailSub = alteredUser.emailSub
                         target.smsSub = alteredUser.smsSub
                         target.adSub = alteredUser.adSub
-                        target.connections = alteredUser.connections
+                        target.friendRequests = alteredUser.friendRequests
                         self.saveDatabase()
                         return target  # Return the updated User object
                 raise UserNotFoundException("Couldn't find match for user")

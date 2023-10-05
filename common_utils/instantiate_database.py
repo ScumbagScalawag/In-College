@@ -15,7 +15,7 @@ userDB = {
             "emailSub": True,
             "smsSub": True,
             "adSub": True,
-            "connections": [],
+            "friendRequests": [],
         },
         {
             "username": "tester",
@@ -28,7 +28,7 @@ userDB = {
             "emailSub": True,
             "smsSub": True,
             "adSub": True,
-            "connections": ["admin"],
+            "friendRequests": ["admin"],
         },
     ]
 }

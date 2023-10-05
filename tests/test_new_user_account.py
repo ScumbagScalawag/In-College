@@ -6,11 +6,12 @@ from common_utils.types.user_database import UserDatabase
 from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
 from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
 from common_utils.messages import anyButtonToContinueMessage
-from common_utils.utils import loadUsers #TODO
+from common_utils.utils import loadUsers  # TODO
+
 
 def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
-    userDB = UserDatabase([]) 
+    userDB = UserDatabase([])
     # Load 5 accounts to Json
     # saveDatabase(JSON_USERS_FP, fiveAccounts)
     userDB.addUserDictList(fiveAccounts)
@@ -25,10 +26,10 @@ def test_CreateAccountOver5(capfd, monkeypatch):
     # print("after 6th iteration input generator")
 
     captured = capfd.readouterr()
-    #userContext = printNewAccountScreen()
+    # userContext = printNewAccountScreen()
     try:
         userContext = printNewAccountScreen()
-        # assert None, essentially -> no user context 
+        # assert None, essentially -> no user context
         assert not isinstance(userContext, User)
     except StopIteration:
         pass
@@ -105,8 +106,8 @@ def testCreateAccount(
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     # if numUsers is not None:
-        # If error here, then the database is the issue not the create account logic
-        # assert len(userList) == numUsers
+    # If error here, then the database is the issue not the create account logic
+    # assert len(userList) == numUsers
     try:
         # captured = capfd.readouterr()
         userContext = printNewAccountScreen()
@@ -114,13 +115,14 @@ def testCreateAccount(
         if isinstance(userContext, User):
             assert userContext.username == singleUser["username"]
         if not isinstance(userContext, User):
-            print("Something went wrong assigning user context!") #TODO There should not be any prints in tests
+            print(
+                "Something went wrong assigning user context!"
+            )  # TODO There should not be any prints in tests
     except StopIteration:
         pass
     captured = capfd.readouterr()  # assert captured
     for r in responses:
         assert r in captured.out  # Friend successfully added
-
 
 
 @pytest.mark.parametrize(
@@ -142,7 +144,7 @@ def testCreateAccount(
 )
 def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     # ensure DB is empty first
-    userDB = UserDatabase([]) 
+    userDB = UserDatabase([])
     # Load 3 accounts to Json
     userDB.addUserDictList(threeAccounts)
 
@@ -159,11 +161,20 @@ def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     assert error_message in captured.out
 
 
-def test_saveUser_and_loadUsers_when_database_is_empty():
+def test_addUser_and_loadUsers_when_database_is_empty():
     userDB = UserDatabase([])
-    userDB.addUserDict(singleUser)
+    # Technically doesn't test save User: TODO: use
+    # userDB.addUserDict(singleUser)
+    user = User.dictToUser(singleUser)
+    userDB.addUser(user)
 
-    assert userDB.userExists(singleUser["username"])
+    assert userDB.userExists(user.username)
+
+    secondDB = UserDatabase([])
+    secondDB.loadUsers()
+
+    assert len(secondDB.userlist) == 1
+    assert secondDB.userlist[0].username == user.username
 
 
 def test_saveDatabase():

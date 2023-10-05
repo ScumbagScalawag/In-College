@@ -118,7 +118,7 @@ def saveUser(
     emailSub: bool = True,
     smsSub: bool = True,
     adSub: bool = True,
-    connections: list = [],
+    friendRequests: list = [],
 ):
     newUser = {
         "username": username,
@@ -130,7 +130,7 @@ def saveUser(
         "emailSub": emailSub,
         "smsSub": smsSub,
         "adSub": adSub,
-        "connections": connections,
+        "friendRequests": friendRequests,
     }
     users.append(newUser)
     saveDatabase(JSON_USERS_FP, users)

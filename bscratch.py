@@ -1,6 +1,8 @@
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 
+# THIS IS JUST FOR TESTING STUFF UNOFFICIALLY. Feel free to delete if this bothers you -Noah
+
 testDB = [
     {
         "username": "asdfasdf",
@@ -12,7 +14,7 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friendRequests": [],
     },
     {
         "username": "dummy",
@@ -24,7 +26,7 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friendRequests": [],
     },
     {
         "username": "sillyBoi",
@@ -36,7 +38,7 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": ["dummy"],
+        "friendRequests": ["dummy"],
     },
     {
         "username": "dummyDude",
@@ -48,7 +50,7 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friendRequests": [],
     },
 ]
 
@@ -74,7 +76,7 @@ print(userDB)
 
 print("---test updateuser with connection added")
 print("Before Connection added", user)
-user.addConnection("dummy")
+user.sendFriendRequest("dummy")
 print("After Connection added", user)
 userDB.updateUser(user)
 print("userDB after updating user: ", userDB)
