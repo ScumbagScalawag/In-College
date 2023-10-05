@@ -53,7 +53,7 @@ class User:
             friends=userToCopy.friends.copy(),
             friendRequests=userToCopy.friendRequests.copy(),  # Make a copy of the friendRequests list
         )
-    
+
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
         self.username = otherUser.username
@@ -68,7 +68,6 @@ class User:
         self.adSub = otherUser.adSub
         self.friends = otherUser.friends.copy()
         self.friendRequests = otherUser.friendRequests.copy()
-
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -104,10 +103,9 @@ class User:
 
     def hasPendingFriendRequest(self, username: str):
         if isinstance(username, str):
-            for friendRequestUsername in self.friendRequests:
-                if friendRequestUsername == username:
-                    return True
-        # for case where user(name) is None: 
+            if username in self.friendRequests:
+                return True
+        # for case where user(name) is None:
         else:
             # TODO: make this throw TypeError
             return False
@@ -186,25 +184,26 @@ class User:
         return True
 
     def sendFriendRequest(self, username: str):
-        for friendRequestUsername in self.friendRequests:
-            # if friendRequest already exists
-            if username == friendRequestUsername:
-                return 1
-            # if you've put your own username
-            if username == self.username:
-                return 2
+        try:
+            if username in self.friendRequests:
+                raise TypeError("You have already sent", username, "a friend request.")
+            elif username in self.friends:
+                raise TypeError("You are already friends with", username)
+            elif username == self.username:
+                raise TypeError("You cannot ")
 
-        self.friendRequests.append(username)
+        except TypeError as e:
+            print(f"Error {e}")
+        else:
+            self.friendRequests.append(username)
 
-        return 0
-
-    def unsendFriendRequest(self, username: str):
+    def removeFriendRequest(self, username: str):
         if not self.hasPendingFriendRequest(username):
-            return False
+            raise TypeError("Friend request to", username, "not found")
 
         self.friendRequests.remove(username)
 
         return True
 
-    def acceptFriendRequest(self, username: str):
-        self.friends.append(username)
+    def isFriend(self, username: str):
+        return username in self.friends

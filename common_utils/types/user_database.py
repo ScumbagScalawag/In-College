@@ -113,7 +113,6 @@ class UserDatabase:
             except Exception as e:
                 print(f"An unexpected error occurred: {e}")
 
-
     # saveUser() -> addUser() for conventions sake
     # gets passed a User object
     def addUser(self, user: User):
@@ -132,3 +131,31 @@ class UserDatabase:
     def addUserDictList(self, userDictList: List[dict]):
         for userDict in userDictList:
             self.addUserDict(userDict)
+
+    # Because accept/decline friend request requires multi-user changes that must all happen,
+    # they are a DB function until someone thinks of something more clever
+    def acceptFriendRequest(self, sender: User, reciever: User):
+        try:
+            # ensuring you don't double-append
+            if not reciever.isFriend(sender.username):
+                reciever.friends.append(sender.username)
+            if not sender.isFriend(reciever.username):
+                sender.friends.append(reciever.username)
+
+            sender.friendRequests.remove(reciever.username)
+        except:
+            print("There was a problem accepting the friend request")
+            return
+
+    def declineFriendRequest(self, sender: User, reciever: User):
+        try:
+            # ensuring you don't double-append
+            if not reciever.isFriend(sender.username):
+                reciever.friends.append(sender.username)
+            if not sender.isFriend(reciever.username):
+                sender.friends.append(reciever.username)
+
+            sender.removeFriendRequest(reciever.username)
+        except:
+            print("There was a problem accepting the friend request")
+            return
