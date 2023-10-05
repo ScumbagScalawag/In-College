@@ -19,6 +19,7 @@ class User:
         emailSub: bool = True,
         smsSub: bool = True,
         adSub: bool = True,
+        friends=[],
         friendRequests=[],
     ):
         self.username = username
@@ -31,6 +32,7 @@ class User:
         self.emailSub = emailSub
         self.smsSub = smsSub
         self.adSub = adSub
+        self.friends = friends
         self.friendRequests = friendRequests
 
     # Copy constructor: call like this: newUser = User.copy(userToCopy), where userToCopy: User
@@ -48,8 +50,25 @@ class User:
             emailSub=userToCopy.emailSub,
             smsSub=userToCopy.smsSub,
             adSub=userToCopy.adSub,
+            friends=userToCopy.friends.copy(),
             friendRequests=userToCopy.friendRequests.copy(),  # Make a copy of the friendRequests list
         )
+    
+    # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
+    def copyValues(self, otherUser):
+        self.username = otherUser.username
+        self.password = otherUser.password
+        self.firstname = otherUser.firstname
+        self.lastname = otherUser.lastname
+        self.email = otherUser.email
+        self.phoneNumber = otherUser.phoneNumber
+        self.language = otherUser.language
+        self.emailSub = otherUser.emailSub
+        self.smsSub = otherUser.smsSub
+        self.adSub = otherUser.adSub
+        self.friends = otherUser.friends.copy()
+        self.friendRequests = otherUser.friendRequests.copy()
+
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -79,6 +98,7 @@ class User:
             "emailSub": self.emailSub,
             "smsSub": self.smsSub,
             "adSub": self.adSub,
+            "friends": self.friends,
             "friendRequests": self.friendRequests,
         }
 
@@ -89,7 +109,7 @@ class User:
                     return True
         # for case where user(name) is None: 
         else:
-            # TODO: make this throw error 
+            # TODO: make this throw TypeError
             return False
 
         return False
@@ -113,6 +133,7 @@ class User:
             emailSub=userDict.get("emailSub", True),
             smsSub=userDict.get("smsSub", True),
             adSub=userDict.get("adSub", True),
+            friends=userDict.get("friends", []),
             friendRequests=userDict.get("friendRequests", []),
         )
 
@@ -184,3 +205,6 @@ class User:
         self.friendRequests.remove(username)
 
         return True
+
+    def acceptFriendRequest(self, username: str):
+        self.friends.append(username)

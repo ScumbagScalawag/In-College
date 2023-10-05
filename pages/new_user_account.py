@@ -118,6 +118,7 @@ def saveUser(
     emailSub: bool = True,
     smsSub: bool = True,
     adSub: bool = True,
+    friends: list = [],
     friendRequests: list = [],
 ):
     newUser = {

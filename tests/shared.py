@@ -15,6 +15,7 @@ singleUser = {
     "emailSub": True,
     "smsSub": True,
     "adSub": True,
+    "friends": [],
     "friendRequests": [],
 }
 # Three Accounts does not include single user
@@ -30,6 +31,7 @@ threeAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [],
     },
     {
@@ -43,6 +45,7 @@ threeAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": ["notKaren", "dummy"],
     },
     {
@@ -56,6 +59,7 @@ threeAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": ["admin"],
     },
 ]
@@ -72,6 +76,7 @@ fourAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [],
     },
     {
@@ -85,6 +90,7 @@ fourAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [],
     },
     {
@@ -98,6 +104,7 @@ fourAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": ["dummy"],
     },
     {
@@ -111,6 +118,7 @@ fourAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [],
     },
 ]
@@ -127,6 +135,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [],
     },
     {
@@ -140,6 +149,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": ["notKaren", "dummy"],
     },
     {
@@ -153,6 +163,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": ["admin"],
     },
     {
@@ -166,6 +177,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": ["dummy"],
     },
     {
@@ -179,6 +191,7 @@ fiveAccounts = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [""],
     },
 ]

@@ -14,6 +14,7 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [],
     },
     {
@@ -26,6 +27,7 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [],
     },
     {
@@ -38,6 +40,7 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": ["dummy"],
     },
     {
@@ -50,6 +53,7 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
+        "friends": [],
         "friendRequests": [],
     },
 ]
@@ -61,8 +65,8 @@ userDB.addUserDictList(testDB)
 print("---first toggle sms to false")
 # UserDB.userlist[0] and user BOTH REFER TO THE SAME PLACE IN MEMORY, in this case
 # Any changes to User must be written to DB's Json file, or else user will be changed only in memory:
-# userDB.updateUser(user) 
-user = userDB.userlist[0] # ^
+# userDB.updateUser(user)
+user = userDB.userlist[0]  # ^
 user.toggleSmsSub()
 print(user)
 userDB.updateUser(user)
@@ -104,8 +108,3 @@ print("JSON AFTER added connection", userJsonDB)
 # print("user2: ", user2)
 # Ensure not same memory location (i.e. new obj)
 # print(f"user1 location: {id(user1)}, user2 location: {id(user2)}")
-
-
-
-
-

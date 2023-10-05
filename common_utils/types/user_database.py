@@ -26,10 +26,9 @@ class UserDatabase:
         try:
             with open(JSON_USERS_FP, "r") as database:
                 userDict = json.load(database)
-                # Goes through array of (user) dicts and converts them to array of User for the object
-                # self.userlist = [User(**userData) for userData in userDict.get("userlist", [])]
-                # self.userlist = []
+                # Goes through array of (user) dicts and converts them to array of User for self.userlist
                 for userData in userDict.get("userlist", []):
+                    # TODO: convert to use User.dictToUser()
                     user = User(
                         # second arg: default if key not found
                         username=userData.get("username", "UNDEFINED"),
@@ -42,6 +41,7 @@ class UserDatabase:
                         emailSub=userData.get("emailSub", True),
                         smsSub=userData.get("smsSub", True),
                         adSub=userData.get("adSub", True),
+                        friends=userData.get("friends", []),
                         friendRequests=userData.get("friendRequests", []),
                     )
                     self.userlist.append(user)
@@ -50,11 +50,11 @@ class UserDatabase:
             print("WARNING: Cannot find JSON DataBase!")
             pass
 
-    # Internal Dictionary Object - needed for easy printing to console: print(userDatabaseObject.getDatabaseDict())
+    # UserDatabase Dictionary Object
     def getDatabaseDict(self):
         return {"userlist": self.getUserDictList()}
 
-    # Internal Dictionary Object
+    # List of User Dictionaries
     def getUserDictList(self):
         userDictList = []
         for user in self.userlist:
@@ -104,30 +104,15 @@ class UserDatabase:
                 # Find the index i of the target User object in userlist
                 for i, user in enumerate(self.userlist):
                     if user.username == alteredUser.username:
-                        # Copy the values of currentUser into the target User object
-                        target = self.userlist[i]
-                        target.username = alteredUser.username
-                        target.password = alteredUser.password
-                        target.firstname = alteredUser.firstname
-                        target.lastname = alteredUser.lastname
-                        target.email = alteredUser.email
-                        target.phoneNumber = alteredUser.phoneNumber
-                        target.language = alteredUser.language
-                        target.emailSub = alteredUser.emailSub
-                        target.smsSub = alteredUser.smsSub
-                        target.adSub = alteredUser.adSub
-                        target.friendRequests = alteredUser.friendRequests
+                        self.userlist[i].copyValues(alteredUser)
                         self.saveDatabase()
-                        return target  # Return the updated User object
+                        return
                 raise UserNotFoundException("Couldn't find match for user")
             except UserNotFoundException as e:
                 print(f"Error: {e}")
-                return None
             except Exception as e:
                 print(f"An unexpected error occurred: {e}")
-                return None
 
-        return None  # User not found in userlist
 
     # saveUser() -> addUser() for conventions sake
     # gets passed a User object
