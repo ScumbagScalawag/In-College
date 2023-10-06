@@ -11,7 +11,9 @@ from common_utils.utils import JSON_USERS_FP
 
 
 class UserDatabase:
-    def __init__(self, userlist: List[User] = []):
+    def __init__(self, userlist: Optional[List[User]] = None):
+        if userlist is None:
+            userlist = []
         self.userlist = userlist
 
     # Easily print userDB: UserDatabase -> print(userDB)
