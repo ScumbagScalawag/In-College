@@ -35,25 +35,6 @@ class User:
         self.friends = friends
         self.friendRequests = friendRequests
 
-    # Copy constructor: call like this: newUser = User.copy(userToCopy), where userToCopy: User
-    # WARNING: This creates a NEW object (different place in memeory than original). It is NOT a reference to it
-    @classmethod
-    def copy(cls, userToCopy):
-        return cls(
-            username=userToCopy.username,
-            password=userToCopy.password,
-            firstname=userToCopy.firstname,
-            lastname=userToCopy.lastname,
-            email=userToCopy.email,
-            phoneNumber=userToCopy.phoneNumber,
-            language=userToCopy.language,
-            emailSub=userToCopy.emailSub,
-            smsSub=userToCopy.smsSub,
-            adSub=userToCopy.adSub,
-            friends=userToCopy.friends.copy(),
-            friendRequests=userToCopy.friendRequests.copy(),  # Make a copy of the friendRequests list
-        )
-
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
         self.username = otherUser.username
