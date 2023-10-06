@@ -8,7 +8,8 @@ from common_utils.messages import anyButtonToContinueMessage
 
 def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
-    userDB = UserDatabase([])
+    userDB = UserDatabase()
+    print(userDB)
     # Load 5 accounts to Json
     # saveDatabase(JSON_USERS_FP, fiveAccounts)
     userDB.addUserDictList(fiveAccounts)

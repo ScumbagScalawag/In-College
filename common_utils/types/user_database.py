@@ -81,7 +81,7 @@ class UserDatabase:
     # SETTERS
     # simply writes the in-memory DB stuff into JSON
     def saveDatabase(self):
-        if len(self.userlist) >= MAX_USERS:
+        if len(self.userlist) > MAX_USERS:
             raise MaximumNumberOfUsers("Cannot Write to UserDatabase: Maximum number of users reached")
         with open(JSON_USERS_FP, "w") as outfile:
             json.dump(self.getDatabaseDict(), outfile, indent=4)

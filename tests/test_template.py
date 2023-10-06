@@ -6,7 +6,7 @@ Feel free to ask any questions you have on discord
 
 import pytest  # needed for pytest
 from tests.shared import JSON_USERS_FP, fourAccounts  # needed for testWithDatabaseSet
-from pages.new_user_account import saveDatabase  # saveDatabase
+from common_utils.types.user_database import UserDatabase
 
 
 def tempFunction():  # Temp function is placeholder for function to be imported from test file
@@ -64,7 +64,9 @@ def testTempName(mock_input, responses, expectedReturn, monkeypatch, capfd):
 # to change paramertize to handle the loading of diffrent databases, make a new variable for them have it be included in the test's function definition NAME(monkeypatch, capfd, ..., NEWVARIABLE)
 # look at new_user_account tests and job search tests to see paramertized implementation of it
 def testWithDatabaseSet(monkeypatch, capfd):
-    saveDatabase(JSON_USERS_FP, fourAccounts)
+    userDB = UserDatabase()
+    userDB.addUserDictList(fourAccounts)
+
     input_generator = iter(
         [
             "",  # "input 1",

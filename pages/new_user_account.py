@@ -1,10 +1,9 @@
 from typing import Optional
 from common_utils.types.exceptions import MaximumNumberOfUsers
-from common_utils.utils import clearScreen, JSON_USERS_FP, MAX_USERS
+from common_utils.utils import clearScreen, MAX_USERS
 from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-import json
 
 
 # Menu: Add new user account
@@ -110,41 +109,3 @@ def checkPasswordSecurity(password):
         return True  # Password is valid
 
     return False  # Password is invalid
-
-
-# users takes the list, not the entire dict!
-def saveUser(
-    users: list,
-    username: str = "UNDEFINED",
-    password: str = "UNDEFINED",
-    firstname: str = "UNDEFINED",
-    lastname: str = "UNDEFINED",
-    email: str = "UNDEFINED",
-    phoneNumber: str = "UNDEFINED",
-    emailSub: bool = True,
-    smsSub: bool = True,
-    adSub: bool = True,
-    friends: list = [],
-    friendRequests: list = [],
-):
-    newUser = {
-        "username": username,
-        "password": password,
-        "firstname": firstname,
-        "lastname": lastname,
-        "email": email,
-        "phoneNumber": phoneNumber,
-        "emailSub": emailSub,
-        "smsSub": smsSub,
-        "adSub": adSub,
-        "friendRequests": friendRequests,
-    }
-    users.append(newUser)
-    saveDatabase(JSON_USERS_FP, users)
-
-
-# users takes the list, not the entire dict!
-def saveDatabase(jsonFilePath, users):
-    userDB = {"userlist": users}
-    with open(jsonFilePath, "w") as outfile:
-        json.dump(userDB, outfile, indent=4)
