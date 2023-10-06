@@ -2,6 +2,9 @@ import os
 
 JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
+UNEXPECTED_TESTING_ERROR_MESSAGE = (
+    "Unexpected Error occured while testing. Please make sure to double check fixture data"
+)
 
 # Users ------- [[[
 singleUser = {
@@ -17,6 +20,22 @@ singleUser = {
     "adSub": True,
     "friends": [],
     "friendRequests": [],
+}
+
+# A user with no Defualt values to ensure r/w operations are working
+nonDefualtsSingleUser = {
+    "username": "asdfasdf",
+    "password": "P@ssw0rd",
+    "firstname": "Dude",
+    "lastname": "Dummy",
+    "email": "nondefaultuser@gmail.com",
+    "phoneNumber": "6666666666",
+    "language": "Spanish",
+    "emailSub": False,
+    "smsSub": False,
+    "adSub": False,
+    "friends": ["someUser"],
+    "friendRequests": ["someOtherUser", "anotherUser"],
 }
 # Three Accounts does not include single user
 threeAccounts = [
