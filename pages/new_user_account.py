@@ -1,11 +1,10 @@
 from typing import Optional
-from common_utils.utils import clearScreen, JSON_USERS_FP
+from common_utils.types.exceptions import MaximumNumberOfUsers
+from common_utils.utils import clearScreen, JSON_USERS_FP, MAX_USERS
 from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 import json
-
-MAXUSERS = 5
 
 
 # Menu: Add new user account
@@ -18,7 +17,7 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
         print(alreadyLoggedIn("Please log out to create another account."))
         return currentUser
 
-    if len(userDB.userlist) < MAXUSERS:  # Requirement for 5 accounts
+    if len(userDB.userlist) < MAX_USERS:  # Requirement for 5 accounts
         while True:
             clearScreen()
             print("*** Create a new user account ***")
@@ -44,7 +43,14 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
                             firstname,
                             lastname,
                         )
-                        userDB.addUser(newUser)
+                        # Just in case. Conditional check beforehand should catch this
+                        try:
+                            userDB.addUser(newUser)
+                        except ( MaximumNumberOfUsers) as e:  
+                            print(f"Error: {e}")
+                            print(anyButtonToContinueMessage())
+                            input("")
+                            break
 
                         # check if user made it to DB
                         if userDB.userExists(username):

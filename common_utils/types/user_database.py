@@ -1,6 +1,7 @@
 from typing import List, Optional
-from common_utils.types.exceptions import UserNotFoundException
+from common_utils.types.exceptions import MaximumNumberOfUsers, UserNotFoundException
 from common_utils.types.user import User
+from common_utils.utils import MAX_USERS
 import json
 
 from common_utils.utils import JSON_USERS_FP
@@ -80,6 +81,8 @@ class UserDatabase:
     # SETTERS
     # simply writes the in-memory DB stuff into JSON
     def saveDatabase(self):
+        if len(self.userlist) >= MAX_USERS:
+            raise MaximumNumberOfUsers("Cannot Write to UserDatabase: Maximum number of users reached")
         with open(JSON_USERS_FP, "w") as outfile:
             json.dump(self.getDatabaseDict(), outfile, indent=4)
 
@@ -103,8 +106,11 @@ class UserDatabase:
     # saveUser() -> addUser() for conventions sake
     # gets passed a User object
     def addUser(self, user: User):
-        self.userlist.append(user)
-        self.saveDatabase()
+        if len(self.userlist) < MAX_USERS:
+            self.userlist.append(user)
+            self.saveDatabase()
+        else:
+            raise MaximumNumberOfUsers("Maxumum number of users has been reached")
 
     def addUserList(self, userList: List[User]):
         for user in userList:
@@ -139,5 +145,6 @@ class UserDatabase:
         if sender.hasPendingFriendRequestTo(reciever.username):
             sender.removeFriendRequest(reciever.username)
         else:
-            raise ValueError(f"{sender.username} has not sent a friend request to {reciever.username}")
-
+            raise ValueError(
+                f"{sender.username} has not sent a friend request to {reciever.username}"
+            )
