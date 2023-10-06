@@ -79,7 +79,7 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
             "All permitted accounts have been created, come back later"
         )  # Requirement for 5 accounts response
         print(anyButtonToContinueMessage())
-        userInput = input("")
+        input("")
     return None
 
 

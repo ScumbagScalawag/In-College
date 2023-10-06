@@ -67,7 +67,7 @@ generalOptionsList = [
 def printHelpCenter(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     printOptionList(helpOptions)
-    userInput = input("")
+    input("")
     return currentUser
 
 
@@ -77,7 +77,7 @@ helpOptions = ["*** Help Center ***", "We're here to help!", "\n", anyButtonToCo
 def printAbout(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     printOptionList(aboutOptions)
-    userInput = input("")
+    input("")
     return currentUser
 
 
@@ -93,7 +93,7 @@ aboutOptions = [
 def printPress(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     printOptionList(pressOptions)
-    userInput = input("")
+    input("")
     return currentUser
 
 
@@ -107,7 +107,7 @@ pressOptions = [
 
 def printBlog(currentUser: Optional[User] = None) -> Optional[User]:
     printOptionList(blogOptions)
-    userInput = input("")
+    input("")
     return currentUser
 
 
@@ -116,7 +116,7 @@ blogOptions = ["*** Blog ***\n", underConstructionMessage()]
 
 def printCareers(currentUser: Optional[User] = None) -> Optional[User]:
     printOptionList(careersOptions)
-    userInput = input("")
+    input("")
     return currentUser
 
 
@@ -125,7 +125,7 @@ careersOptions = ["*** Careers ***\n", underConstructionMessage()]
 
 def printDevelopers(currentUser: Optional[User] = None) -> Optional[User]:
     printOptionList(developersOptions)
-    userInput = input("")
+    input("")
     return currentUser
 
 

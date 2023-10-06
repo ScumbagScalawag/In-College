@@ -1,12 +1,9 @@
 import pytest
-import json
-from common_utils import utils as u
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
-from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
+from pages.new_user_account import printNewAccountScreen
+from tests.shared import singleUser, threeAccounts, fiveAccounts
 from common_utils.messages import anyButtonToContinueMessage
-from common_utils.utils import loadUsers  # TODO
 
 
 def test_CreateAccountOver5(capfd, monkeypatch):
@@ -101,7 +98,6 @@ def testCreateAccount(
 ):
     userDB = UserDatabase([])
     userDB.addUserDictList(startingUserDB)
-    testUser = User.dictToUser(singleUser)
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 

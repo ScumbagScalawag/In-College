@@ -60,7 +60,7 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
 def printTestimonialScreen():
     printOptionList(testimonialOutputList)
-    tempInput = input("")
+    input("")
     return
 
 

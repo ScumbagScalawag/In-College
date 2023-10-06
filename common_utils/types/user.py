@@ -1,7 +1,5 @@
 import json
 
-from common_utils.types.exceptions import UnexpectedValueInUserAttribute
-
 
 class User:
     SUPPORTED_LANGUAGES = ["English", "Spanish"]
@@ -87,8 +85,6 @@ class User:
         if isinstance(username, str):
             if username in self.friendRequests:
                 return True
-            # else:
-            #     raise ValueError(f"{self.username} has not sent a friend request to {username}")
 
         return False
 

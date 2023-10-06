@@ -33,21 +33,21 @@ def printUsefulLinkScreen(currentUser: Optional[User] = None) -> Optional[User]:
 def printBrowseInCollege(currentUser: Optional[User] = None) -> Optional[User]:
     print("*** Browse InCollege ***")
     print(underConstructionMessage())
-    userInput = input("")
+    input("")
     return currentUser
 
 
 def printBusinessSolutions(currentUser: Optional[User] = None) -> Optional[User]:
     print("*** Business Solutions ***")
     print(underConstructionMessage())
-    userInput = input("")
+    input("")
     return currentUser
 
 
 def printDirectories(currentUser: Optional[User] = None) -> Optional[User]:
     print("*** Directories ***")
     print(underConstructionMessage())
-    userInput = input("")
+    input("")
     return currentUser
 
 
