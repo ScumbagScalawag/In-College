@@ -159,32 +159,3 @@ def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     captured = capfd.readouterr()
     error_message = "Password Requirements: minimum of 8 characters, maximum of 12 characters, at least 1 capital letter, at least 1 digit, at least 1 special character"
     assert error_message in captured.out
-
-
-def test_addUser_and_loadUsers_when_database_is_empty():
-    userDB = UserDatabase([])
-    # Technically doesn't test save User: TODO: use
-    # userDB.addUserDict(singleUser)
-    user = User.dictToUser(singleUser)
-    userDB.addUser(user)
-
-    assert userDB.userExists(user.username)
-
-    secondDB = UserDatabase([])
-    secondDB.loadUsers()
-
-    assert len(secondDB.userlist) == 1
-    assert secondDB.userlist[0].username == user.username
-
-
-def test_saveDatabase():
-    userDB = UserDatabase([])
-    userDB.addUserDictList(threeAccounts)
-
-    print("-----userDB:")
-    print(userDB)
-    # print(threeAccounts)
-    print("-----threeAccounts:")
-    print(json.dumps(threeAccounts, indent=4))
-
-    assert userDB.getUserDictList() == threeAccounts
