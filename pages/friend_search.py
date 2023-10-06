@@ -27,7 +27,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                 ).upper()
                 while True:
                     if confirm == "Y":
-                        if currentUser.hasPendingFriendRequest(foundUser.username):
+                        if currentUser.hasPendingFriendRequestTo(foundUser.username):
                             print("You are already connected with this user")
                             break
                         elif currentUser == foundUser:

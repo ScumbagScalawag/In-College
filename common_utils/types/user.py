@@ -83,10 +83,12 @@ class User:
             "friendRequests": self.friendRequests,
         }
 
-    def hasPendingFriendRequest(self, username: str):
+    def hasPendingFriendRequestTo(self, username: str):
         if isinstance(username, str):
             if username in self.friendRequests:
                 return True
+            # else:
+            #     raise ValueError(f"{self.username} has not sent a friend request to {username}")
 
         return False
 
@@ -160,7 +162,7 @@ class User:
         self.friendRequests.append(username)
 
     def removeFriendRequest(self, username: str):
-        if not self.hasPendingFriendRequest(username):
+        if not self.hasPendingFriendRequestTo(username):
             raise ValueError("Friend request to that user not found")
 
         self.friendRequests.remove(username)
@@ -175,8 +177,8 @@ class User:
         for propertyName, expectedValue in expectedUserDict.items():
             actualValue = getattr(self, propertyName)
             # Uncomment for more detailed info when debugging
-            print("actualValue:", actualValue)
-            print("expectedValue:", expectedValue)
+            # print("actualValue:", actualValue)
+            # print("expectedValue:", expectedValue)
             assert (
                 actualValue == expectedValue
             ), f"Property '{propertyName}' is not equal to the expected value '{expectedValue}'"

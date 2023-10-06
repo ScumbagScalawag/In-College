@@ -16,7 +16,7 @@ def test_default_constructor():
     assert user.smsSub == True
     assert user.adSub == True
     assert len(user.friends) == 0
-    assert len(user.friends) == 0
+    assert len(user.friendRequests) == 0
 
 
 def test_copyValues():
@@ -48,10 +48,10 @@ def test_toDict():
 
 def test_hasPendingFriendRequest():
     user = User.dictToUser(singleUser)
-    assert user.hasPendingFriendRequest("someUser") == False
+    assert user.hasPendingFriendRequestTo("someUser") == False
 
     user2 = User.dictToUser(nonDefualtsSingleUser)
-    assert user2.hasPendingFriendRequest("anotherUser") == True
+    assert user2.hasPendingFriendRequestTo("anotherUser") == True
 
 
 def test_dictToUser():

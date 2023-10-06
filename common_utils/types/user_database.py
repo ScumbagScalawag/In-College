@@ -27,25 +27,10 @@ class UserDatabase:
         self.userlist = []
         try:
             with open(JSON_USERS_FP, "r") as database:
-                userDict = json.load(database)
+                userDBDict = json.load(database)
                 # Goes through array of (user) dicts and converts them to array of User for self.userlist
-                for userData in userDict.get("userlist", []):
-                    # TODO: convert to use User.dictToUser()
-                    user = User(
-                        # second arg: default if key not found
-                        username=userData.get("username", "UNDEFINED"),
-                        password=userData.get("password", "UNDEFINED"),
-                        firstname=userData.get("firstname", "UNDEFINED"),
-                        lastname=userData.get("lastname", "UNDEFINED"),
-                        email=userData.get("email", "UNDEFINED"),
-                        phoneNumber=userData.get("phoneNumber", "UNDEFINED"),
-                        language=userData.get("language", "Engligh"),
-                        emailSub=userData.get("emailSub", True),
-                        smsSub=userData.get("smsSub", True),
-                        adSub=userData.get("adSub", True),
-                        friends=userData.get("friends", []),
-                        friendRequests=userData.get("friendRequests", []),
-                    )
+                for userDict in userDBDict.get("userlist", []):
+                    user = User.dictToUser(userDict)
                     self.userlist.append(user)
         except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
             # feel free to comment this message out. I find it helpful -noah
@@ -137,27 +122,22 @@ class UserDatabase:
     # Because accept/decline friend request requires multi-user changes that must all happen,
     # they are a DB function until someone thinks of something more clever
     def acceptFriendRequest(self, sender: User, reciever: User):
-        try:
-            # ensuring you don't double-append
-            if not reciever.isFriend(sender.username):
-                reciever.friends.append(sender.username)
-            if not sender.isFriend(reciever.username):
-                sender.friends.append(reciever.username)
+        # ensuring you don't double-append
+        if reciever.isFriend(sender.username):
+            raise ValueError(f"{reciever} is already friends with {sender}")
+        if sender.isFriend(reciever.username):
+            raise ValueError(f"{sender} is already friends with {reciever}")
 
-            sender.friendRequests.remove(reciever.username)
-        except:
-            print("There was a problem accepting the friend request")
-            return
+        # otherwise...
+        sender.friends.append(reciever.username)
+        reciever.friends.append(sender.username)
+
+        sender.friendRequests.remove(reciever.username)
 
     def declineFriendRequest(self, sender: User, reciever: User):
-        try:
-            # ensuring you don't double-append
-            if not reciever.isFriend(sender.username):
-                reciever.friends.append(sender.username)
-            if not sender.isFriend(reciever.username):
-                sender.friends.append(reciever.username)
-
+        # remove the username of reciever from sender.friendRequests
+        if sender.hasPendingFriendRequestTo(reciever.username):
             sender.removeFriendRequest(reciever.username)
-        except:
-            print("There was a problem accepting the friend request")
-            return
+        else:
+            raise ValueError(f"{sender.username} has not sent a friend request to {reciever.username}")
+
