@@ -57,6 +57,7 @@ class UserDatabase:
         return False
 
     # pass username, not User.
+    # might be better to use UserNotFoundException instead
     def getUser(self, username: str) -> Optional[User]:
         for user in self.userlist:
             if user.username == username:
@@ -92,18 +93,14 @@ class UserDatabase:
     # updates the DB entry for the user object you pass in: overwrites all values
     def updateUser(self, alteredUser: Optional[User]) -> Optional[User]:
         if isinstance(alteredUser, User):
-            try:
                 # Find the index i of the target User object in userlist
-                for i, user in enumerate(self.userlist):
-                    if user.username == alteredUser.username:
-                        self.userlist[i].copyValues(alteredUser)
-                        self.saveDatabase()
-                        return
-                raise UserNotFoundException("Couldn't find match for user")
-            except UserNotFoundException as e:
-                print(f"Error: {e}")
-            except Exception as e:
-                print(f"An unexpected error occurred: {e}")
+            for i, user in enumerate(self.userlist):
+                if user.username == alteredUser.username:
+                    self.userlist[i].copyValues(alteredUser)
+                    self.saveDatabase()
+                    return
+
+        raise UserNotFoundException("Couldn't find match for user")
 
     # saveUser() -> addUser() for conventions sake
     # gets passed a User object
@@ -154,7 +151,18 @@ class UserDatabase:
     def addFriend(self, user1: Optional[User], user2: Optional[User]):
         if not isinstance(user1, User) or not isinstance(user2, User):
             raise TypeError("Cannot add friend. One or more users were not found.")
+        # add to both users' friends lists: check if already in lists
+        if user1.username not in user2.friends and user2.username not in user1.friends:
+            user2.friends.append(user1.username)
+            user1.friends.append(user2.username)
+            self.saveDatabase()
+        else: 
+            raise ValueError("Cannot add friend: friends are already added")
+
+    def removeFriend(self, user1: Optional[User], user2: Optional[User]):
+        if not isinstance(user1, User) or not isinstance(user2, User):
+            raise TypeError("Cannot remove friend. One or more users were not found.")
         # add to both users' friends lists
-        user1.friends.append(user2.username)
-        user2.friends.append(user1.username)
+        user1.friends.remove(user2.username)
+        user2.friends.remove(user1.username)
         self.saveDatabase()

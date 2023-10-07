@@ -85,6 +85,8 @@ class User:
         if isinstance(username, str):
             if username in self.friendRequests:
                 return True
+        else:
+            raise TypeError
 
         return False
 

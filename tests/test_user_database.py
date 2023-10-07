@@ -1,3 +1,4 @@
+from typing import Type
 from common_utils.types.user_database import UserDatabase
 from common_utils.types.user import User
 from tests.shared import singleUser, threeAccounts, fourAccounts
@@ -60,10 +61,46 @@ def test_getUser():
     assert dummy is None
 
 
-
 def test_addFriend():
     userDB = UserDatabase()
     userDB.addUserDictList(threeAccounts)
+    user1 = userDB.getUser("dummy")
+    user2 = userDB.getUser("sillyBoi")
+    try:
+        userDB.addFriend(user1, user2)
+    except TypeError as e:
+        print(f"Error: {e}")
+    except:
+        print("Unknown Error occured while adding friend")
+
+    if isinstance(user2, User) and isinstance(user1, User):
+        assert "dummy" in user2.friends
+        assert "sillyBoi" in user1.friends
+    else:
+        raise ValueError("User Not found")
+
+    # make sure DB saved correctly:
+    secondDB = UserDatabase()
+    secondDB.loadUsers()
+
+    dummyUser = secondDB.getUser("dummy")
+    sillyBoiUser = secondDB.getUser("sillyBoi")
+
+    if isinstance(dummyUser, User) and isinstance(sillyBoiUser, User):
+        assert "sillyBoi" in dummyUser.friends
+        assert "dummy" in sillyBoiUser.friends
+        assert len(dummyUser.friends) == 1
+        assert len(sillyBoiUser.friends) == 1
+    else:
+        raise ValueError("User Not found")
+
+
+def test_removeFriend():
+    # Setting up a freind link
+    test_addFriend()
+
+    userDB = UserDatabase()
+    userDB.loadUsers()
 
     dummyUser = userDB.getUser("dummy")
     sillyBoiUser = userDB.getUser("sillyBoi")
@@ -71,40 +108,12 @@ def test_addFriend():
     assert isinstance(dummyUser, User)
     assert isinstance(sillyBoiUser, User)
 
-    try: 
-        userDB.addFriend(sillyBoiUser, dummyUser)
+    try:
+        userDB.removeFriend(dummyUser, sillyBoiUser)
     except TypeError as e:
-        print("One of the users passed to addFriend() wasn't found")
         print(f"Error: {e}")
     except:
-        print("Problem using addfriend")
+        print("Unexpected error occured while removing friend")
 
-    assert len(sillyBoiUser.friends) == 1 
-    assert len(dummyUser.friends) == 1 
-
-    assert sillyBoiUser.username in dummyUser.friends
-    assert "sillyBoi" in dummyUser.friends
-
-    assert dummyUser.username in sillyBoiUser.friends
-    assert "dummy" in sillyBoiUser.friends
-
-    # making sure that stuff was saved to db:
-    secondDB = UserDatabase()
-    secondDB.loadUsers()
-
-    dummyUser2 = secondDB.getUser("dummy")
-    sillyBoiUser2 = secondDB.getUser("sillyBoi")
-
-    assert isinstance(dummyUser2, User)
-    assert isinstance(sillyBoiUser2, User)
-
-    assert len(sillyBoiUser2.friends) == 1 
-    assert len(dummyUser2.friends) == 1 
-
-    assert sillyBoiUser2.username in dummyUser2.friends
-    assert "sillyBoi" in dummyUser2.friends
-
-    assert dummyUser2.username in sillyBoiUser2.friends
-    assert "dummy" in sillyBoiUser2.friends
-    
-
+    assert "sillyBoi" not in dummyUser.friends
+    assert "dummy" not in sillyBoiUser.friends
