@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Dict, Optional
 
 from common_utils.types.user import User
 
@@ -11,13 +11,29 @@ def returnToPreviousMenuMessage():
     return "X - Return to previous menu"
 
 
+# TODO: Inherently make this print and then wait for input with 'input("")'
 def anyButtonToContinueMessage():
     return "Press any button to continue..."
 
 
-def invalidInput(allowedInput):
-    return "Invalid selection please input " + allowedInput
+def invalidInput(validInputCSV):
+    return "Invalid selection please input " + validInputCSV
 
+
+def convertDictKeysToValidInputString(dictionary: Dict):
+    # Convert numerical options to text in array
+    keyText = [str(key) for key in dictionary.keys()]
+    # This is assuming each option list returns back a page
+    keyText.append("or X")
+
+    # Create a comma-separated string of options
+    optionsStringCSV = ", ".join(keyText)
+    return optionsStringCSV
+
+def invalidInputPressToContinue(validInputCSV: str):
+    print(invalidInput(validInputCSV))
+    print(anyButtonToContinueMessage())
+    input("")
 
 def mustBeLoggedIn():
     return "You must be logged in to view this page"
@@ -41,3 +57,6 @@ def isLoggedIn(currentUser: Optional[User], contentText: str) -> bool:
 
     else:
         return True
+
+def findFriendsRecommendation():
+    return "Use InCollege\'s \"Find Friends\" feature to expand your network!"

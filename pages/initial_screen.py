@@ -15,7 +15,7 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
 
     while True:
-        printTestimonialScreen()
+        printTestimonialScreen() # can probably be right above this while loop to only show it once
         clearScreen()
 
         # for testing context
