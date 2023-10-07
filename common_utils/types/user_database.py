@@ -82,7 +82,9 @@ class UserDatabase:
     # simply writes the in-memory DB stuff into JSON
     def saveDatabase(self):
         if len(self.userlist) > MAX_USERS:
-            raise MaximumNumberOfUsers("Cannot Write to UserDatabase: Maximum number of users reached")
+            raise MaximumNumberOfUsers(
+                "Cannot Write to UserDatabase: Maximum number of users reached"
+            )
         with open(JSON_USERS_FP, "w") as outfile:
             json.dump(self.getDatabaseDict(), outfile, indent=4)
 
@@ -125,7 +127,7 @@ class UserDatabase:
         for userDict in userDictList:
             self.addUserDict(userDict)
 
-    # Because accept/decline friend request requires multi-user changes that must all happen,
+    # Because accept/decline friend request and add/remove friends requires multi-user changes that must all happen,
     # they are a DB function until someone thinks of something more clever
     def acceptFriendRequest(self, sender: User, reciever: User):
         # ensuring you don't double-append
@@ -148,3 +150,11 @@ class UserDatabase:
             raise ValueError(
                 f"{sender.username} has not sent a friend request to {reciever.username}"
             )
+
+    def addFriend(self, user1: Optional[User], user2: Optional[User]):
+        if not isinstance(user1, User) or not isinstance(user2, User):
+            raise TypeError("Cannot add friend. One or more users were not found.")
+        # add to both users' friends lists
+        user1.friends.append(user2.username)
+        user2.friends.append(user1.username)
+        self.saveDatabase()
