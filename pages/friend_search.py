@@ -1,4 +1,6 @@
 from typing import Optional
+from common_utils.messages import anyButtonToContinueMessage
+from common_utils.types.exceptions import UserNotFoundException
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import clearScreen, printOptionList
@@ -27,24 +29,35 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                 ).upper()
                 while True:
                     if confirm == "Y":
-                        if currentUser.hasPendingFriendRequestTo(foundUser.username):
-                            print("You are already connected with this user")
+                        # Add connection to currenUser: no need for pre-emptive checks: cases are handled by method itself.
+                        # all we need to do here is catch all the errors thrown 
+                        try:
+                            currentUser.sendFriendRequest(foundUser.username)
+                        except ValueError as e:
+                            print(f"Error: {e}")
+                            print(anyButtonToContinueMessage())
+                            input("")
                             break
-                        elif currentUser == foundUser:
-                            print("You cannot make a connection with yourself")
+                        except:
+                            print(f"There was an unexpected problem while sending friend requests")
+                            print(anyButtonToContinueMessage())
+                            input("")
                             break
-
-                        # Add connection to currenUser
-                        addConnectionValue = currentUser.sendFriendRequest(foundUser.username)
-                        if addConnectionValue != 0:
-                            print(
-                                f"There was an error adding connection. Code {addConnectionValue}"
-                            )
 
                         # Now, update the DB (object + Json)
-                        updateDBReturn = userDB.updateUser(currentUser)
-                        if not isinstance(updateDBReturn, User):
-                            print("updateUser() has failed")
+                        try: 
+                            userDB.updateUser(currentUser)
+                        except UserNotFoundException as e:
+                            # is thrown inside updateUser() if user not found
+                            print(f"Error: {e}")
+                            print(anyButtonToContinueMessage())
+                            input("")
+                            break
+                        except:
+                            print("Unknown Error Occured while updating the database")
+                            print(anyButtonToContinueMessage())
+                            input("")
+                            break
 
                         print("Connection request sent")
                         break
