@@ -65,12 +65,17 @@ class UserDatabase:
 
         return None
 
-    def userSearch(self, firstname, lastname) -> Optional[User]:
+    def userSearch(self, firstname=None, lastname=None, uni=None, major=None) -> Optional[User]:
+        matching_users = []
         for user in self.userlist:
-            if user.firstname == firstname and user.lastname == lastname:
-                return user
-
-        return None
+            if (
+                    (firstname is None or user.firstname == firstname) and
+                    (lastname is None or user.lastname == lastname) and
+                    (uni is None or user.uni == uni) and
+                    (major is None or user.major == major)
+            ):
+                matching_users.append(user)
+        return matching_users if matching_users else None
 
     def login(self, username: str, password: str):
         for user in self.userlist:

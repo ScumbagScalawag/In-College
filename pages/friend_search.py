@@ -1,5 +1,5 @@
 from typing import Optional
-from common_utils.messages import anyButtonToContinueMessage
+from common_utils.messages import anyButtonToContinueMessage, invalidInput
 from common_utils.types.exceptions import UserNotFoundException
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
@@ -10,22 +10,49 @@ from common_utils.utils import clearScreen, printOptionList
 def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
     userDB = UserDatabase([])
     userDB.loadUsers()
-
     while True:
+        foundUser = None
         clearScreen()
         printOptionList(friendSearchOptionList)
-        first = input("First name: ")
-        last = input("Last name: ")
-        # If found, display
-        foundUser = userDB.userSearch(firstname=first, lastname=last)
+        first = input("")
+        if first == "2":  # Search by major
+            major = input("Enter the major: ")
+            foundUsers = userDB.userSearch(major=major)
+        elif first == "3":  # Search by university
+            uni = input("Enter the university: ")
+            foundUsers = userDB.userSearch(uni=uni)
+        else:  # Assume search by name
+            last = input("Last name: ")
+            foundUsers = userDB.userSearch(firstname=first, lastname=last)
+
+        if foundUsers:
+            if len(foundUsers) > 1:
+                print("Users found ('First' 'Last' 'Username'):")
+                for i, user in enumerate(foundUsers):
+                    print(f"{i + 1}. {user.firstname} {user.lastname} {user.username}")
+                while True:
+                    selection = input("Select a user by number or press x to cancel: ")
+                    if selection.lower() == 'x':
+                        break
+                    try:
+                        selected_index = int(selection) - 1
+                        if 0 <= selected_index < len(foundUsers):
+                            foundUser = foundUsers[selected_index]
+                            break
+                        else:
+                            print("Invalid selection. Please choose a number from the list.")
+                    except ValueError:
+                        print(invalidInput("Enter Whole number or X"))
+            else:
+                foundUser = foundUsers[0]  # only one user
 
         if foundUser != None:
-            print("They are a part of the InCollege system")
+            print("{} {} is part of the InCollege system".format(foundUser.firstname, foundUser.lastname))
 
             # If logged in, friend request?
             if currentUser != None:
                 confirm = input(
-                    "Would you like to make a connection with {} {}? (y/n)".format(first, last)
+                    "Would you like to make a connection {} {} ?(y/n)".format(foundUser.firstname, foundUser.lastname)
                 ).upper()
                 while True:
                     if confirm == "Y":
@@ -83,6 +110,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
 friendSearchOptionList = [
     "*** Find A Friend ***",
     "Search for someone you know on InCollege",
+    "Default is First Name: (Enter 2 for Major, 3 for university)"
 ]
 
 

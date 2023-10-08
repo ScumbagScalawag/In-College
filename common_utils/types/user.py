@@ -11,6 +11,8 @@ class User:
         password: str = "UNDEFINED",
         firstname: str = "UNDEFINED",
         lastname: str = "UNDEFINED",
+        uni: str = "UNDEFINED",
+        major: str = "UNDEFINED",
         email: str = "UNDEFINED",
         phoneNumber: str = "UNDEFINED",
         language: str = "English",
@@ -24,6 +26,8 @@ class User:
         self.password = password
         self.firstname = firstname
         self.lastname = lastname
+        self.uni = uni
+        self.major = major
         self.email = email
         self.phoneNumber = phoneNumber
         # self.language = language
@@ -71,6 +75,8 @@ class User:
             "password": self.password,
             "firstname": self.firstname,
             "lastname": self.lastname,
+            "uni": self.uni,
+            "major": self.major,
             "email": self.email,
             "phoneNumber": self.phoneNumber,
             "language": self.language,
@@ -103,6 +109,8 @@ class User:
             password=userDict.get("password", "UNDEFINED"),
             firstname=userDict.get("firstname", "UNDEFINED"),
             lastname=userDict.get("lastname", "UNDEFINED"),
+            uni=userDict.get("uni"),
+            major=userDict.get("major"),
             email=userDict.get("email", "UNDEFINED"),
             phoneNumber=userDict.get("phoneNumber", "UNDEFINED"),
             language=userDict.get("language", "English"),
