@@ -163,6 +163,10 @@ class UserDatabase:
         if not isinstance(user1, User) or not isinstance(user2, User):
             raise TypeError("Cannot remove friend. One or more users were not found.")
         # add to both users' friends lists
-        user1.friends.remove(user2.username)
-        user2.friends.remove(user1.username)
-        self.saveDatabase()
+        if user1.username in user2.friends and user2.username in user1.friends:
+            user2.friends.remove(user1.username)
+            user1.friends.remove(user2.username)
+            self.saveDatabase()
+        else: 
+            raise ValueError("Cannot remove friend: one or more users are not friends with eachother.")
+        

@@ -5,7 +5,6 @@ from common_utils.messages import (
     findFriendsRecommendation,
     invalidInputPressToContinue,
     mustBeLoggedIn,
-    returnToPreviousMenuMessage,
 )
 
 from common_utils.types.user import User
@@ -17,7 +16,6 @@ def printFriendsScreen(currentUser: Optional[User] = None) -> Optional[User]:
     # if not isLoggedIn(currentUser, "your friends list."):
     #     return currentUser
 
-    print(currentUser)
     if not isinstance(currentUser, User):
         print(mustBeLoggedIn())
         print(anyButtonToContinueMessage())
@@ -26,7 +24,7 @@ def printFriendsScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
     userDB = UserDatabase()
     userDB.loadUsers()
-
+    
     while True:
         clearScreen()
         printOptionList(friendScreenOptions)
@@ -37,56 +35,62 @@ def printFriendsScreen(currentUser: Optional[User] = None) -> Optional[User]:
             input("")
             break
 
-        friendsDict = {i + 1: friend for i, friend in enumerate(currentUser.friends)}
-        print(friendsDict)
-        for option, friend in friendsDict.items():
-            print(f"{option} - {friend}")
-        print(returnToPreviousMenuMessage())
+        # print friends/options 
+        friendsDict = {str(i + 1): friend for i, friend in enumerate(currentUser.friends)}
+        friendsDict["X"] = "Return to previous menu"
+        if len(friendsDict) > 0:
+            for option, friend in friendsDict.items():
+                print(f"{option} - {friend}")
+        else: 
+            pass
 
         userInput = input("")
-        for option, friend in friendsDict.items():
-            if userInput == str(option):
-                print(f"userInput = {userInput}")
-                print(f"option = {option}")
-                # get friend from DB:
-                try:
-                    user = userDB.getUser(friend)
-                    if not isinstance(user, User):
-                        raise ValueError(f"User ({friend}) not found")
-                except ValueError as e:
-                    print(f"Error: {e}")
-                    print(anyButtonToContinueMessage())
-                    input("")
-                    # arguably should break here..
-                    continue
-                except:
-                    print(f"Unknown error occured while retriveing {friend}'s account information")
-                    # arguably should break here..
-                    continue
+        option = "UNKNOWN"
+        friend = "UNKNOWN"
 
-                # remove friend
-                print("Removing Friend...")
-                try:
-                    userDB.removeFriend(currentUser, user)
-                    print("Friend Removed...")
-                    input("")
-                except TypeError as e:
-                    print(f"Error: {e}")
-                    print(anyButtonToContinueMessage())
-                    input("")
-                    continue
-                except:
-                    print("Unknown error occured while removing friend")
-                    print(anyButtonToContinueMessage())
-                    input("")
-                    continue
-            elif userInput.upper() == "X":
-                break
-            else:
-                # converts options dict to csv of valid options
-                validInputCSV = convertDictKeysToValidInputString(friendsDict)
-                # Waits for input with interactive csv
-                invalidInputPressToContinue(validInputCSV)
+        if userInput in friendsDict:
+            friend = friendsDict[userInput]
+            # get friend from DB:
+            try:
+                user = userDB.getUser(friend)
+                if not isinstance(user, User):
+                    raise ValueError(f"User ({friend}) not found")
+            except ValueError as e:
+                print(f"Error: {e}")
+                print(anyButtonToContinueMessage())
+                input("")
+                # arguably should break here..
+                continue
+            except:
+                print(f"Unknown error occured while retriveing {friend}'s account information")
+                # arguably should break here..
+                continue
+
+            # remove friend
+            print("Removing Friend...")
+            try:
+                userDB.removeFriend(currentUser, user)
+                print("Friend Removed...")
+                print(anyButtonToContinueMessage())
+                input("")
+            except (TypeError, ValueError) as e:
+                print(f"Error: {e}")
+                print(anyButtonToContinueMessage())
+                input("")
+                continue
+            except:
+                print("Unknown error occured while removing friend")
+                print(anyButtonToContinueMessage())
+                input("")
+                continue
+        elif userInput.upper() == "X":
+            break
+        else:
+            # converts options dict to csv of valid options
+            validInputCSV = convertDictKeysToValidInputString(friendsDict)
+            # Waits for input with interactive csv
+            invalidInputPressToContinue(validInputCSV)
+
 
     return currentUser
 
