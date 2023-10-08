@@ -16,7 +16,7 @@ def testFriendSearchInSystem(monkeypatch, capfd):
     # Must create User object from singleUser Dict. See @classmethod dictToUser
     testUser = User.dictToUser(singleUser)
 
-    input_generator = iter(["Dee", "Snuts", "Y", "X"])
+    input_generator = iter(["Dee", "Snuts", "2", "Y", "X"])
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
@@ -29,7 +29,7 @@ def testFriendSearchInSystem(monkeypatch, capfd):
     captured = capfd.readouterr()  # assert captured
     responses = [
         *friendSearchOptionList,
-        "They are a part of the InCollege system",
+        "part of the InCollege system",
         "Connection request sent",
     ]
     for r in responses:

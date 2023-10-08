@@ -37,6 +37,7 @@ def printLoginScreen(currentUser: Optional[User] = None) -> Optional[User]:
         if currentUser != None:  # and loginAttempts <= maximum attempts allowed
             # Valid Login
             print("You have successfully logged in")
+            # Insert check if they have pending friend request and transfer to that page
             return currentUser
         else:
             # Invalid Login
