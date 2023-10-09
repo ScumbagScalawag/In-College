@@ -1,27 +1,28 @@
 import pytest
+
+from common_utils.messages import anyButtonToContinueMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from pages.new_user_account import printNewAccountScreen
-from tests.shared import singleUser, threeAccounts, fiveAccounts
-from common_utils.messages import anyButtonToContinueMessage
+from tests.shared import singleUser, tenAccounts, threeAccounts
 
 
-def test_CreateAccountOver5(capfd, monkeypatch):
+def test_CreateAccountOver10(capfd, monkeypatch):
     # ensure DB is empty first
     userDB = UserDatabase()
     print(userDB)
     # Load 5 accounts to Json
     # saveDatabase(JSON_USERS_FP, fiveAccounts)
-    userDB.addUserDictList(fiveAccounts)
+    userDB.addUserDictList(tenAccounts)
 
-    # Confirm there are 5 accounts
-    assert len(userDB.userlist) == 5
+    # Confirm there are 10 accounts
+    assert len(userDB.userlist) == 10
 
-    # Test 6th account
-    input_generator = iter(["user6", "Jesse", "Small", "P@ssword1", "P@ssword1"])
-    # print("before 6th iteration input generator")
+    # Test 11th account
+    input_generator = iter(["user11", "Jesse", "Small", "P@ssword1", "P@ssword1"])
+    # print("before 11th iteration input generator")
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-    # print("after 6th iteration input generator")
+    # print("after 11th iteration input generator")
 
     captured = capfd.readouterr()
     # userContext = printNewAccountScreen()
@@ -35,7 +36,7 @@ def test_CreateAccountOver5(capfd, monkeypatch):
     assert "All permitted accounts have been created, come back later" in captured.out
 
 
-def testCreateAccountUnder5(monkeypatch, capfd):
+def testCreateAccountUnder10(monkeypatch, capfd):
     # Make sure Json is clear
     userDB = UserDatabase([])
     # Test with 3 accounts
@@ -59,13 +60,13 @@ def testCreateAccountUnder5(monkeypatch, capfd):
     "mock_input,responses,startingUserDB,numUsers,expectedReturn",
     [
         (
-            ["user6", "Jesse", "Small", "P@ssword1", "P@ssword1", "anything"],
+            ["user11", "Jesse", "Small", "P@ssword1", "P@ssword1", "anything"],
             [
                 "All permitted accounts have been created, come back later",
                 anyButtonToContinueMessage(),
             ],
-            fiveAccounts,
-            5,
+            tenAccounts,
+            10,
             -1,
         ),
         (
@@ -90,8 +91,8 @@ def testCreateAccountUnder5(monkeypatch, capfd):
         ),
     ],
     ids=[
-        "CreateAccountOver5",
-        "CreateAccountUnder5",
+        "CreateAccountOver10",
+        "CreateAccountUnder10",
     ],
 )
 def testCreateAccount(

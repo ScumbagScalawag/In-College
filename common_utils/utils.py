@@ -4,7 +4,7 @@ import os
 JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
-MAX_USERS = 5
+MAX_USERS = 10
 
 
 # Use this for making options lists in pages
@@ -63,7 +63,13 @@ def loadJobs():
 
 
 def userSearch(
-    users, username=None, password=None, firstname=None, lastname=None, returnUsername=False, returnUserObject=False
+    users,
+    username=None,
+    password=None,
+    firstname=None,
+    lastname=None,
+    returnUsername=False,
+    returnUserObject=False,
 ):
     # serves as a flag that a previous requirement was used
     # also ensures that it doesn't get false positive for cases like a different user's password for example
