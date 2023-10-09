@@ -1,6 +1,8 @@
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 
+# THIS IS JUST FOR TESTING STUFF UNOFFICIALLY. Feel free to delete if this bothers you -Noah
+
 testDB = [
     {
         "username": "asdfasdf",
@@ -12,7 +14,8 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friends": [],
+        "friendRequests": [],
     },
     {
         "username": "dummy",
@@ -24,7 +27,8 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friends": [],
+        "friendRequests": [],
     },
     {
         "username": "sillyBoi",
@@ -36,7 +40,8 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": ["dummy"],
+        "friends": [],
+        "friendRequests": ["dummy"],
     },
     {
         "username": "dummyDude",
@@ -48,7 +53,8 @@ testDB = [
         "emailSub": True,
         "smsSub": True,
         "adSub": True,
-        "connections": [],
+        "friends": [],
+        "friendRequests": [],
     },
 ]
 
@@ -59,8 +65,8 @@ userDB.addUserDictList(testDB)
 print("---first toggle sms to false")
 # UserDB.userlist[0] and user BOTH REFER TO THE SAME PLACE IN MEMORY, in this case
 # Any changes to User must be written to DB's Json file, or else user will be changed only in memory:
-# userDB.updateUser(user) 
-user = userDB.userlist[0] # ^
+# userDB.updateUser(user)
+user = userDB.userlist[0]  # ^
 user.toggleSmsSub()
 print(user)
 userDB.updateUser(user)
@@ -74,7 +80,7 @@ print(userDB)
 
 print("---test updateuser with connection added")
 print("Before Connection added", user)
-user.addConnection("dummy")
+user.sendFriendRequest("dummy")
 print("After Connection added", user)
 userDB.updateUser(user)
 print("userDB after updating user: ", userDB)
@@ -102,8 +108,3 @@ print("JSON AFTER added connection", userJsonDB)
 # print("user2: ", user2)
 # Ensure not same memory location (i.e. new obj)
 # print(f"user1 location: {id(user1)}, user2 location: {id(user2)}")
-
-
-
-
-

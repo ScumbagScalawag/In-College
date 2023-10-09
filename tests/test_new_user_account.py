@@ -1,16 +1,15 @@
 import pytest
-import json
-from common_utils import utils as u
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-from pages.new_user_account import printNewAccountScreen, saveDatabase, saveUser
-from tests.shared import JSON_USERS_FP, singleUser, threeAccounts, fiveAccounts
+from pages.new_user_account import printNewAccountScreen
+from tests.shared import singleUser, threeAccounts, fiveAccounts
 from common_utils.messages import anyButtonToContinueMessage
-from common_utils.utils import loadUsers #TODO
+
 
 def test_CreateAccountOver5(capfd, monkeypatch):
     # ensure DB is empty first
-    userDB = UserDatabase([]) 
+    userDB = UserDatabase()
+    print(userDB)
     # Load 5 accounts to Json
     # saveDatabase(JSON_USERS_FP, fiveAccounts)
     userDB.addUserDictList(fiveAccounts)
@@ -25,10 +24,10 @@ def test_CreateAccountOver5(capfd, monkeypatch):
     # print("after 6th iteration input generator")
 
     captured = capfd.readouterr()
-    #userContext = printNewAccountScreen()
+    # userContext = printNewAccountScreen()
     try:
         userContext = printNewAccountScreen()
-        # assert None, essentially -> no user context 
+        # assert None, essentially -> no user context
         assert not isinstance(userContext, User)
     except StopIteration:
         pass
@@ -100,13 +99,12 @@ def testCreateAccount(
 ):
     userDB = UserDatabase([])
     userDB.addUserDictList(startingUserDB)
-    testUser = User.dictToUser(singleUser)
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     # if numUsers is not None:
-        # If error here, then the database is the issue not the create account logic
-        # assert len(userList) == numUsers
+    # If error here, then the database is the issue not the create account logic
+    # assert len(userList) == numUsers
     try:
         # captured = capfd.readouterr()
         userContext = printNewAccountScreen()
@@ -114,13 +112,14 @@ def testCreateAccount(
         if isinstance(userContext, User):
             assert userContext.username == singleUser["username"]
         if not isinstance(userContext, User):
-            print("Something went wrong assigning user context!") #TODO There should not be any prints in tests
+            print(
+                "Something went wrong assigning user context!"
+            )  # TODO There should not be any prints in tests
     except StopIteration:
         pass
     captured = capfd.readouterr()  # assert captured
     for r in responses:
         assert r in captured.out  # Friend successfully added
-
 
 
 @pytest.mark.parametrize(
@@ -142,7 +141,7 @@ def testCreateAccount(
 )
 def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     # ensure DB is empty first
-    userDB = UserDatabase([]) 
+    userDB = UserDatabase([])
     # Load 3 accounts to Json
     userDB.addUserDictList(threeAccounts)
 
@@ -157,23 +156,3 @@ def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     captured = capfd.readouterr()
     error_message = "Password Requirements: minimum of 8 characters, maximum of 12 characters, at least 1 capital letter, at least 1 digit, at least 1 special character"
     assert error_message in captured.out
-
-
-def test_saveUser_and_loadUsers_when_database_is_empty():
-    userDB = UserDatabase([])
-    userDB.addUserDict(singleUser)
-
-    assert userDB.userExists(singleUser["username"])
-
-
-def test_saveDatabase():
-    userDB = UserDatabase([])
-    userDB.addUserDictList(threeAccounts)
-
-    print("-----userDB:")
-    print(userDB)
-    # print(threeAccounts)
-    print("-----threeAccounts:")
-    print(json.dumps(threeAccounts, indent=4))
-
-    assert userDB.getUserDictList() == threeAccounts

@@ -1,6 +1,7 @@
 from typing import List, Optional
-from common_utils.types.exceptions import UserNotFoundException
+from common_utils.types.exceptions import MaximumNumberOfUsers, UserNotFoundException
 from common_utils.types.user import User
+from common_utils.utils import MAX_USERS
 import json
 
 from common_utils.utils import JSON_USERS_FP
@@ -11,7 +12,9 @@ from common_utils.utils import JSON_USERS_FP
 
 
 class UserDatabase:
-    def __init__(self, userlist: List[User] = []):
+    def __init__(self, userlist: Optional[List[User]] = None):
+        if userlist is None:
+            userlist = []
         self.userlist = userlist
 
     # Easily print userDB: UserDatabase -> print(userDB)
@@ -25,36 +28,21 @@ class UserDatabase:
         self.userlist = []
         try:
             with open(JSON_USERS_FP, "r") as database:
-                userDict = json.load(database)
-                # Goes through array of (user) dicts and converts them to array of User for the object
-                # self.userlist = [User(**userData) for userData in userDict.get("userlist", [])]
-                # self.userlist = []
-                for user_data in userDict.get("userlist", []):
-                    user = User(
-                        # second arg: default if key not found
-                        username=user_data.get("username", "UNDEFINED"),
-                        password=user_data.get("password", "UNDEFINED"),
-                        firstname=user_data.get("firstname", "UNDEFINED"),
-                        lastname=user_data.get("lastname", "UNDEFINED"),
-                        email=user_data.get("email", "UNDEFINED"),
-                        phoneNumber=user_data.get("phoneNumber", "UNDEFINED"),
-                        language=user_data.get("language", "Engligh"),
-                        emailSub=user_data.get("emailSub", True),
-                        smsSub=user_data.get("smsSub", True),
-                        adSub=user_data.get("adSub", True),
-                        connections=user_data.get("connections", []),
-                    )
+                userDBDict = json.load(database)
+                # Goes through array of (user) dicts and converts them to array of User for self.userlist
+                for userDict in userDBDict.get("userlist", []):
+                    user = User.dictToUser(userDict)
                     self.userlist.append(user)
         except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
             # feel free to comment this message out. I find it helpful -noah
             print("WARNING: Cannot find JSON DataBase!")
             pass
 
-    # Internal Dictionary Object - needed for easy printing to console: print(userDatabaseObject.getDatabaseDict())
+    # UserDatabase Dictionary Object
     def getDatabaseDict(self):
         return {"userlist": self.getUserDictList()}
 
-    # Internal Dictionary Object
+    # List of User Dictionaries
     def getUserDictList(self):
         userDictList = []
         for user in self.userlist:
@@ -93,6 +81,8 @@ class UserDatabase:
     # SETTERS
     # simply writes the in-memory DB stuff into JSON
     def saveDatabase(self):
+        if len(self.userlist) > MAX_USERS:
+            raise MaximumNumberOfUsers("Cannot Write to UserDatabase: Maximum number of users reached")
         with open(JSON_USERS_FP, "w") as outfile:
             json.dump(self.getDatabaseDict(), outfile, indent=4)
 
@@ -104,36 +94,23 @@ class UserDatabase:
                 # Find the index i of the target User object in userlist
                 for i, user in enumerate(self.userlist):
                     if user.username == alteredUser.username:
-                        # Copy the values of currentUser into the target User object
-                        target = self.userlist[i]
-                        target.username = alteredUser.username
-                        target.password = alteredUser.password
-                        target.firstname = alteredUser.firstname
-                        target.lastname = alteredUser.lastname
-                        target.email = alteredUser.email
-                        target.phoneNumber = alteredUser.phoneNumber
-                        target.language = alteredUser.language
-                        target.emailSub = alteredUser.emailSub
-                        target.smsSub = alteredUser.smsSub
-                        target.adSub = alteredUser.adSub
-                        target.connections = alteredUser.connections
+                        self.userlist[i].copyValues(alteredUser)
                         self.saveDatabase()
-                        return target  # Return the updated User object
+                        return
                 raise UserNotFoundException("Couldn't find match for user")
             except UserNotFoundException as e:
                 print(f"Error: {e}")
-                return None
             except Exception as e:
                 print(f"An unexpected error occurred: {e}")
-                return None
-
-        return None  # User not found in userlist
 
     # saveUser() -> addUser() for conventions sake
     # gets passed a User object
     def addUser(self, user: User):
-        self.userlist.append(user)
-        self.saveDatabase()
+        if len(self.userlist) < MAX_USERS:
+            self.userlist.append(user)
+            self.saveDatabase()
+        else:
+            raise MaximumNumberOfUsers("Maxumum number of users has been reached")
 
     def addUserList(self, userList: List[User]):
         for user in userList:
@@ -147,3 +124,27 @@ class UserDatabase:
     def addUserDictList(self, userDictList: List[dict]):
         for userDict in userDictList:
             self.addUserDict(userDict)
+
+    # Because accept/decline friend request requires multi-user changes that must all happen,
+    # they are a DB function until someone thinks of something more clever
+    def acceptFriendRequest(self, sender: User, reciever: User):
+        # ensuring you don't double-append
+        if reciever.isFriend(sender.username):
+            raise ValueError(f"{reciever} is already friends with {sender}")
+        if sender.isFriend(reciever.username):
+            raise ValueError(f"{sender} is already friends with {reciever}")
+
+        # otherwise...
+        sender.friends.append(reciever.username)
+        reciever.friends.append(sender.username)
+
+        sender.friendRequests.remove(reciever.username)
+
+    def declineFriendRequest(self, sender: User, reciever: User):
+        # remove the username of reciever from sender.friendRequests
+        if sender.hasPendingFriendRequestTo(reciever.username):
+            sender.removeFriendRequest(reciever.username)
+        else:
+            raise ValueError(
+                f"{sender.username} has not sent a friend request to {reciever.username}"
+            )

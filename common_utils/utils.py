@@ -4,6 +4,8 @@ import os
 JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
 
+MAX_USERS = 5
+
 
 # Use this for making options lists in pages
 def printOptionList(options):

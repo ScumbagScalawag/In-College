@@ -1,11 +1,9 @@
 from typing import Optional
-from common_utils.utils import clearScreen, JSON_USERS_FP
+from common_utils.types.exceptions import MaximumNumberOfUsers
+from common_utils.utils import clearScreen, MAX_USERS
 from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-import json
-
-MAXUSERS = 5
 
 
 # Menu: Add new user account
@@ -18,7 +16,7 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
         print(alreadyLoggedIn("Please log out to create another account."))
         return currentUser
 
-    if len(userDB.userlist) < MAXUSERS:  # Requirement for 5 accounts
+    if len(userDB.userlist) < MAX_USERS:  # Requirement for 5 accounts
         while True:
             clearScreen()
             print("*** Create a new user account ***")
@@ -44,7 +42,14 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
                             firstname,
                             lastname,
                         )
-                        userDB.addUser(newUser)
+                        # Just in case. Conditional check beforehand should catch this
+                        try:
+                            userDB.addUser(newUser)
+                        except ( MaximumNumberOfUsers) as e:  
+                            print(f"Error: {e}")
+                            print(anyButtonToContinueMessage())
+                            input("")
+                            break
 
                         # check if user made it to DB
                         if userDB.userExists(username):
@@ -79,7 +84,7 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
             "All permitted accounts have been created, come back later"
         )  # Requirement for 5 accounts response
         print(anyButtonToContinueMessage())
-        userInput = input("")
+        input("")
     return None
 
 
@@ -104,40 +109,3 @@ def checkPasswordSecurity(password):
         return True  # Password is valid
 
     return False  # Password is invalid
-
-
-# users takes the list, not the entire dict!
-def saveUser(
-    users: list,
-    username: str = "UNDEFINED",
-    password: str = "UNDEFINED",
-    firstname: str = "UNDEFINED",
-    lastname: str = "UNDEFINED",
-    email: str = "UNDEFINED",
-    phoneNumber: str = "UNDEFINED",
-    emailSub: bool = True,
-    smsSub: bool = True,
-    adSub: bool = True,
-    connections: list = [],
-):
-    newUser = {
-        "username": username,
-        "password": password,
-        "firstname": firstname,
-        "lastname": lastname,
-        "email": email,
-        "phoneNumber": phoneNumber,
-        "emailSub": emailSub,
-        "smsSub": smsSub,
-        "adSub": adSub,
-        "connections": connections,
-    }
-    users.append(newUser)
-    saveDatabase(JSON_USERS_FP, users)
-
-
-# users takes the list, not the entire dict!
-def saveDatabase(jsonFilePath, users):
-    userDB = {"userlist": users}
-    with open(jsonFilePath, "w") as outfile:
-        json.dump(userDB, outfile, indent=4)
