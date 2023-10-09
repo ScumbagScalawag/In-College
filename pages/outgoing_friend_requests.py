@@ -45,8 +45,9 @@ def printOutgoingFriendRequestsScreen(currentUser: Optional[User] = None) -> Opt
             pass
 
         userInput = input("")
-        option = "UNKNOWN"
-        friend = "UNKNOWN"
+        # keeping these around for interactive input handling, if added later
+        # option = "UNKNOWN"
+        # friend = "UNKNOWN"
 
         # ability to "Unsend" Friend request would go here, if required
         if userInput.upper() == "X":
