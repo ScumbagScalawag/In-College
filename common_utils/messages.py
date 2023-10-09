@@ -8,7 +8,12 @@ def underConstructionMessage():
 
 
 def returnToPreviousMenuMessage():
-    return "X - Return to previous menu"
+    return "X - " + returnToPreviousMenuReducedMessage()
+
+
+# useful for when you're constructing a dictionary with options and values
+def returnToPreviousMenuReducedMessage():
+    return "Return to previous menu"
 
 
 # TODO: Inherently make this print and then wait for input with 'input("")'
@@ -23,17 +28,18 @@ def invalidInput(validInputCSV):
 def convertDictKeysToValidInputString(dictionary: Dict):
     # Convert numerical options to text in array
     keyText = [str(key) for key in dictionary.keys()]
-    # This is assuming each option list returns back a page
-    keyText.append("or X")
+    # It is assumed that the "X = returnToPreviousMenuReducedMessage()" option is already inside of dictionary
 
     # Create a comma-separated string of options
     optionsStringCSV = ", ".join(keyText)
     return optionsStringCSV
 
+
 def invalidInputPressToContinue(validInputCSV: str):
     print(invalidInput(validInputCSV))
     print(anyButtonToContinueMessage())
     input("")
+
 
 def mustBeLoggedIn():
     return "You must be logged in to view this page"
@@ -58,5 +64,6 @@ def isLoggedIn(currentUser: Optional[User], contentText: str) -> bool:
     else:
         return True
 
+
 def findFriendsRecommendation():
-    return "Use InCollege\'s \"Find Friends\" feature to expand your network!"
+    return 'Use InCollege\'s "Find Friends" feature to expand your network!'

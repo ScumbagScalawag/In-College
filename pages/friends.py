@@ -5,6 +5,7 @@ from common_utils.messages import (
     findFriendsRecommendation,
     invalidInputPressToContinue,
     mustBeLoggedIn,
+    returnToPreviousMenuReducedMessage,
 )
 
 from common_utils.types.user import User
@@ -24,24 +25,24 @@ def printFriendsScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
     userDB = UserDatabase()
     userDB.loadUsers()
-    
+
     while True:
         clearScreen()
         printOptionList(friendScreenOptions)
 
-        if len(currentUser.friends) < 0:
+        if len(currentUser.friends) <= 0:
             print("You currently have no users in your network.", findFriendsRecommendation())
             print(anyButtonToContinueMessage())
             input("")
             break
 
-        # print friends/options 
+        # print friends/options
         friendsDict = {str(i + 1): friend for i, friend in enumerate(currentUser.friends)}
-        friendsDict["X"] = "Return to previous menu"
+        friendsDict["X"] = returnToPreviousMenuReducedMessage()
         if len(friendsDict) > 0:
             for option, friend in friendsDict.items():
                 print(f"{option} - {friend}")
-        else: 
+        else:
             pass
 
         userInput = input("")
@@ -90,7 +91,6 @@ def printFriendsScreen(currentUser: Optional[User] = None) -> Optional[User]:
             validInputCSV = convertDictKeysToValidInputString(friendsDict)
             # Waits for input with interactive csv
             invalidInputPressToContinue(validInputCSV)
-
 
     return currentUser
 
