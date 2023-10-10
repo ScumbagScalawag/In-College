@@ -2,6 +2,9 @@ import pytest  # needed for pytest
 from pages.main_menu import printMainMenu, mainMenuOptionsList
 from common_utils.messages import invalidInput
 
+############################
+# ADD TEST FOR NETWORK
+############################
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
     [
@@ -22,7 +25,7 @@ from common_utils.messages import invalidInput
             None,
         ),
         (
-            ["3"],
+            ["4"],
             [
                 *mainMenuOptionsList,
                 "*** Learn a skill ***",
@@ -45,6 +48,7 @@ from common_utils.messages import invalidInput
             ],
             None,
         ),
+
     ],
     ids=["1-JobSearch", "2-FriendSearch", "3-Skill", "X-Exit", "Invalid Selection"],
 )

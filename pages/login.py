@@ -1,7 +1,7 @@
 from typing import Optional
 from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
 from common_utils.types.user import User
-from common_utils.types.user_database import UserDatabase
+from common_utils.types.user_database import UserDatabase, manage_friend_requests
 from common_utils.utils import clearScreen
 
 MAX_LOGIN_ATTEMPTS = 5
@@ -38,6 +38,7 @@ def printLoginScreen(currentUser: Optional[User] = None) -> Optional[User]:
             # Valid Login
             print("You have successfully logged in")
             # Insert check if they have pending friend request and transfer to that page
+            manage_friend_requests(currentUser, userDB)
             return currentUser
         else:
             # Invalid Login
