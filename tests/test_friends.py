@@ -43,15 +43,15 @@ def testFriendDisplay(monkeypatch, capfd):
 
     # Add mutual friends to dict
     fourAccountsWithFriends = fourAccounts[:]
-    fourAccountsWithFriends[0]["friends"] = [fourAccountsWithFriends[1]["username"]]
-    fourAccountsWithFriends[1]["friends"] = [fourAccountsWithFriends[0]["username"]]
+    currentUsername = fourAccountsWithFriends[0]["username"]
+    friendUsername = fourAccountsWithFriends[1]["username"]
+    fourAccountsWithFriends[0]["friends"] = [friendUsername]
+    fourAccountsWithFriends[1]["friends"] = [currentUsername]
 
     userDB.addUserDictList(fourAccountsWithFriends)
 
     # Must create User object from singleUser Dict. See @classmethod dictToUser
     testUser = User.dictToUser(fourAccountsWithFriends[0])
-
-    # TODO
 
     input_generator = iter(
         [
@@ -70,7 +70,7 @@ def testFriendDisplay(monkeypatch, capfd):
     captured = capfd.readouterr()  # assert captured
     responses = [
         *friendScreenOptions,
-        "1 - {}".format(fourAccountsWithFriends[1]["username"]),
+        "1 - {}".format(friendUsername),
         "X - Return to previous menu",
     ]
     # current user has 1 friend, should get this message
@@ -85,8 +85,10 @@ def testFriendRemove(monkeypatch, capfd):
 
     # Add mutual friends to dict
     fourAccountsWithFriends = fourAccounts[:]
-    fourAccountsWithFriends[0]["friends"] = [fourAccountsWithFriends[1]["username"]]
-    fourAccountsWithFriends[1]["friends"] = [fourAccountsWithFriends[0]["username"]]
+    currentUsername = fourAccountsWithFriends[0]["username"]
+    friendUsername = fourAccountsWithFriends[1]["username"]
+    fourAccountsWithFriends[0]["friends"] = [friendUsername]
+    fourAccountsWithFriends[1]["friends"] = [currentUsername]
 
     userDB.addUserDictList(fourAccountsWithFriends)
 
@@ -111,7 +113,7 @@ def testFriendRemove(monkeypatch, capfd):
     captured = capfd.readouterr()  # assert captured
     responses = [
         *friendScreenOptions,
-        "1 - {}".format(fourAccountsWithFriends[1]["username"]),
+        "1 - {}".format(friendUsername),
         "X - Return to previous menu",
         "Removing Friend...",
         "Friend Removed...",
@@ -122,5 +124,10 @@ def testFriendRemove(monkeypatch, capfd):
     for r in responses:
         assert r in captured.out
 
+    # Get the 2 affected users
+    currentUser = userDB.getUser(currentUsername).toDict()
+    friendUser = userDB.getUser(friendUsername).toDict()
+
     # Assert that the friend was properly removed from both friends lists
-    # TODO
+    assert friendUsername not in currentUser["friends"]
+    assert currentUsername not in friendUser["friends"]
