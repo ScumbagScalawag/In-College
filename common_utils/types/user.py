@@ -44,6 +44,7 @@ class User:
         self.password = otherUser.password
         self.firstname = otherUser.firstname
         self.lastname = otherUser.lastname
+        # TODO add major and UNI stuff...
         self.email = otherUser.email
         self.phoneNumber = otherUser.phoneNumber
         self.language = otherUser.language
