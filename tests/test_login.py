@@ -56,11 +56,14 @@ def testLogin_invalidUser(monkeypatch, capfd):
 def testLogin_validUser(monkeypatch, capfd):
     userDB = UserDatabase()
     userDB.addUserDictList(fourAccounts)
-    input_generator = iter(["dummy", "Password1!"])
+    mock_input = ["dummy", "Password1!"]
+
+    input_generator = iter(mock_input)
     responses = [
         "You have successfully logged in",
     ]
-    expectedReturn = None
+    currentUser = userDB.login(mock_input[0], mock_input[1])
+    expectedReturn = currentUser
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
         assert printLoginScreen() == expectedReturn
