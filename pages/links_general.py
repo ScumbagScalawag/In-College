@@ -5,6 +5,7 @@ from common_utils.messages import (
     anyButtonToContinueMessage,
     returnToPreviousMenuMessage,
     underConstructionMessage,
+    invalidInput
 )
 from pages.new_user_account import printNewAccountScreen
 
@@ -47,6 +48,10 @@ def printGeneralScreen(currentUser: Optional[User] = None) -> Optional[User]:
                 break
         elif userInput.upper() == "X":
             break
+        else:
+            print(invalidInput("1, 2, 3, 4, 5, 6, 7 or X"))
+            print(anyButtonToContinueMessage())
+            input("")
 
     return currentUser
 

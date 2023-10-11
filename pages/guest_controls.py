@@ -14,6 +14,7 @@ def printGuestControlsScreen(currentUser: Optional[User] = None) -> Optional[Use
     userDB = UserDatabase([])
     userDB.loadUsers()
 
+    # TODO: replace with common_utils.messages isLoggedIn()
     if not isinstance(currentUser, User):
         print("You must be logged in to access guest controls.\n")
         print(anyButtonToContinueMessage())

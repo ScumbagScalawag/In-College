@@ -13,9 +13,8 @@ from pages.main_menu import printMainMenu
 # Welcome screen and input
 def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
-
+    printTestimonialScreen()  # can probably be right above this while loop to only show it once
     while True:
-        printTestimonialScreen()
         clearScreen()
 
         # for testing context
