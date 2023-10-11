@@ -74,6 +74,7 @@ def printFriendsScreen(currentUser: Optional[User] = None) -> Optional[User]:
                 print("Friend Removed...")
                 print(anyButtonToContinueMessage())
                 input("")
+                continue
             except (TypeError, ValueError) as e:
                 print(f"Error: {e}")
                 print(anyButtonToContinueMessage())
