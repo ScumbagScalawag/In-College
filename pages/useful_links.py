@@ -4,6 +4,8 @@ from common_utils.utils import clearScreen, printOptionList
 from common_utils.messages import (
     returnToPreviousMenuMessage,
     underConstructionMessage,
+    invalidInput,
+    anyButtonToContinueMessage
 )
 from pages.links_general import printGeneralScreen
 
@@ -26,6 +28,10 @@ def printUsefulLinkScreen(currentUser: Optional[User] = None) -> Optional[User]:
             currentUser = printDirectories(currentUser)
         elif userInput.upper() == "X":
             break
+        else:
+            print(invalidInput("1, 2, 3, 4 or X"))
+            print(anyButtonToContinueMessage())
+            input("")
 
     return currentUser
 

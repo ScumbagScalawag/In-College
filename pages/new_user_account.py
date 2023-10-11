@@ -31,6 +31,10 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
                 firstname = input("")
                 print("Last name: ", end="")
                 lastname = input("")
+                print("University: ", end="")
+                uni = input("")
+                print("Major: ", end="")
+                major = input("")
                 print("Password: ", end="")
                 password = input("")  # Get password
                 if checkPasswordSecurity(password):  # Is password secure
@@ -41,6 +45,8 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
                             password,
                             firstname,
                             lastname,
+                            uni,
+                            major,
                         )
                         # Just in case. Conditional check beforehand should catch this
                         try:
