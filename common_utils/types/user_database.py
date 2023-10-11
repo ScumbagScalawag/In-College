@@ -143,7 +143,9 @@ class UserDatabase:
         reciever.friends.append(sender.username)
 
         sender.friendRequests.remove(reciever.username)
-        reciever.friendRequests.remove(sender.username)
+        if sender.username in reciever.friendRequests:
+            reciever.friendRequests.remove(sender.username)
+
         self.saveDatabase()
 
     def declineFriendRequest(self, sender: User, reciever: User):
