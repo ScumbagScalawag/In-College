@@ -14,24 +14,24 @@ from tests.shared import fourAccounts, singleUser
             [
                 "You are now friends with {user.username}",  # responses
             ],
-            [],  # expected return
+            None,  # expected return
         ),
         (
             ["n"],
             [
                 "You have declined the friend request from {user.username}",
             ],
-            [],
+            None,
         ),
         (
             ["X"],
             [
                 "Invalid input. Please enter 'y' or 'n': ",
             ],
-            [],
+            None,
         ),
     ],
-    ids=["Accept" "Decline", "Invalid"],
+    ids=["Accept", "Decline", "Invalid"],
 )
 def test_manageFriendRequest(mock_input, responses, expectedReturn, monkeypatch, capfd):
     userDB = UserDatabase()
