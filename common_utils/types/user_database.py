@@ -98,7 +98,7 @@ class UserDatabase:
     # updates the DB entry for the user object you pass in: overwrites all values
     def updateUser(self, alteredUser: Optional[User]) -> Optional[User]:
         if isinstance(alteredUser, User):
-                # Find the index i of the target User object in userlist
+            # Find the index i of the target User object in userlist
             for i, user in enumerate(self.userlist):
                 if user.username == alteredUser.username:
                     self.userlist[i].copyValues(alteredUser)
@@ -143,11 +143,16 @@ class UserDatabase:
         reciever.friends.append(sender.username)
 
         sender.friendRequests.remove(reciever.username)
+        if sender.username in reciever.friendRequests:
+            reciever.friendRequests.remove(sender.username)
+
+        self.saveDatabase()
 
     def declineFriendRequest(self, sender: User, reciever: User):
         # remove the username of reciever from sender.friendRequests
         if sender.hasPendingFriendRequestTo(reciever.username):
             sender.removeFriendRequest(reciever.username)
+            self.saveDatabase()
         else:
             raise ValueError(
                 f"{sender.username} has not sent a friend request to {reciever.username}"
@@ -166,12 +171,45 @@ class UserDatabase:
 
     def removeFriend(self, user1: Optional[User], user2: Optional[User]):
         if not isinstance(user1, User) or not isinstance(user2, User):
-            raise TypeError("Cannot remove friend. One or more users were not found.")
+            raise TypeError("Must pass User objects into removeFriend")
+        # need to retrieve index inside self.userlist. id(user1) != id(self.userlist[i])
+        # TODO change getUser to throw UserNotFoundException automatically, and catch it here
+        user1Pointer = self.getUser(user1.username) 
+        user2Pointer = self.getUser(user2.username) 
+        if not isinstance(user1Pointer, User) or not isinstance(user2Pointer, User):
+            raise UserNotFoundException("Cannot find corrosponding user(s) inside user database")
         # add to both users' friends lists
-        if user1.username in user2.friends and user2.username in user1.friends:
-            user2.friends.remove(user1.username)
-            user1.friends.remove(user2.username)
-            self.saveDatabase()
+        if user1Pointer.username in user2Pointer.friends and user2Pointer.username in user1Pointer.friends:
+            user2Pointer.friends.remove(user1Pointer.username)
+            user1Pointer.friends.remove(user2Pointer.username)
         else: 
+            # this case is a bad state, but maybe it should remove the partially-linked users to clean it up instead of breaking
             raise ValueError("Cannot remove friend: one or more users are not friends with eachother.")
-        
+        try:
+            self.saveDatabase()
+        except MaximumNumberOfUsers as e: 
+            print(f"Error: {e}")
+            raise
+        except: 
+            print("There was some problem detected when saving to the database!")
+            raise
+
+def manage_friend_requests(currentUser, userDB):
+    for user in userDB.userlist:
+        if currentUser.username in user.friendRequests:
+            print(f"You have a friend request from {user.username}")
+            action = input(f"Do you want to accept the friend request from {user.username}? (y/n): ").lower()
+            while action not in ['y', 'n']:
+                action = input("Invalid input. Please enter 'y' or 'n': ").lower()
+            if action == 'y':
+                try:
+                    userDB.acceptFriendRequest(user, currentUser)
+                    print(f"You are now friends with {user.username}")
+                except ValueError as e:
+                    print(f"Error: {e}")
+            elif action == 'n':
+                try:
+                    userDB.declineFriendRequest(user, currentUser)
+                    print(f"You have declined the friend request from {user.username}")
+                except ValueError as e:
+                    print(f"Error: {e}")
