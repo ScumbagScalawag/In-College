@@ -14,21 +14,21 @@ from tests.shared import fourAccounts, singleUser
             [
                 "You are now friends with {user.username}",  # responses
             ],
-            None,  # expected return
+            [],  # expected return
         ),
         (
             ["n"],
             [
                 "You have declined the friend request from {user.username}",
             ],
-            None,
+            [],
         ),
         (
             ["X"],
             [
                 "Invalid input. Please enter 'y' or 'n': ",
             ],
-            None,
+            [],
         ),
     ],
     ids=["Accept" "Decline", "Invalid"],
@@ -37,7 +37,7 @@ def test_manageFriendRequest(mock_input, responses, expectedReturn, monkeypatch,
     userDB = UserDatabase()
     userDB.addUserDictList(fourAccounts)
     testUser = User.dictToUser(singleUser)
-
+    # expectedReturn = None
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
