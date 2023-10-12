@@ -143,11 +143,16 @@ class UserDatabase:
         reciever.friends.append(sender.username)
 
         sender.friendRequests.remove(reciever.username)
+        if sender.username in reciever.friendRequests:
+            reciever.friendRequests.remove(sender.username)
+
+        self.saveDatabase()
 
     def declineFriendRequest(self, sender: User, reciever: User):
         # remove the username of reciever from sender.friendRequests
         if sender.hasPendingFriendRequestTo(reciever.username):
             sender.removeFriendRequest(reciever.username)
+            self.saveDatabase()
         else:
             raise ValueError(
                 f"{sender.username} has not sent a friend request to {reciever.username}"
@@ -174,4 +179,24 @@ class UserDatabase:
             self.saveDatabase()
         else: 
             raise ValueError("Cannot remove friend: one or more users are not friends with eachother.")
-        
+
+
+def manage_friend_requests(currentUser, userDB):
+    for user in userDB.userlist:
+        if currentUser.username in user.friendRequests:
+            print(f"You have a friend request from {user.username}")
+            action = input(f"Do you want to accept the friend request from {user.username}? (y/n): ").lower()
+            while action not in ['y', 'n']:
+                action = input("Invalid input. Please enter 'y' or 'n': ").lower()
+            if action == 'y':
+                try:
+                    userDB.acceptFriendRequest(user, currentUser)
+                    print(f"You are now friends with {user.username}")
+                except ValueError as e:
+                    print(f"Error: {e}")
+            elif action == 'n':
+                try:
+                    userDB.declineFriendRequest(user, currentUser)
+                    print(f"You have declined the friend request from {user.username}")
+                except ValueError as e:
+                    print(f"Error: {e}")
