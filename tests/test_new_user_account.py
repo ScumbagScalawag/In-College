@@ -147,7 +147,7 @@ def test_invalid_password_criteria(password_input, monkeypatch, capfd):
     userDB.addUserDictList(threeAccounts)
 
     input_generator = iter(
-        ["username", "TestFirstName", "TestLastName", password_input, password_input]
+        ["username", "TestFirstName", "TestLastName", "TestUni", "TestMajor", password_input, password_input]
     )
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
