@@ -129,5 +129,5 @@ def testFriendRemove(monkeypatch, capfd):
     friendUser = userDB.getUser(friendUsername).toDict()
 
     # Assert that the friend was properly removed from both friends lists
-    assert friendUsername not in currentUser["friends"]
-    assert currentUsername not in friendUser["friends"]
+    assert [friendUsername] not in currentUser["friends"]
+    assert [currentUsername] not in friendUser["friends"]
