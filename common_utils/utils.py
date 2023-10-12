@@ -63,7 +63,13 @@ def loadJobs():
 
 
 def userSearch(
-    users, username=None, password=None, firstname=None, lastname=None, returnUsername=False, returnUserObject=False
+    users,
+    username=None,
+    password=None,
+    firstname=None,
+    lastname=None,
+    returnUsername=False,
+    returnUserObject=False,
 ):
     # serves as a flag that a previous requirement was used
     # also ensures that it doesn't get false positive for cases like a different user's password for example
