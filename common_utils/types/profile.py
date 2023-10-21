@@ -110,3 +110,6 @@ class Profile:
 
     def update_about(self, new_about):
         self.about = new_about
+
+    def __str__(self):
+        return json.dumps(self.toDict(), indent=4)

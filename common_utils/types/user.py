@@ -21,6 +21,7 @@ class User:
         adSub: bool = True,
         friends=[],
         friendRequests=[],
+        profile=[],
     ):
         self.username = username
         self.password = password
@@ -37,6 +38,7 @@ class User:
         self.adSub = adSub
         self.friends = friends
         self.friendRequests = friendRequests
+        self.profile = profile
 
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
@@ -54,6 +56,7 @@ class User:
         self.adSub = otherUser.adSub
         self.friends = otherUser.friends.copy()
         self.friendRequests = otherUser.friendRequests.copy()
+        self.profile = otherUser.profile.copy()
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -87,6 +90,7 @@ class User:
             "adSub": self.adSub,
             "friends": self.friends,
             "friendRequests": self.friendRequests,
+            "profile": self.profile,
         }
 
     def hasPendingFriendRequestTo(self, username: str):
@@ -121,6 +125,7 @@ class User:
             adSub=userDict.get("adSub", True),
             friends=userDict.get("friends", []),
             friendRequests=userDict.get("friendRequests", []),
+            profile=userDict.get("profile", []),
         )
 
     def setLanguage(self, language: str):

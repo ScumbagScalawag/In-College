@@ -98,3 +98,6 @@ class Experience:
 
     def update_description(self, new_description):
         self.description = new_description
+
+    def __str__(self):
+        return json.dumps(self.toDict(), indent=4)
