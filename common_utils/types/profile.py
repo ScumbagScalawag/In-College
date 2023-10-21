@@ -83,34 +83,30 @@ class Profile:
         new_text = " ".join(word.capitalize() for word in text.split())
         return new_major
 
+    # Pick a way of doing it and comment out the other.
     def add_experience(self, title, employer, date_started, date_ended, location, description):
         experience = Experience(title, employer, date_started, date_ended, location, description)
         self.experiences.append(experience)
-        
+
     def add_experience(self, experience):
         self.experiences.append(experience)
 
+    def add_education(self, education):
+        self.education.append(education)
 
     def add_education(self, school_name, degree, years_attended):
-        
-        print("AAA")
+        new_education = Education(school_name, degree, years_attended)
+        self.education.append(new_education)
 
+    # updates
     def update_title(self, new_title):
         self.title = new_title
-    
+
     def update_major(self, new_major):
         self.major = new_major
-    
+
     def update_university(self, new_university):
         self.university = new_university
-    
+
     def update_about(self, new_about):
         self.about = new_about
-    
-
-    major: str = "UNDEFINED",
-        university: str = "UNDEFINED",
-        about: str = "UNDEFINED",
-        experiences=[],
-        education=[],
-    
