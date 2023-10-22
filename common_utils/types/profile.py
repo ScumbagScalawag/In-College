@@ -1,5 +1,8 @@
 import json
 
+from common_utils.types.education import Education
+from common_utils.types.experience import Experience
+
 
 # Copy from user class
 class Profile:
@@ -79,20 +82,20 @@ class Profile:
         )
 
     # Convert word that starts with uppercase letter and the rest is lower case.
-    def formatTextCapital(text):
+    def formatTextCapital(self, text):
         new_text = " ".join(word.capitalize() for word in text.split())
-        return new_major
+        return new_text
 
     # Pick a way of doing it and comment out the other.
     def add_experience(self, title, employer, date_started, date_ended, location, description):
         experience = Experience(title, employer, date_started, date_ended, location, description)
         self.experiences.append(experience)
 
-    def add_experience(self, experience):
-        self.experiences.append(experience)
+    #def add_experience(self, experience):
+    #    self.experiences.append(experience)
 
-    def add_education(self, education):
-        self.education.append(education)
+  #  def add_education(self, education):
+   #     self.education.append(education)
 
     def add_education(self, school_name, degree, years_attended):
         new_education = Education(school_name, degree, years_attended)

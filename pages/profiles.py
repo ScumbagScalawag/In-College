@@ -2,65 +2,71 @@ from typing import Optional
 
 from common_utils.types.user import User
 from common_utils.types.profile import Profile
-from common_utils.types.user_database import UserDatabase
 from common_utils.utils import clearScreen, printOptionList
-
-"""
-After entering their profile information, the student will be able to view their profile.
-    When their profile is displayed, their name will be automatically be displayed at the top of the profile information.
-Students will be able to display the profile of any student that they have a friend relationship with.
-They will be able to do this by displaying a list of people that they are friends with and then selecting the "profile" option that is by a friend's name.
-When they do this, the friend's profile will be displayed.
-The number of friends that that friend has will not be displayed.
-If they don't have a friend relationship with someone, they won't be able to see that person's profile information.
-"""
+from common_utils.types.user_database import UserDatabase
 
 
-def tempName(profile, string):
-    while True:
-        print(f"Enter {string}: ", end="")
-        user_input = input("")
-        print("***")
-        print(f"{string}: {user_input}")
-        print("Confirm - C, Retry - R, Save and Exit - X")
-        flag = input("")
-        if flag == "C":
-            profile.string = user_input
-            return profile
-        elif flag == "R":
-            clearScreen()
-        elif flag == "X":
-            # TODO Implement save and exit
-            return
+def inputWithExit(prompt: str) -> Optional[str]:
+    """Captures input from the user and checks if they want to exit."""
+    user_input = input(prompt)
+    if user_input.upper() == "X":
+        return None
+    return user_input
 
 
 def createProfile(currentUser: Optional[User] = None) -> Optional[User]:
-    # profile = currentUser.profile
-    proifle = Profile()
+    userDB = UserDatabase([])
+    userDB.loadUsers()
+
+    profile = Profile()
     profile.username = currentUser.username
+
     print("*** Profile Editor ***")
-    profile = tempName(profile, "title")
-    # TODO Finish profile
-    user_input = input("")
-    profile.title = user_input
+
+    # Capture title
+    title = inputWithExit("Enter title (or X to exit): ")
+    if title:
+        profile.title = title
+
+    # Capture major
+    major = inputWithExit("Enter major (or X to exit): ")
+    if major:
+        profile.major = major
+
+    # Capture university
+    university = inputWithExit("Enter university name (or X to exit): ")
+    if university:
+        profile.university = university
+
+    # Capture about section
+    about = inputWithExit("Enter about paragraph (or X to exit): ")
+    if about:
+        profile.about = about
+
+    currentUser.profile = profile
+    userDB.updateUser(currentUser)
 
     return currentUser
 
 
 # current user should be the user you wish to display
 def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
-    # assuming profile option is shown and they now choose to display the profile
     print(f"*** Profile of {currentUser.firstname} {currentUser.lastname} ***")
+    if not currentUser.profile:
+        print("You don't have a profile yet!")
+        choice = input("Would you like to create one? (y/n): ")
+        if choice.lower() == "y":
+            currentUser.profile = createProfile(currentUser)
+        return currentUser
 
-    print(currentUser.profile)
-    print(f"{currentUser.profile.title}")
+
+    print(f"Title: {currentUser.profile.title}")
     print(f"Major: {currentUser.profile.major}")
     print(f"University: {currentUser.profile.university}")
     print(f"About: {currentUser.profile.about}")
 
     # experiences
-    if currentUser.profile.experiences != []:
-        # not empty
+    if currentUser.profile.experiences:
         print(f"Experiences: ")
         for exp in currentUser.profile.experiences:
             print(f"Job Title: {exp.job_title}")
@@ -69,19 +75,16 @@ def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
             print(f"End Date: {exp.date_ended}")
             print(f"Location: {exp.location}")
             print(f"Description {exp.description}")
-            print("***")  # seperator line
+            print("***")  # separator line
     else:
-        # empty, skip printing it
         print(f"{currentUser.firstname} {currentUser.lastname} has not added Experiences")
 
     # education
-    if currentUser.profile.education != []:
-        # not empty
+    if currentUser.profile.education:
         print(f"School Name: {currentUser.profile.education.school_name}")
         print(f"Degree: {currentUser.profile.education.degree}")
-        print(f"Years Attened: {currentUser.profile.education.years_attended}")
+        print(f"Years Attended: {currentUser.profile.education.years_attended}")
     else:
-        # empty
         print(f"{currentUser.firstname} {currentUser.lastname} has not added Education")
 
     return currentUser

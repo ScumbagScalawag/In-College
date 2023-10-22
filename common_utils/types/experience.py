@@ -6,6 +6,7 @@ class Experience:
     # Constructor (w/ default values)
     def __init__(
         self,
+        username: str = "UNDEFINED",
         job_title: str = "UNDEFINED",
         employer: str = "UNDEFINED",
         date_started: str = "UNDEFINED",
@@ -38,7 +39,7 @@ class Experience:
     # for user1 == user2 expression, where otherUser is of type User
     def __eq__(self, otherExperience) -> bool:
         # in case otherUser is None
-        if not isinstance(otherExperience, Profile):
+        if not isinstance(otherExperience, Experience):
             return False
         else:
             return self.username == otherExperience.username
@@ -85,7 +86,7 @@ class Experience:
         self.job_title = new_job_title
 
     def update_employer(self, new_employer):
-        self.major = new_major
+        self.employer = new_employer
 
     def update_date_started(self, new_date):
         self.date_started = new_date
