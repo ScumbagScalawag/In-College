@@ -6,7 +6,6 @@ class Experience:
     # Constructor (w/ default values)
     def __init__(
         self,
-        username: str = "UNDEFINED",
         job_title: str = "UNDEFINED",
         employer: str = "UNDEFINED",
         date_started: str = "UNDEFINED",
@@ -14,7 +13,6 @@ class Experience:
         location: str = "UNDEFINED",
         description: str = "UNDEFINED",
     ):
-        self.username = username
         self.job_title = job_title
         self.employer = employer
         self.date_started = date_started
@@ -50,11 +48,11 @@ class Experience:
     def toDict(self):
         return {
             "job_title": self.job_title,
+            "employer": self.employer,
             "date_started": self.date_started,
             "date_ended": self.date_ended,
             "location": self.location,
-            "description": self.description,
-            "education": self.education_paragraph,
+            "description": self.description
         }
 
     # The attributes can be retrieved manually. like this: userObject.firstname
@@ -68,13 +66,12 @@ class Experience:
         return cls(
             username=userProfile.get("username", "UNDEFINED"),
             job_title=userProfile.get("job_title", "UNDEFINED"),
-            major=userProfile.get("major", "UNDEFINED"),
-            university=userProfile.get("university", "UNDEFINED"),
-            about=userProfile.get("about", "UNDEFINED"),
-            experience_paragraph=userProfile.get("experience", "UNDEFINED"),
-            education_paragraph=userProfile.get("education", "UNDEFINED"),
+            employer=userProfile.get("employer", "UNDEFINED"),
+            date_started=userProfile.get("date_started", "UNDEFINED"),
+            date_ended=userProfile.get("date_ended", "UNDEFINED"),
+            location=userProfile.get("location", "UNDEFINED"),
+            description=userProfile.get("description", "UNDEFINED")
         )
-
     # Convert word that starts with uppercase letter and the rest is lower case.
     # or return " ".join(word.capitalize() for word in text.split())
     def formatTextCapital(text):
@@ -100,5 +97,3 @@ class Experience:
     def update_description(self, new_description):
         self.description = new_description
 
-    def __str__(self):
-        return json.dumps(self.toDict(), indent=4)

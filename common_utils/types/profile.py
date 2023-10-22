@@ -1,5 +1,5 @@
 import json
-
+from typing import Optional, List
 from common_utils.types.education import Education
 from common_utils.types.experience import Experience
 
@@ -14,17 +14,16 @@ class Profile:
         major: str = "UNDEFINED",
         university: str = "UNDEFINED",
         about: str = "UNDEFINED",
-        experiences=[],
-        education=[],
+        education: Optional[Education] = None,
+        experiences: Optional[List[Experience]] = None
     ):
         self.username = username
         self.title = title
         self.major = self.formatTextCapital(major)
         self.university = self.formatTextCapital(university)
         self.about = about
-        self.experiences = experiences
-        self.education = education
-
+        self.education = education if education else Education()
+        self.experiences = experiences if experiences else []
     # WARNING: This method only copies VALUES from otherProfile: profile2.copyValues(profile1)
     def copyValues(self, otherProfile):
         self.username = otherProfile.username
@@ -58,8 +57,8 @@ class Profile:
             "major": self.major,
             "university": self.university,
             "about": self.about,
-            "experience": self.experiences,
-            "education": self.education,
+            "education": self.education.toDict() if self.education else None,
+            "experiences": [exp.toDict() for exp in self.experiences]
         }
 
     # The attributes can be retrieved manually. like this: userObject.firstname

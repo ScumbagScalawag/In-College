@@ -2,8 +2,9 @@ from typing import Optional
 
 from common_utils.types.user import User
 from common_utils.types.profile import Profile
-from common_utils.utils import clearScreen, printOptionList
 from common_utils.types.user_database import UserDatabase
+from common_utils.types.education import Education
+from common_utils.types.experience import Experience
 
 
 def inputWithExit(prompt: str) -> Optional[str]:
@@ -43,7 +44,38 @@ def createProfile(currentUser: Optional[User] = None) -> Optional[User]:
     if about:
         profile.about = about
 
+    add_education = inputWithExit("Do you want to add education details? (y/n or X to skip): ")
+    if add_education.lower() == "y":
+        school_name = inputWithExit("Enter school name (or X to skip): ")
+        degree = inputWithExit("Enter degree (or X to skip): ")
+        years_attended = inputWithExit("Enter years attended (or X to skip): ")
+        profile.education = Education(school_name, degree, years_attended)  # Assuming you've imported Education
 
+    add_experience = inputWithExit("Do you want to add experience details? (y/n or X to skip): ")
+    if add_experience.lower() == "y":
+        experiences = []  # A list to hold experiences
+        max_experiences = 3  # Maximum number of experiences allowed
+        for i in range(max_experiences):
+            print(f"\nAdding experience {i + 1}/{max_experiences}")
+            job_title = inputWithExit("Enter job title (or X to skip): ")
+            if not job_title:
+                break  # if user chooses to skip
+            employer = inputWithExit("Enter employer (or X to skip): ")
+            date_started = inputWithExit("Enter start date (or X to skip): ")
+            date_ended = inputWithExit("Enter end date (or X to skip): ")
+            location = inputWithExit("Enter location (or X to skip): ")
+            description = inputWithExit("Enter description (or X to skip): ")
+
+            experiences.append(Experience(job_title, employer, date_started, date_ended, location, description))
+
+            if i < max_experiences - 1:  # Check if there's room for another experience
+                another = inputWithExit("Do you want to add another experience? (y/n or X to skip): ")
+                if another.lower() != "y":
+                    break
+            else:
+                print("You've added the maximum number of experiences.")
+
+        profile.experiences = experiences
 
 
     currentUser.profile = profile
