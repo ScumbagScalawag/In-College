@@ -24,41 +24,44 @@ def createProfile(currentUser: Optional[User] = None) -> Optional[User]:
     print("*** Profile Editor ***")
 
     # Capture title
-    title = inputWithExit("Enter title (or X to exit): ")
+    title = inputWithExit("Enter title (or X to skip): ")
     if title:
         profile.title = title
 
     # Capture major
-    major = inputWithExit("Enter major (or X to exit): ")
+    major = inputWithExit("Enter major (or X to skip): ")
     if major:
         profile.major = major
 
     # Capture university
-    university = inputWithExit("Enter university name (or X to exit): ")
+    university = inputWithExit("Enter university name (or X to skip): ")
     if university:
         profile.university = university
 
     # Capture about section
-    about = inputWithExit("Enter about paragraph (or X to exit): ")
+    about = inputWithExit("Enter about paragraph (or X to skip): ")
     if about:
         profile.about = about
 
-    currentUser.profile = profile
-    userDB.updateUser(currentUser)
 
+
+
+    currentUser.profile = profile
+    userDB.updateUserProfile(currentUser)
+    currentUser = userDB.getUser(currentUser.username)
     return currentUser
 
 
 # current user should be the user you wish to display
 def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
+
     print(f"*** Profile of {currentUser.firstname} {currentUser.lastname} ***")
-    if not currentUser.profile:
+    if currentUser.profile.username == "UNDEFINED":
         print("You don't have a profile yet!")
         choice = input("Would you like to create one? (y/n): ")
         if choice.lower() == "y":
-            currentUser.profile = createProfile(currentUser)
+            currentUser = createProfile(currentUser)
         return currentUser
-
 
     print(f"Title: {currentUser.profile.title}")
     print(f"Major: {currentUser.profile.major}")

@@ -28,7 +28,6 @@ class Profile:
     # WARNING: This method only copies VALUES from otherProfile: profile2.copyValues(profile1)
     def copyValues(self, otherProfile):
         self.username = otherProfile.username
-        self.username = otherProfile.username
         self.title = otherProfile.title
         self.major = otherProfile.major
         self.university = otherProfile.university
@@ -77,8 +76,8 @@ class Profile:
             major=userProfile.get("major", "UNDEFINED"),
             university=userProfile.get("university", "UNDEFINED"),
             about=userProfile.get("about", "UNDEFINED"),
-            experiences=userProfile.get("experience", "UNDEFINED"),
-            education=userProfile.get("education", "UNDEFINED"),
+            experiences=userProfile.get("experience", []),
+            education=userProfile.get("education", []),
         )
 
     # Convert word that starts with uppercase letter and the rest is lower case.

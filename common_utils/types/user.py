@@ -1,5 +1,5 @@
 import json
-
+from common_utils.types.profile import Profile
 
 class User:
     SUPPORTED_LANGUAGES = ["English", "Spanish"]
@@ -21,7 +21,7 @@ class User:
         adSub: bool = True,
         friends=[],
         friendRequests=[],
-        profile=[],
+        profile=None
     ):
         self.username = username
         self.password = password
@@ -38,7 +38,7 @@ class User:
         self.adSub = adSub
         self.friends = friends
         self.friendRequests = friendRequests
-        self.profile = profile
+        self.profile = Profile() if profile is None else profile
 
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
@@ -90,7 +90,7 @@ class User:
             "adSub": self.adSub,
             "friends": self.friends,
             "friendRequests": self.friendRequests,
-            "profile": self.profile,
+            "profile": self.profile.toDict() if self.profile else None
         }
 
     def hasPendingFriendRequestTo(self, username: str):
@@ -110,6 +110,11 @@ class User:
     # singleUserDict: For example, see singleUser in tests.shared
     @classmethod
     def dictToUser(cls, userDict):
+        profile_data = userDict.get("profile")
+        profile_obj = None
+        if profile_data:
+            profile_obj = Profile.dictToProfile(profile_data)
+
         return cls(
             username=userDict.get("username", "UNDEFINED"),
             password=userDict.get("password", "UNDEFINED"),
@@ -125,9 +130,8 @@ class User:
             adSub=userDict.get("adSub", True),
             friends=userDict.get("friends", []),
             friendRequests=userDict.get("friendRequests", []),
-            profile=userDict.get("profile", []),
+            profile=profile_obj
         )
-
     def setLanguage(self, language: str):
         self.language = self.returnValidLanguage(language)
 
