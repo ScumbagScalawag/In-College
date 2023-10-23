@@ -13,12 +13,15 @@ def inputWithExit(prompt: str) -> Optional[str]:
     if user_input.upper() == "X":
         return None
     return user_input
+
+
 def addEducationToProfile(profile: Profile):
     school_name = inputWithExit("Enter school name (or X to skip): ")
     degree = inputWithExit("Enter degree (or X to skip): ")
     years_attended = inputWithExit("Enter years attended (or X to skip): ")
     profile.education = Education(school_name, degree, years_attended)
     return profile
+
 
 def addExperiencesToProfile(profile: Profile):
     experiences = []  # A list to hold experiences
@@ -34,7 +37,9 @@ def addExperiencesToProfile(profile: Profile):
         location = inputWithExit("Enter location (or X to skip): ")
         description = inputWithExit("Enter description (or X to skip): ")
 
-        experiences.append(Experience(job_title, employer, date_started, date_ended, location, description))
+        experiences.append(
+            Experience(job_title, employer, date_started, date_ended, location, description)
+        )
 
         if i < max_experiences - 1:  # Check if there's room for another experience
             another = input("Do you want to add another experience? (y/n or X to skip): ")
@@ -44,7 +49,6 @@ def addExperiencesToProfile(profile: Profile):
             print("You've added the maximum number of experiences.")
     profile.experiences = experiences
     return profile
-
 
 
 def createProfile(currentUser: Optional[User] = None) -> Optional[User]:
@@ -76,23 +80,23 @@ def createProfile(currentUser: Optional[User] = None) -> Optional[User]:
     if about:
         profile.about = about
 
+    # TODO Only works with y, any other input skips
     add_education = input("Do you want to add education details? (y/n or X to skip): ")
     if add_education.lower() == "y":
         profile = addEducationToProfile(profile)
 
-
+    # TODO Only works with y, any other input skips
     add_experience = input("Do you want to add experience details? (y/n or X to skip): ")
     if add_experience.lower() == "y":
         profile = addExperiencesToProfile(profile)
-
 
     currentUser.profile = profile
     userDB.updateUserProfile(currentUser)
     currentUser = userDB.getUser(currentUser.username)
     return currentUser
 
-def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
+def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
     print(f"*** Profile of {currentUser.firstname} {currentUser.lastname} ***")
     if currentUser.profile.username == "UNDEFINED":
         print("You don't have a profile yet!")
@@ -130,11 +134,13 @@ def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
     return currentUser
 
+
 def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
     userDB = UserDatabase([])
     userDB.loadUsers()
 
     while True:
+        # TODO Make a variable
         print("\n*** Edit Profile ***")
         print("1. Edit Title")
         print("2. Edit Major")
@@ -172,7 +178,9 @@ def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
                     print("A. Add New Experience")
                 print("X. Exit Experience Editing")
 
-                exp_choice = input("Select an experience number to edit, 'A' to add, or 'X' to exit: ").lower()
+                exp_choice = input(
+                    "Select an experience number to edit, 'A' to add, or 'X' to exit: "
+                ).lower()
 
                 if exp_choice == "x":
                     break
@@ -188,6 +196,7 @@ def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
                     print("Invalid choice. Please select a valid number.")
                     continue
                 while True:
+                    # TODO Make a variable for print
                     print(f"\nEditing {selected_exp.job_title} at {selected_exp.employer}")
                     print("1. Job Title")
                     print("2. Employer")
@@ -225,6 +234,8 @@ def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
         userDB.updateUserProfile(currentUser)
         currentUser = userDB.getUser(currentUser.username)
         return currentUser
+
+
 def addNewExperience(profile: Profile) -> Profile:
     print("\n*** Add New Experience ***")
 
@@ -238,7 +249,9 @@ def addNewExperience(profile: Profile) -> Profile:
     location = inputWithExit("Enter location (or X to skip): ")
     description = inputWithExit("Enter description (or X to skip): ")
 
-    new_experience = Experience(job_title, employer, date_started, date_ended, location, description)
+    new_experience = Experience(
+        job_title, employer, date_started, date_ended, location, description
+    )
     profile.experiences.append(new_experience)
 
     print("Experience added successfully!")

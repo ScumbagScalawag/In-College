@@ -130,6 +130,6 @@ def printFriendsScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
 friendScreenOptions = [
     "*** Friends ***",
-    "Select User to remove them from your friends list.",
+    "Select User to remove them or view their profile from your friends list.",
     "Note: This will also remove you from their friends list!\n",
 ]
