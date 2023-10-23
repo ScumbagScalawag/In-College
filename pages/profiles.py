@@ -37,7 +37,7 @@ def addExperiencesToProfile(profile: Profile):
         experiences.append(Experience(job_title, employer, date_started, date_ended, location, description))
 
         if i < max_experiences - 1:  # Check if there's room for another experience
-            another = inputWithExit("Do you want to add another experience? (y/n or X to skip): ")
+            another = input("Do you want to add another experience? (y/n or X to skip): ")
             if another.lower() != "y":
                 break
         else:
@@ -201,6 +201,8 @@ def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
                     if detail_choice == "1":
                         new_title = input("Enter new job title: ")
                         selected_exp.job_title = new_title
+                        userDB.updateUserProfile(currentUser)
+                        currentUser = userDB.getUser(currentUser.username)
                     elif detail_choice == "2":
                         new_employer = input("Enter new employer: ")
                         selected_exp.employer = new_employer
@@ -213,6 +215,8 @@ def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
                     elif detail_choice == "5":
                         new_location = input("Enter new location: ")
                         selected_exp.location = new_location
+                        userDB.updateUserProfile(currentUser)
+                        currentUser = userDB.getUser(currentUser.username)
                     elif detail_choice == "6":
                         new_description = input("Enter new description: ")
                         selected_exp.description = new_description
