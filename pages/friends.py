@@ -72,7 +72,6 @@ def printFriendsScreen(currentUser: Optional[User] = None) -> Optional[User]:
             try:
                 userDB.removeFriend(currentUser, user)
                 print("Friend Removed...")
-                #TODO Remove Friend
                 currentUser = userDB.getUser(currentUser.username)
                 print(anyButtonToContinueMessage())
                 input("")

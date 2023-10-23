@@ -69,14 +69,26 @@ class Profile:
     # singleUserDict: For example, see singleUser in tests.shared
     @classmethod
     def dictToProfile(cls, userProfile):
+        # Convert experience dictionaries into Experience objects
+        experiences_list = userProfile.get("experiences", [])
+        experiences_obj_list = [Experience.dictToExperience(exp_dict) for exp_dict in experiences_list]
+
+        # Convert education dictionary into an Education object
+        education_data = userProfile.get("education", {})
+        education_obj = Education(
+            school_name=education_data.get("school_name", "UNDEFINED"),
+            degree=education_data.get("degree", "UNDEFINED"),
+            years_attended=education_data.get("years_attended", "UNDEFINED")
+        )
+
         return cls(
             username=userProfile.get("username", "UNDEFINED"),
             title=userProfile.get("title", "UNDEFINED"),
             major=userProfile.get("major", "UNDEFINED"),
             university=userProfile.get("university", "UNDEFINED"),
             about=userProfile.get("about", "UNDEFINED"),
-            experiences=userProfile.get("experience", []),
-            education=userProfile.get("education", []),
+            experiences=experiences_obj_list,
+            education=education_obj
         )
 
     # Convert word that starts with uppercase letter and the rest is lower case.

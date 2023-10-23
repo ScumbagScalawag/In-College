@@ -99,6 +99,14 @@ def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
     print(f"Major: {currentUser.profile.major}")
     print(f"University: {currentUser.profile.university}")
     print(f"About: {currentUser.profile.about}")
+    # education
+    if currentUser.profile.education:
+        print("Education:")
+        print(f"School Name: {currentUser.profile.education.school_name}")
+        print(f"Degree: {currentUser.profile.education.degree}")
+        print(f"Years Attended: {currentUser.profile.education.years_attended}")
+    else:
+        print(f"{currentUser.firstname} {currentUser.lastname} has not added Education")
 
     # experiences
     if currentUser.profile.experiences:
@@ -114,12 +122,37 @@ def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
     else:
         print(f"{currentUser.firstname} {currentUser.lastname} has not added Experiences")
 
-    # education
-    if currentUser.profile.education:
-        print(f"School Name: {currentUser.profile.education.school_name}")
-        print(f"Degree: {currentUser.profile.education.degree}")
-        print(f"Years Attended: {currentUser.profile.education.years_attended}")
-    else:
-        print(f"{currentUser.firstname} {currentUser.lastname} has not added Education")
+    return currentUser
 
+def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
+    userDB = UserDatabase([])
+    userDB.loadUsers()
+    field_to_edit = input("Enter field to edit (title, major, university, about, experience, education) or X to exit: ").lower()
+
+    if field_to_edit == "x":
+        return currentUser
+
+    if field_to_edit in ["title", "major", "university", "about"]:
+        new_value = input(f"Enter new value for {field_to_edit}: ")
+        if field_to_edit in ["major", "university"]:
+            new_value = new_value.title()
+        setattr(currentUser.profile, field_to_edit, new_value)
+
+    elif field_to_edit == "experience":
+        exp_num = int(input("Which experience number would you like to edit? "))
+        if 0 < exp_num <= len(currentUser.profile.experiences):
+            exp_to_edit = currentUser.profile.experiences[exp_num-1]
+            exp_field = input("Which experience field would you like to edit (job_title, employer, date_started, date_ended, location, description): ")
+            new_value = input(f"Enter new value for {exp_field}: ")
+            setattr(exp_to_edit, exp_field, new_value)
+
+    elif field_to_edit == "education":
+        if currentUser.profile.education:
+            edu_field = input("Which education field would you like to edit (school_name, degree, years_attended): ")
+            new_value = input(f"Enter new value for {edu_field}: ")
+            setattr(currentUser.profile.education, edu_field, new_value)
+    else:
+        print("Invalid field!")
+    userDB.updateUserProfile(currentUser)
+    currentUser = userDB.getUser(currentUser.username)
     return currentUser

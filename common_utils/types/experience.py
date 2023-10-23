@@ -62,15 +62,14 @@ class Experience:
     ## Return a User into userObject with: userObject = User.dictToUser(singleUserDict)
     # singleUserDict: For example, see singleUser in tests.shared
     @classmethod
-    def dictToProfile(cls, userProfile):
+    def dictToExperience(cls, experienceData):
         return cls(
-            username=userProfile.get("username", "UNDEFINED"),
-            job_title=userProfile.get("job_title", "UNDEFINED"),
-            employer=userProfile.get("employer", "UNDEFINED"),
-            date_started=userProfile.get("date_started", "UNDEFINED"),
-            date_ended=userProfile.get("date_ended", "UNDEFINED"),
-            location=userProfile.get("location", "UNDEFINED"),
-            description=userProfile.get("description", "UNDEFINED")
+            job_title=experienceData.get("job_title", "UNDEFINED"),
+            employer=experienceData.get("employer", "UNDEFINED"),
+            date_started=experienceData.get("date_started", "UNDEFINED"),
+            date_ended=experienceData.get("date_ended", "UNDEFINED"),
+            location=experienceData.get("location", "UNDEFINED"),
+            description=experienceData.get("description", "UNDEFINED")
         )
     # Convert word that starts with uppercase letter and the rest is lower case.
     # or return " ".join(word.capitalize() for word in text.split())
