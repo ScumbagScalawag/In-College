@@ -11,7 +11,6 @@ from pages.friends import printFriendsScreen
 from pages.outgoing_friend_requests import printOutgoingFriendRequestsScreen
 from pages.profiles import printProfileScreen, printEditProfile
 
-
 def printShowMyNetworkScreen(currentUser: Optional[User] = None) -> Optional[User]:
     # if not isLoggedIn(currentUser, "the Show My Network page."):
     #     return currentUser
