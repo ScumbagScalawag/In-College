@@ -45,7 +45,7 @@ def printSkillScreen(currenUser: Optional[User] = None) -> Optional[User]:
             break  # returns to caller (main menu) when you "exit"
         else:
             invalidInputPressToContinue("1, 2, 3, 4, 5, or X")
-            #print('Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"')
+            # print('Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"')
 
     return currenUser
 
