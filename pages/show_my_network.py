@@ -11,6 +11,7 @@ from pages.friends import printFriendsScreen
 from pages.outgoing_friend_requests import printOutgoingFriendRequestsScreen
 from pages.profiles import printProfileScreen, printEditProfile
 
+
 def printShowMyNetworkScreen(currentUser: Optional[User] = None) -> Optional[User]:
     # if not isLoggedIn(currentUser, "the Show My Network page."):
     #     return currentUser
@@ -21,7 +22,7 @@ def printShowMyNetworkScreen(currentUser: Optional[User] = None) -> Optional[Use
         return currentUser
     while True:
         clearScreen()
-        printOptionList(showMyNetowrkOptions)
+        printOptionList(showMyNetworkOptions)
         userInput = input("")
 
         if userInput == "1":
@@ -44,7 +45,7 @@ def printShowMyNetworkScreen(currentUser: Optional[User] = None) -> Optional[Use
     return currentUser
 
 
-showMyNetowrkOptions = [
+showMyNetworkOptions = [
     "*** My Network ***",
     "1. View friends List",
     "2. View pending outgoing friend requests",
