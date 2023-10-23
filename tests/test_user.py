@@ -9,6 +9,8 @@ def test_default_constructor():
     assert user.password == "UNDEFINED"
     assert user.firstname == "UNDEFINED"
     assert user.lastname == "UNDEFINED"
+    assert user.uni == "UNDEFINED"
+    assert user.major == "UNDEFINED"
     assert user.email == "UNDEFINED"
     assert user.phoneNumber == "UNDEFINED"
     assert user.language == "English"
