@@ -5,6 +5,7 @@ from common_utils.types.profile import Profile
 from common_utils.types.user_database import UserDatabase
 from common_utils.types.education import Education
 from common_utils.types.experience import Experience
+from common_utils.messages import anyButtonToContinueMessage
 
 
 def inputWithExit(prompt: str) -> Optional[str]:
@@ -49,7 +50,9 @@ def createProfile(currentUser: Optional[User] = None) -> Optional[User]:
         school_name = inputWithExit("Enter school name (or X to skip): ")
         degree = inputWithExit("Enter degree (or X to skip): ")
         years_attended = inputWithExit("Enter years attended (or X to skip): ")
-        profile.education = Education(school_name, degree, years_attended)  # Assuming you've imported Education
+        profile.education = Education(
+            school_name, degree, years_attended
+        )  # Assuming you've imported Education
 
     add_experience = inputWithExit("Do you want to add experience details? (y/n or X to skip): ")
     if add_experience.lower() == "y":
@@ -66,17 +69,20 @@ def createProfile(currentUser: Optional[User] = None) -> Optional[User]:
             location = inputWithExit("Enter location (or X to skip): ")
             description = inputWithExit("Enter description (or X to skip): ")
 
-            experiences.append(Experience(job_title, employer, date_started, date_ended, location, description))
+            experiences.append(
+                Experience(job_title, employer, date_started, date_ended, location, description)
+            )
 
             if i < max_experiences - 1:  # Check if there's room for another experience
-                another = inputWithExit("Do you want to add another experience? (y/n or X to skip): ")
+                another = inputWithExit(
+                    "Do you want to add another experience? (y/n or X to skip): "
+                )
                 if another.lower() != "y":
                     break
             else:
                 print("You've added the maximum number of experiences.")
 
         profile.experiences = experiences
-
 
     currentUser.profile = profile
     userDB.updateUserProfile(currentUser)
@@ -86,7 +92,6 @@ def createProfile(currentUser: Optional[User] = None) -> Optional[User]:
 
 # current user should be the user you wish to display
 def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
-
     print(f"*** Profile of {currentUser.firstname} {currentUser.lastname} ***")
     if currentUser.profile.username == "UNDEFINED":
         print("You don't have a profile yet!")
@@ -121,13 +126,17 @@ def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
             print("***")  # separator line
     else:
         print(f"{currentUser.firstname} {currentUser.lastname} has not added Experiences")
-
+    print(anyButtonToContinueMessage())
+    input("")
     return currentUser
+
 
 def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
     userDB = UserDatabase([])
     userDB.loadUsers()
-    field_to_edit = input("Enter field to edit (title, major, university, about, experience, education) or X to exit: ").lower()
+    field_to_edit = input(
+        "Enter field to edit (title, major, university, about, experience, education) or X to exit: "
+    ).lower()
 
     if field_to_edit == "x":
         return currentUser
@@ -139,16 +148,21 @@ def printEditProfile(currentUser: Optional[User] = None) -> Optional[User]:
         setattr(currentUser.profile, field_to_edit, new_value)
 
     elif field_to_edit == "experience":
+        # TODO Fix input
         exp_num = int(input("Which experience number would you like to edit? "))
         if 0 < exp_num <= len(currentUser.profile.experiences):
-            exp_to_edit = currentUser.profile.experiences[exp_num-1]
-            exp_field = input("Which experience field would you like to edit (job_title, employer, date_started, date_ended, location, description): ")
+            exp_to_edit = currentUser.profile.experiences[exp_num - 1]
+            exp_field = input(
+                "Which experience field would you like to edit (job_title, employer, date_started, date_ended, location, description): "
+            )
             new_value = input(f"Enter new value for {exp_field}: ")
             setattr(exp_to_edit, exp_field, new_value)
 
     elif field_to_edit == "education":
         if currentUser.profile.education:
-            edu_field = input("Which education field would you like to edit (school_name, degree, years_attended): ")
+            edu_field = input(
+                "Which education field would you like to edit (school_name, degree, years_attended): "
+            )
             new_value = input(f"Enter new value for {edu_field}: ")
             setattr(currentUser.profile.education, edu_field, new_value)
     else:
