@@ -1,4 +1,322 @@
-commit a64b8bf1c947e793e7be40c892fb5e26f6b4ee6a (HEAD -> scrum-61.friendRequests-and-friends-lists, tag: 20231006NewMexico, origin/scrum-61.friendRequests-and-friends-lists)
+commit a01fd93f69e1e2cb7d4dcfb762c338aec243b1d7 (HEAD -> lastsecfix, origin/lastsecfix)
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Thu Oct 12 13:22:45 2023 -0400
+
+    Delete tests/test_friend_request.py
+
+commit 08a0788398e61c49b4e1c5c589f209b01927350f (tag: 20231012NewMexico)
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Thu Oct 12 13:20:30 2023 -0400
+
+    fixed test_friends.py
+
+commit 072548d91447835e4aac5aca5e8b906cd7a60812
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Thu Oct 12 12:58:28 2023 -0400
+
+    test_invalid_password_criteria fixed
+
+commit 76ee0f4947129986ba9387ad284f2ac24e7eab7b
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Thu Oct 12 12:50:43 2023 -0400
+
+    fixed test_friend_request
+
+commit cd24279d25e434d6811a068220e6aab3bd3771fd (tag: 20231011NewMexico)
+Merge: 08fe7c5 60faeb8
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Wed Oct 11 23:49:25 2023 -0400
+
+    Merge pull request #32 from ScumbagScalawag/scrum-64.show-my-network
+    
+    fixed removeFriend() bug where only one friend had the other friend r…
+
+commit 60faeb847a1866d171535ce299289755dca2405a (origin/scrum-64.show-my-network)
+Merge: d7c368c 08fe7c5
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Wed Oct 11 23:48:36 2023 -0400
+
+    Merge branch 'main' into scrum-64.show-my-network
+
+commit 08fe7c5a11ad3609b3a069822ea2b5cb21b3734b
+Merge: 6cad775 a23b4f9
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Wed Oct 11 23:46:27 2023 -0400
+
+    Merge pull request #29 from ScumbagScalawag/Friend_request_accept
+    
+    Friend request accept
+
+commit a23b4f9b35ce91cc832f3b5d3c9c034ae6819430
+Merge: a40577d 6cad775
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Wed Oct 11 23:43:12 2023 -0400
+
+    Merge branch 'main' into Friend_request_accept
+
+commit d7c368ccb6e4a24bee9f6d413bbf21e0a0d7b45c
+Merge: 117d637 6cad775
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Wed Oct 11 23:42:28 2023 -0400
+
+    Merge branch 'main' into scrum-64.show-my-network
+
+commit 6cad775d00c2d19c903919e5f70677ef511dc96d
+Merge: f3b2c87 acf4e53
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Wed Oct 11 23:41:54 2023 -0400
+
+    Merge pull request #31 from ScumbagScalawag/scrum53_testlogin
+    
+    Scrum53 testlogin
+
+commit acf4e53e1cf728d5dc6d3f496fbf3a5f9cce28a4 (origin/scrum53_testlogin)
+Merge: 6272c51 f3b2c87
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Wed Oct 11 23:41:25 2023 -0400
+
+    Merge branch 'main' into scrum53_testlogin
+
+commit f3b2c875213a782f22a26164863363b03761ee45
+Merge: 232853d 2dd155a
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Wed Oct 11 23:40:58 2023 -0400
+
+    Merge pull request #30 from ScumbagScalawag/test-scrum-62-64
+    
+    Test scrum 62 64
+
+commit a40577de4e56132caa1f83bf65260344874c9cbd
+Merge: 4a649d8 fc8a430
+Author: KamLes <kam.leslie.2023@gmail.com>
+Date:   Wed Oct 11 21:33:02 2023 -0400
+
+    Merge branch 'Friend_request_accept' of https://github.com/ScumbagScalawag/In-College into Friend_request_accept
+
+commit 4a649d8c88382c9753b807d3946ebf47dd7548d3
+Author: KamLes <kam.leslie.2023@gmail.com>
+Date:   Wed Oct 11 21:32:32 2023 -0400
+
+    changed the parameters
+
+commit 2dd155ad2e5aba6814b8377689048abb09a4892b
+Merge: a2a92e5 232853d
+Author: Noah McIvor <85854013+ScumbagScalawag@users.noreply.github.com>
+Date:   Wed Oct 11 12:52:27 2023 -0400
+
+    Merge branch 'main' into test-scrum-62-64
+
+commit fc8a430ca869193f300e3e2120b320d1290137aa (Friend_request_accept)
+Merge: 7eb95f9 232853d
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Wed Oct 11 12:40:41 2023 -0400
+
+    Merge branch 'main' into Friend_request_accept
+
+commit 7eb95f933ed1c26467ae3ec7f62c1560c81ee1a6
+Author: AndrewManyak <andrewmanyak1@gmail.com>
+Date:   Wed Oct 11 12:36:54 2023 -0400
+
+    DB error check
+
+commit 2e88866b998d66fb6631f795121b939397258653
+Author: AndrewManyak <andrewmanyak1@gmail.com>
+Date:   Wed Oct 11 12:06:44 2023 -0400
+
+    Updated user to have uni/major
+
+commit 85d9ed5191364004068aa9fe41be16b029c4fb47
+Author: KamLes <kam.leslie.2023@gmail.com>
+Date:   Wed Oct 11 11:54:06 2023 -0400
+
+    Deleted test_manageFriendRequest
+
+commit 35e5192da980644d972384fc0b506acf4eaab855
+Author: KamLes <kam.leslie.2023@gmail.com>
+Date:   Wed Oct 11 11:35:47 2023 -0400
+
+    changed the syntax
+
+commit 117d6378b7b457b44ea05677a8e9d444f3ba8e6f (scrum-64.show-my-network)
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Wed Oct 11 11:32:14 2023 -0400
+
+    TODO: add major and UNI stuff...
+
+commit f9693d7f930cc31192338268016c28c806151563
+Author: KamLes <kam.leslie.2023@gmail.com>
+Date:   Wed Oct 11 11:09:24 2023 -0400
+
+    setting up test_manageFriendRequest page
+
+commit 6272c51a450d47dca02a5e36d50fa13093c811c2 (scrum53_testlogin)
+Merge: 2fe5038 232853d
+Author: kamleslie2023 <80593451+kamleslie2023@users.noreply.github.com>
+Date:   Tue Oct 10 22:04:00 2023 -0400
+
+    Merge branch 'main' into scrum53_testlogin
+
+commit a3d360cc33d5fc8a8345755752a5593d5cd3cf67
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Tue Oct 10 22:03:37 2023 -0400
+
+    fixed removeFriend() bug where only one friend had the other friend removed
+
+commit 2fe5038ab5b7a512643e20b8a95b8f88c06aedf4
+Author: KamLes <kam.leslie.2023@gmail.com>
+Date:   Tue Oct 10 22:00:20 2023 -0400
+
+    finished test_login valid user function
+
+commit 232853d95f5b2096c52d46838ac015312d14782e (tag: 20231010NewMexico2)
+Merge: dc97469 cdc6229
+Author: zackzack38 <54781428+zackzack38@users.noreply.github.com>
+Date:   Tue Oct 10 20:35:13 2023 -0400
+
+    Merge pull request #27 from ScumbagScalawag/scrum-64.show-my-network
+    
+    Scrum 64.show my network
+
+commit a2a92e5eb50c764fb639e206a41d59425539babf
+Author: adam-k4 <adamk4@usf.edu>
+Date:   Tue Oct 10 19:54:22 2023 -0400
+
+    Successfully tests if removing a friend properly removes friends on both ends
+
+commit 954f08c56dd515a926f418d9991926bbcc660606 (tag: 20231010NewMexico)
+Author: adam-k4 <adamk4@usf.edu>
+Date:   Tue Oct 10 00:05:03 2023 -0400
+
+    Added test_friends.py, still needs to assert that the friends are removed from the objects WIP
+
+commit a97228cb9178301793ad22f5791db2d73dc000e3 (tag: 20231009NewMexico)
+Author: AndrewManyak <andrewmanyak1@gmail.com>
+Date:   Mon Oct 9 21:35:33 2023 -0400
+
+    accept friends
+    
+    Implemented accept friend request on login, changed some tests too
+
+commit fec97f641ad0c1ce80ea9c243e6220ed30ad13ec
+Author: KamLes <kam.leslie.2023@gmail.com>
+Date:   Mon Oct 9 18:28:14 2023 -0400
+
+    test_login page, logged in and invalid are working
+
+commit 09126cb6dd258a4c70ce7ebc4528921f2a56e91b
+Author: KamLes <kam.leslie.2023@gmail.com>
+Date:   Mon Oct 9 18:10:25 2023 -0400
+
+    Changed the user limit from 5 to 10 for testing
+
+commit cdc622981081937fc75d15575a078a81aa2869d4
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sun Oct 8 21:57:47 2023 -0400
+
+    Removed Interactive input handling for outgoing friend requests
+
+commit 6ea29f7fa3d5acec5a38ea4a9f12617957615c25
+Merge: 5b76f05 dc97469
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sun Oct 8 21:48:50 2023 -0400
+
+    Merge branch 'main' into scrum-64.show-my-network
+
+commit 5b76f0588fc07ea5debf5f27d55d9857213d5913
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sun Oct 8 21:45:16 2023 -0400
+
+    outgoing_friend_requests.py made + better user input handling for friends and show_my_network
+
+commit dc9746991078e1683e17233521217ec4e8f28436 (tag: 20231008NewMexico)
+Merge: 85009a0 80821c1
+Author: Noah McIvor <85854013+ScumbagScalawag@users.noreply.github.com>
+Date:   Sun Oct 8 20:02:10 2023 -0400
+
+    Merge pull request #24 from ScumbagScalawag/scrum-61.friendRequests-and-friends-lists
+    
+    Scrum 61.friend requests and friends lists
+
+commit 89b4e579cc62098461044a67a9a0e69cad5cb225
+Merge: 10e0267 da8a452
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sun Oct 8 19:52:38 2023 -0400
+
+    Merge branch 'scrum-64.show-my-network' of https://github.com/ScumbagScalawag/In-College into scrum-64.show-my-network
+
+commit 10e02676d72946ba673169d3786eb90821f3ffb0
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sun Oct 8 19:52:27 2023 -0400
+
+    friends properly removing friends when choosing username
+
+commit da8a45242a81a1c899abe5f327b0a95ea4fdbe5c
+Author: AndrewManyak <andrewmanyak1@gmail.com>
+Date:   Sat Oct 7 23:34:34 2023 -0400
+
+    Added Major and UNI + search
+    
+    Added new friend search with new ways and added multiple returns. New major and university unlocked for database.
+
+commit a37cee2f96896ef15e50acc902534cd899f543fc
+Merge: ac96e6c 8573909
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sat Oct 7 17:38:53 2023 -0400
+
+    Merge branch 'scrum-67.find-friend-exception-handling-and-fixing-tests' into scrum-64.show-my-network
+
+commit ac96e6cd2f76b58f9172fa1dedb4981bd5157135
+Merge: bb69112 80821c1
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sat Oct 7 17:37:18 2023 -0400
+
+    Merge branch 'scrum-61.friendRequests-and-friends-lists' into scrum-64.show-my-network
+
+commit bb6911295e18d9a13c09808e451994c562b765da
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sat Oct 7 17:36:19 2023 -0400
+
+    WIP: show my netowrk and friends screen
+
+commit 839231a6f596bcef43204ad312947a86d2ff8609
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sat Oct 7 17:30:27 2023 -0400
+
+    fixed duplicate usernames added to friends list + tests
+
+commit 85739097f80e215eeed38f78a0a765d4be10b7bb (origin/scrum-67.find-friend-exception-handling-and-fixing-tests, scrum-67.find-friend-exception-handling-and-fixing-tests)
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sat Oct 7 05:17:56 2023 -0400
+
+    find friends: handles exceptions better
+    
+    but tests are not checked with this
+
+commit 5eebc00b6927daef5a01793c8c0d26275396176d
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sat Oct 7 02:46:43 2023 -0400
+
+    addFriend() made and tested
+
+commit 230d4c6eef343cc80d6e06c6b82f412a84f536ed
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sat Oct 7 02:45:36 2023 -0400
+
+    scrum-66 isLoggedIn() function made, not implmented universally
+
+commit 80821c1a8f248900f4f95a14d12a113ec3f593fd (origin/scrum-61.friendRequests-and-friends-lists)
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Sat Oct 7 01:25:07 2023 -0400
+
+    attemmpt at updating instantiate_database.py (still cant get it to import) when ran
+
+commit a47efff734409c576419939285956c584262bcec
+Author: Noah McIvor <noahmcivor@gmail.com>
+Date:   Fri Oct 6 20:30:32 2023 -0400
+
+    Oct 6 tag added
+
+commit a64b8bf1c947e793e7be40c892fb5e26f6b4ee6a (tag: 20231006NewMexico)
 Author: Noah McIvor <noahmcivor@gmail.com>
 Date:   Fri Oct 6 02:34:31 2023 -0400
 
@@ -68,7 +386,7 @@ Date:   Wed Oct 4 23:27:21 2023 -0400
 
     connections --> friendRequests
 
-commit 85009a0cd298763db11bae5f8f59fe970de0b7f5 (origin/main, origin/HEAD, scrum-25.user-search-firstname-lastname, main)
+commit 85009a0cd298763db11bae5f8f59fe970de0b7f5 (scrum-25.user-search-firstname-lastname)
 Merge: a4aa7c3 69f80c3
 Author: adam-k4 <145165835+adam-k4@users.noreply.github.com>
 Date:   Tue Oct 3 20:25:38 2023 -0400
