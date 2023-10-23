@@ -2,6 +2,7 @@ import pytest
 from pages.skill_search import printSkillScreen, skillOptionsList
 from common_utils.messages import underConstructionMessage
 
+
 @pytest.mark.parametrize(
     "mock_input,responses,expectedReturn",
     [
@@ -46,7 +47,7 @@ from common_utils.messages import underConstructionMessage
             None,
         ),
         (
-            ["6"],
+            ["X"],
             [
                 *skillOptionsList,
             ],
@@ -56,12 +57,12 @@ from common_utils.messages import underConstructionMessage
             ["FoamEarplugs"],
             [
                 *skillOptionsList,
-                'Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"',
+                'Invalid selection please input "1" or "2" or "3" or "4" or "5" or "X"',
             ],
             0,
         ),
     ],
-    ids=["1-Skill", "2-Skill", "3-Skill", "4-Skill", "5-Skill", "6-Close", "InvalidSelection"],
+    ids=["1-Skill", "2-Skill", "3-Skill", "4-Skill", "5-Skill", "X-Close", "InvalidSelection"],
 )
 def testSkillsScreen(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
@@ -76,7 +77,7 @@ def testSkillsScreen(mock_input, responses, expectedReturn, monkeypatch, capfd):
         assert r in captured.out
 
 
-#Already tested for above
+# Already tested for above
 @pytest.mark.parametrize(
     "input_value",
     [
@@ -98,7 +99,8 @@ def testSkillsUnderConstruction(input_value, monkeypatch, capfd):
 
     captured = capfd.readouterr()
     assert underConstructionMessage() in captured.out
-    
+
+
 # Already handled above in testSkillsScreen
 @pytest.mark.parametrize(
     "input_value",
@@ -120,4 +122,4 @@ def testSkillsWrongInput(input_value, monkeypatch, capfd):
         pass
 
     captured = capfd.readouterr()
-    assert 'Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"' in captured.out
+    assert 'Invalid selection please input "1" or "2" or "3" or "4" or "5" or "X"' in captured.out

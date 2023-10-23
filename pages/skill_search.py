@@ -1,7 +1,7 @@
 from typing import Optional
 from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import underConstructionMessage
+from common_utils.messages import underConstructionMessage, invalidInputPressToContinue
 
 SKILL_LIST = [
     {"name": "Skating", "desc": underConstructionMessage()},
