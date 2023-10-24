@@ -108,8 +108,7 @@ class Profile:
    #     self.education.append(education)
 
     def add_education(self, school_name, degree, years_attended):
-        new_education = Education(school_name, degree, years_attended)
-        self.education.append(new_education)
+        self.education = Education(school_name, degree, years_attended)
 
     # updates
     def update_title(self, new_title):

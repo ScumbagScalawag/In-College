@@ -22,3 +22,10 @@ def test_addExperience():
     profile.add_experience(experienceDict["job_title"], experienceDict["employer"], experienceDict["date_started"], experienceDict["date_ended"], experienceDict["location"], experienceDict["description"])
     profileExperienceList = profile.toDict()["experiences"]
     assert profileExperienceList == experienceList
+
+def test_addEducation():
+    educationDict = sampleProfile["education"]
+    profile = Profile()
+    profile.add_education(educationDict["school_name"], educationDict["degree"], educationDict["years_attended"])
+    profileExperienceDict = profile.toDict()["education"]
+    assert profileExperienceDict == educationDict
