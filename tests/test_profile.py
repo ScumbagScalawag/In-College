@@ -29,3 +29,11 @@ def test_addEducation():
     profile.add_education(educationDict["school_name"], educationDict["degree"], educationDict["years_attended"])
     profileExperienceDict = profile.toDict()["education"]
     assert profileExperienceDict == educationDict
+
+def test_copyValues():
+    profile1 = Profile()
+    profile2 = Profile.dictToProfile(sampleProfile)
+    profile1.copyValues(profile2)
+    profile1Dict = profile1.toDict()
+    profile2Dict = profile2.toDict()
+    assert profile1Dict == profile2Dict
