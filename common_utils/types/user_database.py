@@ -213,7 +213,8 @@ def manage_friend_requests(currentUser, userDB):
             print(f"You have a friend request from {user.username}")
             action = input(f"Do you want to accept the friend request from {user.username}? (y/n): ").lower()
             while action not in ['y', 'n']:
-                action = input("Invalid input. Please enter 'y' or 'n': ").lower()
+                print("Invalid input. Please enter 'y' or 'n': ", end="")
+                action = input("").lower()
             if action == 'y':
                 try:
                     userDB.acceptFriendRequest(user, currentUser)

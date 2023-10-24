@@ -22,6 +22,19 @@ singleUser = {
     "adSub": True,
     "friends": [],
     "friendRequests": [],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
 }
 
 # A user with no Defualt values to ensure r/w operations are working
@@ -40,6 +53,19 @@ nonDefualtsSingleUser = {
     "adSub": False,
     "friends": ["someUser"],
     "friendRequests": ["someOtherUser", "anotherUser"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
 }
 # Three Accounts does not include single user
 threeAccounts = [
@@ -58,6 +84,19 @@ threeAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "sillyBoi",
@@ -74,6 +113,19 @@ threeAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["notKaren", "dummy"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "dummyDude",
@@ -90,6 +142,19 @@ threeAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["admin"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
 ]
 # four accounts = three + single user
@@ -109,6 +174,19 @@ fourAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "dummy",
@@ -125,6 +203,19 @@ fourAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "sillyBoi",
@@ -141,6 +232,19 @@ fourAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["dummy"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "dummyDude",
@@ -157,6 +261,19 @@ fourAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
 ]
 # 5 = 3 + 1 + 1
@@ -176,6 +293,19 @@ fiveAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "sillyBoi",
@@ -192,6 +322,19 @@ fiveAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["notKaren", "dummy"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "dummyDude",
@@ -208,6 +351,19 @@ fiveAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["admin"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "notKaren",
@@ -224,6 +380,19 @@ fiveAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["dummy"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "theSilliestOfAll",
@@ -240,6 +409,19 @@ fiveAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [""],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
 ]
 
@@ -259,6 +441,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "sillyBoi",
@@ -275,6 +470,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["notKaren", "dummy"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "dummyDude",
@@ -291,6 +499,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["admin"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "notKaren",
@@ -307,6 +528,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": ["dummy"],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "theSilliestOfAll",
@@ -323,6 +557,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [""],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "A",
@@ -339,6 +586,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [""],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "B",
@@ -355,6 +615,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [""],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "C",
@@ -371,6 +644,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [""],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "D",
@@ -387,6 +673,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [""],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
     {
         "username": "E",
@@ -403,6 +702,19 @@ tenAccounts = [
         "adSub": True,
         "friends": [],
         "friendRequests": [""],
+        "profile": {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                },
     },
 ]
 
@@ -507,3 +819,44 @@ fiveJobs = [
         "lastname": "McIvor",
     },
 ]
+
+# ------- ]]]
+
+# Profiles ------ [[[
+
+emptyProfile = {
+                    "username": "UNDEFINED",
+                    "title": "UNDEFINED",
+                    "major": "Undefined",
+                    "university": "Undefined",
+                    "about": "UNDEFINED",
+                    "education": {
+                        "school_name": "UNDEFINED",
+                        "degree": "UNDEFINED",
+                        "years_attended": "UNDEFINED"
+                    },
+                    "experiences": []
+                }
+
+sampleProfile = {
+                    "username": "asdfasdf",
+                    "title": "Software Engineer",
+                    "major": "Cs",
+                    "university": "Usf",
+                    "about": "I like trains",
+                    "education": {
+                        "school_name": "USF",
+                        "degree": "Bachelors in Computer Science",
+                        "years_attended": "4"
+                    },
+                    "experiences": [
+                        {
+                            "job_title": "Software Intern",
+                            "employer": "Google",
+                            "date_started": "May 2020",
+                            "date_ended": "August 2020",
+                            "location": "Tampa, FL",
+                            "description": "Idk whatever they do at google"
+                        }
+                    ]
+                }
