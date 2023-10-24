@@ -837,3 +837,26 @@ emptyProfile = {
                     },
                     "experiences": []
                 }
+
+sampleProfile = {
+                    "username": "asdfasdf",
+                    "title": "Software Engineer",
+                    "major": "Cs",
+                    "university": "Usf",
+                    "about": "I like trains",
+                    "education": {
+                        "school_name": "USF",
+                        "degree": "Bachelors in Computer Science",
+                        "years_attended": "4"
+                    },
+                    "experiences": [
+                        {
+                            "job_title": "Software Intern",
+                            "employer": "Google",
+                            "date_started": "May 2020",
+                            "date_ended": "August 2020",
+                            "location": "Tampa, FL",
+                            "description": "Idk whatever they do at google"
+                        }
+                    ]
+                }

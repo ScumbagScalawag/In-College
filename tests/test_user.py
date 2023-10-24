@@ -45,10 +45,7 @@ def test_supported_languages():
 def test_toDict():
     user1 = User.dictToUser(singleUser)
     userDict = user1.toDict()
-    # gives more clear answer as to what went wrong
-    for key in userDict:
-        assert key in singleUser
-        assert userDict[key] == singleUser[key]
+    assert userDict == singleUser
 
 
 def test_hasPendingFriendRequest():
