@@ -1,11 +1,11 @@
 import pytest
 
 underConstructionMessage = "under construction, input anything to return"  #
+from common_utils.messages import anyButtonToContinueMessage, invalidInput
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from pages.important_links import importantLinksOptionsList, printImportantLinkScreen
 from tests.shared import fourAccounts, singleUser
-from common_utils.messages import invalidInput, anyButtonToContinueMessage
 
 
 def tempFunction():  # Temp function is placeholder for function to be imported from test file
@@ -157,7 +157,7 @@ def testPrintImportantLinkScreen(mock_input, responses, expectedReturn, monkeypa
             ["9"],  # Guest Controls
             [
                 *importantLinksOptionsList,
-                "*** Guest Control ***",
+                "*** Guest Controls ***",
             ],
             [],
         ),

@@ -10,21 +10,21 @@ from tests.shared import fourAccounts, singleUser
     "mock_input,responses,expectedReturn",
     [
         (
-            ["y",""],  # mock input
+            ["y", ""],  # mock input
             [
                 "You are now friends with sillyBoi",  # responses
             ],
             None,  # expected return
         ),
         (
-            ["n",""],
+            ["n", ""],  # these tests pass indiviudally, but not all together
             [
                 "You have declined the friend request from sillyBoi",
             ],
             None,
         ),
         (
-            ["X",""],
+            ["X", ""],  # these tests pass indiviudally, but not all together
             [
                 "Invalid input. Please enter 'y' or 'n': ",
             ],
@@ -50,4 +50,4 @@ def test_manageFriendRequest(mock_input, responses, expectedReturn, monkeypatch,
     for r in responses:
         assert r in captured.out
 
-    #assert that the friend request was actually removed
+    # assert that the friend request was actually removed
