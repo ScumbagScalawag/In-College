@@ -25,7 +25,7 @@ def printLoginScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
     while True:
         clearScreen()
-        print(" Login to InCollege ")
+        print("Login to InCollege ")
         print("Username: ", end="")
         username = input("")
         print("Password: ", end="")

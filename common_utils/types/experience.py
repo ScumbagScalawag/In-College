@@ -13,7 +13,6 @@ class Experience:
         location: str = "UNDEFINED",
         description: str = "UNDEFINED",
     ):
-        self.username = username
         self.job_title = job_title
         self.employer = employer
         self.date_started = date_started
@@ -38,7 +37,7 @@ class Experience:
     # for user1 == user2 expression, where otherUser is of type User
     def __eq__(self, otherExperience) -> bool:
         # in case otherUser is None
-        if not isinstance(otherExperience, Profile):
+        if not isinstance(otherExperience, Experience):
             return False
         else:
             return self.username == otherExperience.username
@@ -49,11 +48,11 @@ class Experience:
     def toDict(self):
         return {
             "job_title": self.job_title,
+            "employer": self.employer,
             "date_started": self.date_started,
             "date_ended": self.date_ended,
             "location": self.location,
-            "description": self.description,
-            "education": self.education_paragraph,
+            "description": self.description
         }
 
     # The attributes can be retrieved manually. like this: userObject.firstname
@@ -63,17 +62,15 @@ class Experience:
     ## Return a User into userObject with: userObject = User.dictToUser(singleUserDict)
     # singleUserDict: For example, see singleUser in tests.shared
     @classmethod
-    def dictToProfile(cls, userProfile):
+    def dictToExperience(cls, experienceData):
         return cls(
-            username=userProfile.get("username", "UNDEFINED"),
-            job_title=userProfile.get("job_title", "UNDEFINED"),
-            major=userProfile.get("major", "UNDEFINED"),
-            university=userProfile.get("university", "UNDEFINED"),
-            about=userProfile.get("about", "UNDEFINED"),
-            experience_paragraph=userProfile.get("experience", "UNDEFINED"),
-            education_paragraph=userProfile.get("education", "UNDEFINED"),
+            job_title=experienceData.get("job_title", "UNDEFINED"),
+            employer=experienceData.get("employer", "UNDEFINED"),
+            date_started=experienceData.get("date_started", "UNDEFINED"),
+            date_ended=experienceData.get("date_ended", "UNDEFINED"),
+            location=experienceData.get("location", "UNDEFINED"),
+            description=experienceData.get("description", "UNDEFINED")
         )
-
     # Convert word that starts with uppercase letter and the rest is lower case.
     # or return " ".join(word.capitalize() for word in text.split())
     def formatTextCapital(text):
@@ -85,7 +82,7 @@ class Experience:
         self.job_title = new_job_title
 
     def update_employer(self, new_employer):
-        self.major = new_major
+        self.employer = new_employer
 
     def update_date_started(self, new_date):
         self.date_started = new_date
@@ -98,3 +95,4 @@ class Experience:
 
     def update_description(self, new_description):
         self.description = new_description
+

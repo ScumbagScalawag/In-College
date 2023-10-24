@@ -1,7 +1,7 @@
 from typing import Optional
 from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import underConstructionMessage
+from common_utils.messages import underConstructionMessage, invalidInputPressToContinue
 
 SKILL_LIST = [
     {"name": "Skating", "desc": underConstructionMessage()},
@@ -19,7 +19,7 @@ skillOptionsList = [
     "3 - Learn how to drive",
     "4 - Learn how to paint",
     "5 - Learn how to whistle",
-    "6 - Return to main menu",
+    "X - Return to main menu",
 ]
 
 
@@ -41,10 +41,11 @@ def printSkillScreen(currenUser: Optional[User] = None) -> Optional[User]:
             printSkillFromList("Painting")
         elif userInput == "5":
             printSkillFromList("Whistling")
-        elif userInput == "6":
+        elif userInput.upper == "X":
             break  # returns to caller (main menu) when you "exit"
         else:
-            print('Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"')
+            invalidInputPressToContinue("1, 2, 3, 4, 5, or X")
+            # print('Invalid selection please input "1" or "2" or "3" or "4" or "5" or "6"')
 
     return currenUser
 

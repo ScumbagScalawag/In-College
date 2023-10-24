@@ -2,6 +2,7 @@ from typing import List, Optional
 from common_utils.types.exceptions import MaximumNumberOfUsers, UserNotFoundException
 from common_utils.types.user import User
 from common_utils.utils import MAX_USERS
+from common_utils.types.profile import Profile
 import json
 
 from common_utils.utils import JSON_USERS_FP
@@ -102,6 +103,18 @@ class UserDatabase:
             for i, user in enumerate(self.userlist):
                 if user.username == alteredUser.username:
                     self.userlist[i].copyValues(alteredUser)
+                    self.saveDatabase()
+                    return
+
+        raise UserNotFoundException("Couldn't find match for user")
+
+    def updateUserProfile(self, alteredUser: Optional[User]) -> Optional[User]:
+        if isinstance(alteredUser, User):
+            # Find the index i of the target User object in userlist
+            for i, user in enumerate(self.userlist):
+                if user.username == alteredUser.username:
+                    # Update only the profile attribute
+                    self.userlist[i].profile.copyValues(alteredUser.profile)
                     self.saveDatabase()
                     return
 
