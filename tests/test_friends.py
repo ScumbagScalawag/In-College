@@ -93,12 +93,13 @@ def testFriendRemove(monkeypatch, capfd):
     userDB.addUserDictList(fourAccountsWithFriends)
 
     # Must create User object from singleUser Dict. See @classmethod dictToUser
-    testUser = User.dictToUser(fourAccountsWithFriends[0])
+    testUser = userDB.getUser(currentUsername)
 
     input_generator = iter(
         [
             "1",
             " ",
+            "X",
         ]
     )  # Make it choose to remove friend here
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))

@@ -85,3 +85,57 @@ def testFriendSearchNotLoggedIn(monkeypatch, capfd):
         assert printFriendSearchScreen() == None  # Tests edge cases of not logged in: ...() defaults to None
     except StopIteration:
         pass
+
+def testFriendSearchByMajor(monkeypatch, capfd):
+    # in system
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)
+
+    # Must create User object from singleUser Dict. See @classmethod dictToUser
+    testUser = User.dictToUser(singleUser)
+
+    input_generator = iter(["2", "cs", "2", "Y", "X"])
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+
+    try:
+        assert (
+            printFriendSearchScreen(testUser) == testUser
+        )  # assert printFriendSearchScreen returns user context correctly
+    except StopIteration:
+        pass
+
+    captured = capfd.readouterr()  # assert captured
+    responses = [
+        *friendSearchOptionList,
+        "part of the InCollege system",
+        "Connection request sent",
+    ]
+    for r in responses:
+        assert r in captured.out  # Friend successfully added
+
+def testFriendSearchByUniversity(monkeypatch, capfd):
+    # in system
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)
+
+    # Must create User object from singleUser Dict. See @classmethod dictToUser
+    testUser = User.dictToUser(singleUser)
+
+    input_generator = iter(["3", "usf", "2", "Y", "X"])
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+
+    try:
+        assert (
+            printFriendSearchScreen(testUser) == testUser
+        )  # assert printFriendSearchScreen returns user context correctly
+    except StopIteration:
+        pass
+
+    captured = capfd.readouterr()  # assert captured
+    responses = [
+        *friendSearchOptionList,
+        "part of the InCollege system",
+        "Connection request sent",
+    ]
+    for r in responses:
+        assert r in captured.out  # Friend successfully added
