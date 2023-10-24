@@ -127,7 +127,7 @@ def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
             print(f"Start Date: {exp.date_started}")
             print(f"End Date: {exp.date_ended}")
             print(f"Location: {exp.location}")
-            print(f"Description {exp.description}")
+            print(f"Description: {exp.description}")
             print("***")  # separator line
     else:
         print(f"{currentUser.firstname} {currentUser.lastname} has not added Experiences")
