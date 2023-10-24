@@ -56,7 +56,7 @@ class User:
         self.adSub = otherUser.adSub
         self.friends = otherUser.friends.copy()
         self.friendRequests = otherUser.friendRequests.copy()
-        self.profile = otherUser.profile.copy()
+        self.profile.copyValues(otherUser.profile)
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -193,6 +193,8 @@ class User:
     def assertPropertiesEqualToDict(self, expectedUserDict):
         for propertyName, expectedValue in expectedUserDict.items():
             actualValue = getattr(self, propertyName)
+            if propertyName == "profile":
+                actualValue = actualValue.toDict()
             # Uncomment for more detailed info when debugging
             # print("actualValue:", actualValue)
             # print("expectedValue:", expectedValue)

@@ -57,7 +57,7 @@ from common_utils.messages import underConstructionMessage
             ["FoamEarplugs"],
             [
                 *skillOptionsList,
-                'Invalid selection please input "1" or "2" or "3" or "4" or "5" or "X"',
+                'Invalid selection please input 1, 2, 3, 4, 5, or X',
             ],
             0,
         ),
@@ -122,4 +122,4 @@ def testSkillsWrongInput(input_value, monkeypatch, capfd):
         pass
 
     captured = capfd.readouterr()
-    assert 'Invalid selection please input "1" or "2" or "3" or "4" or "5" or "X"' in captured.out
+    assert 'Invalid selection please input 1, 2, 3, 4, 5, or X' in captured.out
