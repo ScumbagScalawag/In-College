@@ -139,25 +139,25 @@ def currentPositions():
     for i in range(0, totalJobs):
         print(i + 1, "-", jobs[i]["title"])
         i += 1
-    print(i + 1, "-", "Return to Previous Menu")
+    print("X - Return to Previous Menu")
 
     while True:
         userInput = input("")
-        if userInput == userInput.upper() == "X":
+        if userInput.upper() == "X":
             break
         temp = int(userInput)
-        if temp in range(0, totalJobs + 1):
+        if temp in range(1, totalJobs + 1):
             print(
                 "Title: ",
-                jobs[temp]["title"],
+                jobs[temp - 1]["title"],
                 "\nDescription: ",
-                jobs[temp]["description"],
+                jobs[temp - 1]["description"],
                 "\nEmployer: ",
-                jobs[temp]["employer"],
+                jobs[temp - 1]["employer"],
                 "\nLocation: ",
-                jobs[temp]["location"],
+                jobs[temp - 1]["location"],
                 "\nSalary: ",
-                jobs[temp]["salary"],
+                jobs[temp - 1]["salary"],
             )
             print(anyButtonToContinueMessage())
             input("")
