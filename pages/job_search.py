@@ -1,17 +1,17 @@
 import json
 from typing import Optional
-from common_utils.types.user import User
-from common_utils.types.user_database import UserDatabase
 
-from common_utils.utils import clearScreen, loadJobs, JSON_JOBS_FP, printOptionList
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInput,
     returnToPreviousMenuMessage,
     underConstructionMessage,
 )
+from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase
+from common_utils.utils import JSON_JOBS_FP, clearScreen, loadJobs, printOptionList
 
-MAXJOBS = 5
+MAXJOBS = 10
 
 
 def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
@@ -72,8 +72,9 @@ def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
     # under construction, not needed in EPIC2
     clearScreen()
     print("*** Job Search ***")
-    print(underConstructionMessage())
-    input("")
+    currentPositions()
+    # print(anyButtonToContinueMessage())
+    # input("")
     return currentUser
 
 
@@ -127,3 +128,45 @@ def createJob(currentUser: Optional[User] = None) -> Optional[User]:
     print(anyButtonToContinueMessage())
     input("")
     return currentUser
+
+
+def currentPositions():
+    jobs = loadJobs()
+    totalJobs = len(jobs)
+    i = 0
+    print("Current Open Positions:")
+    print("Please input a number for more details or choose the last option to return")
+    for i in range(0, totalJobs):
+        print(i + 1, "-", jobs[i]["title"])
+        i += 1
+    print(i + 1, "-", "Return to Previous Menu")
+
+    while True:
+        userInput = input("")
+        if userInput == userInput.upper() == "X":
+            break
+        temp = int(userInput)
+        if temp in range(0, totalJobs + 1):
+            print(
+                "Title: ",
+                jobs[temp]["title"],
+                "\nDescription: ",
+                jobs[temp]["description"],
+                "\nEmployer: ",
+                jobs[temp]["employer"],
+                "\nLocation: ",
+                jobs[temp]["location"],
+                "\nSalary: ",
+                jobs[temp]["salary"],
+            )
+            print(anyButtonToContinueMessage())
+            input("")
+            break
+        elif temp == totalJobs + 1:
+            break
+        else:
+            print(invalidInput("Please choose a valid option"))
+            print(anyButtonToContinueMessage())
+            input("")
+
+    return
