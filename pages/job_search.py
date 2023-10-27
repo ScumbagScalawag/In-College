@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from typing import Optional
 
 from common_utils.messages import (
@@ -8,35 +9,9 @@ from common_utils.messages import (
     underConstructionMessage,
 )
 from common_utils.types.user import User
+from common_utils.types.jobs import createJob, saveJob, saveJobDatabase
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import JSON_JOBS_FP, clearScreen, loadJobs, printOptionList
-
-MAXJOBS = 10
-
-
-def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
-    newJob = {
-        "title": title,
-        "description": description,
-        "employer": employer,
-        "location": location,
-        "salary": salary,
-        "firstname": firstname,
-        "lastname": lastname,
-        "applicants": []
-    }
-
-    jobs.append(newJob)
-    saveJobDatabase(JSON_JOBS_FP, jobs)
-    return
-
-
-def saveJobDatabase(jsonFilePath, jobs):
-    jobDB = {"joblist": jobs}
-    with open(jsonFilePath, "w") as outfile:
-        json.dump(jobDB, outfile, indent=4)
-
-    return
 
 
 jobOptionsList = [
@@ -63,11 +38,11 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
         elif userInput == "2":
             currentUser = createJob(currentUser)
         elif userInput == "3":
-            print(underConstructionMessage()) # haven't gotten there yet
+            print(underConstructionMessage())  # haven't gotten there yet
         elif userInput == "4":
-            print(underConstructionMessage()) # haven't gotten there yet
+            print(underConstructionMessage())  # haven't gotten there yet
         elif userInput == "5":
-            print(underConstructionMessage()) # haven't gotten there yet
+            print(underConstructionMessage())  # haven't gotten there yet
         elif userInput.upper() == "X":
             break
         else:
@@ -80,71 +55,6 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
 
 def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
-    currentPositions(currentUser)
-    return currentUser
-
-
-# TODO check validity of inputs
-def createJob(currentUser: Optional[User] = None) -> Optional[User]:
-    # Must be logged in to create job
-    if not isinstance(currentUser, User):
-        print("You must be logged in to create a Job.")
-        print(anyButtonToContinueMessage())
-        input("")
-        return currentUser
-
-    jobs = loadJobs()
-    print(jobs)
-    # users = loadUsers()
-    userDB = UserDatabase([])
-    userDB.loadUsers()
-
-    if len(jobs) < MAXJOBS:  # Requirement for 5 job postings
-        while True:
-            clearScreen()
-            print("*** Create a new job posting ***")
-            title = input("Job Title: ")
-            description = input("Brief Description of the Job: ")
-            employer = input("Employer: ")
-            location = input("Location: ")
-            salary = input("Salary: ")
-
-            try:
-                saveJob(
-                    jobs,
-                    title,
-                    description,
-                    employer,
-                    location,
-                    salary,
-                    currentUser.firstname,
-                    currentUser.lastname,
-                )
-            except:
-                print("Error: There was an error saving the job. Please try again")
-                pass
-            # clearScreen()  # TODO I don't think this is needed
-
-            print("\nJob Created!")
-            break
-    else:
-        print(
-            "All permitted jobs have been posted, please try again later"
-        )  # Requirement for 5 accounts response
-    print(anyButtonToContinueMessage())
-    input("")
-    return currentUser
-
-
-jobListingChoices = [
-    "Please choose from the following:",
-    "1 - Apply for Job",
-    "2 - Save Job",
-    returnToPreviousMenuMessage(),
-]
-
-
-def currentPositions(currentUser):
     jobs = loadJobs()
     totalJobs = len(jobs)
     i = 0
@@ -155,7 +65,7 @@ def currentPositions(currentUser):
         i += 1
     returnToPreviousMenuMessage()
 
-    print("Please input a number for more details")
+    print("Input a number for more details")
     # Printing details of jobs by request
     while True:
         userInput = input("")
@@ -187,7 +97,15 @@ def currentPositions(currentUser):
             print(anyButtonToContinueMessage())
             input("")
 
-    return
+    return currentUser
+
+
+jobListingChoices = [
+    "*** Job Options ***",
+    "1 - Apply for Job",
+    "2 - Save Job",
+    returnToPreviousMenuMessage(),
+]
 
 
 def printJobOptionScreen(jobIndex, currentUser: Optional[User] = None) -> Optional[User]:
@@ -219,15 +137,42 @@ def applyToJob(jobIndex, currentUser):
         input("")
         return currentUser
     # If user created the job posting
-    elif (jobs[jobIndex]["firstname"] == currentUser.firstname and jobs[jobIndex]["lastname"] == currentUser.lastname):
+    elif (
+        jobs[jobIndex]["firstname"] == currentUser.firstname
+        and jobs[jobIndex]["lastname"] == currentUser.lastname
+    ):
         print("You cannot apply for a job you posted.")
         print(anyButtonToContinueMessage())
         input("")
         return currentUser
+    else:
+        clearScreen()
+        applications = []
 
-    print(anyButtonToContinueMessage())
-    input("")
+        while True:
+            print("*** Job Application ***")
+            pattern = r"^\d{2}/\d{2}/\d{4}$"
+            gradDate = input("Enter graduation date in the form mm/dd/yyy: ")
+            if checkDate(gradDate) == False:
+                print("Invalid input please try again")
+                print(anyButtonToContinueMessage())
+                input("")
+            startDate = input("Enter your desired start date in the form mm/dd/yyy: ")
+            if checkDate(startDate) == False:
+                print("Invalid input please try again")
+                print(anyButtonToContinueMessage())
+                input("")
+            explanation = input("Explain why you would be a good fit for this position: ")
+            break
     return currentUser
+
+
+def checkDate(input_string):
+    try:
+        datetime.strptime(input_string, "%m/%d/%Y")
+        return True
+    except ValueError:
+        return False
 
 
 def saveJob(jobIndex, currentUser):
