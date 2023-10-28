@@ -65,6 +65,39 @@ def createJob(currentUser: Optional[User] = None) -> Optional[User]:
     input("")
     return currentUser
 
+def removeJob(currentUser: Optional[User] = None) -> Optional[User]:
+    # Must be logged in to delete job
+    jobs = loadJobs()
+    # If user is not logged in
+    if not isinstance(currentUser, User):
+        print("You must be logged in to create a Job.")
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
+    
+    #TODO Get the job index
+    jobIndex = 0
+
+    # If user created the job posting
+    if (
+        jobs[jobIndex]["firstname"] == currentUser.firstname
+        and jobs[jobIndex]["lastname"] == currentUser.lastname
+    ):
+        print("Job Removed")
+        job = jobs[jobIndex]
+        jobs.remove(job)
+        #jobs.pop(jobIndex)
+        saveJobDatabase(JSON_JOBS_FP, jobs)
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
+    else:
+        print("You cannot remove a job posting that you did not create")
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
+
+
 
 def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
     newJob = {
