@@ -29,7 +29,7 @@ def createJob(currentUser: Optional[User] = None) -> Optional[User]:
     userDB = UserDatabase([])
     userDB.loadUsers()
 
-    if len(jobs) < MAXJOBS:  # Requirement for 5 job postings
+    if len(jobs) < MAXJOBS:  # Requirement for 10 job postings
         while True:
             clearScreen()
             print("*** Create a new job posting ***")
