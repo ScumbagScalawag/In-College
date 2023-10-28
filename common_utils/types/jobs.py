@@ -85,6 +85,10 @@ def removeJob(currentUser: Optional[User] = None) -> Optional[User]:
     ):
         print("Job Removed")
         job = jobs[jobIndex]
+        #TODO Notifiy Applicants
+        for people in job["applicants"]:
+            #TODO Notify people
+            pass
         jobs.remove(job)
         #jobs.pop(jobIndex)
         saveJobDatabase(JSON_JOBS_FP, jobs)
