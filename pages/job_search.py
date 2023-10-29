@@ -8,11 +8,10 @@ from common_utils.messages import (
     returnToPreviousMenuMessage,
     underConstructionMessage,
 )
-from common_utils.types.user import User
 from common_utils.types.jobs import createJob, saveJob, saveJobDatabase
+from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import JSON_JOBS_FP, clearScreen, loadJobs, printOptionList
-
 
 jobOptionsList = [
     "*** Job Search ***",
@@ -90,7 +89,7 @@ def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
             print(anyButtonToContinueMessage())
             input("")
 
-            printJobOptionScreen(temp, currentUser)
+            printJobOptionScreen(temp - 1, currentUser)
             break
         else:
             print(invalidInput("Please choose a valid option"))
@@ -117,7 +116,7 @@ def printJobOptionScreen(jobIndex, currentUser: Optional[User] = None) -> Option
         if userInput == "1":
             currentUser = applyToJob(jobIndex, currentUser)
         elif userInput == "2":
-            currentUser = saveJob(jobIndex, currentUser)
+            currentUser = userSaveJob(jobIndex, currentUser)
         elif userInput.upper() == "X":
             break
         else:
@@ -130,6 +129,14 @@ def printJobOptionScreen(jobIndex, currentUser: Optional[User] = None) -> Option
 
 def applyToJob(jobIndex, currentUser):
     jobs = loadJobs()
+    applicationNum = len(jobs[jobIndex]["applicants"])
+    flag = False
+    # checking to see if currentUser has already applied
+    for i in range(0, applicationNum):
+        if jobs[jobIndex]["applicants"][i]["username"] == currentUser.username:
+            flag = True
+        else:
+            i += 1
     # If user is not logged in
     if not isinstance(currentUser, User):
         print("You must be logged in to create a Job.")
@@ -145,25 +152,43 @@ def applyToJob(jobIndex, currentUser):
         print(anyButtonToContinueMessage())
         input("")
         return currentUser
+    elif flag == True:
+        print("You cannot apply for a job you have already applied to.")
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
     else:
         clearScreen()
-        applications = []
-
         while True:
             print("*** Job Application ***")
-            pattern = r"^\d{2}/\d{2}/\d{4}$"
             gradDate = input("Enter graduation date in the form mm/dd/yyy: ")
             if checkDate(gradDate) == False:
                 print("Invalid input please try again")
                 print(anyButtonToContinueMessage())
                 input("")
+                break
             startDate = input("Enter your desired start date in the form mm/dd/yyy: ")
             if checkDate(startDate) == False:
                 print("Invalid input please try again")
                 print(anyButtonToContinueMessage())
                 input("")
+                break
             explanation = input("Explain why you would be a good fit for this position: ")
+
+            jobs[jobIndex]["applicants"] = [
+                {
+                    "username": currentUser.username,
+                    "graduation": gradDate,
+                    "start": startDate,
+                    "reason": explanation,
+                }
+            ]
+            saveJobDatabase(JSON_JOBS_FP, jobs)
+            print("Application sucessfully submitted")
+            print(anyButtonToContinueMessage())
+            input("")
             break
+
     return currentUser
 
 
@@ -175,6 +200,6 @@ def checkDate(input_string):
         return False
 
 
-def saveJob(jobIndex, currentUser):
+def userSaveJob(jobIndex, currentUser):
     print("SAVE")
     return currentUser
