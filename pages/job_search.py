@@ -46,22 +46,32 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
         elif userInput.upper() == "X":
             break
         else:
-            print(invalidInput("1, 2, or X"))
+            print(invalidInput("Please select a valid option"))
             print(anyButtonToContinueMessage())
             input("")
 
     return currentUser
 
 
+
 def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     jobs = loadJobs()
     totalJobs = len(jobs)
-    i = 0
     # Printing all current positions
     print("Current Open Positions:")
+    
+    # Determining if currentUser already applied to job and printing out job list
     for i in range(0, totalJobs):
-        print(i + 1, "-", jobs[i]["title"])
+        flag = False
+        applicationNum = len(jobs[i]["applicants"])
+        for j in range(0, applicationNum):
+            if jobs[i]["applicants"][j]["username"] == currentUser.username:
+                print(i + 1, "-", jobs[i]["title"], "** Applied **")
+                flag = True
+            j += 1
+        if (flag == False):
+            print(i + 1, "-", jobs[i]["title"])
         i += 1
     returnToPreviousMenuMessage()
 
