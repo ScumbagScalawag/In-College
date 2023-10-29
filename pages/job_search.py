@@ -1,7 +1,6 @@
 import json
 from datetime import datetime
 from typing import Optional
-from pages.application import applyToJob, personalApplicationList, notAppliedList
 
 from common_utils.messages import (
     anyButtonToContinueMessage,
@@ -12,7 +11,14 @@ from common_utils.messages import (
 from common_utils.types.jobs import createJob, saveJob, saveJobDatabase
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-from common_utils.utils import JSON_JOBS_FP, clearScreen, loadJobs, printOptionList
+from common_utils.utils import (
+    JSON_JOBS_FP,
+    clearScreen,
+    loadJobs,
+    notLoggedIn,
+    printOptionList,
+)
+from pages.application import applyToJob, notAppliedList, personalApplicationList
 
 jobOptionsList = [
     "*** Job Search ***",
@@ -42,9 +48,9 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
         elif userInput == "4":
             clearScreen()
             print("*** Application List ***")
-            applications = personalApplicationList(currentUser)
-            for i in range(0, len(applications)):
-                print(applications[i])
+            applicationList = personalApplicationList(currentUser)
+            for i in range(0, len(applicationList)):
+                print(applicationList[i])
             print(anyButtonToContinueMessage())
             input("")
         elif userInput == "5":
@@ -65,14 +71,19 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
     return currentUser
 
 
-
-def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
+def jobSearch(currentUser):
     clearScreen()
     jobs = loadJobs()
     totalJobs = len(jobs)
     # Printing all current positions
     print("Current Open Positions:")
-    
+
+    # checking to see if currentUser is logged in
+    if notLoggedIn(currentUser) == True:
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
+
     # Determining if currentUser already applied to job and printing out job list
     for i in range(0, totalJobs):
         flag = False
@@ -82,7 +93,7 @@ def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
                 print(i + 1, "-", jobs[i]["title"], "** Applied **")
                 flag = True
             j += 1
-        if (flag == False):
+        if flag == False:
             print(i + 1, "-", jobs[i]["title"])
         i += 1
     returnToPreviousMenuMessage()

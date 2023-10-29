@@ -11,8 +11,13 @@ from common_utils.messages import (
 from common_utils.types.jobs import createJob, saveJob, saveJobDatabase
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-from common_utils.utils import JSON_JOBS_FP, clearScreen, loadJobs, printOptionList
-
+from common_utils.utils import (
+    JSON_JOBS_FP,
+    clearScreen,
+    loadJobs,
+    notLoggedIn,
+    printOptionList,
+)
 
 
 def applyToJob(jobIndex, currentUser):
@@ -25,14 +30,14 @@ def applyToJob(jobIndex, currentUser):
         print(anyButtonToContinueMessage())
         input("")
         return currentUser
-    
+
         # checking to see if currentUser has already applied
     for i in range(0, applicationNum):
         if jobs[jobIndex]["applicants"][i]["username"] == currentUser.username:
             flag = True
         else:
             i += 1
-            
+
     # If user created the job posting
     if (
         jobs[jobIndex]["firstname"] == currentUser.firstname
@@ -89,10 +94,15 @@ def checkDate(input_string):
         return False
 
 
-def personalApplicationList(currentUser: Optional[User] = None) -> Optional[User]:
+def personalApplicationList(currentUser):
     applications = []
     jobs = loadJobs()
     totalJobs = len(jobs)
+    # checking to see if currentUser is logged in
+    if notLoggedIn(currentUser) == True:
+        return applications
+
+    # creating a list of all applied jobs
     for i in range(0, totalJobs):
         applicationNum = len(jobs[i]["applicants"])
         for j in range(0, applicationNum):
@@ -102,10 +112,16 @@ def personalApplicationList(currentUser: Optional[User] = None) -> Optional[User
         i += 1
     return applications
 
-def notAppliedList(currentUser: Optional[User] = None) -> Optional[User]:
+
+def notAppliedList(currentUser):
     applications = []
     jobs = loadJobs()
     totalJobs = len(jobs)
+    # checking to see if currentUser is logged in
+    if notLoggedIn(currentUser) == True:
+        return applications
+
+    # creating a list of all jobs not applied to
     for i in range(0, totalJobs):
         flag = False
         applicationNum = len(jobs[i]["applicants"])
@@ -113,7 +129,7 @@ def notAppliedList(currentUser: Optional[User] = None) -> Optional[User]:
             if jobs[i]["applicants"][j]["username"] == currentUser.username:
                 flag = True
             j += 1
-        if (flag == False):
+        if flag == False:
             applications.append(jobs[i]["title"])
         i += 1
     return applications
