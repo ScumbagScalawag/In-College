@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 from typing import Optional
-from pages.application import applyToJob
+from pages.application import applyToJob, personalApplicationList, notAppliedList
 
 from common_utils.messages import (
     anyButtonToContinueMessage,
@@ -40,9 +40,21 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
         elif userInput == "3":
             print(underConstructionMessage())  # haven't gotten there yet
         elif userInput == "4":
-            print(underConstructionMessage())  # haven't gotten there yet
+            clearScreen()
+            print("*** Application List ***")
+            applications = personalApplicationList(currentUser)
+            for i in range(0, len(applications)):
+                print(applications[i])
+            print(anyButtonToContinueMessage())
+            input("")
         elif userInput == "5":
-            print(underConstructionMessage())  # haven't gotten there yet
+            clearScreen()
+            print("*** List of Jobs Not Applied To ***")
+            notApplied = notAppliedList(currentUser)
+            for i in range(0, len(notApplied)):
+                print(notApplied[i])
+            print(anyButtonToContinueMessage())
+            input("")  # haven't gotten there yet
         elif userInput.upper() == "X":
             break
         else:
