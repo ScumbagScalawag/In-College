@@ -19,6 +19,7 @@ from common_utils.utils import (
     printOptionList,
 )
 from pages.application import applyToJob, notAppliedList, personalApplicationList
+from pages.savedJobs import createSavedJob, deletedSavedJob, printSavedJobs
 
 jobOptionsList = [
     "*** Job Search ***",
@@ -44,7 +45,7 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
         elif userInput == "2":
             currentUser = createJob(currentUser)
         elif userInput == "3":
-            print(underConstructionMessage())  # haven't gotten there yet
+            currentUser = printSavedJobs(currentUser)  # haven't gotten there yet
         elif userInput == "4":
             clearScreen()
             print("*** Application List ***")
@@ -150,7 +151,7 @@ def printJobOptionScreen(jobIndex, currentUser: Optional[User] = None) -> Option
         if userInput == "1":
             currentUser = applyToJob(jobIndex, currentUser)
         elif userInput == "2":
-            currentUser = userSaveJob(jobIndex, currentUser)
+            currentUser = createSavedJob(jobIndex, currentUser)
         elif userInput.upper() == "X":
             break
         else:
@@ -159,8 +160,3 @@ def printJobOptionScreen(jobIndex, currentUser: Optional[User] = None) -> Option
             input("")
 
     return
-
-
-def userSaveJob(jobIndex, currentUser):
-    print("SAVE")
-    return currentUser

@@ -120,6 +120,7 @@ def saveJob(jobs, title, description, employer, location, salary, firstname, las
         "firstname": firstname,
         "lastname": lastname,
         "applicants": [],
+        "saved": [],
     }
 
     jobs.append(newJob)

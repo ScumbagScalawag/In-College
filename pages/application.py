@@ -69,14 +69,14 @@ def applyToJob(jobIndex, currentUser):
                 input("")
                 break
             explanation = input("Explain why you would be a good fit for this position: ")
-            jobs[jobIndex]["applicants"] = [
+            jobs[jobIndex]["applicants"].append(
                 {
                     "username": currentUser.username,
                     "graduation": gradDate,
                     "start": startDate,
                     "reason": explanation,
                 }
-            ]
+            )
             saveJobDatabase(JSON_JOBS_FP, jobs)
             print("Application sucessfully submitted")
             print(anyButtonToContinueMessage())
