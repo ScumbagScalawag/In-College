@@ -59,7 +59,7 @@ def printSavedJobs(currentUser):
         i += 1
 
     for k in range(0, len(savedList)):
-        print(savedList[k])
+        print(k + 1, "-", savedList[k])
         k += 1
     print(anyButtonToContinueMessage())
     input("")
