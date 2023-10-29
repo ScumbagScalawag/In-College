@@ -87,3 +87,33 @@ def checkDate(input_string):
         return True
     except ValueError:
         return False
+
+
+def personalApplicationList(currentUser: Optional[User] = None) -> Optional[User]:
+    applications = []
+    jobs = loadJobs()
+    totalJobs = len(jobs)
+    for i in range(0, totalJobs):
+        applicationNum = len(jobs[i]["applicants"])
+        for j in range(0, applicationNum):
+            if jobs[i]["applicants"][j]["username"] == currentUser.username:
+                applications.append(jobs[i]["title"])
+            j += 1
+        i += 1
+    return applications
+
+def notAppliedList(currentUser: Optional[User] = None) -> Optional[User]:
+    applications = []
+    jobs = loadJobs()
+    totalJobs = len(jobs)
+    for i in range(0, totalJobs):
+        flag = False
+        applicationNum = len(jobs[i]["applicants"])
+        for j in range(0, applicationNum):
+            if jobs[i]["applicants"][j]["username"] == currentUser.username:
+                flag = True
+            j += 1
+        if (flag == False):
+            applications.append(jobs[i]["title"])
+        i += 1
+    return applications
