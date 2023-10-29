@@ -1,24 +1,31 @@
 import json
 from typing import Optional
+
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInput,
     returnToPreviousMenuMessage,
     underConstructionMessage,
 )
-
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
-from common_utils.utils import JSON_JOBS_FP, clearScreen, loadJobs, printOptionList
+from common_utils.utils import (
+    JSON_JOBS_FP,
+    clearScreen,
+    loadJobs,
+    notLoggedIn,
+    printOptionList,
+)
 
 MAXJOBS = 10
 
 
 # TODO check validity of inputs
-def createJob(currentUser: Optional[User] = None) -> Optional[User]:
+def createJob(currentUser):
+    clearScreen()
+    print("*** Post a Job/Internship ***")
     # Must be logged in to create job
-    if not isinstance(currentUser, User):
-        print("You must be logged in to create a Job.")
+    if notLoggedIn(currentUser) == True:
         print(anyButtonToContinueMessage())
         input("")
         return currentUser
