@@ -34,6 +34,7 @@ def createSavedJob(jobIndex, currentUser):
 
 
 def deletedSavedJob(jobIndex, currentUser):
+    clearScreen()
     jobs = loadJobs()
     jobs[jobIndex]["saved"].remove(currentUser.username)
     saveJobDatabase(JSON_JOBS_FP, jobs)
