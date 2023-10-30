@@ -45,7 +45,7 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
         elif userInput == "2":
             currentUser = createJob(currentUser)
         elif userInput == "3":
-            currentUser = printSavedJobs(currentUser)  # haven't gotten there yet
+            currentUser = printSavedJobs(currentUser)
         elif userInput == "4":
             clearScreen()
             print("*** Application List ***")
@@ -61,7 +61,7 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
             for i in range(0, len(notApplied)):
                 print(notApplied[i])
             print(anyButtonToContinueMessage())
-            input("")  # haven't gotten there yet
+            input("")
         elif userInput.upper() == "X":
             break
         else:
@@ -138,6 +138,7 @@ jobListingChoices = [
     "*** Job Options ***",
     "1 - Apply for Job",
     "2 - Save Job",
+    "3 - Unsave Job",
     returnToPreviousMenuMessage(),
 ]
 
@@ -152,6 +153,8 @@ def printJobOptionScreen(jobIndex, currentUser: Optional[User] = None) -> Option
             currentUser = applyToJob(jobIndex, currentUser)
         elif userInput == "2":
             currentUser = createSavedJob(jobIndex, currentUser)
+        elif userInput == "3":
+            currentUser = deletedSavedJob(jobIndex, currentUser)
         elif userInput.upper() == "X":
             break
         else:
