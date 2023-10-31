@@ -134,8 +134,9 @@ def deleteJob(currentUser):
             ):
                 # Notify applicants that the job has been deleted
                 for j in range(0, len(jobs[i]["applicants"])):
-                    # TODO Notify the applicant
-                    jobs[i]["applicants"][j]["username"]
+                    # The next time that the student visits the jobs section, they will be notified that a job that they applied for has been deleted.
+                    userDB.getUser(jobs[i]["applicants"][j]["username"]).applicationDeleted = jobs[i]["title"]
+                    # jobs[i]["applicants"][j]["username"] = "username of applicant"
 
                 # Remove the job
                 del jobs[i]
