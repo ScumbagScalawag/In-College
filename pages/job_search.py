@@ -37,7 +37,13 @@ jobOptionsList = [
 def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
-        printOptionList(jobOptionsList)
+        # If the currentUser has had an application deleted they will be notified
+        if currentUser.applicationDeleted != "UNDEFINED":
+            print(
+                'The job you applied for "' + currentUser.applicationDeleted + '" has been deleted'
+            )
+            currentUser.applicationDeleted = "UNDEFINED"  # reset applicationDeleted
+        printOptionList(jobOptionsList)  # print job options
         userInput = input("")
 
         if userInput == "1":
