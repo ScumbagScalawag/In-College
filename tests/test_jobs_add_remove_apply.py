@@ -1,12 +1,6 @@
 from common_utils.types.jobs import deleteJob
-from pages.application import applyToJob, createJob
-import pytest
+from pages.application import applyToJob
 from common_utils.utils import loadJobs
-from tests.shared import fourAccounts
-from common_utils.types.user import User
-
-import pytest
-from pages.application import createJob
 import pytest
 import json
 from tests.shared import JSON_JOBS_FP, fourAccounts
