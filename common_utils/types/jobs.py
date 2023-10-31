@@ -73,6 +73,50 @@ def createJob(currentUser):
     return currentUser
 
 
+def deleteJob(currentUser):
+    jobs = loadJobs()
+    # Print jobs that have same first name and last name as current user
+    for i in range(0, len(jobs)):
+        if (
+            jobs[i]["firstname"] == currentUser.firstname
+            and jobs[i]["lastname"] == currentUser.lastname
+        ):
+            # Select the job that matches the index
+            print("Title: " + jobs[i]["title"])
+            print("Description: " + jobs[i]["description"])
+            print("-------------------------")
+    # Get user input for which job to delete
+    jobToDelete = input("Which job would you like to delete? ")
+    # Check if the job exists
+    for i in range(0, len(jobs)):
+        if jobs[i]["title"] == jobToDelete:
+            # Check if the current user is the poster of the job
+            if (
+                jobs[i]["firstname"] == currentUser.firstname
+                and jobs[i]["lastname"] == currentUser.lastname
+            ):
+                # Notify applicants that the job has been deleted
+                for j in range(0, len(jobs[i]["applicants"])):
+                    # TODO Notify the applicant
+                    jobs[i]["applicants"][j]["username"]
+
+                # Remove the job
+                del jobs[i]
+                print("Job deleted successfully")
+                break
+            else:
+                print("You are not the poster of this job.")
+                return currentUser
+        else:
+            print("Job does not exist")
+            return currentUser
+
+    # Save the job database
+    saveJobDatabase(JSON_JOBS_FP, jobs)
+
+    return currentUser
+
+
 def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
     newJob = {
         "title": title,
