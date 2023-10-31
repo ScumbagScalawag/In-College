@@ -3,6 +3,8 @@ import os
 
 JSON_USERS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "user_file.json")
 JSON_JOBS_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "jobs.json")
+from common_utils.messages import anyButtonToContinueMessage
+from common_utils.types.user import User
 
 MAX_USERS = 10
 
@@ -132,3 +134,10 @@ def userSearch(
 
     # if nothing that was searched for is incorrect, it all must have been found
     return True
+
+
+# check if currentUser is logged in
+def notLoggedIn(currentUser):
+    if not isinstance(currentUser, User):
+        print("You must be logged in to view this page.")
+        return True

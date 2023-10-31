@@ -1,47 +1,34 @@
 import json
+from datetime import datetime
 from typing import Optional
-from common_utils.types.user import User
-from common_utils.types.user_database import UserDatabase
 
-from common_utils.utils import clearScreen, loadJobs, JSON_JOBS_FP, printOptionList
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInput,
     returnToPreviousMenuMessage,
     underConstructionMessage,
 )
-
-MAXJOBS = 5
-
-
-def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
-    newJob = {
-        "title": title,
-        "description": description,
-        "employer": employer,
-        "location": location,
-        "salary": salary,
-        "firstname": firstname,
-        "lastname": lastname,
-    }
-
-    jobs.append(newJob)
-    saveJobDatabase(JSON_JOBS_FP, jobs)
-    return
-
-
-def saveJobDatabase(jsonFilePath, jobs):
-    jobDB = {"joblist": jobs}
-    with open(jsonFilePath, "w") as outfile:
-        json.dump(jobDB, outfile, indent=4)
-
-    return
-
+from common_utils.types.jobs import createJob, saveJob, saveJobDatabase, deleteJob
+from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase
+from common_utils.utils import (
+    JSON_JOBS_FP,
+    clearScreen,
+    loadJobs,
+    notLoggedIn,
+    printOptionList,
+)
+from pages.application import applyToJob, notAppliedList, personalApplicationList
+from pages.savedJobs import createSavedJob, deletedSavedJob, printSavedJobs
 
 jobOptionsList = [
     "*** Job Search ***",
     "1 - Search for Job/Internship",
     "2 - Post Job/Internship",
+    "3 - View Saved Jobs",
+    "4 - View Applications",
+    "5 - View Open Jobs without Applications",
+    "6 - Delete Job/Internship",
     returnToPreviousMenuMessage(),
 ]
 
@@ -51,13 +38,136 @@ jobOptionsList = [
 def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
-        printOptionList(jobOptionsList)
+        # If the currentUser has had an application deleted they will be notified
+        if currentUser != None:
+            if currentUser.applicationDeleted != "UNDEFINED":
+                print(
+                    'The job you applied for "'
+                    + currentUser.applicationDeleted
+                    + '" has been deleted'
+                )
+                currentUser.applicationDeleted = "UNDEFINED"  # reset applicationDeleted
+        printOptionList(jobOptionsList)  # print job options
         userInput = input("")
 
         if userInput == "1":
             currentUser = jobSearch(currentUser)
         elif userInput == "2":
             currentUser = createJob(currentUser)
+        elif userInput == "3":
+            currentUser = printSavedJobs(currentUser)
+        elif userInput == "4":
+            clearScreen()
+            print("*** Application List ***")
+            applicationList = personalApplicationList(currentUser)
+            for i in range(0, len(applicationList)):
+                print(applicationList[i])
+            print(anyButtonToContinueMessage())
+            input("")
+        elif userInput == "5":
+            clearScreen()
+            print("*** List of Jobs Not Applied To ***")
+            notApplied = notAppliedList(currentUser)
+            for i in range(0, len(notApplied)):
+                print(notApplied[i])
+            print(anyButtonToContinueMessage())
+            input("")
+        elif userInput == "6":
+            print("*** Delete Job ***")
+            currentUser = deleteJob(currentUser)
+        elif userInput.upper() == "X":
+            break
+        else:
+            print(invalidInput("Please select a valid option"))
+            print(anyButtonToContinueMessage())
+            input("")
+
+    return currentUser
+
+
+def jobSearch(currentUser):
+    clearScreen()
+    jobs = loadJobs()
+    totalJobs = len(jobs)
+    # Printing all current positions
+    print("Current Open Positions:")
+
+    # checking to see if currentUser is logged in
+    if notLoggedIn(currentUser) == True:
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
+
+    # Determining if currentUser already applied to job and printing out job list
+    for i in range(0, totalJobs):
+        flag = False
+        applicationNum = len(jobs[i]["applicants"])
+        for j in range(0, applicationNum):
+            if jobs[i]["applicants"][j]["username"] == currentUser.username:
+                print(i + 1, "-", jobs[i]["title"], "** Applied **")
+                flag = True
+            j += 1
+        if flag == False:
+            print(i + 1, "-", jobs[i]["title"])
+        i += 1
+    returnToPreviousMenuMessage()
+
+    print("Input a number for more details")
+    # Printing details of jobs by request
+    while True:
+        userInput = input("")
+        if userInput.upper() == "X":
+            break
+        temp = int(userInput)
+        if temp in range(1, totalJobs + 1):
+            clearScreen()
+            print(
+                "Title: ",
+                jobs[temp - 1]["title"],
+                "\nDescription: ",
+                jobs[temp - 1]["description"],
+                "\nEmployer: ",
+                jobs[temp - 1]["employer"],
+                "\nLocation: ",
+                jobs[temp - 1]["location"],
+                "\nSalary: ",
+                jobs[temp - 1]["salary"],
+                "\n",
+            )
+            print(anyButtonToContinueMessage())
+            input("")
+
+            printJobOptionScreen(temp - 1, currentUser)
+            break
+        else:
+            print(invalidInput("Please choose a valid option"))
+            print(anyButtonToContinueMessage())
+            input("")
+
+    return currentUser
+
+
+jobListingChoices = [
+    "*** Job Options ***",
+    "1 - Apply for Job",
+    "2 - Save Job",
+    "3 - Unsave Job",
+    returnToPreviousMenuMessage(),
+]
+
+
+def printJobOptionScreen(jobIndex, currentUser: Optional[User] = None) -> Optional[User]:
+    while True:
+        clearScreen()
+        printOptionList(jobListingChoices)
+        userInput = input("")
+
+        if userInput == "1":
+            currentUser = applyToJob(jobIndex, currentUser)
+        elif userInput == "2":
+            currentUser = createSavedJob(jobIndex, currentUser)
+        elif userInput == "3":
+            currentUser = deletedSavedJob(jobIndex, currentUser)
         elif userInput.upper() == "X":
             break
         else:
@@ -65,65 +175,4 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
             print(anyButtonToContinueMessage())
             input("")
 
-    return currentUser
-
-
-def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
-    # under construction, not needed in EPIC2
-    clearScreen()
-    print("*** Job Search ***")
-    print(underConstructionMessage())
-    input("")
-    return currentUser
-
-
-# TODO check validity of inputs
-def createJob(currentUser: Optional[User] = None) -> Optional[User]:
-    # Must be logged in to create job
-    if not isinstance(currentUser, User):
-        print("You must be logged in to create a Job.")
-        print(anyButtonToContinueMessage())
-        input("")
-        return currentUser
-
-    jobs = loadJobs()
-    print(jobs)
-    # users = loadUsers()
-    userDB = UserDatabase([])
-    userDB.loadUsers()
-
-    if len(jobs) < MAXJOBS:  # Requirement for 5 job postings
-        while True:
-            clearScreen()
-            print("*** Create a new job posting ***")
-            title = input("Job Title: ")
-            description = input("Brief Description of the Job: ")
-            employer = input("Employer: ")
-            location = input("Location: ")
-            salary = input("Salary: ")
-
-            try:
-                saveJob(
-                    jobs,
-                    title,
-                    description,
-                    employer,
-                    location,
-                    salary,
-                    currentUser.firstname,
-                    currentUser.lastname,
-                )
-            except:
-                print("Error: There was an error saving the job. Please try again")
-                pass
-            # clearScreen()  # TODO I don't think this is needed
-
-            print("\nJob Created!")
-            break
-    else:
-        print(
-            "All permitted jobs have been posted, please try again later"
-        )  # Requirement for 5 accounts response
-    print(anyButtonToContinueMessage())
-    input("")
-    return currentUser
+    return

@@ -1,13 +1,15 @@
 from typing import Optional
+
+from common_utils.messages import anyButtonToContinueMessage, invalidInput
 from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
-from common_utils.messages import anyButtonToContinueMessage, invalidInput
 from pages.friend_search import printFriendSearchScreen
+from pages.important_links import printImportantLinkScreen
+from pages.job_search import printJobSearchScreen
 from pages.login import printLoginScreen
+from pages.main_menu import printMainMenu
 from pages.new_user_account import printNewAccountScreen
 from pages.useful_links import printUsefulLinkScreen
-from pages.important_links import printImportantLinkScreen
-from pages.main_menu import printMainMenu
 
 
 # Welcome screen and input
@@ -49,6 +51,8 @@ def printInitialScreen(currentUser: Optional[User] = None) -> Optional[User]:
             currentUser = printImportantLinkScreen(currentUser)
         elif userInput == "6":
             currentUser = printMainMenu(currentUser)
+        elif userInput == "7":
+            currentUser = printJobSearchScreen(currentUser)
         elif userInput.upper() == "X":
             print("Exiting InCollege")
             break
@@ -84,5 +88,6 @@ initialScreenOptionsList = [
     "4 - Useful Links",
     "5 - InCollege Important Links",
     "6 - Main Menu",
+    "7 - Search for a job",
     "X - Close Program",
 ]
