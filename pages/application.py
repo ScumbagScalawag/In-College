@@ -8,7 +8,7 @@ from common_utils.messages import (
     returnToPreviousMenuMessage,
     underConstructionMessage,
 )
-from common_utils.types.jobs import createJob, saveJob, saveJobDatabase
+from common_utils.types.jobs import createJob, saveJob, saveJobDatabase #saveJob is not used
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import (
