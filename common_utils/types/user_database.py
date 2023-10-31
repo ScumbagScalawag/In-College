@@ -70,10 +70,10 @@ class UserDatabase:
         matching_users = []
         for user in self.userlist:
             if (
-                    (firstname is None or user.firstname == firstname) and
-                    (lastname is None or user.lastname == lastname) and
-                    (uni is None or user.uni == uni) and
-                    (major is None or user.major == major)
+                (firstname is None or user.firstname == firstname)
+                and (lastname is None or user.lastname == lastname)
+                and (uni is None or user.uni == uni)
+                and (major is None or user.major == major)
             ):
                 matching_users.append(user)
         return matching_users if matching_users else None
@@ -179,7 +179,7 @@ class UserDatabase:
             user2.friends.append(user1.username)
             user1.friends.append(user2.username)
             self.saveDatabase()
-        else: 
+        else:
             raise ValueError("Cannot add friend: friends are already added")
 
     def removeFriend(self, user1: Optional[User], user2: Optional[User]):
@@ -187,41 +187,49 @@ class UserDatabase:
             raise TypeError("Must pass User objects into removeFriend")
         # need to retrieve index inside self.userlist. id(user1) != id(self.userlist[i])
         # TODO change getUser to throw UserNotFoundException automatically, and catch it here
-        user1Pointer = self.getUser(user1.username) 
-        user2Pointer = self.getUser(user2.username) 
+        user1Pointer = self.getUser(user1.username)
+        user2Pointer = self.getUser(user2.username)
         if not isinstance(user1Pointer, User) or not isinstance(user2Pointer, User):
             raise UserNotFoundException("Cannot find corrosponding user(s) inside user database")
         # add to both users' friends lists
-        if user1Pointer.username in user2Pointer.friends and user2Pointer.username in user1Pointer.friends:
+        if (
+            user1Pointer.username in user2Pointer.friends
+            and user2Pointer.username in user1Pointer.friends
+        ):
             user2Pointer.friends.remove(user1Pointer.username)
             user1Pointer.friends.remove(user2Pointer.username)
-        else: 
+        else:
             # this case is a bad state, but maybe it should remove the partially-linked users to clean it up instead of breaking
-            raise ValueError("Cannot remove friend: one or more users are not friends with eachother.")
+            raise ValueError(
+                "Cannot remove friend: one or more users are not friends with eachother."
+            )
         try:
             self.saveDatabase()
-        except MaximumNumberOfUsers as e: 
+        except MaximumNumberOfUsers as e:
             print(f"Error: {e}")
             raise
-        except: 
+        except:
             print("There was some problem detected when saving to the database!")
             raise
+
 
 def manage_friend_requests(currentUser, userDB):
     for user in userDB.userlist:
         if currentUser.username in user.friendRequests:
             print(f"You have a friend request from {user.username}")
-            action = input(f"Do you want to accept the friend request from {user.username}? (y/n): ").lower()
-            while action not in ['y', 'n']:
+            action = input(
+                f"Do you want to accept the friend request from {user.username}? (y/n): "
+            ).lower()
+            while action not in ["y", "n"]:
                 print("Invalid input. Please enter 'y' or 'n': ", end="")
                 action = input("").lower()
-            if action == 'y':
+            if action == "y":
                 try:
                     userDB.acceptFriendRequest(user, currentUser)
                     print(f"You are now friends with {user.username}")
                 except ValueError as e:
                     print(f"Error: {e}")
-            elif action == 'n':
+            elif action == "n":
                 try:
                     userDB.declineFriendRequest(user, currentUser)
                     print(f"You have declined the friend request from {user.username}")

@@ -8,7 +8,7 @@ from common_utils.messages import (
     returnToPreviousMenuMessage,
     underConstructionMessage,
 )
-from common_utils.types.jobs import createJob, saveJob, saveJobDatabase
+from common_utils.types.jobs import createJob, saveJob, saveJobDatabase, deleteJob
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import (
@@ -28,6 +28,7 @@ jobOptionsList = [
     "3 - View Saved Jobs",
     "4 - View Applications",
     "5 - View Open Jobs without Applications",
+    "6 - Delete Job/Internship",
     returnToPreviousMenuMessage(),
 ]
 
@@ -38,11 +39,14 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
         clearScreen()
         # If the currentUser has had an application deleted they will be notified
-        if currentUser.applicationDeleted != "UNDEFINED":
-            print(
-                'The job you applied for "' + currentUser.applicationDeleted + '" has been deleted'
-            )
-            currentUser.applicationDeleted = "UNDEFINED"  # reset applicationDeleted
+        if currentUser != None:
+            if currentUser.applicationDeleted != "UNDEFINED":
+                print(
+                    'The job you applied for "'
+                    + currentUser.applicationDeleted
+                    + '" has been deleted'
+                )
+                currentUser.applicationDeleted = "UNDEFINED"  # reset applicationDeleted
         printOptionList(jobOptionsList)  # print job options
         userInput = input("")
 
@@ -68,6 +72,9 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
                 print(notApplied[i])
             print(anyButtonToContinueMessage())
             input("")
+        elif userInput == "6":
+            print("*** Delete Job ***")
+            currentUser = deleteJob(currentUser)
         elif userInput.upper() == "X":
             break
         else:
