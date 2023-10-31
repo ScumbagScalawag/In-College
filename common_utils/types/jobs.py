@@ -96,20 +96,28 @@ def deleteJob(currentUser):
                 and jobs[i]["lastname"] == currentUser.lastname
             ):
                 # Notify applicants that the job has been deleted
+                userDB = UserDatabase([])
+                userDB.loadUsers()
                 for j in range(0, len(jobs[i]["applicants"])):
                     # The next time that the student visits the jobs section, they will be notified that a job that they applied for has been deleted.
                     userDB.getUser(jobs[i]["applicants"][j]["username"]).applicationDeleted = jobs[i]["title"]
+                    userDB.updateUser(userDB.getUser(jobs[i]["applicants"][j]["username"]))
                     # jobs[i]["applicants"][j]["username"] = "username of applicant"
-
                 # Remove the job
                 del jobs[i]
                 print("Job deleted successfully")
+                print(anyButtonToContinueMessage())
+                input("")
                 break
             else:
                 print("You are not the poster of this job.")
+                print(anyButtonToContinueMessage())
+                input("")
                 return currentUser
         else:
             print("Job does not exist")
+            print(anyButtonToContinueMessage())
+            input("")
             return currentUser
 
     # Save the job database
