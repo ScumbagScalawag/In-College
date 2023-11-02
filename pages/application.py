@@ -1,23 +1,13 @@
 import json
 from datetime import datetime
-from typing import Optional
-
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInputPressToContinue,
-    returnToPreviousMenuMessage,
-    underConstructionMessage,
 )
-from common_utils.types.jobs import createJob, saveJob, saveJobDatabase  # saveJob is not used
-from common_utils.types.user import User
-from common_utils.types.user_database import UserDatabase
 from common_utils.types.job_database import JobDatabase
 from common_utils.utils import (
-    JSON_JOBS_FP,
     clearScreen,
-    loadJobs,
     notLoggedIn,
-    printOptionList,
 )
 
 

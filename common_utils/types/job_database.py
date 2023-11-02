@@ -1,5 +1,5 @@
 from typing import List, Optional
-from common_utils.exceptions import MaximumNumberOfJobs, JobNotFoundException
+from common_utils.types.exceptions import MaximumNumberOfJobs, JobNotFoundException
 from common_utils.types.job import Job
 from common_utils.utils import JSON_JOBS_FP, MAX_JOBS
 import json
