@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 from typing import Optional
-from common_utils.exceptions import MaximumNumberOfJobs
+from common_utils.types.exceptions import MaximumNumberOfJobs
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInput,
@@ -264,7 +264,7 @@ def createJob(currentUser: Optional[User] = None) -> Optional[User]:
     else:
         print(
             "All permitted jobs have been posted, please try again later"
-        )  # Requirement for 5 accounts response
+        )  # Requirement for 10 accounts response
     print(anyButtonToContinueMessage())
     input("")
     return currentUser
