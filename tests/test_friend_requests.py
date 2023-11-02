@@ -36,7 +36,7 @@ from tests.shared import fourAccounts, singleUser
 def test_manageFriendRequest(mock_input, responses, expectedReturn, monkeypatch, capfd):
     userDB = UserDatabase()
     userDB.addUserDictList(fourAccounts)
-    print(userDB.getUserDictList())
+    #print(userDB.getUserDictList())
     testUser = userDB.getUser("dummy")
     # expectedReturn = None
     input_generator = iter(mock_input)

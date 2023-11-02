@@ -274,6 +274,11 @@ def deleteJob(currentUser):
     jobDB = JobDatabase()
     jobDB.loadJobs()
     jobs = jobDB.getJobListDict()
+    if len(jobs) == 0:
+        print("There are no jobs to delete")
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
     # jobs = loadJobs() #Delete me
     # Print jobs that have same first name and last name as current user
     for i in range(0, len(jobs)):

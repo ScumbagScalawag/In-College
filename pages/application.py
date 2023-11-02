@@ -51,7 +51,7 @@ def applyToJob(jobIndex, currentUser):
         clearScreen()
         while True:
             print("*** Job Application ***")
-            gradDate = input("Enter graduation date in the form mm/dd/yyy: ")
+            gradDate = input("Enter graduation date in the form mm/dd/yyyy: ")
             if checkDate(gradDate) == False:
                 invalidInputPressToContinue("in the valid date format")
                 break
