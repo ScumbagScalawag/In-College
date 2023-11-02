@@ -1,5 +1,5 @@
 import pytest
-from pages.job_search import printJobSearchScreen, saveJobDatabase, jobOptionsList
+from pages.job_search import printJobSearchScreen, jobOptionsList
 from common_utils.messages import anyButtonToContinueMessage, invalidInput, underConstructionMessage
 from tests.shared import JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
 from common_utils.types.user_database import UserDatabase

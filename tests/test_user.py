@@ -19,6 +19,8 @@ def test_default_constructor():
     assert user.adSub == True
     assert len(user.friends) == 0
     assert len(user.friendRequests) == 0
+    assert user.applicationDeleted == "UNDEFINED"
+
 
 
 def test_copyValues():

@@ -159,7 +159,7 @@ threeAccounts = [
             },
             "experiences": [],
         },
-        applicationDeleted: "UNDEFINED",
+        "applicationDeleted": "UNDEFINED",
     },
 ]
 # four accounts = three + single user
