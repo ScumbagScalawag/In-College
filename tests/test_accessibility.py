@@ -1,18 +1,18 @@
 from common_utils.messages import anyButtonToContinueMessage
-from pages.about import printAboutScreen, aboutOptions
+from pages.accessibility import printAccessibilityScreen, accessibilityOptions
 
 
-def test_printAboutScreen(monkeypatch, capfd):
+def test_printAccessibilityScreen(monkeypatch, capfd):
     mock_input = [""]
     responses = [
-        *aboutOptions,
+        *accessibilityOptions,
         anyButtonToContinueMessage(),
     ]
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     testUser = None
     try:
-        assert printAboutScreen(testUser) == testUser
+        assert printAccessibilityScreen(testUser) == testUser
     except StopIteration:
         pass
     captured = capfd.readouterr()
