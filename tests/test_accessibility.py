@@ -1,3 +1,4 @@
+import pytest
 from common_utils.messages import anyButtonToContinueMessage
 from pages.accessibility import printAccessibilityScreen, accessibilityOptions
 

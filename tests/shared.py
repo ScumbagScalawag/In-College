@@ -745,15 +745,19 @@ tenAccounts = [
 # ------- ]]]
 
 # Jobs ------ [[[
-singleJob = {
-    "title": "Chocolate Taster",
-    "description": "Test Chocolate",
-    "employer": "Hershey Chocolate Company",
-    "location": "Hershey, Pennsylvania",
-    "salary": "1",
-    "firstname": "Noah",
-    "lastname": "McIvor",
-}
+singleJob = [
+    {
+        "title": "Chocolate Taster",
+        "description": "Test Chocolate",
+        "employer": "Hershey Chocolate Company",
+        "location": "Hershey, Pennsylvania",
+        "salary": "1",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": ["asdfasdf"],
+        "saved": ["asdfasdf"],
+    },
+]
 
 # Used to check when under maximum number of jobs
 fourJobs = [
@@ -763,8 +767,10 @@ fourJobs = [
         "employer": "Company A",
         "location": "San Francisco, CA",
         "salary": "90000",
-        "firstname": "Noah",
-        "lastname": "McIvor",
+        "firstname": "Jo",
+        "lastname": "Mama",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Data Analyst",
@@ -774,6 +780,8 @@ fourJobs = [
         "salary": "75000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Potato Masher",
@@ -783,6 +791,8 @@ fourJobs = [
         "salary": "1000000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Magician",
@@ -792,6 +802,8 @@ fourJobs = [
         "salary": "275000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
 ]
 
@@ -805,6 +817,8 @@ fiveJobs = [
         "salary": "90000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Data Analyst",
@@ -814,6 +828,8 @@ fiveJobs = [
         "salary": "75000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Potato Masher",
@@ -823,6 +839,8 @@ fiveJobs = [
         "salary": "1000000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Magician",
@@ -832,6 +850,8 @@ fiveJobs = [
         "salary": "275000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Pokemon Trainer",
@@ -841,6 +861,8 @@ fiveJobs = [
         "salary": "0",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
 ]
 

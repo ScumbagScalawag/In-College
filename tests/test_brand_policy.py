@@ -1,18 +1,17 @@
+from pages.brand_policy import printBrandPolicyScreen, brandPolicyOptions
 from common_utils.messages import anyButtonToContinueMessage
-from pages.about import printAboutScreen, aboutOptions
-import pytest
 
-def test_printAboutScreen(monkeypatch, capfd):
+def test_printBrandPolicyScreen(monkeypatch, capfd):
     mock_input = [""]
     responses = [
-        *aboutOptions,
+        *brandPolicyOptions,
         anyButtonToContinueMessage(),
     ]
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     testUser = None
     try:
-        assert printAboutScreen(testUser) == testUser
+        assert printBrandPolicyScreen(testUser) == testUser
     except StopIteration:
         pass
     captured = capfd.readouterr()

@@ -21,7 +21,7 @@ def applyToJob(jobIndex, currentUser):
     flag = False
     # If user is not logged in
     if not isinstance(currentUser, User):
-        print("You must be logged in to create a Job.")
+        print("You must be logged in to apply for a Job.")
         print(anyButtonToContinueMessage())
         input("")
         return currentUser

@@ -61,7 +61,7 @@ class JobDatabase:
                     self.joblist[i].copyValues(alteredJob)
                     self.saveDatabase()
                     return
-        raise JobNotFoundException("Couldn't find match for user")
+        raise JobNotFoundException("Couldn't find match for job")
 
     def addJob(self, job: Job):
         if len(self.joblist) < MAX_JOBS:
@@ -70,9 +70,14 @@ class JobDatabase:
         else:
             raise MaximumNumberOfJobs("Cannot Write to JobDatabase: Maximum number of jobs reached")
 
+    # not used
     def addJobList(self, jobList: List[Job]):
-        for user in jobList:
+        for job in jobList:
             self.addJob(job)
+
+    def addJobDict(self, jobDict: dict):
+        job = Job.dictToJob(jobDict)
+        self.addJob(job)
 
     def addJobDictList(self, jobDictList: List[dict]):
         for jobDict in jobDictList:
