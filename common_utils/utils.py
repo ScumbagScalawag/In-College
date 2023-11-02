@@ -7,7 +7,7 @@ from common_utils.messages import anyButtonToContinueMessage
 from common_utils.types.user import User
 
 MAX_USERS = 10
-
+MAX_JOBS = 10
 
 # Use this for making options lists in pages
 def printOptionList(options):
