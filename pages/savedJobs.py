@@ -12,10 +12,12 @@ def createSavedJob(jobIndex, currentUser):
     clearScreen()
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     # jobs = loadJobs() #Delete me
     jobs[jobIndex]["saved"].append(currentUser.username)
-    saveJobDatabase(JSON_JOBS_FP, jobs)
+    jobDB.joblist = jobs
+    jobDB.saveDatabase()
+    # saveJobDatabase(JSON_JOBS_FP, jobs) #Delete me
     print("Sucessfully saved job")
     print(anyButtonToContinueMessage())
     input("")
@@ -27,9 +29,10 @@ def deletedSavedJob(jobIndex, currentUser):
     clearScreen()
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     # jobs = loadJobs() #Delete me
     jobs[jobIndex]["saved"].remove(currentUser.username)
+    jobDB.joblist = jobs
     jobDB.saveDatabase()
     # saveJobDatabase(JSON_JOBS_FP, jobs)
     print("Sucessfully removed job")
@@ -44,7 +47,7 @@ def printSavedJobs(currentUser):
     print("*** Saved Jobs ***")
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     # jobs = loadJobs() #Delete me
     totalJobs = len(jobs)
     savedList = []

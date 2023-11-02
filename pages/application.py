@@ -4,6 +4,7 @@ from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInputPressToContinue,
 )
+from common_utils.types.user import User
 from common_utils.types.job_database import JobDatabase
 from common_utils.utils import (
     clearScreen,
@@ -15,7 +16,7 @@ def applyToJob(jobIndex, currentUser):
     # jobs = loadJobs() # Delete me
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     applicationNum = len(jobs[jobIndex]["applicants"])
     flag = False
     # If user is not logged in
@@ -89,7 +90,7 @@ def personalApplicationList(currentUser):
     applications = []
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     # jobs = loadJobs() #Delete me
     totalJobs = len(jobs)
     # checking to see if currentUser is logged in
@@ -111,7 +112,7 @@ def notAppliedList(currentUser):
     applications = []
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     # jobs = loadJobs() #Delete me
     totalJobs = len(jobs)
     # checking to see if currentUser is logged in

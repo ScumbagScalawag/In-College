@@ -100,7 +100,7 @@ def jobSearch(currentUser: Optional[User] = None) -> Optional[User]:
     clearScreen()
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     totalJobs = len(jobs)
     # Printing all current positions
     print("Current Open Positions:")
@@ -209,7 +209,7 @@ def createJob(currentUser: Optional[User] = None) -> Optional[User]:
         return currentUser
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     # jobs = loadJobs()
     # print(jobs) # DELETE ME ?
     # users = loadUsers()
@@ -273,7 +273,7 @@ def createJob(currentUser: Optional[User] = None) -> Optional[User]:
 def deleteJob(currentUser):
     jobDB = JobDatabase()
     jobDB.loadJobs()
-    jobs = jobDB.joblist
+    jobs = jobDB.getJobListDict()
     # jobs = loadJobs() #Delete me
     # Print jobs that have same first name and last name as current user
     for i in range(0, len(jobs)):
@@ -307,6 +307,10 @@ def deleteJob(currentUser):
                     # jobs[i]["applicants"][j]["username"] = "username of applicant"
                 # Remove the job
                 del jobs[i]
+
+                jobDB.joblist = jobs
+                jobDB.saveDatabase()
+
                 print("Job deleted successfully")
                 print(anyButtonToContinueMessage())
                 input("")
@@ -323,7 +327,7 @@ def deleteJob(currentUser):
             return currentUser
 
     # Save the job database
-    jobDB.saveDatabase()
+    jobDB.saveDatabase()  # TODO This is not needed
     # saveJobDatabase(JSON_JOBS_FP, jobs)
 
     return currentUser
