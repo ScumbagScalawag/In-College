@@ -19,7 +19,7 @@ class JobDatabase:
         try:
             with open(JSON_JOBS_FP, "r") as database:
                 jobDBDict = json.load(database)
-                for jobDict in jobDBDict.get(["joblist"], []):
+                for jobDict in jobDBDict.get("joblist", []):
                     job = Job.dictToJob(jobDict)
                     self.joblist.append(job)
         except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
