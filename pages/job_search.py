@@ -343,7 +343,7 @@ def removeJob(currentUser: Optional[User] = None) -> Optional[User]:
     jobs = loadJobs()
     # If user is not logged in
     if not isinstance(currentUser, User):
-        print("You must be logged in to create a Job.")
+        print("You must be logged in to remove a Job.")
         print(anyButtonToContinueMessage())
         input("")
         return currentUser
