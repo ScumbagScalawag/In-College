@@ -4,13 +4,14 @@ from typing import Optional
 
 from common_utils.messages import (
     anyButtonToContinueMessage,
-    invalidInput,
+    invalidInputPressToContinue,
     returnToPreviousMenuMessage,
     underConstructionMessage,
 )
-from common_utils.types.jobs import createJob, saveJob, saveJobDatabase #saveJob is not used
+from common_utils.types.jobs import createJob, saveJob, saveJobDatabase  # saveJob is not used
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
+from common_utils.types.job_database import JobDatabase
 from common_utils.utils import (
     JSON_JOBS_FP,
     clearScreen,
@@ -21,7 +22,10 @@ from common_utils.utils import (
 
 
 def applyToJob(jobIndex, currentUser):
-    jobs = loadJobs()
+    # jobs = loadJobs() # Delete me
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.joblist
     applicationNum = len(jobs[jobIndex]["applicants"])
     flag = False
     # If user is not logged in
@@ -58,15 +62,11 @@ def applyToJob(jobIndex, currentUser):
             print("*** Job Application ***")
             gradDate = input("Enter graduation date in the form mm/dd/yyy: ")
             if checkDate(gradDate) == False:
-                print("Invalid input please try again")
-                print(anyButtonToContinueMessage())
-                input("")
+                invalidInputPressToContinue("in the valid date format")
                 break
             startDate = input("Enter your desired start date in the form mm/dd/yyy: ")
             if checkDate(startDate) == False:
-                print("Invalid input please try again")
-                print(anyButtonToContinueMessage())
-                input("")
+                invalidInputPressToContinue("in the valid date format")
                 break
             explanation = input("Explain why you would be a good fit for this position: ")
             jobs[jobIndex]["applicants"].append(
@@ -77,7 +77,8 @@ def applyToJob(jobIndex, currentUser):
                     "reason": explanation,
                 }
             )
-            saveJobDatabase(JSON_JOBS_FP, jobs)
+            jobDB.saveDatabase()
+            # saveJobDatabase(JSON_JOBS_FP, jobs)
             print("Application sucessfully submitted")
             print(anyButtonToContinueMessage())
             input("")
@@ -96,10 +97,13 @@ def checkDate(input_string):
 
 def personalApplicationList(currentUser):
     applications = []
-    jobs = loadJobs()
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.joblist
+    # jobs = loadJobs() #Delete me
     totalJobs = len(jobs)
     # checking to see if currentUser is logged in
-    if notLoggedIn(currentUser) == True:
+    if notLoggedIn(currentUser):
         return applications
 
     # creating a list of all applied jobs
@@ -115,10 +119,13 @@ def personalApplicationList(currentUser):
 
 def notAppliedList(currentUser):
     applications = []
-    jobs = loadJobs()
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.joblist
+    # jobs = loadJobs() #Delete me
     totalJobs = len(jobs)
     # checking to see if currentUser is logged in
-    if notLoggedIn(currentUser) == True:
+    if notLoggedIn(currentUser):
         return applications
 
     # creating a list of all jobs not applied to

@@ -9,6 +9,7 @@ from common_utils.types.user import User
 MAX_USERS = 10
 MAX_JOBS = 10
 
+
 # Use this for making options lists in pages
 def printOptionList(options):
     for option in options:
@@ -141,3 +142,5 @@ def notLoggedIn(currentUser):
     if not isinstance(currentUser, User):
         print("You must be logged in to view this page.")
         return True
+    else:
+        return False

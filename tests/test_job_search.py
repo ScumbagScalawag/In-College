@@ -48,7 +48,10 @@ from common_utils.types.user import User
         ),
         (
             ["4", "3"],
-            [*jobOptionsList, invalidInput("1, 2, or X")],
+            [
+                *jobOptionsList,
+                invalidInput("1, 2, or X"),
+            ],
             [],
             singleUser["username"],
         ),

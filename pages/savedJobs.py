@@ -1,29 +1,19 @@
-import json
-from datetime import datetime
-from typing import Optional
-
 from common_utils.messages import (
     anyButtonToContinueMessage,
-    invalidInput,
-    returnToPreviousMenuMessage,
-    underConstructionMessage,
 )
-from common_utils.types.jobs import createJob, saveJob, saveJobDatabase
-from common_utils.types.user import User
-from common_utils.types.user_database import UserDatabase
 from common_utils.utils import (
     JSON_JOBS_FP,
     clearScreen,
-    loadJobs,
-    notLoggedIn,
-    printOptionList,
 )
+from common_utils.types.job_database import JobDatabase
 
 
 def createSavedJob(jobIndex, currentUser):
     clearScreen()
-    jobs = loadJobs()
-
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.joblist
+    # jobs = loadJobs() #Delete me
     jobs[jobIndex]["saved"].append(currentUser.username)
     saveJobDatabase(JSON_JOBS_FP, jobs)
     print("Sucessfully saved job")
@@ -35,9 +25,13 @@ def createSavedJob(jobIndex, currentUser):
 
 def deletedSavedJob(jobIndex, currentUser):
     clearScreen()
-    jobs = loadJobs()
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.joblist
+    # jobs = loadJobs() #Delete me
     jobs[jobIndex]["saved"].remove(currentUser.username)
-    saveJobDatabase(JSON_JOBS_FP, jobs)
+    jobDB.saveDatabase()
+    # saveJobDatabase(JSON_JOBS_FP, jobs)
     print("Sucessfully removed job")
     print(anyButtonToContinueMessage())
     input("")
@@ -48,7 +42,10 @@ def deletedSavedJob(jobIndex, currentUser):
 def printSavedJobs(currentUser):
     clearScreen()
     print("*** Saved Jobs ***")
-    jobs = loadJobs()
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.joblist
+    # jobs = loadJobs() #Delete me
     totalJobs = len(jobs)
     savedList = []
     for i in range(0, totalJobs):
