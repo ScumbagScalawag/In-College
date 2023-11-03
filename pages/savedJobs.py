@@ -1,11 +1,6 @@
-from common_utils.messages import (
-    anyButtonToContinueMessage,
-)
-from common_utils.utils import (
-    JSON_JOBS_FP,
-    clearScreen,
-)
+from common_utils.messages import anyButtonToContinueMessage
 from common_utils.types.job_database import JobDatabase
+from common_utils.utils import JSON_JOBS_FP, clearScreen
 
 
 def createSavedJob(jobIndex, currentUser):
@@ -71,12 +66,9 @@ def printSavedJobs(currentUser):
         for j in range(0, totalUsersSaved):
             if currentUser.username == jobs[i]["saved"][j]["username"]:
                 savedList.append(jobs[i]["title"])
-            j += 1
-        i += 1
 
     for k in range(0, len(savedList)):
         print(k + 1, "-", savedList[k])
-        k += 1
     print(anyButtonToContinueMessage())
     input("")
     return currentUser
