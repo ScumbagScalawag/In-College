@@ -15,6 +15,7 @@ class User:
         lastname: str = "UNDEFINED",
         uni: str = "UNDEFINED",
         major: str = "UNDEFINED",
+        plusSubscription: bool = False,
         email: str = "UNDEFINED",
         phoneNumber: str = "UNDEFINED",
         language: str = "English",
@@ -25,7 +26,6 @@ class User:
         friendRequests=[],
         profile=None,
         applicationDeleted="UNDEFINED",
-        plusSubscription: bool = False,
     ):
         self.username = username
         self.password = password
@@ -33,6 +33,7 @@ class User:
         self.lastname = lastname
         self.uni = uni
         self.major = major
+        self.plusSubscription = plusSubscription
         self.email = email
         self.phoneNumber = phoneNumber
         # self.language = language
@@ -44,7 +45,6 @@ class User:
         self.friendRequests = friendRequests
         self.profile = Profile() if profile is None else profile
         self.applicationDeleted = applicationDeleted
-        self.plusSubscription = plusSubscription
 
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
@@ -54,6 +54,7 @@ class User:
         self.lastname = otherUser.lastname
         self.uni = otherUser.uni
         self.major = otherUser.major
+        self.plusSubscription = otherUser.plusSubscription
         self.email = otherUser.email
         self.phoneNumber = otherUser.phoneNumber
         self.language = otherUser.language
@@ -64,7 +65,6 @@ class User:
         self.friendRequests = otherUser.friendRequests.copy()
         self.profile.copyValues(otherUser.profile)
         self.applicationDeleted = otherUser.applicationDeleted
-        self.plusSubscription = otherUser.plusSubscription
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -90,6 +90,7 @@ class User:
             "lastname": self.lastname,
             "uni": self.uni,
             "major": self.major,
+            "plusSubscription": self.plusSubscription,
             "email": self.email,
             "phoneNumber": self.phoneNumber,
             "language": self.language,
@@ -100,7 +101,6 @@ class User:
             "friendRequests": self.friendRequests,
             "profile": self.profile.toDict() if self.profile else None,
             "applicationDeleted": self.applicationDeleted,
-            "plusSubscription": self.plusSubscription,
         }
 
     def hasPendingFriendRequestTo(self, username: str):
@@ -132,6 +132,7 @@ class User:
             lastname=userDict.get("lastname", "UNDEFINED"),
             uni=userDict.get("uni"),
             major=userDict.get("major"),
+            plusSubscription=userDict.get("plusSubscription", False),
             email=userDict.get("email", "UNDEFINED"),
             phoneNumber=userDict.get("phoneNumber", "UNDEFINED"),
             language=userDict.get("language", "English"),
@@ -142,7 +143,6 @@ class User:
             friendRequests=userDict.get("friendRequests", []),
             profile=profile_obj,
             applicationDeleted=userDict.get("applicationDeleted", "UNDEFINED"),
-            plusSubscription=userDict.get("plusSubscription", False),
         )
 
     def setLanguage(self, language: str):
