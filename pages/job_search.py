@@ -1,24 +1,25 @@
 import json
 from datetime import datetime
 from typing import Optional
-from common_utils.types.exceptions import MaximumNumberOfJobs
+
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInput,
     returnToPreviousMenuMessage,
     underConstructionMessage,
 )
+from common_utils.types.exceptions import MaximumNumberOfJobs
 from common_utils.types.job import Job
 from common_utils.types.job_database import JobDatabase
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import (
     JSON_JOBS_FP,
+    MAX_JOBS,
     clearScreen,
     loadJobs,
     notLoggedIn,
     printOptionList,
-    MAX_JOBS,
 )
 from pages.application import applyToJob, notAppliedList, personalApplicationList
 from pages.savedJobs import createSavedJob, deletedSavedJob, printSavedJobs
@@ -84,6 +85,7 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
             print(anyButtonToContinueMessage())
             input("")
         elif userInput == "6":
+            clearScreen()
             print("*** Delete Job ***")
             currentUser = deleteJob(currentUser)
         elif userInput.upper() == "X":
