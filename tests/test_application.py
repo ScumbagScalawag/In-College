@@ -53,59 +53,11 @@ from common_utils.types.job import Job
                 anyButtonToContinueMessage(),
             ],  # responses
         ),
-        # (
-        #     ["", "invalid date", "02/01/2022", "I am a good fit"],  # mock input
-        #     0,  # job index
-        #     singleUser,  # test user
-        #     fourAccounts,  # starting userDB
-        #     singleJob,  # starting jobDB
-        #     [
-        #         "Invalid input. Please enter the date in the valid date format",
-        #         anyButtonToContinueMessage(),
-        #     ],  # responses
-        # ),
-        # (
-        #     ["", "01/01/2022", "invalid date", "I am a good fit"],  # mock input
-        #     0,  # job index
-        #     singleUser,  # test user
-        #     fourAccounts,  # starting userDB
-        #     singleJob,  # starting jobDB
-        #     [
-        #         "Invalid input. Please enter the date in the valid date format",
-        #         anyButtonToContinueMessage(),
-        #     ],  # responses
-        # ),
-        # (
-        #     ["", "01/01/2022", "02/01/2022", "I am a good fit"],  # mock input
-        #     0,  # job index
-        #     singleUser,  # test user
-        #     fourAccounts,  # starting userDB
-        #     singleJob,  # starting jobDB
-        #     [
-        #         "You cannot apply for a job you have already applied to.",
-        #         anyButtonToContinueMessage(),
-        #     ],  # responses
-        # ),
-        # (
-        #     ["", "01/01/2022", "02/01/2022", "I am a good fit"],  # mock input
-        #     0,  # job index
-        #     singleUser,  # test user
-        #     fourAccounts,  # starting userDB
-        #     fourJobs,  # starting jobDB
-        #     [
-        #         "You cannot apply for a job you posted.",
-        #         anyButtonToContinueMessage(),
-        #     ],  # responses
-        # ),
     ],
     ids=[
         "Valid input apply to job",
         "User has created a job",
         "User has already applied",
-        # "User is not logged in",
-        # "Invalid graduation date",
-        # "Invalid start date",
-        # "User created job posting",
     ],
 )
 def testApplyToJob(
@@ -155,11 +107,94 @@ def test_checkDate(input_string, expected_output):
     assert checkDate(input_string) == expected_output
 
 
-# TODO test personalApplicationList
-def testPersonalApplicationList():
-    pass
-
 
 # TODO test notAppliedList
-def testNotAppliedList():
-    pass
+@pytest.fixture
+def user():
+    return User("test_user", "password")
+
+@pytest.fixture
+def jobs():
+    return [
+        {"title": "Job 1", "applicants": [{"username": "test_user"}]},
+        {"title": "Job 2", "applicants": []},
+        {"title": "Job 3", "applicants": [{"username": "other_user"}]},
+    ]
+
+@pytest.mark.parametrize(
+    "user, jobs, expected_output",
+    [
+        (User("test_user", "password"), [
+            {"title": "Job 1", "applicants": [{"username": "test_user"}]},
+            {"title": "Job 2", "applicants": []},
+            {"title": "Job 3", "applicants": [{"username": "other_user"}]},
+        ], ["Job 2"]),
+        (User("other_user", "password"), [
+            {"title": "Job 1", "applicants": [{"username": "test_user"}]},
+            {"title": "Job 2", "applicants": []},
+            {"title": "Job 3", "applicants": [{"username": "other_user"}]},
+        ], ["Job 1", "Job 2"]),
+        (User("nonexistent_user", "password"), [
+            {"title": "Job 1", "applicants": [{"username": "test_user"}]},
+            {"title": "Job 2", "applicants": []},
+            {"title": "Job 3", "applicants": [{"username": "other_user"}]},
+        ], ["Job 1", "Job 2", "Job 3"]),
+    ],
+    ids=[
+        "User has not applied to any jobs",
+        "User has applied to some jobs",
+        "User does not exist",
+    ]
+)
+def test_notAppliedList(user, jobs, expected_output):
+    assert notAppliedList(user) == expected_output
+
+
+
+
+# TODO test personalApplicationList
+@pytest.mark.parametrize(
+    "user, jobs, expected_output",
+    [
+        (
+            User("test_user", "password"), 
+            [
+                {"title": "Software Engineer", "applicants": [{"username": "test_user"}]},
+                {"title": "Data Analyst", "applicants": [{"username": "another_user"}]},
+                {"title": "Product Manager", "applicants": [{"username": "test_user"}]},
+            ],
+            ["Software Engineer", "Product Manager"]
+        ),
+        (
+            User("another_user", "password"), 
+            [
+                {"title": "Software Engineer", "applicants": [{"username": "test_user"}]},
+                {"title": "Data Analyst", "applicants": [{"username": "another_user"}]},
+                {"title": "Product Manager", "applicants": [{"username": "test_user"}]},
+            ],
+            ["Data Analyst"]
+        ),
+        (
+            User("not_applied_user", "password"), 
+            [
+                {"title": "Software Engineer", "applicants": [{"username": "test_user"}]},
+                {"title": "Data Analyst", "applicants": [{"username": "another_user"}]},
+                {"title": "Product Manager", "applicants": [{"username": "test_user"}]},
+            ],
+            []
+        ),
+    ],
+    ids=[
+        "User has applied to some jobs",
+        "User has applied to one job",
+        "User has not applied to any jobs"
+    ]
+)
+def test_personalApplicationList(user, jobs, expected_output):
+    class JobDatabase:
+        def __init__(self):
+            self.jobs = jobs
+        def getJobListDict(self):
+            return self.jobs
+    
+    assert personalApplicationList(user, JobDatabase()) == expected_output
