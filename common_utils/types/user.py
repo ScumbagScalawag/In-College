@@ -1,4 +1,5 @@
 import json
+
 from common_utils.types.profile import Profile
 
 
@@ -24,6 +25,7 @@ class User:
         friendRequests=[],
         profile=None,
         applicationDeleted="UNDEFINED",
+        plusSubscription: bool = False,
     ):
         self.username = username
         self.password = password
@@ -42,6 +44,7 @@ class User:
         self.friendRequests = friendRequests
         self.profile = Profile() if profile is None else profile
         self.applicationDeleted = applicationDeleted
+        self.plusSubscription = plusSubscription
 
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
@@ -61,6 +64,7 @@ class User:
         self.friendRequests = otherUser.friendRequests.copy()
         self.profile.copyValues(otherUser.profile)
         self.applicationDeleted = otherUser.applicationDeleted
+        self.plusSubscription = otherUser.plusSubscription
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -96,6 +100,7 @@ class User:
             "friendRequests": self.friendRequests,
             "profile": self.profile.toDict() if self.profile else None,
             "applicationDeleted": self.applicationDeleted,
+            "plusSubscription": self.plusSubscription,
         }
 
     def hasPendingFriendRequestTo(self, username: str):
@@ -137,6 +142,7 @@ class User:
             friendRequests=userDict.get("friendRequests", []),
             profile=profile_obj,
             applicationDeleted=userDict.get("applicationDeleted", "UNDEFINED"),
+            plusSubscription=userDict.get("plusSubscription", False),
         )
 
     def setLanguage(self, language: str):
