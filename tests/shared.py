@@ -745,7 +745,7 @@ tenAccounts = [
 # ------- ]]]
 
 # Jobs ------ [[[
-singleJob = [
+twoJobs = [
     {
         "title": "Chocolate Taster",
         "description": "Test Chocolate",
@@ -754,8 +754,27 @@ singleJob = [
         "salary": "1",
         "firstname": "Noah",
         "lastname": "McIvor",
-        "applicants": ["asdfasdf"],
-        "saved": ["asdfasdf"],
+        "applicants": [
+            "asdfasdf",
+        ],
+        "saved": [
+            "asdfasdf",
+        ],
+    },
+    {
+        "title": "Ciropratic Assistant",
+        "description": "Assist Ciropractor",
+        "employer": "Dr. Smith's Ciropractic",
+        "location": "Tampa, Florida",
+        "salary": "17",
+        "firstname": "Joe",
+        "lastname": "Mama",
+        "applicants": [
+            "asdfasdf",
+        ],
+        "saved": [
+            "asdfasdf",
+        ],
     },
 ]
 
@@ -769,7 +788,14 @@ fourJobs = [
         "salary": "90000",
         "firstname": "Jo",
         "lastname": "Mama",
-        "applicants": [],
+        "applicants": [
+            {
+                "username": "asdfasdf",
+                "graduation": "01/01/2020",
+                "start": "02/01/2020",
+                "reason": "I want to work here",
+            }
+        ],
         "saved": [],
     },
     {
@@ -778,8 +804,8 @@ fourJobs = [
         "employer": "Data Analytics Inc.",
         "location": "New York, NY",
         "salary": "75000",
-        "firstname": "Noah",
-        "lastname": "McIvor",
+        "firstname": "Jo",
+        "lastname": "Mama",
         "applicants": [],
         "saved": [],
     },
