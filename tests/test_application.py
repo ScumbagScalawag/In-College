@@ -53,59 +53,11 @@ from common_utils.types.job import Job
                 anyButtonToContinueMessage(),
             ],  # responses
         ),
-        # (
-        #     ["", "invalid date", "02/01/2022", "I am a good fit"],  # mock input
-        #     0,  # job index
-        #     singleUser,  # test user
-        #     fourAccounts,  # starting userDB
-        #     singleJob,  # starting jobDB
-        #     [
-        #         "Invalid input. Please enter the date in the valid date format",
-        #         anyButtonToContinueMessage(),
-        #     ],  # responses
-        # ),
-        # (
-        #     ["", "01/01/2022", "invalid date", "I am a good fit"],  # mock input
-        #     0,  # job index
-        #     singleUser,  # test user
-        #     fourAccounts,  # starting userDB
-        #     singleJob,  # starting jobDB
-        #     [
-        #         "Invalid input. Please enter the date in the valid date format",
-        #         anyButtonToContinueMessage(),
-        #     ],  # responses
-        # ),
-        # (
-        #     ["", "01/01/2022", "02/01/2022", "I am a good fit"],  # mock input
-        #     0,  # job index
-        #     singleUser,  # test user
-        #     fourAccounts,  # starting userDB
-        #     singleJob,  # starting jobDB
-        #     [
-        #         "You cannot apply for a job you have already applied to.",
-        #         anyButtonToContinueMessage(),
-        #     ],  # responses
-        # ),
-        # (
-        #     ["", "01/01/2022", "02/01/2022", "I am a good fit"],  # mock input
-        #     0,  # job index
-        #     singleUser,  # test user
-        #     fourAccounts,  # starting userDB
-        #     fourJobs,  # starting jobDB
-        #     [
-        #         "You cannot apply for a job you posted.",
-        #         anyButtonToContinueMessage(),
-        #     ],  # responses
-        # ),
     ],
     ids=[
         "Valid input apply to job",
         "User has created a job",
         "User has already applied",
-        # "User is not logged in",
-        # "Invalid graduation date",
-        # "Invalid start date",
-        # "User created job posting",
     ],
 )
 def testApplyToJob(
@@ -155,11 +107,124 @@ def test_checkDate(input_string, expected_output):
     assert checkDate(input_string) == expected_output
 
 
+@pytest.mark.parametrize(
+    "user,jobs,expected_output",
+    [
+        (
+            singleUser,  # test user
+            fourJobs,  # starting jobDB
+            [
+                "Software Engineer",
+            ],  # responses
+        ),
+        (
+            None,  # test user
+            twoJobs,  # starting jobDB
+            [],  # responses
+        ),
+    ],
+    ids=[
+        "User has applied to some jobs",
+        "User not logged in",
+    ],
+)
+def test_PersonalApplicationList(user, jobs, expected_output, monkeypatch, capfd):
+    if user is not None:
+        testUser = User.dictToUser(user)
+    else:
+        testUser = user
+    jobDB = JobDatabase([])
+    jobDB.addJobDictList(jobs)
+    jobDB.saveDatabase()
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    try:
+        assert personalApplicationList(testUser) == expected_output
+    except StopIteration:
+        pass
+
+
+@pytest.mark.parametrize(
+    "user,jobs,expected_output",
+    [
+        (
+            singleUser,  # test user
+            fourJobs,  # starting jobDB
+            [
+                "Data Analyst",
+                "Potato Masher",
+                "Magician",
+            ],  # responses
+        ),
+        (
+            None,  # test user
+            twoJobs,  # starting jobDB
+            [],  # responses
+        ),
+    ],
+    ids=[
+        "User has not applied to some jobs",
+        "User not logged in",
+    ],
+)
+def test_notAppliedList(user, jobs, expected_output, monkeypatch, capfd):
+    if user is not None:
+        testUser = User.dictToUser(user)
+    else:
+        testUser = user
+    jobDB = JobDatabase([])
+    jobDB.addJobDictList(jobs)
+    jobDB.saveDatabase()
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    try:
+        assert notAppliedList(testUser) == expected_output
+    except StopIteration:
+        pass
+
+
 # TODO test personalApplicationList
-def testPersonalApplicationList():
-    pass
+# @pytest.mark.parametrize(
+#     "user, jobs, expected_output",
+#     [
+#         (
+#             User("test_user", "password"),
+#             [
+#                 {"title": "Software Engineer", "applicants": [{"username": "test_user"}]},
+#                 {"title": "Data Analyst", "applicants": [{"username": "another_user"}]},
+#                 {"title": "Product Manager", "applicants": [{"username": "test_user"}]},
+#             ],
+#             ["Software Engineer", "Product Manager"],
+#         ),
+#         (
+#             User("another_user", "password"),
+#             [
+#                 {"title": "Software Engineer", "applicants": [{"username": "test_user"}]},
+#                 {"title": "Data Analyst", "applicants": [{"username": "another_user"}]},
+#                 {"title": "Product Manager", "applicants": [{"username": "test_user"}]},
+#             ],
+#             ["Data Analyst"],
+#         ),
+#         (
+#             User("not_applied_user", "password"),
+#             [
+#                 {"title": "Software Engineer", "applicants": [{"username": "test_user"}]},
+#                 {"title": "Data Analyst", "applicants": [{"username": "another_user"}]},
+#                 {"title": "Product Manager", "applicants": [{"username": "test_user"}]},
+#             ],
+#             [],
+#         ),
+#     ],
+#     ids=[
+#         "User has applied to some jobs",
+#         "User has applied to one job",
+#         "User has not applied to any jobs",
+#     ],
+# )
+# def test_personalApplicationList(user, jobs, expected_output):
+#     class JobDatabase:
+#         def __init__(self):
+#             self.jobs = jobs
 
+#         def getJobListDict(self):
+#             return self.jobs
 
-# TODO test notAppliedList
-def testNotAppliedList():
-    pass
+#     assert personalApplicationList(user, JobDatabase()) == expected_output
