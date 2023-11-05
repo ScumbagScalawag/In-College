@@ -214,7 +214,7 @@ class UserDatabase:
             print("There was some problem detected when saving to the database!")
             raise
 
-    def composeMessage(self, message: Message):
+    def addMessage(self, message: Message):
         targetUser = self.getUser(message.receiver)
         targetUser.appendToIncomingMessages(message)
         self.saveDatabase()

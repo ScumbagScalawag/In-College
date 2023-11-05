@@ -45,3 +45,27 @@ class Message:
     # change read to true
     def markRead(self):
         self.read = True
+
+
+def composeMessage(sender, receiver, plus):
+    print("Please type your subject (Must be one line):")
+    subject = input("")
+    bodyList = []
+    newLine = ""
+    print(
+        "Please type the body of your message, it can be as many lines as you want\nType SEND on it's own line at the end when done typing the message"
+    )
+    while newLine != "SEND":
+        newLine = input("")
+        bodyList.append(newLine)
+    body = ""
+    for line in bodyList:
+        body = body + line
+    return Message(
+        sender,
+        receiver,
+        subject,
+        body,
+        False,
+        plus,
+    )

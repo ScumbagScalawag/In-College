@@ -1,7 +1,7 @@
 from typing import Optional
 
 from common_utils.messages import anyButtonToContinueMessage, invalidInput
-from common_utils.types.message import Message
+from common_utils.types.message import Message, composeMessage
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import clearScreen, printOptionList
@@ -17,9 +17,9 @@ def printInbox(currentUser: Optional[User] = None) -> Optional[User]:
         for number, message in enumerate(inboxList):
             printNumber = "{: <3}".format(number + 1)
             print(f"{printNumber} - {message.header()}")
-        selectedMessage = None
 
         # get input for which message to display
+        selectedMessage = None
         while True:
             print("Select a message by number or press X to cancel: ", end="")
             selection = input("")
@@ -35,13 +35,13 @@ def printInbox(currentUser: Optional[User] = None) -> Optional[User]:
             except ValueError:
                 print(invalidInput("a whole number or X"))
 
-        # exit if that is selected
+        # exit if no message was selected
         if selectedMessage == None:
             break
 
         # invalid input flag so that I can keep message displayed
         flag = 0
-        # prints the message and options for read/delete/exit
+        # prints the selected message and options for read/delete/exit
         while True:
             clearScreen()
             print(selectedMessage)
@@ -63,7 +63,7 @@ def printInbox(currentUser: Optional[User] = None) -> Optional[User]:
 
         # invalid input flag so that I can keep message displayed
         flag = 0
-        # checks if user wants to send a reply
+        # checks if user wants to send a reply and does it if yes
         while True:
             clearScreen()
             print(selectedMessage)
@@ -95,22 +95,9 @@ messageOptionsList = [
 
 
 def sendReply(currentUser, selectedMessage):
-    print("Please type your subject (Must be one line):")
-    subject = input()
-    bodyList = []
-    newLine = ""
-    print(
-        "Please type the body of your message, it can be as many lines as you want\nType SEND on it's own line at the end when done typing the message"
-    )
-    while newLine != "SEND":
-        newLine = input()
-        bodyList.append(newLine)
-    body = ""
-    for line in bodyList:
-        body = body + line
-    newMessage = Message(
-        currentUser.username, selectedMessage.sender, body, False, currentUser.plusSubscription
+    newMessage = composeMessage(
+        currentUser.username, selectedMessage.sender, currentUser.plusSubscription
     )
     userDB = UserDatabase()
     userDB.loadUsers()
-    userDB.composeMessage(newMessage)
+    userDB.addMessage(newMessage)
