@@ -1,11 +1,13 @@
-from typing import List, Optional
-from common_utils.types.exceptions import MaximumNumberOfUsers, UserNotFoundException
-from common_utils.types.user import User
-from common_utils.utils import MAX_USERS, JSON_USERS_FP
-from common_utils.types.profile import Profile
 import json
+from typing import List, Optional
 
-#from common_utils.utils import JSON_USERS_FP # Delete me
+from common_utils.types.exceptions import MaximumNumberOfUsers, UserNotFoundException
+from common_utils.types.message import Message
+from common_utils.types.profile import Profile
+from common_utils.types.user import User
+from common_utils.utils import JSON_USERS_FP, MAX_USERS
+
+# from common_utils.utils import JSON_USERS_FP # Delete me
 
 
 # anything to do with Dict/dict is mostly there for testing purposes
@@ -211,6 +213,11 @@ class UserDatabase:
         except:
             print("There was some problem detected when saving to the database!")
             raise
+
+    def composeMessage(self, message: Message):
+        targetUser = self.getUser(message.receiver)
+        targetUser.appendToIncomingMessages(message)
+        self.saveDatabase()
 
 
 def manage_friend_requests(currentUser, userDB):

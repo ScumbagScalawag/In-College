@@ -27,7 +27,6 @@ class User:
         friendRequests=[],
         profile=None,
         applicationDeleted="UNDEFINED",
-        outgoingMessages=[],
         incomingMessages=[],
     ):
         self.username = username
@@ -48,7 +47,6 @@ class User:
         self.friendRequests = friendRequests
         self.profile = Profile() if profile is None else profile
         self.applicationDeleted = applicationDeleted
-        self.outgoingMessages = outgoingMessages
         self.incomingMessages = incomingMessages
 
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
@@ -70,7 +68,6 @@ class User:
         self.friendRequests = otherUser.friendRequests.copy()
         self.profile.copyValues(otherUser.profile)
         self.applicationDeleted = otherUser.applicationDeleted
-        self.outgoingMessages = otherUser.outgoingMessages.copy()
         self.incomingMessages = otherUser.incomingMessages.copy()
 
     # define what print(userObject) does
@@ -90,9 +87,6 @@ class User:
 
     # return the Dict translation
     def toDict(self):
-        outgoingMessagesDictList = []
-        for message in self.outgoingMessages:
-            outgoingMessagesDictList.append(message.toDict())
         incomingMessagesDictList = []
         for message in self.incomingMessages:
             incomingMessagesDictList.append(message.toDict())
@@ -114,7 +108,6 @@ class User:
             "friendRequests": self.friendRequests,
             "profile": self.profile.toDict() if self.profile else None,
             "applicationDeleted": self.applicationDeleted,
-            "outgoingMessages": outgoingMessagesDictList,
             "incomingMessages": incomingMessagesDictList,
         }
 
@@ -145,10 +138,6 @@ class User:
         if profile_data:
             profile_obj = Profile.dictToProfile(profile_data)
 
-        outgoingMessages = []
-        outgoingMessagesDictList = userDict.get("outgoingMessages")
-        for message in outgoingMessagesDictList:
-            outgoingMessages.append(Message.dictToMessage(message))
         incomingMessages = []
         incomingMessagesDictList = userDict.get("incomingMessages")
         for message in incomingMessagesDictList:
@@ -172,7 +161,6 @@ class User:
             friendRequests=userDict.get("friendRequests", []),
             profile=profile_obj,
             applicationDeleted=userDict.get("applicationDeleted", "UNDEFINED"),
-            outgoingMessages=outgoingMessages,
             incomingMessages=incomingMessages,
         )
 
@@ -230,6 +218,15 @@ class User:
 
     def isFriend(self, username: str):
         return username in self.friends
+
+    def markMessageRead(self, index):
+        self.incomingMessages[index].markRead()
+
+    def deleteMessage(self, index):
+        self.incomingMessages.pop(index)
+
+    def appendToIncomingMessages(self, message):
+        self.incomingMessages.append(message)
 
     # TEST UTILS
     # scans using all key/value pairs in expectedUserDict, then compares to user.

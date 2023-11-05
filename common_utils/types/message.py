@@ -1,7 +1,8 @@
 class Message:
-    def __init__(self, sender: str, receiver: str, message="", read=False, plus=False):
+    def __init__(self, sender: str, receiver: str, subject="", message="", read=False, plus=False):
         self.sender = sender
         self.receiver = receiver
+        self.subject = subject
         self.message = message
         self.read = read
         self.plus = plus
@@ -11,6 +12,7 @@ class Message:
         return {
             "sender": self.sender,
             "receiver": self.receiver,
+            "subject": self.subject,
             "message": self.message,
             "read": self.read,
             "plus": self.plus,
@@ -22,7 +24,24 @@ class Message:
         return self(
             sender=dict.get("sender"),
             receiver=dict.get("receiver"),
+            sbuject=dict.get("subject"),
             message=dict.get("message"),
             read=dict.get("read"),
             plus=dict.get("plus"),
         )
+
+    # return message header
+    def header(self):
+        if self.read:
+            checkBox = "x"
+        else:
+            checkBox = " "
+        return "[{}] From {}: {}".format(checkBox, self.sender, self.subject)
+
+    # return whole message with header and body
+    def __str__(self):
+        return self.header() + "\n" + self.message
+
+    # change read to true
+    def markRead(self):
+        self.read = True
