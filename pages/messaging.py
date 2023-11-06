@@ -57,7 +57,7 @@ def printNewMessage(currentUser: Optional[User] = None) -> Optional[User]:
         else:
             print(invalidInput("1, 2, 3, or X"))
             continue
-        # detect if any of the submenus were exited
+        # detect if any of the submenus were exited, skip message creation if no recipient specified
         if recipient == None:
             continue
         clearScreen()
