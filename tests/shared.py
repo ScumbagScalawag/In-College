@@ -180,11 +180,11 @@ fourAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-            "username": "UNDEFINED",
-            "title": "UNDEFINED",
-            "major": "Undefined",
-            "university": "Undefined",
-            "about": "UNDEFINED",
+            "username": "asdfasdf",
+            "title": "N3RD",
+            "major": "Football",
+            "university": "LSU",
+            "about": "Nope",
             "education": {
                 "school_name": "UNDEFINED",
                 "degree": "UNDEFINED",
@@ -210,11 +210,11 @@ fourAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-            "username": "UNDEFINED",
-            "title": "UNDEFINED",
-            "major": "Undefined",
-            "university": "Undefined",
-            "about": "UNDEFINED",
+            "username": "dummy",
+            "title": ":)",
+            "major": ":)",
+            "university": ":)",
+            "about": ":)",
             "education": {
                 "school_name": "UNDEFINED",
                 "degree": "UNDEFINED",

@@ -106,7 +106,9 @@ def testFriendRemove(monkeypatch, capfd):
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
-        assert printFriendsScreen(testUser) == testUser  # assert printFriendsScreen returns user context correctly
+        assert (
+            printFriendsScreen(testUser) == testUser
+        )  # assert printFriendsScreen returns user context correctly
     except StopIteration:
         pass
 
@@ -134,7 +136,8 @@ def testFriendRemove(monkeypatch, capfd):
     # assert friendUsername not in currentUser["friends"]
     # assert currentUsername not in friendUser["friends"]
 
-#TODO: Fix this test
+
+# TODO: Fix this test
 def testFriendProfile(monkeypatch, capfd):
     # in system
     userDB = UserDatabase([])
@@ -160,7 +163,9 @@ def testFriendProfile(monkeypatch, capfd):
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
-        assert printFriendsScreen(testUser) == testUser  # assert printFriendsScreen returns user context correctly
+        assert (
+            printFriendsScreen(testUser) == testUser
+        )  # assert printFriendsScreen returns user context correctly
     except StopIteration:
         pass
 
