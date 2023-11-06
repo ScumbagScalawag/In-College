@@ -1,11 +1,15 @@
 from typing import Optional
 
-from common_utils.messages import anyButtonToContinueMessage, invalidInput, returnToPreviousMenuMessage
+from common_utils.messages import (
+    anyButtonToContinueMessage,
+    invalidInput,
+    returnToPreviousMenuMessage,
+)
 from common_utils.types.user import User
 from common_utils.utils import clearScreen, printOptionList
-
 from pages.friend_search import printFriendSearchScreen
 from pages.job_search import printJobSearchScreen
+from pages.messaging import printMessagingScreen
 from pages.show_my_network import printShowMyNetworkScreen
 from pages.skill_search import printSkillScreen
 
@@ -24,6 +28,8 @@ def printMainMenu(currentUser: Optional[User]) -> Optional[User]:
             currentUser = printShowMyNetworkScreen(currentUser)
         elif userInput == "4":
             currentUser = printSkillScreen(currentUser)
+        elif userInput == "5":
+            currentUser = printMessagingScreen(currentUser)
         elif userInput.upper() == "X":
             print("Exiting InCollege")
             break
@@ -41,5 +47,6 @@ mainMenuOptionsList = [
     "2 - Find someone that you know",
     "3 - Show my Network",
     "4 - Learn a skill",
-    returnToPreviousMenuMessage()
+    "5 - InCollege Messaging",
+    returnToPreviousMenuMessage(),
 ]
