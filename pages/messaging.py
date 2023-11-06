@@ -45,17 +45,21 @@ def printNewMessage(currentUser: Optional[User] = None) -> Optional[User]:
         if userInput == "1":
             recipient = chooseByName(currentUser)
         elif userInput == "2":
-            recipient == chooseFromFriends(currentUser)
+            recipient = chooseFromFriends(currentUser)
         elif userInput == "3":
             if currentUser.plusSubscription:
-                recipient == chooseFromAll()
+                recipient = chooseFromAll()
             else:
                 print("That feature is only available for InCollege Plus members")
+                print(anyButtonToContinueMessage())
+                input("")
                 continue
         elif userInput.upper() == "X":
             break
         else:
             print(invalidInput("1, 2, 3, or X"))
+            print(anyButtonToContinueMessage())
+            input("")
             continue
         # detect if any of the submenus were exited, skip message creation if no recipient specified
         if recipient == None:
@@ -138,7 +142,7 @@ def chooseFromFriends(currentUser: Optional[User] = None) -> Optional[User]:
         # display options list
         if len(friendsDict) > 0:
             for option, friend in friendsDict.items():
-                print(f"{option} - {friend}", end="")
+                print(f"{option} - {friend}")
 
         # get input
         print("")
@@ -181,7 +185,7 @@ def chooseFromAll(currentUser: Optional[User] = None) -> Optional[User]:
         # display options list
         if len(usersDict) > 0:
             for option, friend in usersDict.items():
-                print(f"{option} - {friend}", end="")
+                print(f"{option} - {friend}")
 
         # get input
         print("")

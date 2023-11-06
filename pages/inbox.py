@@ -8,7 +8,9 @@ from common_utils.utils import clearScreen, printOptionList
 
 
 def printInbox(currentUser: Optional[User] = None) -> Optional[User]:
+    userDB = UserDatabase()
     while True:
+        userDB.loadUsers()
         # this prints all the messages
         clearScreen()
         printOptionList(inboxOptionsList)
@@ -51,9 +53,11 @@ def printInbox(currentUser: Optional[User] = None) -> Optional[User]:
             userInput = input("")
             if userInput == "1":
                 currentUser.markMessageRead(selected_index)
+                userDB.saveDatabase()
                 break
             elif userInput == "2":
                 currentUser.deleteMessage(selected_index)
+                userDB.saveDatabase()
                 break
             elif userInput == "X":
                 break
@@ -78,7 +82,6 @@ def printInbox(currentUser: Optional[User] = None) -> Optional[User]:
                 break
             else:
                 flag = 1
-        break
 
     return currentUser
 

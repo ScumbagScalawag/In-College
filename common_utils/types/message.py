@@ -24,7 +24,7 @@ class Message:
         return self(
             sender=dict.get("sender"),
             receiver=dict.get("receiver"),
-            sbuject=dict.get("subject"),
+            subject=dict.get("subject"),
             message=dict.get("message"),
             read=dict.get("read"),
             plus=dict.get("plus"),
@@ -60,7 +60,7 @@ def composeMessage(sender, receiver, plus):
         bodyList.append(newLine)
     body = ""
     for line in bodyList:
-        body = body + line
+        body = body.strip(" ") + "\n" + line.strip(" ")
     return Message(
         sender,
         receiver,
