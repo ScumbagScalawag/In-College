@@ -3,6 +3,7 @@ from pages.job_search import printJobSearchScreen, jobOptionsList
 from common_utils.messages import anyButtonToContinueMessage, invalidInput, underConstructionMessage
 from tests.shared import JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
 from common_utils.types.user_database import UserDatabase
+from common_utils.types.job_database import JobDatabase
 from common_utils.types.user import User
 
 
@@ -69,7 +70,9 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
     testUser = User.dictToUser(singleUser)
     userDB = UserDatabase([])
     userDB.addUserDictList(fourAccounts)  # users
-    saveJobDatabase(JSON_JOBS_FP, startingJobDB)  # jobs
+
+    jobDB = JobDatabase()
+    jobDB.addJobDictList(startingJobDB)  # jobs
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
@@ -79,3 +82,15 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
     captured = capfd.readouterr()  # assert captured
     for r in responses:
         assert r in captured.out  # Friend successfully added
+
+
+# TODO: FIX TESTS FOR JOB SEARCH
+# 1. JobSearchUnderConstruction
+# 2. CreateJob
+# 2. MaxJobsReached
+# 3. printSavedJobs
+# 4. Application List
+# 5. not applied list
+# 6. delete job
+# 7. invalid selection
+# X. Return to Main Menu
