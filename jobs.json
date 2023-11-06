@@ -1,11 +1,22 @@
 {
     "joblist": [
         {
-            "title": "Chocolate Taster",
-            "description": "Test Chocolate",
-            "employer": "Hershey Chocolate Company",
-            "location": "Hershey, Pennsylvania",
-            "salary": "1",
+            "title": "Software Engineer",
+            "description": "Developing software applications",
+            "employer": "Company A",
+            "location": "San Francisco, CA",
+            "salary": "90000",
+            "firstname": "Jo",
+            "lastname": "Mama",
+            "applicants": [],
+            "saved": []
+        },
+        {
+            "title": "Data Analyst",
+            "description": "Analyzing data and generating reports",
+            "employer": "Data Analytics Inc.",
+            "location": "New York, NY",
+            "salary": "75000",
             "firstname": "Noah",
             "lastname": "McIvor",
             "applicants": [
@@ -16,19 +27,26 @@
             ]
         },
         {
-            "title": "Ciropratic Assistant",
-            "description": "Assist Ciropractor",
-            "employer": "Dr. Smith's Ciropractic",
-            "location": "Tampa, Florida",
-            "salary": "17",
-            "firstname": "Joe",
-            "lastname": "Mama",
-            "applicants": [
-                "asdfasdf"
-            ],
-            "saved": [
-                "asdfasdf"
-            ]
+            "title": "Potato Masher",
+            "description": "Mashes potatos and mixes in butter",
+            "employer": "JP Morgan",
+            "location": "Miami, FL",
+            "salary": "1000000",
+            "firstname": "Noah",
+            "lastname": "McIvor",
+            "applicants": [],
+            "saved": []
+        },
+        {
+            "title": "Magician",
+            "description": "Maintain linux servers",
+            "employer": "Amazon",
+            "location": "Miami, OH",
+            "salary": "275000",
+            "firstname": "Noah",
+            "lastname": "McIvor",
+            "applicants": [],
+            "saved": []
         }
     ]
 }
