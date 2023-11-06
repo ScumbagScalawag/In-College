@@ -1,11 +1,13 @@
 # from common_utils.types.jobs import deleteJob
 from pages.application import applyToJob
-#from common_utils.utils import loadJobs
+
+# from common_utils.utils import loadJobs
 import pytest
 import json
 from tests.shared import JSON_JOBS_FP, fourAccounts
 from common_utils.types.user import User
-#from pages.application import createJob
+
+# from pages.application import createJob
 
 # @pytest.fixture
 # def setup_jobs():
@@ -136,4 +138,3 @@ from common_utils.types.user import User
 #     captured = capfd.readouterr()
 #     for r in responses:
 #         assert r in captured.out
-
