@@ -48,7 +48,7 @@ def printNewMessage(currentUser: Optional[User] = None) -> Optional[User]:
             recipient = chooseFromFriends(currentUser)
         elif userInput == "3":
             if currentUser.plusSubscription:
-                recipient = chooseFromAll()
+                recipient = chooseFromAll(currentUser)
             else:
                 print("That feature is only available for InCollege Plus members")
                 print(anyButtonToContinueMessage())
