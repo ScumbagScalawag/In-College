@@ -1,5 +1,6 @@
 import json
 
+from common_utils.types.message import Message
 from common_utils.types.profile import Profile
 
 
@@ -26,6 +27,7 @@ class User:
         friendRequests=[],
         profile=None,
         applicationDeleted="UNDEFINED",
+        incomingMessages=[],
     ):
         self.username = username
         self.password = password
@@ -45,6 +47,7 @@ class User:
         self.friendRequests = friendRequests
         self.profile = Profile() if profile is None else profile
         self.applicationDeleted = applicationDeleted
+        self.incomingMessages = incomingMessages
 
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
@@ -65,6 +68,7 @@ class User:
         self.friendRequests = otherUser.friendRequests.copy()
         self.profile.copyValues(otherUser.profile)
         self.applicationDeleted = otherUser.applicationDeleted
+        self.incomingMessages = otherUser.incomingMessages.copy()
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -83,6 +87,9 @@ class User:
 
     # return the Dict translation
     def toDict(self):
+        incomingMessagesDictList = []
+        for message in self.incomingMessages:
+            incomingMessagesDictList.append(message.toDict())
         return {
             "username": self.username,
             "password": self.password,
@@ -101,6 +108,7 @@ class User:
             "friendRequests": self.friendRequests,
             "profile": self.profile.toDict() if self.profile else None,
             "applicationDeleted": self.applicationDeleted,
+            "incomingMessages": incomingMessagesDictList,
         }
 
     def hasPendingFriendRequestTo(self, username: str):
@@ -111,6 +119,11 @@ class User:
             raise TypeError
 
         return False
+
+    def hasUnreadMessages(self):
+        for message in self.incomingMessages:
+            if message.read == False:
+                return True
 
     # The attributes can be retrieved manually. like this: userObject.firstname
 
@@ -124,6 +137,12 @@ class User:
         profile_obj = None
         if profile_data:
             profile_obj = Profile.dictToProfile(profile_data)
+
+        incomingMessages = []
+        incomingMessagesDictList = userDict.get("incomingMessages")
+        if incomingMessagesDictList is not None:
+            for message in incomingMessagesDictList:
+                incomingMessages.append(Message.dictToMessage(message))
 
         return cls(
             username=userDict.get("username", "UNDEFINED"),
@@ -143,6 +162,7 @@ class User:
             friendRequests=userDict.get("friendRequests", []),
             profile=profile_obj,
             applicationDeleted=userDict.get("applicationDeleted", "UNDEFINED"),
+            incomingMessages=incomingMessages,
         )
 
     def setLanguage(self, language: str):
@@ -199,6 +219,15 @@ class User:
 
     def isFriend(self, username: str):
         return username in self.friends
+
+    def markMessageRead(self, index):
+        self.incomingMessages[index].markRead()
+
+    def deleteMessage(self, index):
+        self.incomingMessages.pop(index)
+
+    def appendToIncomingMessages(self, message):
+        self.incomingMessages.append(message)
 
     # TEST UTILS
     # scans using all key/value pairs in expectedUserDict, then compares to user.

@@ -1,9 +1,10 @@
-# from common_utils.types.jobs import deleteJob
-from pages.application import applyToJob
 
+from pages.application import applyToJob
 # from common_utils.utils import loadJobs
 import pytest
 import json
+
+from pages.job_search import createJob, deleteJob
 from tests.shared import JSON_JOBS_FP, fourAccounts
 from common_utils.types.user import User
 
