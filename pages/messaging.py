@@ -14,6 +14,13 @@ from pages.inbox import printInbox
 
 
 def printMessagingScreen(currentUser: Optional[User] = None) -> Optional[User]:
+    if currentUser == None:
+        clearScreen()
+        print("*** InCollege Messaging ***")
+        print("Messaging is only available for users with accounts")
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
     while True:
         clearScreen()
         printOptionList(messagingOptionsList)
