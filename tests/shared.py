@@ -22,19 +22,20 @@ singleUser = {
     "adSub": True,
     "friends": [],
     "friendRequests": [],
-        "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+    "profile": {
+        "username": "UNDEFINED",
+        "title": "UNDEFINED",
+        "major": "Undefined",
+        "university": "Undefined",
+        "about": "UNDEFINED",
+        "education": {
+            "school_name": "UNDEFINED",
+            "degree": "UNDEFINED",
+            "years_attended": "UNDEFINED",
+        },
+        "experiences": [],
+    },
+    "applicationDeleted": "UNDEFINED",
 }
 
 # A user with no Defualt values to ensure r/w operations are working
@@ -53,19 +54,20 @@ nonDefualtsSingleUser = {
     "adSub": False,
     "friends": ["someUser"],
     "friendRequests": ["someOtherUser", "anotherUser"],
-        "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+    "profile": {
+        "username": "UNDEFINED",
+        "title": "UNDEFINED",
+        "major": "Undefined",
+        "university": "Undefined",
+        "about": "UNDEFINED",
+        "education": {
+            "school_name": "UNDEFINED",
+            "degree": "UNDEFINED",
+            "years_attended": "UNDEFINED",
+        },
+        "experiences": [],
+    },
+    "applicationDeleted": "UNDEFINED",
 }
 # Three Accounts does not include single user
 threeAccounts = [
@@ -85,18 +87,19 @@ threeAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "sillyBoi",
@@ -114,18 +117,19 @@ threeAccounts = [
         "friends": [],
         "friendRequests": ["notKaren", "dummy"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "dummyDude",
@@ -143,18 +147,19 @@ threeAccounts = [
         "friends": [],
         "friendRequests": ["admin"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
 ]
 # four accounts = three + single user
@@ -175,18 +180,19 @@ fourAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "asdfasdf",
+            "title": "N3RD",
+            "major": "Football",
+            "university": "LSU",
+            "about": "Nope",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "dummy",
@@ -204,18 +210,19 @@ fourAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "dummy",
+            "title": ":)",
+            "major": ":)",
+            "university": ":)",
+            "about": ":)",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "sillyBoi",
@@ -233,18 +240,19 @@ fourAccounts = [
         "friends": [],
         "friendRequests": ["dummy"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "dummyDude",
@@ -262,18 +270,19 @@ fourAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
 ]
 # 5 = 3 + 1 + 1
@@ -294,18 +303,19 @@ fiveAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "sillyBoi",
@@ -323,18 +333,19 @@ fiveAccounts = [
         "friends": [],
         "friendRequests": ["notKaren", "dummy"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "dummyDude",
@@ -352,18 +363,19 @@ fiveAccounts = [
         "friends": [],
         "friendRequests": ["admin"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "notKaren",
@@ -381,18 +393,19 @@ fiveAccounts = [
         "friends": [],
         "friendRequests": ["dummy"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "theSilliestOfAll",
@@ -410,18 +423,19 @@ fiveAccounts = [
         "friends": [],
         "friendRequests": [""],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
 ]
 
@@ -442,18 +456,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "sillyBoi",
@@ -471,18 +486,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": ["notKaren", "dummy"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "dummyDude",
@@ -500,18 +516,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": ["admin"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "notKaren",
@@ -529,18 +546,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": ["dummy"],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "theSilliestOfAll",
@@ -558,18 +576,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": [""],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "A",
@@ -587,18 +606,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": [""],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "B",
@@ -616,18 +636,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": [""],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "C",
@@ -645,18 +666,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": [""],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "D",
@@ -674,18 +696,19 @@ tenAccounts = [
         "friends": [],
         "friendRequests": [""],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
     {
         "username": "E",
@@ -703,33 +726,57 @@ tenAccounts = [
         "friends": [],
         "friendRequests": [""],
         "profile": {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                },
+            "username": "UNDEFINED",
+            "title": "UNDEFINED",
+            "major": "Undefined",
+            "university": "Undefined",
+            "about": "UNDEFINED",
+            "education": {
+                "school_name": "UNDEFINED",
+                "degree": "UNDEFINED",
+                "years_attended": "UNDEFINED",
+            },
+            "experiences": [],
+        },
+        "applicationDeleted": "UNDEFINED",
     },
 ]
 
 # ------- ]]]
 
 # Jobs ------ [[[
-singleJob = {
-    "title": "Chocolate Taster",
-    "description": "Test Chocolate",
-    "employer": "Hershey Chocolate Company",
-    "location": "Hershey, Pennsylvania",
-    "salary": "1",
-    "firstname": "Noah",
-    "lastname": "McIvor",
-}
+twoJobs = [
+    {
+        "title": "Chocolate Taster",
+        "description": "Test Chocolate",
+        "employer": "Hershey Chocolate Company",
+        "location": "Hershey, Pennsylvania",
+        "salary": "1",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [
+            "asdfasdf",
+        ],
+        "saved": [
+            "asdfasdf",
+        ],
+    },
+    {
+        "title": "Ciropratic Assistant",
+        "description": "Assist Ciropractor",
+        "employer": "Dr. Smith's Ciropractic",
+        "location": "Tampa, Florida",
+        "salary": "17",
+        "firstname": "Joe",
+        "lastname": "Mama",
+        "applicants": [
+            "asdfasdf",
+        ],
+        "saved": [
+            "asdfasdf",
+        ],
+    },
+]
 
 # Used to check when under maximum number of jobs
 fourJobs = [
@@ -739,8 +786,17 @@ fourJobs = [
         "employer": "Company A",
         "location": "San Francisco, CA",
         "salary": "90000",
-        "firstname": "Noah",
-        "lastname": "McIvor",
+        "firstname": "Jo",
+        "lastname": "Mama",
+        "applicants": [
+            {
+                "username": "asdfasdf",
+                "graduation": "01/01/2020",
+                "start": "02/01/2020",
+                "reason": "I want to work here",
+            }
+        ],
+        "saved": [],
     },
     {
         "title": "Data Analyst",
@@ -748,8 +804,10 @@ fourJobs = [
         "employer": "Data Analytics Inc.",
         "location": "New York, NY",
         "salary": "75000",
-        "firstname": "Noah",
-        "lastname": "McIvor",
+        "firstname": "Jo",
+        "lastname": "Mama",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Potato Masher",
@@ -759,6 +817,8 @@ fourJobs = [
         "salary": "1000000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Magician",
@@ -768,6 +828,8 @@ fourJobs = [
         "salary": "275000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
 ]
 
@@ -781,6 +843,8 @@ fiveJobs = [
         "salary": "90000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Data Analyst",
@@ -790,6 +854,8 @@ fiveJobs = [
         "salary": "75000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Potato Masher",
@@ -799,6 +865,8 @@ fiveJobs = [
         "salary": "1000000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Magician",
@@ -808,6 +876,8 @@ fiveJobs = [
         "salary": "275000",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
     {
         "title": "Pokemon Trainer",
@@ -817,46 +887,158 @@ fiveJobs = [
         "salary": "0",
         "firstname": "Noah",
         "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
     },
 ]
+# fiveJobs + 5 more I made up
+tenJobs = [
+    {
+        "title": "Software Engineer",
+        "description": "Developing software applications",
+        "employer": "Company A",
+        "location": "San Francisco, CA",
+        "salary": "90000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Data Analyst",
+        "description": "Analyzing data and generating reports",
+        "employer": "Data Analytics Inc.",
+        "location": "New York, NY",
+        "salary": "75000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Potato Masher",
+        "description": "Mashes potatos and mixes in butter",
+        "employer": "JP Morgan",
+        "location": "Miami, FL",
+        "salary": "1000000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Magician",
+        "description": "Maintain linux servers",
+        "employer": "Amazon",
+        "location": "Miami, OH",
+        "salary": "275000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Pokemon Trainer",
+        "description": "Capture, train, and battle with a team of Pokemon",
+        "employer": "Professor Oak",
+        "location": "Pallet Town, KA",
+        "salary": "0",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Forhead Kisser",
+        "description": "Kiss forheads",
+        "employer": "Kiss forheads Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Butt Operator",
+        "description": "Operate butts",
+        "employer": "Butt Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Book Checker",
+        "description": "Check books",
+        "employer": "Book Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Sweater Wearer",
+        "description": "Wear sweaters",
+        "employer": "Sweater Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Pencil Sharpener",
+        "description": "Sharpen pencils",
+        "employer": "Pencil Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+]
+
 
 # ------- ]]]
 
 # Profiles ------ [[[
 
 emptyProfile = {
-                    "username": "UNDEFINED",
-                    "title": "UNDEFINED",
-                    "major": "Undefined",
-                    "university": "Undefined",
-                    "about": "UNDEFINED",
-                    "education": {
-                        "school_name": "UNDEFINED",
-                        "degree": "UNDEFINED",
-                        "years_attended": "UNDEFINED"
-                    },
-                    "experiences": []
-                }
+    "username": "UNDEFINED",
+    "title": "UNDEFINED",
+    "major": "Undefined",
+    "university": "Undefined",
+    "about": "UNDEFINED",
+    "education": {"school_name": "UNDEFINED", "degree": "UNDEFINED", "years_attended": "UNDEFINED"},
+    "experiences": [],
+}
 
 sampleProfile = {
-                    "username": "asdfasdf",
-                    "title": "Software Engineer",
-                    "major": "Cs",
-                    "university": "Usf",
-                    "about": "I like trains",
-                    "education": {
-                        "school_name": "USF",
-                        "degree": "Bachelors in Computer Science",
-                        "years_attended": "4"
-                    },
-                    "experiences": [
-                        {
-                            "job_title": "Software Intern",
-                            "employer": "Google",
-                            "date_started": "May 2020",
-                            "date_ended": "August 2020",
-                            "location": "Tampa, FL",
-                            "description": "Idk whatever they do at google"
-                        }
-                    ]
-                }
+    "username": "asdfasdf",
+    "title": "Software Engineer",
+    "major": "Cs",
+    "university": "Usf",
+    "about": "I like trains",
+    "education": {
+        "school_name": "USF",
+        "degree": "Bachelors in Computer Science",
+        "years_attended": "4",
+    },
+    "experiences": [
+        {
+            "job_title": "Software Intern",
+            "employer": "Google",
+            "date_started": "May 2020",
+            "date_ended": "August 2020",
+            "location": "Tampa, FL",
+            "description": "Idk whatever they do at google",
+        }
+    ],
+}

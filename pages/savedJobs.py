@@ -1,31 +1,27 @@
-import json
-from datetime import datetime
-from typing import Optional
-
 from common_utils.messages import (
     anyButtonToContinueMessage,
-    invalidInput,
-    returnToPreviousMenuMessage,
-    underConstructionMessage,
 )
-from common_utils.types.jobs import createJob, saveJob, saveJobDatabase
-from common_utils.types.user import User
-from common_utils.types.user_database import UserDatabase
 from common_utils.utils import (
     JSON_JOBS_FP,
     clearScreen,
-    loadJobs,
-    notLoggedIn,
-    printOptionList,
 )
+from common_utils.types.job_database import JobDatabase
 
 
 def createSavedJob(jobIndex, currentUser):
     clearScreen()
-    jobs = loadJobs()
-
-    jobs[jobIndex]["saved"].append(currentUser.username)
-    saveJobDatabase(JSON_JOBS_FP, jobs)
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.getJobListDict()
+    # jobs = loadJobs() #Delete me
+    jobs[jobIndex]["saved"].append(
+        {
+            "username": currentUser.username,
+        }
+    )
+    # jobDB.joblist = jobs
+    jobDB.saveDatabase()
+    # saveJobDatabase(JSON_JOBS_FP, jobs) #Delete me
     print("Sucessfully saved job")
     print(anyButtonToContinueMessage())
     input("")
@@ -35,12 +31,28 @@ def createSavedJob(jobIndex, currentUser):
 
 def deletedSavedJob(jobIndex, currentUser):
     clearScreen()
-    jobs = loadJobs()
-    jobs[jobIndex]["saved"].remove(currentUser.username)
-    saveJobDatabase(JSON_JOBS_FP, jobs)
-    print("Sucessfully removed job")
-    print(anyButtonToContinueMessage())
-    input("")
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.getJobListDict()
+    # jobs = loadJobs() #Delete me
+    flag = False
+    for savedJob in jobs[jobIndex]["saved"]:
+        if savedJob["username"] == currentUser.username:
+            jobs[jobIndex]["saved"].remove(savedJob)
+            jobDB.saveDatabase()
+            print("Sucessfully removed job")
+            print(anyButtonToContinueMessage())
+            input("")
+            flag == True
+            break
+
+    if flag == False:
+        print("Job not found in saved list")
+        print(anyButtonToContinueMessage())
+        input("")
+    # jobs[jobIndex]["saved"].remove(currentUser.username)
+    # jobDB.joblist = jobs
+    # saveJobDatabase(JSON_JOBS_FP, jobs)
 
     return currentUser
 
@@ -48,13 +60,16 @@ def deletedSavedJob(jobIndex, currentUser):
 def printSavedJobs(currentUser):
     clearScreen()
     print("*** Saved Jobs ***")
-    jobs = loadJobs()
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    jobs = jobDB.getJobListDict()
+    # jobs = loadJobs() #Delete me
     totalJobs = len(jobs)
     savedList = []
     for i in range(0, totalJobs):
         totalUsersSaved = len(jobs[i]["saved"])
         for j in range(0, totalUsersSaved):
-            if currentUser.username == jobs[i]["saved"][j]:
+            if currentUser.username == jobs[i]["saved"][j]["username"]:
                 savedList.append(jobs[i]["title"])
             j += 1
         i += 1

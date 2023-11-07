@@ -37,6 +37,7 @@ def testNoFriendRequests(monkeypatch, capfd):
         assert r in captured.out
 
 
+# TODO Fix this test
 def testFriendRequestDisplay(monkeypatch, capfd):
     # in system
     userDB = UserDatabase([])
