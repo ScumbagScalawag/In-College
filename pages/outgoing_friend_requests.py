@@ -29,7 +29,7 @@ def printOutgoingFriendRequestsScreen(currentUser: Optional[User] = None) -> Opt
         clearScreen()
         printOptionList(outgoingFriendRequestOptions)
 
-        if len(currentUser.friends) <= 0:
+        if len(currentUser.friendRequests) <= 0:
             print("You currently have no outgoing friend requests.", findFriendsRecommendation())
             print(anyButtonToContinueMessage())
             input("")
