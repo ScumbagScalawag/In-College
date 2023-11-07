@@ -1,7 +1,7 @@
 import pytest
 from pages.job_search import printJobSearchScreen, jobOptionsList
 from common_utils.messages import anyButtonToContinueMessage, invalidInput, underConstructionMessage
-from tests.shared import JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts
+from tests.shared import JSON_JOBS_FP, singleUser, fourJobs, fiveJobs, fourAccounts, tenJobs
 from common_utils.types.user_database import UserDatabase
 from common_utils.types.job_database import JobDatabase
 from common_utils.types.user import User
@@ -11,10 +11,10 @@ from common_utils.types.user import User
     "mock_input,responses,startingJobDB,expectedReturn",
     [
         (
-            ["1", "anything"],
+            ["1", "X"],
             [
                 *jobOptionsList,
-                underConstructionMessage(),
+                "Current Open Positions:",
             ],
             [],
             [0],
@@ -36,7 +36,7 @@ from common_utils.types.user import User
                 "All permitted jobs have been posted, please try again later",
                 anyButtonToContinueMessage(),
             ],
-            fiveJobs,
+            tenJobs,
             singleUser,
         ),
         (
@@ -58,7 +58,7 @@ from common_utils.types.user import User
         ),
     ],
     ids=[
-        "1-JobSearchUnderConstruction",
+        "1-JobSearch",
         "2-CreateJob",
         "2-MaxJobsReached",
         "3-ReturnMain",
@@ -85,7 +85,6 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
 
 
 # TODO: FIX TESTS FOR JOB SEARCH
-# 1. JobSearchUnderConstruction
 # 2. CreateJob
 # 2. MaxJobsReached
 # 3. printSavedJobs
@@ -94,3 +93,38 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
 # 6. delete job
 # 7. invalid selection
 # X. Return to Main Menu
+
+
+# Application Deleted
+# temp test to test jobSearch
+def test_jobSearch(monkeypatch, capfd):
+    userDB = UserDatabase([])
+    jobDB = JobDatabase()
+    jobDB.addJobDictList(fourJobs)
+    userDB.addUserDictList(fourAccounts)
+    # Must create User object from singleUser Dict. See @classmethod dictToUser
+    testUser = userDB.getUser(singleUser["username"])
+
+    input_generator = iter(
+        [
+            "1",
+            "X",
+        ]
+    )  # Make it choose to remove friend here
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+
+    try:
+        assert (
+            printJobSearchScreen(testUser) == testUser
+        )  # assert printFriendsScreen returns user context correctly
+    except StopIteration:
+        pass
+
+    captured = capfd.readouterr()  # assert captured
+    responses = [
+        *jobOptionsList,
+        "Current Open Positions:",
+    ]
+
+    for r in responses:
+        assert r in captured.out
