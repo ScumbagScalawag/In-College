@@ -293,8 +293,10 @@ def deleteJob(currentUser):
     # Get user input for which job to delete
     jobToDelete = input("Which job would you like to delete? ")
     # Check if the job exists
+    jobFoundFlag = False
     for i in range(0, len(jobs)):
         if jobs[i]["title"] == jobToDelete:
+            jobFoundFlag = True
             # Check if the current user is the poster of the job
             if (
                 jobs[i]["firstname"] == currentUser.firstname
@@ -314,7 +316,7 @@ def deleteJob(currentUser):
                 del jobs[i]
 
                 jobDB.joblist = jobs
-                jobDB.saveDatabase()
+                #jobDB.saveDatabase()
 
                 print("Job deleted successfully")
                 print(anyButtonToContinueMessage())
@@ -326,11 +328,12 @@ def deleteJob(currentUser):
                 input("")
                 return currentUser
         else:
-            print("Job does not exist")
-            print(anyButtonToContinueMessage())
-            input("")
-            return currentUser
-
+            continue
+    if jobFoundFlag == False:
+        print("Job does not exist")
+        print(anyButtonToContinueMessage())
+        input("")
+        return currentUser
     # Save the job database
     jobDB.saveDatabase()  # TODO This is not needed
     # saveJobDatabase(JSON_JOBS_FP, jobs)

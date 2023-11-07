@@ -6,9 +6,16 @@
             "employer": "Company A",
             "location": "San Francisco, CA",
             "salary": "90000",
-            "firstname": "Noah",
-            "lastname": "McIvor",
-            "applicants": [],
+            "firstname": "Bojangle",
+            "lastname": "McGee",
+            "applicants": [
+                {
+                    "username": "asdfasdf",
+                    "graduation": "01/01/2020",
+                    "start": "02/01/2020",
+                    "reason": "I am fit"
+                }
+            ],
             "saved": []
         },
         {
@@ -50,61 +57,6 @@
             "employer": "Professor Oak",
             "location": "Pallet Town, KA",
             "salary": "0",
-            "firstname": "Noah",
-            "lastname": "McIvor",
-            "applicants": [],
-            "saved": []
-        },
-        {
-            "title": "Forhead Kisser",
-            "description": "Kiss forheads",
-            "employer": "Kiss forheads Inc.",
-            "location": "Tampa, FL",
-            "salary": "100000",
-            "firstname": "Noah",
-            "lastname": "McIvor",
-            "applicants": [],
-            "saved": []
-        },
-        {
-            "title": "Butt Operator",
-            "description": "Operate butts",
-            "employer": "Butt Inc.",
-            "location": "Tampa, FL",
-            "salary": "100000",
-            "firstname": "Noah",
-            "lastname": "McIvor",
-            "applicants": [],
-            "saved": []
-        },
-        {
-            "title": "Book Checker",
-            "description": "Check books",
-            "employer": "Book Inc.",
-            "location": "Tampa, FL",
-            "salary": "100000",
-            "firstname": "Noah",
-            "lastname": "McIvor",
-            "applicants": [],
-            "saved": []
-        },
-        {
-            "title": "Sweater Wearer",
-            "description": "Wear sweaters",
-            "employer": "Sweater Inc.",
-            "location": "Tampa, FL",
-            "salary": "100000",
-            "firstname": "Noah",
-            "lastname": "McIvor",
-            "applicants": [],
-            "saved": []
-        },
-        {
-            "title": "Pencil Sharpener",
-            "description": "Sharpen pencils",
-            "employer": "Pencil Inc.",
-            "location": "Tampa, FL",
-            "salary": "100000",
             "firstname": "Noah",
             "lastname": "McIvor",
             "applicants": [],
