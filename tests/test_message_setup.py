@@ -38,8 +38,9 @@ def test_inbox(setup_users, monkeypatch, capfd):
         printMessagingScreen(non_plus_user)
     except StopIteration:
         pass
+    user_db.saveDatabase()
     captured = capfd.readouterr()
-    assert "WaterBoar" in captured.out
+    assert "WaterBoar" in captured.out and non_plus_user.incomingMessages[-1].subject == "WaterBoar"
 
 def test_inbox_marked_read(setup_users, monkeypatch, capfd):
     user_db = setup_users

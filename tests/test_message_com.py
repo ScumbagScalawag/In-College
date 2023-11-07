@@ -83,3 +83,28 @@ def test_send_message_non_plus_to_friend(setup_users, monkeypatch, capfd):
     last_message = recipient_data['incomingMessages'][-1]
     assert last_message[
                'message'].strip() == "Test Message\nSEND"
+
+def test_respond_back(setup_users, monkeypatch, capfd):
+    user_db = setup_users
+    non_plus_user_one = user_db.getUser("user3")
+
+    inputs = iter([
+        "2", "1", "1", "y","subject:sendback", "trying to send body", "SEND"
+    ])
+
+    def mock_input(prompt=""):
+        return next(inputs)
+
+    monkeypatch.setattr('builtins.input', mock_input)
+
+    try:
+        printMessagingScreen(non_plus_user_one)
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    with open(JSON_USERS_FP, 'r') as file:
+        data_after_test = json.load(file)
+    recipient_data = next((user for user in data_after_test['userlist'] if user['username'] == "user2"))
+    last_message = recipient_data['incomingMessages'][-1]
+    assert last_message[
+               'message'].strip() == "trying to send body\nSEND"
