@@ -1,6 +1,4 @@
 import pytest
-
-underConstructionMessage = "under construction, input anything to return"  #
 from common_utils.messages import anyButtonToContinueMessage, invalidInput
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
