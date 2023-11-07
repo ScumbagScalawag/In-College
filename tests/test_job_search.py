@@ -138,38 +138,38 @@ def testJobSearch(mock_input, responses, startingJobDB, expectedReturn, monkeypa
         assert r in captured.out  # Friend successfully added
 
 
-# temp test to test jobSearch
-def testJobSearch(monkeypatch, capfd):
-    userDB = UserDatabase([])
-    jobDB = JobDatabase()
-    jobDB.addJobDictList(fourJobs)
-    userDB.addUserDictList(fourAccounts)
-    # Must create User object from singleUser Dict. See @classmethod dictToUser
-    testUser = userDB.getUser(singleUser["username"])
+# # temp test to test jobSearch
+# def testJobSearch(monkeypatch, capfd):
+#     userDB = UserDatabase([])
+#     jobDB = JobDatabase()
+#     jobDB.addJobDictList(fourJobs)
+#     userDB.addUserDictList(fourAccounts)
+#     # Must create User object from singleUser Dict. See @classmethod dictToUser
+#     testUser = userDB.getUser(singleUser["username"])
 
-    input_generator = iter(
-        [
-            "1",
-            "X",
-        ]
-    )  # Make it choose to remove friend here
-    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+#     input_generator = iter(
+#         [
+#             "1",
+#             "X",
+#         ]
+#     )  # Make it choose to remove friend here
+#     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
-    try:
-        assert (
-            printJobSearchScreen(testUser) == testUser
-        )  # assert printFriendsScreen returns user context correctly
-    except StopIteration:
-        pass
+#     try:
+#         assert (
+#             printJobSearchScreen(testUser) == testUser
+#         )  # assert printFriendsScreen returns user context correctly
+#     except StopIteration:
+#         pass
 
-    captured = capfd.readouterr()  # assert captured
-    responses = [
-        *jobOptionsList,
-        "Current Open Positions:",
-    ]
+#     captured = capfd.readouterr()  # assert captured
+#     responses = [
+#         *jobOptionsList,
+#         "Current Open Positions:",
+#     ]
 
-    for r in responses:
-        assert r in captured.out
+#     for r in responses:
+#         assert r in captured.out
 
 
 def testDeleteJob(monkeypatch, capfd):
@@ -259,14 +259,18 @@ def testPrintJobOptionScreen_CreateSavedJob(monkeypatch, capfd):
     # in system
     userDB = UserDatabase([])
     jobDB = JobDatabase()
-    jobDB.addJobDictList(fourJobs)
+    jobsToEdit = fiveJobs[:]
+    jobsToEdit[0]["firstname"] = "Bojangle"
+    jobsToEdit[0]["lastname"] = "McGee"
+    # Give us something to save
+    jobDB.addJobDictList(jobsToEdit)
     userDB.addUserDictList(fourAccounts)
     # Must create User object from singleUser Dict. See @classmethod dictToUser
     testUser = User.dictToUser(singleUser)
 
     input_generator = iter(
         [
-            "1",
+            "2",
             "X",
         ]
     )  # Make it choose to remove friend here
@@ -274,33 +278,40 @@ def testPrintJobOptionScreen_CreateSavedJob(monkeypatch, capfd):
 
     try:
         assert (
-            printJobOptionScreen(testUser) == testUser
+            printJobOptionScreen(0, testUser) == testUser
         )  # assert printFriendsScreen returns user context correctly
+        jobDB.loadJobs()
+        assert jobDB.getJobListDict()[0]["saved"][0]["username"] == singleUser["username"]
     except StopIteration:
         pass
 
     captured = capfd.readouterr()  # assert captured
     responses = [
         *jobListingChoices,
-        "Current Open Positions:",
+        "Sucessfully saved job",
+        anyButtonToContinueMessage(),
     ]
 
     for r in responses:
         assert r in captured.out
 
 
-def testPrintJobOptionScreen_CreateDeleteSavedJob(monkeypatch, capfd):
+def testPrintJobOptionScreen_DeleteSavedJob(monkeypatch, capfd):
     # in system
     userDB = UserDatabase([])
     jobDB = JobDatabase()
-    jobDB.addJobDictList(fourJobs)
+    jobsToEdit = fiveJobs[:]
+    jobsToEdit[0]["firstname"] = "Bojangle"
+    jobsToEdit[0]["lastname"] = "McGee"
+    jobsToEdit[0]["saved"].append({"username": singleUser["username"]})
+    jobDB.addJobDictList(jobsToEdit)
     userDB.addUserDictList(fourAccounts)
     # Must create User object from singleUser Dict. See @classmethod dictToUser
     testUser = User.dictToUser(singleUser)
 
     input_generator = iter(
         [
-            "1",
+            "3",
             "X",
         ]
     )  # Make it choose to remove friend here
@@ -308,15 +319,18 @@ def testPrintJobOptionScreen_CreateDeleteSavedJob(monkeypatch, capfd):
 
     try:
         assert (
-            printJobOptionScreen(testUser) == testUser
+            printJobOptionScreen(0, testUser) == testUser
         )  # assert printFriendsScreen returns user context correctly
+        jobDB.loadJobs()
+        assert jobDB.getJobListDict()[0]["saved"] == []
     except StopIteration:
         pass
 
     captured = capfd.readouterr()  # assert captured
     responses = [
         *jobListingChoices,
-        "Current Open Positions:",
+        "Sucessfully removed job",
+        anyButtonToContinueMessage(),
     ]
 
     for r in responses:

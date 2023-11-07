@@ -8,14 +8,7 @@
             "salary": "90000",
             "firstname": "Bojangle",
             "lastname": "McGee",
-            "applicants": [
-                {
-                    "username": "asdfasdf",
-                    "graduation": "01/01/2020",
-                    "start": "02/01/2020",
-                    "reason": "I am fit"
-                }
-            ],
+            "applicants": [],
             "saved": []
         },
         {

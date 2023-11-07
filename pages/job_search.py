@@ -316,7 +316,7 @@ def deleteJob(currentUser):
                 del jobs[i]
 
                 jobDB.joblist = jobs
-                #jobDB.saveDatabase()
+                # jobDB.saveDatabase()
 
                 print("Job deleted successfully")
                 print(anyButtonToContinueMessage())
@@ -341,6 +341,7 @@ def deleteJob(currentUser):
     return currentUser
 
 
+# DELETE ME this function is not used.
 def removeJob(currentUser: Optional[User] = None) -> Optional[User]:
     # Must be logged in to delete job
     jobs = loadJobs()
