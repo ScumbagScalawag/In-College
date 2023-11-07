@@ -1,6 +1,4 @@
 import pytest
-
-underConstructionMessage = "under construction, input anything to return"  #
 from common_utils.messages import anyButtonToContinueMessage, invalidInput
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
@@ -41,12 +39,18 @@ def tempFunction():  # Temp function is placeholder for function to be imported 
         ),
         (
             ["4"],  # User Agreement
-            [*importantLinksOptionsList, "*** User Agreement ***"],
+            [
+                *importantLinksOptionsList,
+                "*** User Agreement ***",
+            ],
             [],  # I don't know why the formatting is different for these two
         ),
         (
             ["5"],  # Privacy Policy
-            [*importantLinksOptionsList, "*** Privacy Policy ***"],
+            [
+                *importantLinksOptionsList,
+                "*** Privacy Policy ***",
+            ],
             [],  # I don't know why the formatting is different for these two
         ),
         (
@@ -86,6 +90,7 @@ def tempFunction():  # Temp function is placeholder for function to be imported 
             [
                 *importantLinksOptionsList,
                 "*** Languages ***",
+                "Please log in to change language settings",
             ],
             [],
         ),

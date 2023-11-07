@@ -8,7 +8,7 @@ from common_utils.types.experience import Experience
 
 
 def inputWithExit(prompt: str) -> Optional[str]:
-    """Captures input from the user and checks if they want to exit."""
+    """Captures input from the user and checks if they want to exit."""  # Why is this not a # comment?
     user_input = input(prompt)
     if user_input.upper() == "X":
         return None

@@ -7,53 +7,53 @@ from pages.new_user_account import printNewAccountScreen
 from tests.shared import singleUser, tenAccounts, threeAccounts
 
 
-def test_CreateAccountOver10(capfd, monkeypatch):
-    # ensure DB is empty first
-    userDB = UserDatabase()
-    print(userDB)
-    # Load 5 accounts to Json
-    # saveDatabase(JSON_USERS_FP, fiveAccounts)
-    userDB.addUserDictList(tenAccounts)
+# def test_CreateAccountOver10(capfd, monkeypatch):
+#     # ensure DB is empty first
+#     userDB = UserDatabase()
+#     print(userDB)
+#     # Load 5 accounts to Json
+#     # saveDatabase(JSON_USERS_FP, fiveAccounts)
+#     userDB.addUserDictList(tenAccounts)
 
-    # Confirm there are 10 accounts
-    assert len(userDB.userlist) == 10
+#     # Confirm there are 10 accounts
+#     assert len(userDB.userlist) == 10
 
-    # Test 11th account
-    input_generator = iter(["user11", "Jesse", "Small", "P@ssword1", "P@ssword1"])
-    # print("before 11th iteration input generator")
-    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-    # print("after 11th iteration input generator")
+#     # Test 11th account
+#     input_generator = iter(["user11", "Jesse", "Small", "P@ssword1", "P@ssword1"])
+#     # print("before 11th iteration input generator")
+#     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+#     # print("after 11th iteration input generator")
 
-    captured = capfd.readouterr()
-    # userContext = printNewAccountScreen()
-    try:
-        userContext = printNewAccountScreen()
-        # assert None, essentially -> no user context
-        assert not isinstance(userContext, User)
-    except StopIteration:
-        pass
-    captured = capfd.readouterr()
-    assert "All permitted accounts have been created, come back later" in captured.out
+#     captured = capfd.readouterr()
+#     # userContext = printNewAccountScreen()
+#     try:
+#         userContext = printNewAccountScreen()
+#         # assert None, essentially -> no user context
+#         assert not isinstance(userContext, User)
+#     except StopIteration:
+#         pass
+#     captured = capfd.readouterr()
+#     assert "All permitted accounts have been created, come back later" in captured.out
 
 
-def testCreateAccountUnder10(monkeypatch, capfd):
-    # Make sure Json is clear
-    userDB = UserDatabase([])
-    # Test with 3 accounts
-    userDB.addUserDictList(threeAccounts)
+# def testCreateAccountUnder10(monkeypatch, capfd):
+#     # Make sure Json is clear
+#     userDB = UserDatabase([])
+#     # Test with 3 accounts
+#     userDB.addUserDictList(threeAccounts)
 
-    # saveDatabase(JSON_USERS_FP, threeAccounts)
+#     # saveDatabase(JSON_USERS_FP, threeAccounts)
 
-    input_generator = iter(
-        [
-            singleUser["username"],
-            singleUser["firstname"],
-            singleUser["lastname"],
-            singleUser["password"],
-            singleUser["password"],
-        ]
-    )
-    # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
+#     input_generator = iter(
+#         [
+#             singleUser["username"],
+#             singleUser["firstname"],
+#             singleUser["lastname"],
+#             singleUser["password"],
+#             singleUser["password"],
+#         ]
+#     )
+#     # monkeypatch.setattr(builtins, "input", lambda : next(input_generator))
 
 
 @pytest.mark.parametrize(

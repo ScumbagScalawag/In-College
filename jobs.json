@@ -6,10 +6,15 @@
             "employer": "Company A",
             "location": "San Francisco, CA",
             "salary": "90000",
+<<<<<<< HEAD
             "firstname": "Jo",
             "lastname": "Mama",
             "applicants": [],
-            "saved": []
+            "saved": [
+                {
+                    "username": "asdfasdf"
+                }
+            ]
         },
         {
             "title": "Data Analyst",
@@ -39,6 +44,17 @@
             "employer": "Amazon",
             "location": "Miami, OH",
             "salary": "275000",
+            "firstname": "Noah",
+            "lastname": "McIvor",
+            "applicants": [],
+            "saved": []
+        },
+        {
+            "title": "Pokemon Trainer",
+            "description": "Capture, train, and battle with a team of Pokemon",
+            "employer": "Professor Oak",
+            "location": "Pallet Town, KA",
+            "salary": "0",
             "firstname": "Noah",
             "lastname": "McIvor",
             "applicants": [],

@@ -30,7 +30,7 @@ def deletedSavedJob(jobIndex, currentUser):
     jobDB.loadJobs()
     jobs = jobDB.getJobListDict()
     # jobs = loadJobs() #Delete me
-    flag == False
+    flag = False
     for savedJob in jobs[jobIndex]["saved"]:
         if savedJob["username"] == currentUser.username:
             jobs[jobIndex]["saved"].remove(savedJob)
