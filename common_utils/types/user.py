@@ -1,4 +1,5 @@
 import json
+
 from common_utils.types.profile import Profile
 
 
@@ -14,6 +15,7 @@ class User:
         lastname: str = "UNDEFINED",
         uni: str = "UNDEFINED",
         major: str = "UNDEFINED",
+        plusSubscription: bool = False,
         email: str = "UNDEFINED",
         phoneNumber: str = "UNDEFINED",
         language: str = "English",
@@ -31,6 +33,7 @@ class User:
         self.lastname = lastname
         self.uni = uni
         self.major = major
+        self.plusSubscription = plusSubscription
         self.email = email
         self.phoneNumber = phoneNumber
         # self.language = language
@@ -51,6 +54,7 @@ class User:
         self.lastname = otherUser.lastname
         self.uni = otherUser.uni
         self.major = otherUser.major
+        self.plusSubscription = otherUser.plusSubscription
         self.email = otherUser.email
         self.phoneNumber = otherUser.phoneNumber
         self.language = otherUser.language
@@ -86,6 +90,7 @@ class User:
             "lastname": self.lastname,
             "uni": self.uni,
             "major": self.major,
+            "plusSubscription": self.plusSubscription,
             "email": self.email,
             "phoneNumber": self.phoneNumber,
             "language": self.language,
@@ -127,6 +132,7 @@ class User:
             lastname=userDict.get("lastname", "UNDEFINED"),
             uni=userDict.get("uni"),
             major=userDict.get("major"),
+            plusSubscription=userDict.get("plusSubscription", False),
             email=userDict.get("email", "UNDEFINED"),
             phoneNumber=userDict.get("phoneNumber", "UNDEFINED"),
             language=userDict.get("language", "English"),

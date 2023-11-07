@@ -1,9 +1,10 @@
 from typing import Optional
-from common_utils.types.exceptions import MaximumNumberOfUsers
-from common_utils.utils import clearScreen, MAX_USERS
+
 from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage
+from common_utils.types.exceptions import MaximumNumberOfUsers
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
+from common_utils.utils import MAX_USERS, clearScreen
 
 
 # Menu: Add new user account
@@ -37,9 +38,15 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
                 major = input("")
                 print("Password: ", end="")
                 password = input("")  # Get password
+
                 if checkPasswordSecurity(password):  # Is password secure
                     passwordConfirm = input("Confirm password: ")  # Get password confirmation
                     if password == passwordConfirm:  # Confirm passwords
+                        plusSubscription = printSubscription()
+                        if (
+                            plusSubscription == "Error"
+                        ):  # just making sure the program loops correctly
+                            break
                         newUser = User(
                             username,
                             password,
@@ -47,11 +54,12 @@ def printNewAccountScreen(currentUser: Optional[User] = None) -> Optional[User]:
                             lastname,
                             uni,
                             major,
+                            plusSubscription,
                         )
                         # Just in case. Conditional check beforehand should catch this
                         try:
                             userDB.addUser(newUser)
-                        except ( MaximumNumberOfUsers) as e:  
+                        except MaximumNumberOfUsers as e:
                             print(f"Error: {e}")
                             print(anyButtonToContinueMessage())
                             input("")
@@ -115,3 +123,30 @@ def checkPasswordSecurity(password):
         return True  # Password is valid
 
     return False  # Password is invalid
+
+
+def printSubscription():
+    plusSubscription = False  # setting the standard
+    while True:
+        print(
+            "Would you like a In-College Plus Subscription for only $10/month? Press Y to subscribe and N to decline: ",
+            end="",
+        )
+        subscription = input("")  # Get password
+
+        if subscription == "Y" or subscription == "y":
+            plusSubscription = True
+            print("Thank you for subscribing, you will be billed $10 on the 1st of each month.")
+            print(anyButtonToContinueMessage())
+            input("")
+            break
+        elif subscription == "N" or subscription == "n":
+            plusSubscription = False
+            break
+        else:
+            print("Invalid input")
+            print(anyButtonToContinueMessage())
+            input("")
+            plusSubscription = "Error"
+            break
+    return plusSubscription
