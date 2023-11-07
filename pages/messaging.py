@@ -93,7 +93,7 @@ def chooseByName(currentUser: Optional[User] = None) -> Optional[User]:
         print("*** New Message ***")
         print("Enter username of user you would like to message, or X to return to previous menu")
         userInput = input("")
-        if userInput == "X":
+        if userInput == "X" or userInput == "x":
             return None
 
         # load userDB so we can search for user
