@@ -64,11 +64,7 @@ def testCreateSavedJob(monkeypatch, capfd):
     # Must create User object from singleUser Dict. See @classmethod dictToUser
     testUser = User.dictToUser(singleUser)
 
-    input_generator = iter(
-        [
-            "Foam Earplugs",
-        ]
-    )  # Make it choose to remove friend here
+    input_generator = iter(["Foam Earplugs"])
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
@@ -100,7 +96,6 @@ def testDeleteSavedJob_Found(monkeypatch, capfd):
     jobsToEdit[0]["saved"].append({"username": singleUser["username"]})
     jobDB.addJobDictList(jobsToEdit)
     userDB.addUserDictList(fourAccounts)
-    # Must create User object from singleUser Dict. See @classmethod dictToUser
     testUser = User.dictToUser(singleUser)
     input_generator = iter(["Foam Earplugs"])  # Make it choose to remove friend here
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
@@ -132,7 +127,6 @@ def testDeleteSavedJob_NotFound(monkeypatch, capfd):
     # jobsToEdit[0]["saved"].append({"username": singleUser["username"]})
     jobDB.addJobDictList(jobsToEdit)
     userDB.addUserDictList(fourAccounts)
-    # Must create User object from singleUser Dict. See @classmethod dictToUser
     testUser = User.dictToUser(singleUser)
     input_generator = iter(["Foam Earplugs"])  # Make it choose to remove friend here
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
@@ -147,6 +141,36 @@ def testDeleteSavedJob_NotFound(monkeypatch, capfd):
     captured = capfd.readouterr()  # assert captured
     responses = [
         "Job not found in saved list",
+        anyButtonToContinueMessage(),
+    ]
+    for r in responses:
+        assert r in captured.out
+
+
+def testPrintSavedJobs(monkeypatch, capfd):
+    # in system
+    userDB = UserDatabase([])
+    jobDB = JobDatabase()
+    jobsToEdit = fiveJobs[:]
+    jobsToEdit[0]["firstname"] = "Bojangle"
+    jobsToEdit[0]["lastname"] = "McGee"
+    jobsToEdit[0]["saved"].append({"username": singleUser["username"]})
+    # Add a saved jobs
+    jobDB.addJobDictList(jobsToEdit)
+    userDB.addUserDictList(fourAccounts)
+    testUser = User.dictToUser(singleUser)
+    input_generator = iter(["Foam Earplugs"])  # Make it choose to remove friend here
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    try:
+        assert (
+            printSavedJobs(testUser) == testUser
+        )  # assert printFriendsScreen returns user context correctly
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()  # assert captured
+    responses = [
+        "*** Saved Jobs ***",
+        f"1 - {jobsToEdit[0]['title']}",
         anyButtonToContinueMessage(),
     ]
     for r in responses:

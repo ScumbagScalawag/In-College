@@ -9,7 +9,11 @@
             "firstname": "Bojangle",
             "lastname": "McGee",
             "applicants": [],
-            "saved": []
+            "saved": [
+                {
+                    "username": "asdfasdf"
+                }
+            ]
         },
         {
             "title": "Data Analyst",
