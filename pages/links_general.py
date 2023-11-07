@@ -5,7 +5,7 @@ from common_utils.messages import (
     anyButtonToContinueMessage,
     returnToPreviousMenuMessage,
     underConstructionMessage,
-    invalidInput
+    invalidInput,
 )
 from pages.new_user_account import printNewAccountScreen
 

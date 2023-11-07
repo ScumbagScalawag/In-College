@@ -180,11 +180,11 @@ fourAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-            "username": "UNDEFINED",
-            "title": "UNDEFINED",
-            "major": "Undefined",
-            "university": "Undefined",
-            "about": "UNDEFINED",
+            "username": "asdfasdf",
+            "title": "N3RD",
+            "major": "Football",
+            "university": "LSU",
+            "about": "Nope",
             "education": {
                 "school_name": "UNDEFINED",
                 "degree": "UNDEFINED",
@@ -210,11 +210,11 @@ fourAccounts = [
         "friends": [],
         "friendRequests": [],
         "profile": {
-            "username": "UNDEFINED",
-            "title": "UNDEFINED",
-            "major": "Undefined",
-            "university": "Undefined",
-            "about": "UNDEFINED",
+            "username": "dummy",
+            "title": ":)",
+            "major": ":)",
+            "university": ":)",
+            "about": ":)",
             "education": {
                 "school_name": "UNDEFINED",
                 "degree": "UNDEFINED",
@@ -745,7 +745,7 @@ tenAccounts = [
 # ------- ]]]
 
 # Jobs ------ [[[
-singleJob = [
+twoJobs = [
     {
         "title": "Chocolate Taster",
         "description": "Test Chocolate",
@@ -754,8 +754,27 @@ singleJob = [
         "salary": "1",
         "firstname": "Noah",
         "lastname": "McIvor",
-        "applicants": ["asdfasdf"],
-        "saved": ["asdfasdf"],
+        "applicants": [
+            "asdfasdf",
+        ],
+        "saved": [
+            "asdfasdf",
+        ],
+    },
+    {
+        "title": "Ciropratic Assistant",
+        "description": "Assist Ciropractor",
+        "employer": "Dr. Smith's Ciropractic",
+        "location": "Tampa, Florida",
+        "salary": "17",
+        "firstname": "Joe",
+        "lastname": "Mama",
+        "applicants": [
+            "asdfasdf",
+        ],
+        "saved": [
+            "asdfasdf",
+        ],
     },
 ]
 
@@ -769,7 +788,14 @@ fourJobs = [
         "salary": "90000",
         "firstname": "Jo",
         "lastname": "Mama",
-        "applicants": [],
+        "applicants": [
+            {
+                "username": "asdfasdf",
+                "graduation": "01/01/2020",
+                "start": "02/01/2020",
+                "reason": "I want to work here",
+            }
+        ],
         "saved": [],
     },
     {
@@ -778,8 +804,8 @@ fourJobs = [
         "employer": "Data Analytics Inc.",
         "location": "New York, NY",
         "salary": "75000",
-        "firstname": "Noah",
-        "lastname": "McIvor",
+        "firstname": "Jo",
+        "lastname": "Mama",
         "applicants": [],
         "saved": [],
     },
@@ -865,6 +891,120 @@ fiveJobs = [
         "saved": [],
     },
 ]
+# fiveJobs + 5 more I made up
+tenJobs = [
+    {
+        "title": "Software Engineer",
+        "description": "Developing software applications",
+        "employer": "Company A",
+        "location": "San Francisco, CA",
+        "salary": "90000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Data Analyst",
+        "description": "Analyzing data and generating reports",
+        "employer": "Data Analytics Inc.",
+        "location": "New York, NY",
+        "salary": "75000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Potato Masher",
+        "description": "Mashes potatos and mixes in butter",
+        "employer": "JP Morgan",
+        "location": "Miami, FL",
+        "salary": "1000000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Magician",
+        "description": "Maintain linux servers",
+        "employer": "Amazon",
+        "location": "Miami, OH",
+        "salary": "275000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Pokemon Trainer",
+        "description": "Capture, train, and battle with a team of Pokemon",
+        "employer": "Professor Oak",
+        "location": "Pallet Town, KA",
+        "salary": "0",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Forhead Kisser",
+        "description": "Kiss forheads",
+        "employer": "Kiss forheads Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Butt Operator",
+        "description": "Operate butts",
+        "employer": "Butt Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Book Checker",
+        "description": "Check books",
+        "employer": "Book Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Sweater Wearer",
+        "description": "Wear sweaters",
+        "employer": "Sweater Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+    {
+        "title": "Pencil Sharpener",
+        "description": "Sharpen pencils",
+        "employer": "Pencil Inc.",
+        "location": "Tampa, FL",
+        "salary": "100000",
+        "firstname": "Noah",
+        "lastname": "McIvor",
+        "applicants": [],
+        "saved": [],
+    },
+]
+
 
 # ------- ]]]
 

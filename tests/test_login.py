@@ -1,7 +1,4 @@
-from unittest.mock import patch
-
 import pytest
-
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from pages.login import printLoginScreen

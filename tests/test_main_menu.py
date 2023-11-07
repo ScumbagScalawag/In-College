@@ -2,6 +2,7 @@ import pytest  # needed for pytest
 from pages.main_menu import printMainMenu, mainMenuOptionsList
 from common_utils.messages import invalidInput
 
+
 ############################
 # ADD TEST FOR NETWORK
 ############################
@@ -48,9 +49,14 @@ from common_utils.messages import invalidInput
             ],
             None,
         ),
-
     ],
-    ids=["1-JobSearch", "2-FriendSearch", "3-Skill", "X-Exit", "Invalid Selection"],
+    ids=[
+        "1-JobSearch",
+        "2-FriendSearch",
+        "3-Skill",
+        "X-Exit",
+        "Invalid Selection",
+    ],
 )
 def testPrintMainMenu(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
