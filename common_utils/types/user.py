@@ -140,8 +140,9 @@ class User:
 
         incomingMessages = []
         incomingMessagesDictList = userDict.get("incomingMessages")
-        for message in incomingMessagesDictList:
-            incomingMessages.append(Message.dictToMessage(message))
+        if incomingMessagesDictList is not None:
+            for message in incomingMessagesDictList:
+                incomingMessages.append(Message.dictToMessage(message))
 
         return cls(
             username=userDict.get("username", "UNDEFINED"),

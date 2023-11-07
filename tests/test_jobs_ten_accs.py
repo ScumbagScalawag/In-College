@@ -1,5 +1,7 @@
 import pytest
 import json
+
+from pages.job_search import createJob
 from tests.shared import JSON_JOBS_FP, fourAccounts
 from common_utils.types.user import User
 
@@ -38,18 +40,18 @@ def setup_jobs():
         f.write(original_data)
 
 
-# def test_exceeding_job_limit(monkeypatch, capfd, setup_jobs):
-#     input_generator = iter(
-#         ["11th Job", "11th Description", "11th Employer", "11th Location", "11th Salary"]
-#     )
-#     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+def test_exceeding_job_limit(monkeypatch, capfd, setup_jobs):
+    input_generator = iter(
+        ["11th Job", "11th Description", "11th Employer", "11th Location", "11th Salary"]
+    )
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
-#     currentUser = User.dictToUser(fourAccounts[0])
+    currentUser = User.dictToUser(fourAccounts[0])
 
-#     try:
-#         createJob(currentUser)
-#     except StopIteration:
-#         pass
+    try:
+        createJob(currentUser)
+    except StopIteration:
+        pass
 
-#     captured = capfd.readouterr()
-#     assert "All permitted jobs have been posted, please try again later" in captured.out
+    captured = capfd.readouterr()
+    assert "All permitted jobs have been posted, please try again later" in captured.out
