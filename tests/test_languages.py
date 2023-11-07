@@ -21,17 +21,36 @@ def test_printLanguagesScreen_LoggedOut(monkeypatch, capfd):
         assert r in captured.out
 
 
-def test_printLanguagesScreen_LoggedIn(monkeypatch, capfd):
-    mock_input = [""]
+def test_printLanguagesScreen_LoggedIn_Spanish(monkeypatch, capfd):
+    mock_input = ["2"]
     responses = [
         *languageLoggedInOptions,
-        anyButtonToContinueMessage(),
     ]
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     testUser = User.dictToUser(singleUser)
     try:
         assert printLanguagesScreen(testUser) == testUser
+        assert testUser.language == "Spanish"
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    for r in responses:
+        assert r in captured.out
+
+
+def test_printLanguagesScreen_LoggedIn_English(monkeypatch, capfd):
+    mock_input = ["1"]
+    responses = [
+        *languageLoggedInOptions,
+    ]
+    input_generator = iter(mock_input)
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    testUser = User.dictToUser(singleUser)
+    testUser.language = "Spanish"
+    try:
+        assert printLanguagesScreen(testUser) == testUser
+        assert testUser.language == "English"
     except StopIteration:
         pass
     captured = capfd.readouterr()
