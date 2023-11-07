@@ -3,7 +3,7 @@ from pages.user_agreement import printUserAgreementScreen, userAgreementOptions
 import pytest
 
 
-def test_printAboutScreen(monkeypatch, capfd):
+def testPrintUserAgreementScreen(monkeypatch, capfd):
     mock_input = [""]
     responses = [
         *userAgreementOptions,
