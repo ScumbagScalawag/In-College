@@ -80,6 +80,7 @@ def printNewMessage(currentUser: Optional[User] = None) -> Optional[User]:
         userDB = UserDatabase()
         userDB.loadUsers()
         userDB.addMessage(newMessage)
+        userDB.saveDatabase()
     return currentUser
 
 
