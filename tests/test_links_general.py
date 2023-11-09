@@ -110,3 +110,30 @@ def testPrintGeneralScreen(mock_input, responses, expectedReturn, monkeypatch, c
     captured = capfd.readouterr()
     for r in responses:
         assert r in captured.out
+
+
+# Test to see if option 7 shows up if logged in
+# Expected to fail until general screen is fixed.
+def testPrintGeneralSignUpNotShown(monkeypatch, capfd):
+    userDB = UserDatabase([])
+    userDB.addUserDictList(fourAccounts)
+    testUser = User.dictToUser(singleUser)
+
+    mock_input = ["anything"]
+    responses = [
+        *generalOptionsList,
+    ]
+    responses_missing = [
+        "7 - Sign up",
+    ]
+    input_generator = iter(mock_input)
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    try:
+        assert printGeneralScreen(testUser) == testUser
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    for r in responses:
+        assert r in captured.out
+    for r in responses_missing:
+        assert r not in captured.out

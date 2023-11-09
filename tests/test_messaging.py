@@ -239,4 +239,6 @@ def testChooseByName(mock_input, username, responses, expected_return, monkeypat
     for r in responses:
         assert r in captured.out
 
+
 def testChooseFromFriends(monkeypatch, capfd):
+    pass
