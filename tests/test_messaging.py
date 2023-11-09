@@ -7,6 +7,7 @@ from pages.messaging import (
     messagingOptionsList,
     newMessageOptionsList,
     printNewMessage,
+    chooseByName,
 )
 from tests.shared import singleUser, threeAccountsMessages
 from common_utils.messages import invalidInput, anyButtonToContinueMessage
@@ -166,3 +167,76 @@ def testPrintNewMessage(mock_input, username, responses, messages, monkeypatch, 
         last_message = recipient_data["incomingMessages"][1]
         assert last_message["subject"] == "Subject"
         assert last_message["message"] == messages[0]
+
+
+@pytest.mark.parametrize(
+    "mock_input,username,responses,expected_return",
+    [
+        (
+            ["user3"],
+            "user2",
+            [
+                "*** New Message ***",
+                "Enter username of user you would like to message, or X to return to previous menu",
+            ],
+            "user3",
+        ),
+        (
+            ["X"],
+            "user2",
+            [
+                "*** New Message ***",
+                "Enter username of user you would like to message, or X to return to previous menu",
+            ],
+            None,
+        ),
+        (
+            ["Foam Earplugs"],
+            "user2",
+            [
+                "*** New Message ***",
+                "Enter username of user you would like to message, or X to return to previous menu",
+                "User is not in the InCollege system",
+                anyButtonToContinueMessage(),
+            ],
+            None,
+        ),
+        (
+            ["user1"],
+            "user2",
+            [
+                "*** New Message ***",
+                "Enter username of user you would like to message, or X to return to previous menu",
+                "I'm sorry, you are not friends with that person",
+                anyButtonToContinueMessage(),
+            ],
+            None,
+        ),
+        (
+            ["user2"],
+            "user1",
+            [
+                "*** New Message ***",
+                "Enter username of user you would like to message, or X to return to previous menu",
+            ],
+            "user2",
+        ),
+    ],
+    ids=["Valid input", "X-Exit", "Invalid input", "Not friends", "Plus User"],
+)
+def testChooseByName(mock_input, username, responses, expected_return, monkeypatch, capfd):
+    user_db = UserDatabase()
+    user_db.addUserDictList(threeAccountsMessages)
+    user_db.saveDatabase()
+    testUser = user_db.getUser(username)  # A non-plus user
+    input_generator = iter(mock_input)
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    try:
+        assert chooseByName(testUser) == expected_return
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    for r in responses:
+        assert r in captured.out
+
+def testChooseFromFriends(monkeypatch, capfd):

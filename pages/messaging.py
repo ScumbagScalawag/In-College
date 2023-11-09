@@ -115,6 +115,7 @@ def chooseByName(currentUser: Optional[User] = None) -> Optional[User]:
             input("")
             continue
         # validate: it must be a friend OR user must a Plus member
+        # negation(is friend or is plus) == (not is friend and not is plus)
         elif not currentUser.isFriend(userInput) and not currentUser.plusSubscription:
             print("I'm sorry, you are not friends with that person")
             print(anyButtonToContinueMessage())
