@@ -1,6 +1,20 @@
 import pytest
 from common_utils.types.user import User
-from tests.shared import UNEXPECTED_TESTING_ERROR_MESSAGE, nonDefualtsSingleUser, singleUser
+from tests.shared import (
+    UNEXPECTED_TESTING_ERROR_MESSAGE,
+    nonDefualtsSingleUser,
+    singleUser,
+    threeAccountsMessages,
+)
+import json
+
+
+def test_supported_languages():
+    user = User()
+    # simply meant to ensure all language-related logic is changed if support increases
+    assert len(user.SUPPORTED_LANGUAGES) == 2
+    assert user.SUPPORTED_LANGUAGES[0] == "English"
+    assert user.SUPPORTED_LANGUAGES[1] == "Spanish"
 
 
 def test_default_constructor():
@@ -17,31 +31,61 @@ def test_default_constructor():
     assert user.emailSub == True
     assert user.smsSub == True
     assert user.adSub == True
+    assert user.friends == []
+    assert user.friendRequests == []
+    assert user.profile.username == "UNDEFINED"
+    assert user.profile.title == "UNDEFINED"
+    assert user.profile.major == "Undefined"
+    assert user.profile.university == "Undefined"
+    assert user.profile.about == "UNDEFINED"
+    assert user.profile.education.school_name == "UNDEFINED"
+    assert user.profile.education.degree == "UNDEFINED"
+    assert user.profile.education.years_attended == "UNDEFINED"
+    assert user.profile.experiences == []
     assert len(user.friends) == 0
     assert len(user.friendRequests) == 0
     assert user.applicationDeleted == "UNDEFINED"
-
+    assert user.incomingMessages == []
 
 
 def test_copyValues():
     user1 = User.dictToUser(nonDefualtsSingleUser)
     user2 = User()
     user2.copyValues(user1)
-    user2.assertPropertiesEqualToDict(nonDefualtsSingleUser)
+    assert user1.username == user2.username
+    assert user1.password == user2.password
+    assert user1.firstname == user2.firstname
+    assert user1.lastname == user2.lastname
+    assert user1.uni == user2.uni
+    assert user1.major == user2.major
+    assert user1.plusSubscription == user2.plusSubscription
+    assert user1.email == user2.email
+    assert user1.phoneNumber == user2.phoneNumber
+    assert user1.language == user2.language
+    assert user1.emailSub == user2.emailSub
+    assert user1.smsSub == user2.smsSub
+    assert user1.adSub == user2.adSub
+    assert user1.friends == user2.friends
+    assert user1.friendRequests == user2.friendRequests
+    assert user1.profile == user2.profile
+    assert user1.applicationDeleted == user2.applicationDeleted
+    assert user1.incomingMessages == user2.incomingMessages
+    # user2.assertPropertiesEqualToDict(nonDefualtsSingleUser)
 
 
-# tests the __eq__() function, for testing if user1 == user2
+# TODO FIX THIS TEST low priority as its never used
+# def test_str(monkeypatch, capfd):
+#     user = User.dictToUser(singleUser)
+#     expected_output = json.dumps(singleUser, indent=4)
+#     assert str(user) == expected_output
+
+
+# tests the __eq__() function, for testing if user1 == user2 and if one is missing a property it checks that they share the same username
 def test_equals_comparison():
     user1 = User.dictToUser(singleUser)
     user2 = User.dictToUser(singleUser)
     # for now only check username
     assert user1 == user2
-
-
-def test_supported_languages():
-    user = User()
-    # simply meant to ensure all language-related logic is changed if support increases
-    assert len(user.SUPPORTED_LANGUAGES) == 2
 
 
 def test_toDict():
@@ -50,19 +94,34 @@ def test_toDict():
     assert userDict == singleUser
 
 
-def test_hasPendingFriendRequest():
+def test_hasPendingFriendRequestTo():
     user = User.dictToUser(singleUser)
     assert user.hasPendingFriendRequestTo("someUser") == False
 
     user2 = User.dictToUser(nonDefualtsSingleUser)
     assert user2.hasPendingFriendRequestTo("anotherUser") == True
+    assert user2.hasPendingFriendRequestTo("someOtherUser") == True
+    assert user2.hasPendingFriendRequestTo("someUser") == False
 
 
+def test_hasUnreadMessages():
+    user = User.dictToUser(singleUser)
+    assert user.hasUnreadMessages() == False
+    from common_utils.types.message import Message
+
+    user.appendToIncomingMessages(Message("user1", "user2", "Subject", "Hello", False, False))
+    assert user.hasUnreadMessages() == True
+    user = User.dictToUser(singleUser)
+    assert user.hasUnreadMessages() == False
+    user.appendToIncomingMessages(Message("user1", "user2", "Subject", "Hello", True, False))
+    assert user.hasUnreadMessages() == False
+
+# 
 def test_dictToUser():
     dummyUser = User()
-    print(dummyUser)
+    #print(dummyUser)
     user = User.dictToUser(nonDefualtsSingleUser)
-    print(user)
+    #print(user)
     try:
         user.assertPropertiesEqualToDict(nonDefualtsSingleUser)
     except ValueError as e:

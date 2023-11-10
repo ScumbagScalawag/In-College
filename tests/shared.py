@@ -14,6 +14,7 @@ singleUser = {
     "lastname": "McIvor",
     "uni": "usf",
     "major": "cs",
+    "plusSubscription": False,
     "email": "asdfasdf@gmail.com",
     "phoneNumber": "1932930298",
     "language": "English",
@@ -36,6 +37,7 @@ singleUser = {
         "experiences": [],
     },
     "applicationDeleted": "UNDEFINED",
+    "incomingMessages": None,
 }
 
 # A user with no Defualt values to ensure r/w operations are working

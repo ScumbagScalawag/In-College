@@ -120,10 +120,14 @@ class User:
 
         return False
 
+    # Returns true if the user has unread messages, false otherwise
     def hasUnreadMessages(self):
+        if len(self.incomingMessages) == 0:
+            return False
         for message in self.incomingMessages:
             if message.read == False:
                 return True
+        return False
 
     # The attributes can be retrieved manually. like this: userObject.firstname
 
