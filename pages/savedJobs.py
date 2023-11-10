@@ -9,6 +9,15 @@ def createSavedJob(jobIndex, currentUser):
     jobDB.loadJobs()
     jobs = jobDB.getJobListDict()
     # jobs = loadJobs() #Delete me
+    # Test if user has already saved job
+    for savedJob in jobs[jobIndex]["saved"]:
+        if savedJob["username"] == currentUser.username:
+            print("You have already saved this job")
+            print(anyButtonToContinueMessage())
+            input("")
+            return currentUser
+        else:
+            continue
     jobs[jobIndex]["saved"].append(
         {
             "username": currentUser.username,
