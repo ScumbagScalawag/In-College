@@ -281,6 +281,31 @@ def test_markMessageRead():
         user.markMessageRead(100)
 
 
+def test_deleteMessage():
+    user = User.dictToUser(singleUser)
+    from common_utils.types.message import Message
+
+    user.appendToIncomingMessages(Message("user1", "user2", "Subject", "Hello", False, False))
+    assert len(user.incomingMessages) == 1
+    user.deleteMessage(0)
+    assert len(user.incomingMessages) == 0
+    with pytest.raises(IndexError, match="Index out of range"):
+        user.deleteMessage(1)
+        user.deleteMessage(-1)
+        user.deleteMessage(100)
+        user.deleteMessage(0)
+
+def test_appendToIncomingMessages():
+    user = User.dictToUser(singleUser)
+    from common_utils.types.message import Message
+
+    assert len(user.incomingMessages) == 0
+    user.appendToIncomingMessages(Message("user1", "user2", "Subject1", "Hello 1", False, False))
+    assert len(user.incomingMessages) == 1
+    user.appendToIncomingMessages(Message("user1", "user2", "Subject2", "Hello 2", False, False))
+    assert len(user.incomingMessages) == 2
+    user.appendToIncomingMessages(Message("user1", "user2", "Subject3", "Hello 3", False, False))
+    assert len(user.incomingMessages) == 3
 
 def test_assertPropertiesEqualToDict():
     user = User.dictToUser(nonDefualtsSingleUser)

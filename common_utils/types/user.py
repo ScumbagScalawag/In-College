@@ -232,7 +232,11 @@ class User:
             self.incomingMessages[index].markRead()
 
     def deleteMessage(self, index):
-        self.incomingMessages.pop(index)
+        # error handling
+        if index < 0 or index >= len(self.incomingMessages):
+            raise IndexError("Index out of range")
+        else:
+            self.incomingMessages.pop(index)
 
     def appendToIncomingMessages(self, message):
         self.incomingMessages.append(message)
