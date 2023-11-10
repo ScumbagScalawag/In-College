@@ -81,7 +81,8 @@ from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage, i
                 *jobOptionsList,
             ],
             [],
-        )(
+        ),
+        (
             ["anything", "X"],
             [
                 *testimonialOutputList,
