@@ -225,7 +225,11 @@ class User:
         return username in self.friends
 
     def markMessageRead(self, index):
-        self.incomingMessages[index].markRead()
+        # error handling
+        if index < 0 or index >= len(self.incomingMessages):
+            raise IndexError("Index out of range")
+        else:
+            self.incomingMessages[index].markRead()
 
     def deleteMessage(self, index):
         self.incomingMessages.pop(index)

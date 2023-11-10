@@ -116,12 +116,13 @@ def test_hasUnreadMessages():
     user.appendToIncomingMessages(Message("user1", "user2", "Subject", "Hello", True, False))
     assert user.hasUnreadMessages() == False
 
-# 
+
+#
 def test_dictToUser():
     dummyUser = User()
-    #print(dummyUser)
+    # print(dummyUser)
     user = User.dictToUser(nonDefualtsSingleUser)
-    #print(user)
+    # print(user)
     try:
         user.assertPropertiesEqualToDict(nonDefualtsSingleUser)
     except ValueError as e:
@@ -263,6 +264,22 @@ def test_isFriend():
     user = User.dictToUser(nonDefualtsSingleUser)
     assert user.isFriend("someUser")
     assert not user.isFriend("randomUserName92")
+
+
+def test_markMessageRead():
+    user = User.dictToUser(singleUser)
+    from common_utils.types.message import Message
+
+    user.appendToIncomingMessages(Message("user1", "user2", "Subject", "Hello", False, False))
+    assert user.incomingMessages[0].read == False
+    user.markMessageRead(0)
+    assert user.incomingMessages[0].read == True
+
+    with pytest.raises(IndexError, match="Index out of range"):
+        user.markMessageRead(1)
+        user.markMessageRead(-1)
+        user.markMessageRead(100)
+
 
 
 def test_assertPropertiesEqualToDict():
