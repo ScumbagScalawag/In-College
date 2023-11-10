@@ -4,6 +4,9 @@ from pages.friend_search import friendSearchOptionList
 from pages.job_search import jobOptionsList
 from pages.important_links import importantLinksOptionsList
 from pages.languages import languageLoggedInOptions
+from pages.main_menu import mainMenuOptionsList
+from pages.show_my_network import showMyNetworkOptions
+from pages.friends import friendScreenOptions
 from common_utils.types.user_database import UserDatabase
 from common_utils.types.user import User
 from common_utils.types.job_database import JobDatabase
@@ -172,6 +175,107 @@ def test_language_switch(monkeypatch, capfd):
 
 
 # The ability to request to connect with a friend. Have the request accepted. Show a list of friends.
+def test_request_to_connect_with_friend(monkeypatch, capfd):
+    user_db = UserDatabase([])
+    user_db.addUserDictList(fourAccounts)
+    test_user1 = User.dictToUser(singleUser)  # log in user
+    mock_input1 = [
+        "Foam Earplugs",
+        "3",
+        "Jo",
+        "Mama",  # Search by last name
+        "Y",
+        "X",
+        "X",
+        "X",
+    ]
+    responses1 = [
+        *initialScreenOptionsList,
+        *friendSearchOptionList,
+        "Jo Mama is part of the InCollege system",
+        "Exiting InCollege",
+    ]
+    input_generator = iter(mock_input1)
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+
+    try:
+        assert printInitialScreen(test_user1) == test_user1
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    for r in responses1:
+        assert r in captured.out
+
+    mock_input2 = [
+        "Foam Earplugs",
+        "1",
+        "dummy",
+        "Password1!",
+        "Y",
+        "Y",
+        "6",
+        "3",
+        "1",
+        "X",
+        "X",
+        "X",
+        "X",
+    ]
+    responses2 = [
+        *initialScreenOptionsList,
+        "Login to InCollege",
+        # "You have successfully logged in!",
+        "You have a friend request from asdfasdf",
+        "You have a friend request from sillyBoi",
+        *mainMenuOptionsList,
+        *showMyNetworkOptions,
+        *friendScreenOptions,
+        "1 - asdfasdf",
+        "2 - sillyBoi",
+        "Exiting InCollege",
+    ]
+    test_user2 = user_db.getUser("dummy")
+    input_generator = iter(mock_input2)
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    try:
+        assert printInitialScreen() == test_user2
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    for r in responses2:
+        assert r in captured.out
+
+    mock_input3 = [
+        "Foam Earplugs",
+        "6",
+        "3",
+        "1",
+        "X",
+        "X",
+        "X",
+        "X",
+    ]
+    responses3 = [
+        *initialScreenOptionsList,
+        *mainMenuOptionsList,
+        *showMyNetworkOptions,
+        *friendScreenOptions,
+        "1 - dummy",
+        "Exiting InCollege",
+    ]
+    input_generator = iter(mock_input3)
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+    user_db.loadUsers()
+    test_user1 = user_db.getUser(test_user1.username)
+    try:
+        assert printInitialScreen(test_user1) == test_user1
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    for r in responses3:
+        assert r in captured.out
+
+
 # Creation of a user profile
 # Display profile of a friend
 # Display a posted job
