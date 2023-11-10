@@ -37,7 +37,7 @@ singleUser = {
         "experiences": [],
     },
     "applicationDeleted": "UNDEFINED",
-    "incomingMessages": None,
+    "incomingMessages": [],
 }
 
 # A user with no Defualt values to ensure r/w operations are working
@@ -48,6 +48,7 @@ nonDefualtsSingleUser = {
     "lastname": "Dummy",
     "uni": "usf",
     "major": "cs",
+    "plusSubscription": False,
     "email": "nondefaultuser@gmail.com",
     "phoneNumber": "6666666666",
     "language": "Spanish",
@@ -70,6 +71,7 @@ nonDefualtsSingleUser = {
         "experiences": [],
     },
     "applicationDeleted": "UNDEFINED",
+    "incomingMessages": [],
 }
 # Three Accounts does not include single user
 threeAccounts = [
@@ -80,6 +82,7 @@ threeAccounts = [
         "lastname": "Mama",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "asdfasdf@gmail.com",
         "phoneNumber": "1932930298",
         "language": "English",
@@ -102,6 +105,7 @@ threeAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "sillyBoi",
@@ -110,6 +114,7 @@ threeAccounts = [
         "lastname": "Snuts",
         "uni": "fsu",
         "major": "cs",
+        "plusSubscription": False,
         "email": "asdfasdf@gmail.com",
         "phoneNumber": "1932930298",
         "language": "English",
@@ -132,6 +137,7 @@ threeAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "dummyDude",
@@ -140,6 +146,7 @@ threeAccounts = [
         "lastname": "Snuts",
         "uni": "uf",
         "major": "ee",
+        "plusSubscription": False,
         "email": "dummyDude@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -162,6 +169,7 @@ threeAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
 ]
 # four accounts = three + single user
@@ -173,6 +181,7 @@ fourAccounts = [
         "lastname": "McIvor",
         "uni": "fsu",
         "major": "cs",
+        "plusSubscription": False,
         "email": "nm@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -195,6 +204,7 @@ fourAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "dummy",
@@ -203,6 +213,7 @@ fourAccounts = [
         "lastname": "Mama",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "dummy@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -225,6 +236,7 @@ fourAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "sillyBoi",
@@ -233,6 +245,7 @@ fourAccounts = [
         "lastname": "Snuts",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "dee@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -255,6 +268,7 @@ fourAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "dummyDude",
@@ -263,6 +277,7 @@ fourAccounts = [
         "lastname": "Snuts",
         "uni": "uf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "dummyDude@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -285,6 +300,7 @@ fourAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
 ]
 # 5 = 3 + 1 + 1
@@ -296,6 +312,7 @@ fiveAccounts = [
         "lastname": "Mama",
         "uni": "uf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "dummyDude@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -318,6 +335,7 @@ fiveAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "sillyBoi",
@@ -326,6 +344,7 @@ fiveAccounts = [
         "lastname": "Snuts",
         "uni": "uf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "sillyboi@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -348,6 +367,7 @@ fiveAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "dummyDude",
@@ -356,6 +376,7 @@ fiveAccounts = [
         "lastname": "Snuts",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "dummydude@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -378,6 +399,7 @@ fiveAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "notKaren",
@@ -386,6 +408,7 @@ fiveAccounts = [
         "lastname": "Snuts",
         "uni": "usf",
         "major": "ee",
+        "plusSubscription": False,
         "email": "notkaren@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -408,6 +431,7 @@ fiveAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "theSilliestOfAll",
@@ -416,6 +440,7 @@ fiveAccounts = [
         "lastname": "Snuts",
         "uni": "usf",
         "major": "ee",
+        "plusSubscription": False,
         "email": "silly@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -438,6 +463,7 @@ fiveAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
 ]
 
@@ -449,6 +475,7 @@ tenAccounts = [
         "lastname": "Mama",
         "uni": "usf",
         "major": "ee",
+        "plusSubscription": False,
         "email": "dummyDude@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -471,6 +498,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "sillyBoi",
@@ -479,6 +507,7 @@ tenAccounts = [
         "lastname": "Snuts",
         "uni": "usf",
         "major": "ee",
+        "plusSubscription": False,
         "email": "sillyboi@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -501,6 +530,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "dummyDude",
@@ -509,6 +539,7 @@ tenAccounts = [
         "lastname": "Snuts",
         "uni": "usf",
         "major": "ee",
+        "plusSubscription": False,
         "email": "dummydude@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -531,6 +562,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "notKaren",
@@ -539,6 +571,7 @@ tenAccounts = [
         "lastname": "Snuts",
         "uni": "usf",
         "major": "ee",
+        "plusSubscription": False,
         "email": "notkaren@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -561,6 +594,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "theSilliestOfAll",
@@ -569,6 +603,7 @@ tenAccounts = [
         "lastname": "Snuts",
         "uni": "usf",
         "major": "ee",
+        "plusSubscription": False,
         "email": "silly@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -591,6 +626,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "A",
@@ -599,6 +635,7 @@ tenAccounts = [
         "lastname": "A",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "A@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -621,6 +658,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "B",
@@ -629,6 +667,7 @@ tenAccounts = [
         "lastname": "B",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "B@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -651,6 +690,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "C",
@@ -659,6 +699,7 @@ tenAccounts = [
         "lastname": "C",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "C@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -681,6 +722,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "D",
@@ -689,6 +731,7 @@ tenAccounts = [
         "lastname": "D",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "D@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -711,6 +754,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
     {
         "username": "E",
@@ -719,6 +763,7 @@ tenAccounts = [
         "lastname": "E",
         "uni": "usf",
         "major": "cs",
+        "plusSubscription": False,
         "email": "E@gmail.com",
         "phoneNumber": "1234567890",
         "language": "English",
@@ -741,6 +786,7 @@ tenAccounts = [
             "experiences": [],
         },
         "applicationDeleted": "UNDEFINED",
+        "incomingMessages": [],
     },
 ]
 
