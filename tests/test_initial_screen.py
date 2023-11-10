@@ -4,6 +4,8 @@ from pages.initial_screen import printInitialScreen, initialScreenOptionsList, t
 from pages.important_links import importantLinksOptionsList
 from pages.useful_links import usefulLinksOptionsList
 from pages.friend_search import friendSearchOptionList
+from pages.main_menu import mainMenuOptionsList
+from pages.job_search import jobOptionsList
 import pytest
 from common_utils.types.user_database import UserDatabase
 from tests.shared import threeAccounts, singleUser
@@ -55,10 +57,31 @@ from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage, i
         ),
         (
             ["anything", "5"],
-            [*testimonialOutputList, *initialScreenOptionsList, *importantLinksOptionsList],
+            [
+                *testimonialOutputList,
+                *initialScreenOptionsList,
+                *importantLinksOptionsList,
+            ],
             [],
         ),
         (
+            ["anything", "6"],
+            [
+                *testimonialOutputList,
+                *initialScreenOptionsList,
+                *mainMenuOptionsList,
+            ],
+            [],
+        ),
+        (
+            ["anything", "7"],
+            [
+                *testimonialOutputList,
+                *initialScreenOptionsList,
+                *jobOptionsList,
+            ],
+            [],
+        )(
             ["anything", "X"],
             [
                 *testimonialOutputList,
@@ -83,6 +106,8 @@ from common_utils.messages import alreadyLoggedIn, anyButtonToContinueMessage, i
         "3-FindSomeone",
         "4-UsefulLinks",
         "5-ImportantLinks",
+        "6-MainMenu",
+        "7-JobSearch",
         "X-Close",
         "InvalidSelection",
     ],
