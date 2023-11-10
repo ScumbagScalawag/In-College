@@ -43,7 +43,6 @@ def test_search_for_user_before_login(monkeypatch, capfd):
     captured = capfd.readouterr()
     for r in responses:
         assert r in captured.out
-    pass
 
 
 # Creation of a new user account
@@ -85,7 +84,6 @@ def test_create_new_user_account(monkeypatch, capfd):
     captured = capfd.readouterr()
     for r in responses:
         assert r in captured.out
-    pass
 
 
 # Ability to post a job
@@ -128,7 +126,6 @@ def test_post_job(monkeypatch, capfd):
     captured = capfd.readouterr()
     for r in responses:
         assert r in captured.out
-    pass
 
 
 # The ability to switch between English and Spanish
@@ -277,6 +274,14 @@ def test_request_to_connect_with_friend(monkeypatch, capfd):
 
 
 # Creation of a user profile
+def test_create_user_profile(monkeypatch, capfd):
+    # TODO
+    mock_input = []
+    responses = []
+
+    pass
+
+
 # Display profile of a friend
 # Display a posted job
 # Apply for a job
