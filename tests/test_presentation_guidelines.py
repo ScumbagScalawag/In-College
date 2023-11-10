@@ -39,6 +39,47 @@ def test_search_for_user_before_login(monkeypatch, capfd):
 
 
 # Creation of a new user account
+def test_create_new_user_account(monkeypatch, capfd):
+    user_db = UserDatabase([])
+    user_db.addUserDictList(fourAccounts)
+    mock_input = [
+        "Foam Earplugs",
+        "2",
+        "zackzack38",
+        "Zack",
+        "Levi",
+        "USF",
+        "CS",
+        "Password1!",
+        "Password1!",
+        "N",
+        "X",
+    ]
+    responses = [
+        *initialScreenOptionsList,
+        "*** Create a new user account ***",
+        "Username: ",
+        "First name: ",
+        "Last name: ",
+        "University: ",
+        "Major: ",
+        "Password: ",
+        "Exiting InCollege",
+    ]
+    expectedReturn = User("zackzack38", "Password1!", "Zack", "Levi", "USF", "CS", False)
+    input_generator = iter(mock_input)
+    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
+
+    try:
+        assert printInitialScreen() == expectedReturn  # == doesnt really work here good enough
+    except StopIteration:
+        pass
+    captured = capfd.readouterr()
+    for r in responses:
+        assert r in captured.out
+    pass
+
+
 # Ability to post a job
 # The ability to switch between English and Spanish
 # The ability to request to connect with a friend. Have the request accepted. Show a list of friends.
