@@ -8,15 +8,12 @@
             "salary": "90000",
             "firstname": "Jo",
             "lastname": "Mama",
-            "applicants": [
+            "applicants": [],
+            "saved": [
                 {
-                    "username": "asdfasdf",
-                    "graduation": "01/01/2020",
-                    "start": "02/01/2020",
-                    "reason": "I want to work here"
+                    "username": "asdfasdf"
                 }
-            ],
-            "saved": []
+            ]
         },
         {
             "title": "Data Analyst",
@@ -24,8 +21,8 @@
             "employer": "Data Analytics Inc.",
             "location": "New York, NY",
             "salary": "75000",
-            "firstname": "Jo",
-            "lastname": "Mama",
+            "firstname": "Noah",
+            "lastname": "McIvor",
             "applicants": [],
             "saved": []
         },
@@ -52,11 +49,11 @@
             "saved": []
         },
         {
-            "title": "ASSISTANT PROFESSOR OF INSTRUCTION",
-            "description": "Lecturer",
-            "employer": "Dr. Jim Anderson",
-            "location": "ENG 215",
-            "salary": "Not Enough",
+            "title": "Pokemon Trainer",
+            "description": "Capture, train, and battle with a team of Pokemon",
+            "employer": "Professor Oak",
+            "location": "Pallet Town, KA",
+            "salary": "0",
             "firstname": "Noah",
             "lastname": "McIvor",
             "applicants": [],
