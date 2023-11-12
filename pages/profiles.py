@@ -1,4 +1,5 @@
 from typing import Optional
+from common_utils.messages import anyButtonToContinueMessage
 
 from common_utils.types.user import User
 from common_utils.types.profile import Profile
@@ -131,6 +132,10 @@ def printProfileScreen(currentUser: Optional[User] = None) -> Optional[User]:
             print("***")  # separator line
     else:
         print(f"{currentUser.firstname} {currentUser.lastname} has not added Experiences")
+
+    print("")
+    print(anyButtonToContinueMessage())
+    input("")
 
     return currentUser
 
