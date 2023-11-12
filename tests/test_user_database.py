@@ -117,3 +117,27 @@ def test_removeFriend():
 
     assert "sillyBoi" not in dummyUser.friends
     assert "dummy" not in sillyBoiUser.friends
+
+
+def test_acceptFriendRequest():
+    userDB = UserDatabase()
+    userDB.addUserDictList(fourAccounts)
+
+    dummy = userDB.getUser("dummy")
+    sillyBoi = userDB.getUser("sillyBoi")
+
+    if dummy == None or sillyBoi == None:
+        raise (ValueError("User not found in database"))
+
+    userDB.acceptFriendRequest(sillyBoi, dummy)
+
+    updatedDummy = userDB.getUser("dummy")
+    assert updatedDummy != None
+    assert len(updatedDummy.friends) == 1
+    assert updatedDummy.friends[0] == "sillyBoi"
+
+    updatedSillyBoi = userDB.getUser("sillyBoi")
+    assert updatedSillyBoi != None
+    assert len(updatedSillyBoi.friends) == 1
+    assert updatedSillyBoi.friends[0] == "dummy"
+    assert len(updatedSillyBoi.friendRequests) == 0
