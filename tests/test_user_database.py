@@ -135,9 +135,11 @@ def test_acceptFriendRequest():
     assert updatedDummy != None
     assert len(updatedDummy.friends) == 1
     assert updatedDummy.friends[0] == "sillyBoi"
+    assert "sillyBoi" not in updatedDummy.friendRequests
 
     updatedSillyBoi = userDB.getUser("sillyBoi")
     assert updatedSillyBoi != None
     assert len(updatedSillyBoi.friends) == 1
     assert updatedSillyBoi.friends[0] == "dummy"
     assert len(updatedSillyBoi.friendRequests) == 0
+    assert "dummy" not in updatedSillyBoi.friendRequests
