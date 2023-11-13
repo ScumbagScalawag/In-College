@@ -28,6 +28,7 @@ class User:
         profile=None,
         applicationDeleted="UNDEFINED",
         incomingMessages=[],
+        unseenUsers=[],
     ):
         self.username = username
         self.password = password
@@ -48,6 +49,7 @@ class User:
         self.profile = Profile() if profile is None else profile
         self.applicationDeleted = applicationDeleted
         self.incomingMessages = incomingMessages
+        self.unseenUsers = unseenUsers
 
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
@@ -69,6 +71,7 @@ class User:
         self.profile.copyValues(otherUser.profile)
         self.applicationDeleted = otherUser.applicationDeleted
         self.incomingMessages = otherUser.incomingMessages.copy()
+        self.unseenUsers = otherUser.unseenUsers.copy()
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -109,6 +112,7 @@ class User:
             "profile": self.profile.toDict() if self.profile else None,
             "applicationDeleted": self.applicationDeleted,
             "incomingMessages": incomingMessagesDictList,
+            "unseenUsers": self.unseenUsers,
         }
 
     def hasPendingFriendRequestTo(self, username: str):
@@ -163,6 +167,7 @@ class User:
             profile=profile_obj,
             applicationDeleted=userDict.get("applicationDeleted", "UNDEFINED"),
             incomingMessages=incomingMessages,
+            unseenUsers=userDict.get("unseenUsers", [])
         )
 
     def setLanguage(self, language: str):
@@ -228,6 +233,9 @@ class User:
 
     def appendToIncomingMessages(self, message):
         self.incomingMessages.append(message)
+
+    def appendUnseen(self, firstnlast: str):
+        self.unseenUsers.append(firstnlast)
 
     # TEST UTILS
     # scans using all key/value pairs in expectedUserDict, then compares to user.
