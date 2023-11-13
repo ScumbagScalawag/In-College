@@ -126,6 +126,8 @@ class UserDatabase:
     # gets passed a User object
     def addUser(self, user: User):
         if len(self.userlist) < MAX_USERS:
+            for otherUser in self.userlist:
+                otherUser.appendUnseen("{} {}".format(user.firstname, user.lastname))        
             self.userlist.append(user)
             self.saveDatabase()
         else:

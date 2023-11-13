@@ -73,28 +73,3 @@ class Job:
 
 
 # TODO check validity of inputs
-
-
-def saveJob(jobs, title, description, employer, location, salary, firstname, lastname):
-    newJob = {
-        "title": title,
-        "description": description,
-        "employer": employer,
-        "location": location,
-        "salary": salary,
-        "firstname": firstname,
-        "lastname": lastname,
-        "applicants": [],
-        "saved": [],
-    }
-
-    jobs.append(newJob)
-    saveJobDatabase(JSON_JOBS_FP, jobs)
-    return
-
-
-def saveJobDatabase(jsonFilePath, jobs):
-    jobDB = {"joblist": jobs}
-    with open(jsonFilePath, "w") as outfile:
-        json.dump(jobDB, outfile, indent=4)
-    return
