@@ -50,19 +50,20 @@ def loadUsers():
     return users
 
 
-def loadJobs():
-    jobs = []
-    try:
-        with open(JSON_JOBS_FP, "r") as database:
-            jobs = json.load(database)
-            jobs = jobs["joblist"]
-    except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
-        print(
-            "WARNING: Cannot find JSON DataBase!"
-        )  # feel free to comment this message out. I find it helpful -noah
-        pass
+# should use JobDatabase.loadJobs() instead
+# def loadJobs():
+#     jobs = []
+#     try:
+#         with open(JSON_JOBS_FP, "r") as database:
+#             jobs = json.load(database)
+#             jobs = jobs["joblist"]
+#     except (FileNotFoundError, json.JSONDecodeError):  # Handle file not found or invalid JSON
+#         print(
+#             "WARNING: Cannot find JSON DataBase!"
+#         )  # feel free to comment this message out. I find it helpful -noah
+#         pass
 
-    return jobs
+#     return jobs
 
 
 def userSearch(
