@@ -1,12 +1,9 @@
-import json
-from datetime import datetime
 from typing import Optional
 
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInput,
     returnToPreviousMenuMessage,
-    underConstructionMessage,
 )
 from common_utils.types.exceptions import MaximumNumberOfJobs
 from common_utils.types.job import Job
@@ -14,10 +11,8 @@ from common_utils.types.job_database import JobDatabase
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from common_utils.utils import (
-    JSON_JOBS_FP,
     MAX_JOBS,
     clearScreen,
-    loadJobs,
     notLoggedIn,
     printOptionList,
 )
@@ -48,7 +43,6 @@ jobApplicationDeleted = [
 ]
 
 
-# TODO check currentUser is not none
 # user selected to do a job search
 def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
     while True:
@@ -60,6 +54,8 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
                 # print('The job you applied for "'+ currentUser.applicationDeleted+ '" has been deleted')
                 # The applicationDeleted is the title of the job that was deleted, instructions state that only a notification about "A" job being deleted is required.
                 currentUser.applicationDeleted = "UNDEFINED"  # reset applicationDeleted
+
+        currentUser = printNumAppliedJobs(currentUser)
         printOptionList(jobOptionsList)  # print job options
         userInput = input("")
         if userInput == "1":
@@ -94,6 +90,24 @@ def printJobSearchScreen(currentUser: Optional[User] = None) -> Optional[User]:
             print(invalidInput("Please select a valid option"))
             print(anyButtonToContinueMessage())
             input("")
+
+    return currentUser
+
+
+def printNumAppliedJobs(currentUser: Optional[User] = None) -> Optional[User]:
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+
+    if currentUser == None:
+        return currentUser
+
+    count = 0
+    for job in jobDB.joblist:
+        for applicant in job.applicants:
+            if currentUser.username == applicant.get("username"):
+                count += 1
+
+    print(f"You have currently applied for {count} jobs\n")
 
     return currentUser
 
@@ -344,38 +358,38 @@ def deleteJob(currentUser):
 
 
 # DELETE ME this function is not used.
-def removeJob(currentUser: Optional[User] = None) -> Optional[User]:
-    # Must be logged in to delete job
-    jobs = loadJobs()
-    # If user is not logged in
-    if not isinstance(currentUser, User):
-        print("You must be logged in to remove a Job.")
-        print(anyButtonToContinueMessage())
-        input("")
-        return currentUser
+# def removeJob(currentUser: Optional[User] = None) -> Optional[User]:
+#     # Must be logged in to delete job
+#     jobs = loadJobs()
+#     # If user is not logged in
+#     if not isinstance(currentUser, User):
+#         print("You must be logged in to remove a Job.")
+#         print(anyButtonToContinueMessage())
+#         input("")
+#         return currentUser
 
-    # TODO Get the job index
-    jobIndex = 0
+#     # TODO Get the job index
+#     jobIndex = 0
 
-    # If user created the job posting
-    if (
-        jobs[jobIndex]["firstname"] == currentUser.firstname
-        and jobs[jobIndex]["lastname"] == currentUser.lastname
-    ):
-        print("Job Removed")
-        job = jobs[jobIndex]
-        # TODO Notifiy Applicants
-        for people in job["applicants"]:
-            # TODO Notify people
-            pass
-        jobs.remove(job)
-        # jobs.pop(jobIndex)
-        saveJobDatabase(JSON_JOBS_FP, jobs)
-        print(anyButtonToContinueMessage())
-        input("")
-        return currentUser
-    else:
-        print("You cannot remove a job posting that you did not create")
-        print(anyButtonToContinueMessage())
-        input("")
-        return currentUser
+#     # If user created the job posting
+#     if (
+#         jobs[jobIndex]["firstname"] == currentUser.firstname
+#         and jobs[jobIndex]["lastname"] == currentUser.lastname
+#     ):
+#         print("Job Removed")
+#         job = jobs[jobIndex]
+#         # TODO Notifiy Applicants
+#         for people in job["applicants"]:
+#             # TODO Notify people
+#             pass
+#         jobs.remove(job)
+#         # jobs.pop(jobIndex)
+#         saveJobDatabase(JSON_JOBS_FP, jobs)
+#         print(anyButtonToContinueMessage())
+#         input("")
+#         return currentUser
+#     else:
+#         print("You cannot remove a job posting that you did not create")
+#         print(anyButtonToContinueMessage())
+#         input("")
+#         return currentUser
