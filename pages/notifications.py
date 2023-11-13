@@ -6,6 +6,7 @@ from common_utils.types.user_database import UserDatabase, manage_friend_request
 from common_utils.utils import clearScreen
 from pages.inbox import printInbox
 from pages.profiles import createProfile
+from datetime import date, datetime
 
 
 def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User]:
@@ -16,6 +17,19 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
 
     userDB = UserDatabase()
     userDB.loadUsers()
+
+    # apply to more jobs notification
+    flag = 0
+    if currentUser.lastApplicationDate == "UNDEFINED":
+        flag = 1
+    else:
+        splitDate = currentUser.lastApplicationDate.split()
+        lastApplication = date((int)(splitDate[0]), (int)(splitDate[1]), (int)(splitDate[2]))
+        timeDifference = date.today() - lastApplication
+        if timeDifference.days > 7 :
+            flag = 1
+    if flag:
+        print("Remember – you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
 
     # incoming friend request notification
     manage_friend_requests(currentUser, userDB)
