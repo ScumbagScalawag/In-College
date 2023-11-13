@@ -8,7 +8,14 @@
             "salary": "90000",
             "firstname": "Jo",
             "lastname": "Mama",
-            "applicants": [],
+            "applicants": [
+                {
+                    "username": "asdfasdf",
+                    "graduation": "05/23/2024",
+                    "start": "05/24/2024",
+                    "reason": "I rock"
+                }
+            ],
             "saved": [
                 {
                     "username": "asdfasdf"
@@ -23,7 +30,14 @@
             "salary": "75000",
             "firstname": "Noah",
             "lastname": "McIvor",
-            "applicants": [],
+            "applicants": [
+                {
+                    "username": "dummy",
+                    "graduation": "05/20/2024",
+                    "start": "06/02/2024",
+                    "reason": "IDRK"
+                }
+            ],
             "saved": []
         },
         {
@@ -45,7 +59,14 @@
             "salary": "275000",
             "firstname": "Noah",
             "lastname": "McIvor",
-            "applicants": [],
+            "applicants": [
+                {
+                    "username": "dummy",
+                    "graduation": "05/10/2024",
+                    "start": "05/21/2024",
+                    "reason": "I'm awesome"
+                }
+            ],
             "saved": []
         },
         {
