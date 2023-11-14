@@ -6,10 +6,16 @@
             "employer": "Company A",
             "location": "San Francisco, CA",
             "salary": "90000",
-            "firstname": "Jo",
-            "lastname": "Mama",
+            "firstname": "Bojangle",
+            "lastname": "McGee",
             "applicants": [],
             "saved": [
+                {
+                    "username": "asdfasdf"
+                },
+                {
+                    "username": "asdfasdf"
+                },
                 {
                     "username": "asdfasdf"
                 }

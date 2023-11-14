@@ -3,7 +3,7 @@ from common_utils.messages import invalidInput
 
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase, manage_friend_requests
-from common_utils.utils import clearScreen
+from common_utils.utils import clearScreen, anyButtonToContinueMessage
 from pages.inbox import printInbox
 from pages.profiles import createProfile
 from datetime import date, datetime
@@ -30,6 +30,8 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
             flag = 1
     if flag:
         print("Remember – you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
+        print(anyButtonToContinueMessage())
+        input("")
 
     # incoming friend request notification
     manage_friend_requests(currentUser, userDB)
@@ -63,5 +65,7 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
     # new users notifications
     for name in currentUser.unseenUsers:
         print(name, "has joined InCollege")
+    print(anyButtonToContinueMessage())
+    input("")
 
     return currentUser
