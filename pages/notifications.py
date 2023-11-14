@@ -63,9 +63,13 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
                 print(invalidInput("y or n"))
     
     # new users notifications
+    flag = 0
     for name in currentUser.unseenUsers:
+        flag = 1
         print(name, "has joined InCollege")
-    print(anyButtonToContinueMessage())
-    input("")
+        # remove name from unseenUsers
+    if flag:
+        print(anyButtonToContinueMessage())
+        input("")
 
     return currentUser

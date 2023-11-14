@@ -75,7 +75,7 @@ def applyToJob(jobIndex, currentUser):
             userDB = UserDatabase()
             userDB.loadUsers()
             currentUser = userDB.getUser(currentUser.username)
-            currentUser.setLastApplicationDate(date.today())
+            currentUser.setLastApplicationDate((str)(date.today()))
             userDB.saveDatabase()            
 
             print("Application sucessfully submitted")
