@@ -23,7 +23,7 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
     if currentUser.lastApplicationDate == "UNDEFINED":
         flag = 1
     else:
-        splitDate = currentUser.lastApplicationDate.split()
+        splitDate = currentUser.lastApplicationDate.split("-")
         lastApplication = date((int)(splitDate[0]), (int)(splitDate[1]), (int)(splitDate[2]))
         timeDifference = date.today() - lastApplication
         if timeDifference.days > 7 :

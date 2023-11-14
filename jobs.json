@@ -8,7 +8,14 @@
             "salary": "90000",
             "firstname": "Bojangle",
             "lastname": "McGee",
-            "applicants": [],
+            "applicants": [
+                {
+                    "username": "dummy",
+                    "graduation": "12/12/1212",
+                    "start": "12/12/1212",
+                    "reason": "no"
+                }
+            ],
             "saved": [
                 {
                     "username": "asdfasdf"
