@@ -12,7 +12,7 @@ class JobDatabase:
         self.joblist = joblist
 
     def __str__(self):
-        return json.dumps(self.toDict(), indent=4)
+        return json.dumps(self.getDatabaseDict(), indent=4)
 
     def loadJobs(self):
         self.joblist = []

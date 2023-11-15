@@ -133,7 +133,7 @@ def printSubscription():
             end="",
         )
         subscription = input("")  # Get password
-
+        # TODO: subscription.lower or subscription.upper????
         if subscription == "Y" or subscription == "y":
             plusSubscription = True
             print("Thank you for subscribing, you will be billed $10 on the 1st of each month.")

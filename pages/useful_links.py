@@ -5,9 +5,10 @@ from common_utils.messages import (
     returnToPreviousMenuMessage,
     underConstructionMessage,
     invalidInput,
-    anyButtonToContinueMessage
+    anyButtonToContinueMessage,
 )
 from pages.links_general import printGeneralScreen
+
 
 # opens useful links menu, receives and returns currentUser if a login occurs while in this menu
 def printUsefulLinkScreen(currentUser: Optional[User] = None) -> Optional[User]:
