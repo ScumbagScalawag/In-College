@@ -3,6 +3,7 @@ from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase
 from pages.login import printLoginScreen
 from tests.shared import fourAccounts, singleUser
+from common_utils.messages import anyButtonToContinueMessage, invalidInput
 
 
 def testLogin_loggedIn(monkeypatch, capfd):
@@ -11,7 +12,8 @@ def testLogin_loggedIn(monkeypatch, capfd):
     testUser = User.dictToUser(singleUser)
     input_generator = iter(["asdfasdf", "P@ssw0rd"])
     responses = [
-        "Please log out and log back in to change accounts",
+        "You are already logged in. Please log out and log back in to change accounts",
+        anyButtonToContinueMessage(),
     ]
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
     try:
@@ -36,6 +38,9 @@ def testLogin_invalidUser(monkeypatch, capfd):
         ]
     )
     responses = [
+        "Login to InCollege ",
+        "Username: ",
+        "Password: ",
         "Incorrect username / password, please try again",
     ]
     expectedReturn = None
@@ -57,6 +62,9 @@ def testLogin_validUser(monkeypatch, capfd):
 
     input_generator = iter(mock_input)
     responses = [
+        "Login to InCollege ",
+        "Username: ",
+        "Password: ",
         "You have successfully logged in",
     ]
     currentUser = userDB.login(mock_input[0], mock_input[1])
@@ -70,3 +78,7 @@ def testLogin_validUser(monkeypatch, capfd):
     # assert captured
     for r in responses:
         assert r in captured.out
+
+
+# TODO test for friend request
+# TODO test for unread messages

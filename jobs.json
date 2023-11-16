@@ -6,27 +6,10 @@
             "employer": "Company A",
             "location": "San Francisco, CA",
             "salary": "90000",
-            "firstname": "Bojangle",
-            "lastname": "McGee",
-            "applicants": [
-                {
-                    "username": "dummy",
-                    "graduation": "12/12/1212",
-                    "start": "12/12/1212",
-                    "reason": "no"
+
                 }
             ],
-            "saved": [
-                {
-                    "username": "asdfasdf"
-                },
-                {
-                    "username": "asdfasdf"
-                },
-                {
-                    "username": "asdfasdf"
-                }
-            ]
+            "saved": []
         },
         {
             "title": "Data Analyst",
@@ -34,8 +17,8 @@
             "employer": "Data Analytics Inc.",
             "location": "New York, NY",
             "salary": "75000",
-            "firstname": "Noah",
-            "lastname": "McIvor",
+            "firstname": "Jo",
+            "lastname": "Mama",
             "applicants": [],
             "saved": []
         },
@@ -62,11 +45,11 @@
             "saved": []
         },
         {
-            "title": "Pokemon Trainer",
-            "description": "Capture, train, and battle with a team of Pokemon",
-            "employer": "Professor Oak",
-            "location": "Pallet Town, KA",
-            "salary": "0",
+            "title": "ASSISTANT PROFESSOR OF INSTRUCTION",
+            "description": "Lecturer",
+            "employer": "Dr. Jim Anderson",
+            "location": "ENG 215",
+            "salary": "Not Enough",
             "firstname": "Noah",
             "lastname": "McIvor",
             "applicants": [],

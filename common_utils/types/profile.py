@@ -15,7 +15,7 @@ class Profile:
         university: str = "UNDEFINED",
         about: str = "UNDEFINED",
         education: Optional[Education] = None,
-        experiences: Optional[List[Experience]] = None
+        experiences: Optional[List[Experience]] = None,
     ):
         self.username = username
         self.title = title
@@ -24,6 +24,7 @@ class Profile:
         self.about = about
         self.education = education if education else Education()
         self.experiences = experiences if experiences else []
+
     # WARNING: This method only copies VALUES from otherProfile: profile2.copyValues(profile1)
     def copyValues(self, otherProfile):
         self.username = otherProfile.username
@@ -58,7 +59,7 @@ class Profile:
             "university": self.university,
             "about": self.about,
             "education": self.education.toDict() if self.education else None,
-            "experiences": [exp.toDict() for exp in self.experiences]
+            "experiences": [exp.toDict() for exp in self.experiences],
         }
 
     # The attributes can be retrieved manually. like this: userObject.firstname
@@ -71,14 +72,16 @@ class Profile:
     def dictToProfile(cls, userProfile):
         # Convert experience dictionaries into Experience objects
         experiences_list = userProfile.get("experiences", [])
-        experiences_obj_list = [Experience.dictToExperience(exp_dict) for exp_dict in experiences_list]
+        experiences_obj_list = [
+            Experience.dictToExperience(exp_dict) for exp_dict in experiences_list
+        ]
 
         # Convert education dictionary into an Education object
         education_data = userProfile.get("education", {})
         education_obj = Education(
             school_name=education_data.get("school_name", "UNDEFINED"),
             degree=education_data.get("degree", "UNDEFINED"),
-            years_attended=education_data.get("years_attended", "UNDEFINED")
+            years_attended=education_data.get("years_attended", "UNDEFINED"),
         )
 
         return cls(
@@ -88,7 +91,7 @@ class Profile:
             university=userProfile.get("university", "UNDEFINED"),
             about=userProfile.get("about", "UNDEFINED"),
             experiences=experiences_obj_list,
-            education=education_obj
+            education=education_obj,
         )
 
     # Convert word that starts with uppercase letter and the rest is lower case.
@@ -101,11 +104,11 @@ class Profile:
         experience = Experience(title, employer, date_started, date_ended, location, description)
         self.experiences.append(experience)
 
-    #def add_experience(self, experience):
+    # def add_experience(self, experience):
     #    self.experiences.append(experience)
 
-  #  def add_education(self, education):
-   #     self.education.append(education)
+    #  def add_education(self, education):
+    #     self.education.append(education)
 
     def add_education(self, school_name, degree, years_attended):
         self.education = Education(school_name, degree, years_attended)
@@ -122,6 +125,3 @@ class Profile:
 
     def update_about(self, new_about):
         self.about = new_about
-
-    def __str__(self):
-        return json.dumps(self.toDict(), indent=4)
