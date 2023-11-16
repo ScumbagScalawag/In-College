@@ -1,11 +1,85 @@
+from datetime import date, datetime
+from typing import Optional
+
 import pytest  # needed for pytest
 
-from common_utils.types.user_database import UserDatabase
+from common_utils.messages import invalidInput
+from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase, manage_friend_requests
+from common_utils.utils import anyButtonToContinueMessage, clearScreen
+from pages.inbox import printInbox
+from pages.profiles import createProfile
 from tests.shared import JSON_USERS_FP, fourAccounts  # needed for testWithDatabaseSet
 
 
-def tempFunction():  # Temp function is placeholder for function to be imported from test file
-    return
+def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User]:
+    if currentUser == None:
+        return currentUser
+
+    clearScreen()
+
+    userDB = UserDatabase()
+    userDB.loadUsers()
+
+    # apply to more jobs notification
+    flag = 0
+    if currentUser.lastApplicationDate == "UNDEFINED":
+        flag = 1
+    else:
+        splitDate = currentUser.lastApplicationDate.split("-")
+        lastApplication = date((int)(splitDate[0]), (int)(splitDate[1]), (int)(splitDate[2]))
+        timeDifference = date.today() - lastApplication
+        if timeDifference.days > 7:
+            flag = 1
+    if flag:
+        print(
+            "Remember – you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!"
+        )
+        print(anyButtonToContinueMessage())
+        input("")
+
+    # incoming friend request notification
+    manage_friend_requests(currentUser, userDB)
+
+    # unread message notification
+    if currentUser.hasUnreadMessages():
+        print("You have unread messages, would you like to go to inbox? (y/n)")
+        while True:
+            userInput = input("")
+            if userInput.lower() == "y":
+                printInbox(currentUser)
+                break
+            elif userInput.lower() == "n":
+                break
+            else:
+                print(invalidInput("y or n"))
+
+    # profile creation notification
+    if currentUser.profile.username != currentUser.username:
+        print(
+            "You have not yet created a profile, would you like to go the profile creation page? (y/n)"
+        )
+        while True:
+            userInput = input("")
+            if userInput.lower() == "y":
+                currentUser = createProfile(currentUser)
+                break
+            elif userInput.lower() == "n":
+                break
+            else:
+                print(invalidInput("y or n"))
+
+    # new users notifications
+    flag = 0
+    for name in currentUser.unseenUsers:
+        flag = 1
+        print(name, "has joined InCollege")
+        # remove name from unseenUsers
+    if flag:
+        print(anyButtonToContinueMessage())
+        input("")
+
+    return currentUser
 
 
 @pytest.mark.parametrize(
@@ -35,53 +109,15 @@ def tempFunction():  # Temp function is placeholder for function to be imported 
             None,
         ),
     ],
-    ids=[
-        "TempName1",
-        "TempName2",
-        "TempName3",
-    ],
 )
 def testTempName(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
-        assert tempFunction() == expectedReturn
+        assert printNotificationScreen() == expectedReturn
     except StopIteration:
         pass
     captured = capfd.readouterr()
     for r in responses:
         assert r in captured.out
-
-
-# can be used for individual tests: use case of needing to save a database before hand for a single test
-# if multiple tests, can be done with @pytest.mark.parametrize, read documentation on how to change it
-# to change paramertize to handle the loading of diffrent databases, make a new variable for them have
-# it be included in the test's function definition NAME(monkeypatch, capfd, ..., NEWVARIABLE)
-# look at new_user_account tests and job search tests to see paramertized implementation of it
-def testWithDatabaseSet(monkeypatch, capfd):
-    userDB = UserDatabase()
-    userDB.addUserDictList(fourAccounts)
-
-    input_generator = iter(
-        [
-            "",  # "input 1",
-            "",  # "input 2",
-            "",  # "input 3",
-        ]
-    )
-    responses = [
-        "",  # "Response 1",
-        "",  # "Response 2",
-        "",  # "Response 3",
-    ]
-    expectedReturn = None
-    monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
-    try:
-        assert tempFunction() == expectedReturn  # function == expected return
-    except StopIteration:
-        pass
-    captured = capfd.readouterr()
-    # assert captured
-    for r in responses:
-        assert r in captured.out  # Friend not found in system
