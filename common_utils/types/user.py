@@ -82,6 +82,7 @@ class User:
             return False
         else:
             return self.username == otherUser.username
+            # return self.username == otherUser.username and self.password == otherUser.password and self.firstname == otherUser.firstname and self.lastname == otherUser.lastname and self.uni == otherUser.uni and self.major == otherUser.major and self.plusSubscription == otherUser.plusSubscription and self.email == otherUser.email and self.phoneNumber == otherUser.phoneNumber and self.language == otherUser.language and self.emailSub == otherUser.emailSub and self.smsSub == otherUser.smsSub and self.adSub == otherUser.adSub and self.friends == otherUser.friends and self.friendRequests == otherUser.friendRequests and self.profile == otherUser.profile and self.applicationDeleted == otherUser.applicationDeleted and self.incomingMessages == otherUser.incomingMessages
 
     # GETTERS
 
@@ -120,10 +121,14 @@ class User:
 
         return False
 
+    # Returns true if the user has unread messages, false otherwise
     def hasUnreadMessages(self):
+        if len(self.incomingMessages) == 0:
+            return False
         for message in self.incomingMessages:
             if message.read == False:
                 return True
+        return False
 
     # The attributes can be retrieved manually. like this: userObject.firstname
 
@@ -221,10 +226,18 @@ class User:
         return username in self.friends
 
     def markMessageRead(self, index):
-        self.incomingMessages[index].markRead()
+        # error handling
+        if index < 0 or index >= len(self.incomingMessages):
+            raise IndexError("Index out of range")
+        else:
+            self.incomingMessages[index].markRead()
 
     def deleteMessage(self, index):
-        self.incomingMessages.pop(index)
+        # error handling
+        if index < 0 or index >= len(self.incomingMessages):
+            raise IndexError("Index out of range")
+        else:
+            self.incomingMessages.pop(index)
 
     def appendToIncomingMessages(self, message):
         self.incomingMessages.append(message)

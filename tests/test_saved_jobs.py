@@ -1,7 +1,7 @@
 import pytest
 from common_utils.types.user_database import UserDatabase
 from common_utils.types.job_database import JobDatabase
-from pages.savedJobs import printSavedJobs, createSavedJob, deletedSavedJob
+from pages.saved_jobs import printSavedJobs, createSavedJob, deletedSavedJob
 from tests.shared import fiveJobs, singleUser, fourAccounts
 from common_utils.types.user import User
 from common_utils.utils import anyButtonToContinueMessage

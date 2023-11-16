@@ -32,7 +32,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                     print(f"{i + 1}. {user.firstname} {user.lastname} {user.username}")
                 while True:
                     selection = input("Select a user by number or press x to cancel: ")
-                    if selection.lower() == 'x':
+                    if selection.lower() == "x":
                         break
                     try:
                         selected_index = int(selection) - 1
@@ -47,17 +47,23 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                 foundUser = foundUsers[0]  # only one user
 
         if foundUser != None:
-            print("{} {} is part of the InCollege system".format(foundUser.firstname, foundUser.lastname))
+            print(
+                "{} {} is part of the InCollege system".format(
+                    foundUser.firstname, foundUser.lastname
+                )
+            )
 
             # If logged in, friend request?
             if currentUser != None:
                 confirm = input(
-                    "Would you like to make a connection {} {} ?(y/n)".format(foundUser.firstname, foundUser.lastname)
+                    "Would you like to make a connection {} {} ?(y/n)".format(
+                        foundUser.firstname, foundUser.lastname
+                    )
                 ).upper()
                 while True:
                     if confirm == "Y":
                         # Add connection to currenUser: no need for pre-emptive checks: cases are handled by method itself.
-                        # all we need to do here is catch all the errors thrown 
+                        # all we need to do here is catch all the errors thrown
                         try:
                             currentUser.sendFriendRequest(foundUser.username)
                         except ValueError as e:
@@ -72,7 +78,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                             break
 
                         # Now, update the DB (object + Json)
-                        try: 
+                        try:
                             userDB.updateUser(currentUser)
                         except UserNotFoundException as e:
                             # is thrown inside updateUser() if user not found
@@ -93,6 +99,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                     else:
                         confirm = input("Please input y or n: ").upper()
             else:
+                print("You must be logged in to make a connection")
                 return currentUser
         # If not found, display
         else:
@@ -110,7 +117,7 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
 friendSearchOptionList = [
     "*** Find A Friend ***",
     "Search for someone you know on InCollege",
-    "Default is First Name: (Enter 2 for Major, 3 for university)"
+    "Default is First Name: (Enter 2 for Major, 3 for university)",
 ]
 
 

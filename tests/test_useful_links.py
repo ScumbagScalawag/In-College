@@ -2,7 +2,7 @@ import pytest
 from pages.useful_links import printUsefulLinkScreen, usefulLinksOptionsList
 
 # underConstructionMessage = "under construction, input anything to return" #
-from common_utils.messages import underConstructionMessage
+from common_utils.messages import underConstructionMessage, invalidInput, anyButtonToContinueMessage
 
 
 @pytest.mark.parametrize(
@@ -51,7 +51,8 @@ from common_utils.messages import underConstructionMessage
             ["FoamEarplugs"],  # Invalid Input
             [
                 *usefulLinksOptionsList,
-                # TODO: Invalid input not handled
+                invalidInput("1, 2, 3, 4 or X"),
+                anyButtonToContinueMessage(),
             ],
             [],
         ),

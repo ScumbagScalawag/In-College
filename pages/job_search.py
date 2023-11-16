@@ -17,7 +17,7 @@ from common_utils.utils import (
     printOptionList,
 )
 from pages.application import applyToJob, notAppliedList, personalApplicationList
-from pages.savedJobs import createSavedJob, deletedSavedJob, printSavedJobs
+from pages.saved_jobs import createSavedJob, deletedSavedJob, printSavedJobs
 
 jobOptionsList = [
     "*** Job Search ***",
