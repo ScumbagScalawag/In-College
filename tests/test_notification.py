@@ -1,4 +1,5 @@
 from datetime import date, datetime
+from inspect import currentframe
 from typing import Optional
 
 import pytest  # needed for pytest
@@ -83,7 +84,7 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
 
 
 @pytest.mark.parametrize(
-    "mock_input,responses,expectedReturn",
+    "input,responses,expectedReturn",
     [
         (
             ["", ""],  # mock input
@@ -109,13 +110,18 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
             None,
         ),
     ],
+    ids=[
+        "TempName1",
+        "TempName2",
+        "TempName3",
+    ],
 )
-def testTempName(mock_input, responses, expectedReturn, monkeypatch, capfd):
+def testNotifications(mock_input, responses, expectedReturn, monkeypatch, capfd):
     input_generator = iter(mock_input)
     monkeypatch.setattr("builtins.input", lambda _: next(input_generator))
 
     try:
-        assert printNotificationScreen() == expectedReturn
+        assert printNotificationScreen() == currentUser
     except StopIteration:
         pass
     captured = capfd.readouterr()
