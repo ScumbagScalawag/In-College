@@ -42,7 +42,7 @@ def printLoginScreen(currentUser: Optional[User] = None) -> Optional[User]:
         if currentUser != None:  # and loginAttempts <= maximum attempts allowed
             # Valid Login
             print("You have successfully logged in")
-            printNotificationScreen(currentUser)
+            currentUser = printNotificationScreen(currentUser)
             return currentUser
         else:
             # Invalid Login
