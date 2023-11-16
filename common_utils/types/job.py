@@ -13,6 +13,7 @@ class Job:
         lastname: str = "UNDEFINED",
         applicants=[],
         saved=[],
+        seenBy=[]
     ):
         self.title = title
         self.description = description
@@ -23,6 +24,7 @@ class Job:
         self.lastname = lastname
         self.applicants = applicants
         self.saved = saved
+        self.seenBy = seenBy
 
     def copyValues(self, otherJob):
         self.title = otherJob.title
@@ -34,6 +36,7 @@ class Job:
         self.lastname = otherJob.lastname
         self.applicants = otherJob.applicants.copy()
         self.saved = otherJob.saved.copy()
+        self.seenBy = otherJob.seenBy.copy()
 
     def __str__(self):
         return json.dumps(self.toDict(), indent=4)
@@ -55,6 +58,7 @@ class Job:
             "lastname": self.lastname,
             "applicants": self.applicants,
             "saved": self.saved,
+            "seenBy": self.seenBy,
         }
 
     @classmethod
@@ -69,6 +73,7 @@ class Job:
             lastname=jobDict.get("lastname", "UNDEFINED"),
             applicants=jobDict.get("applicants", []),
             saved=jobDict.get("saved", []),
+            seenBy=jobDict.get("seenBy", []),
         )
 
 
