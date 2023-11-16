@@ -49,6 +49,9 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
             else:
                 print(invalidInput("y or n"))
 
+
+    currentUser = deletedJobNotification(currentUser)
+
     # profile creation notification
     if currentUser.profile.username != currentUser.username:
         print("You have not yet created a profile, would you like to go the profile creation page? (y/n)")
@@ -71,5 +74,11 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
     if flag:
         print(anyButtonToContinueMessage())
         input("")
+
+    return currentUser
+
+def deletedJobNotification(currentUser: Optional[User] = None) -> Optional[User]:
+    if currentUser != None and currentUser.applicationDeleted != "UNDEFINED":
+        print(f"A job that you applied for has been deleted ({currentUser.applicationDeleted})")
 
     return currentUser
