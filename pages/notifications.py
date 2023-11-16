@@ -110,7 +110,7 @@ def newJobCreationNotification(currentUser: Optional[User] = None) -> Optional[U
             jobDB.saveDatabase()
 
     if len(foundJobTitles) == 0:
-        return
+        return currentUser
 
     for i in range(0, len(foundJobTitles)):
         print(f"A new job {foundJobTitles[i]} has been posted")
