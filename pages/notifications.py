@@ -55,51 +55,58 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
     currentUser = deletedJobNotification(currentUser)
 
     # profile creation notification
-    if currentUser.profile.username != currentUser.username:
-        print(
-            "You have not yet created a profile, would you like to go the profile creation page? (y/n)"
-        )
-        while True:
-            userInput = input("")
-            if userInput.lower() == "y":
-                currentUser = createProfile(currentUser)
-                break
-            elif userInput.lower() == "n":
-                break
-            else:
-                print(invalidInput("y or n"))
+    if currentUser != None:
+        if currentUser.profile.username != currentUser.username:
+            print(
+                "You have not yet created a profile, would you like to go the profile creation page? (y/n)"
+            )
+            while True:
+                userInput = input("")
+                if userInput.lower() == "y":
+                    currentUser = createProfile(currentUser)
+                    break
+                elif userInput.lower() == "n":
+                    break
+                else:
+                    print(invalidInput("y or n"))
 
     # new job has been posted notification
-    newJobCreationNotification(currentUser.username)
+    currentUser = newJobCreationNotification(currentUser)
 
     # new users notifications
-    flag = 0
-    for name in currentUser.unseenUsers:
-        flag = 1
-        print(name, "has joined InCollege")
-        currentUser.removeUnseen(name)
-    userDB.saveDatabase()
-    if flag:
-        print(anyButtonToContinueMessage())
-        input("")
+    if currentUser != None: 
+        flag = 0
+        for name in currentUser.unseenUsers:
+            flag = 1
+            print(name, "has joined InCollege")
+            currentUser.removeUnseen(name)
+        userDB.saveDatabase()
+        if flag:
+            print(anyButtonToContinueMessage())
+            input("")
 
-    return currentUser
+        return currentUser
 
 
 def deletedJobNotification(currentUser: Optional[User] = None) -> Optional[User]:
     if currentUser != None and currentUser.applicationDeleted != "UNDEFINED":
         print(f"A job that you applied for has been deleted ({currentUser.applicationDeleted})")
 
+    return currentUser
 
-def newJobCreationNotification(username):
+
+def newJobCreationNotification(currentUser: Optional[User] = None) -> Optional[User]:
     jobDB = JobDatabase()
     jobDB.loadJobs()
     foundJobTitles = []
+    
+    if currentUser == None: 
+        return currentUser
 
     for job in jobDB.joblist:
-        if username not in job.seenBy:
+        if currentUser.username not in job.seenBy:
             foundJobTitles.append(job.title)
-            job.seenBy.append(username)
+            job.seenBy.append(currentUser.username)
             jobDB.saveDatabase()
 
     if len(foundJobTitles) == 0:
@@ -108,4 +115,4 @@ def newJobCreationNotification(username):
     for i in range(0, len(foundJobTitles)):
         print(f"A new job {foundJobTitles[i]} has been posted")
 
-    return
+    return currentUser
