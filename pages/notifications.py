@@ -77,7 +77,8 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
     for name in currentUser.unseenUsers:
         flag = 1
         print(name, "has joined InCollege")
-        # remove name from unseenUsers
+        currentUser.removeUnseen(name)
+    userDB.saveDatabase()
     if flag:
         print(anyButtonToContinueMessage())
         input("")
