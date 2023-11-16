@@ -146,31 +146,47 @@ class UserDatabase:
 
     # Because accept/decline friend request and add/remove friends requires multi-user changes that must all happen,
     # they are a DB function until someone thinks of something more clever
-    def acceptFriendRequest(self, sender: User, reciever: User):
+    def acceptFriendRequest(self, sender: User, receiver: User):
         # ensuring you don't double-append
-        if reciever.isFriend(sender.username):
-            raise ValueError(f"{reciever} is already friends with {sender}")
-        if sender.isFriend(reciever.username):
-            raise ValueError(f"{sender} is already friends with {reciever}")
+        if receiver.isFriend(sender.username):
+            raise ValueError(f"{receiver} is already friends with {sender}")
+        if sender.isFriend(receiver.username):
+            raise ValueError(f"{sender} is already friends with {receiver}")
 
-        # otherwise...
-        sender.friends.append(reciever.username)
-        reciever.friends.append(sender.username)
+        # resolve user objects to UserDatase.userlist positions
+        senderPtr = self.getUser(sender.username)
+        receiverPtr = self.getUser(receiver.username)
+        if not isinstance(senderPtr, User) or not isinstance(receiverPtr, User):
+            raise UserNotFoundException("Cannot find corrosponding user(s) inside user database")
 
-        sender.friendRequests.remove(reciever.username)
-        if sender.username in reciever.friendRequests:
-            reciever.friendRequests.remove(sender.username)
+        # add to both users' friends lists (userlist AND the objects directly)
+        senderPtr.friends.append(receiverPtr.username)
+        # sender.friends.append(receiver.username)
+
+        receiverPtr.friends.append(senderPtr.username)
+        # receiver.friends.append(sender.username)
+
+        # if receiver.username in sender.friendRequests:
+        #     sender.friendRequests.remove(receiver.username) 
+        if receiverPtr.username in senderPtr.friendRequests:
+            senderPtr.friendRequests.remove(receiverPtr.username)
+        if senderPtr.username in receiverPtr.friendRequests:
+            # receiver.friendRequests.remove(sender.username)
+            receiverPtr.friendRequests.remove(senderPtr.username)
+
+        sender.copyValues(senderPtr)
+        receiver.copyValues(receiverPtr)
 
         self.saveDatabase()
 
-    def declineFriendRequest(self, sender: User, reciever: User):
+    def declineFriendRequest(self, sender: User, receiver: User):
         # remove the username of reciever from sender.friendRequests
-        if sender.hasPendingFriendRequestTo(reciever.username):
-            sender.removeFriendRequest(reciever.username)
+        if sender.hasPendingFriendRequestTo(receiver.username):
+            sender.removeFriendRequest(receiver.username)
             self.saveDatabase()
         else:
             raise ValueError(
-                f"{sender.username} has not sent a friend request to {reciever.username}"
+                f"{sender.username} has not sent a friend request to {receiver.username}"
             )
 
     def addFriend(self, user1: Optional[User], user2: Optional[User]):
