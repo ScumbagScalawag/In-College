@@ -1,5 +1,6 @@
 from typing import Optional
 from common_utils.messages import invalidInput
+from common_utils.types.job_database import JobDatabase
 
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase, manage_friend_requests
@@ -64,6 +65,9 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
                 break
             else:
                 print(invalidInput("y or n"))
+
+    # new job has been posted notification
+    newJobCreationNotification(currentUser.username)
     
     # new users notifications
     flag = 0
@@ -81,4 +85,22 @@ def deletedJobNotification(currentUser: Optional[User] = None) -> Optional[User]
     if currentUser != None and currentUser.applicationDeleted != "UNDEFINED":
         print(f"A job that you applied for has been deleted ({currentUser.applicationDeleted})")
 
-    return currentUser
+def newJobCreationNotification(username):
+    jobDB = JobDatabase()
+    jobDB.loadJobs()
+    foundJobTitles = []
+
+    for job in jobDB.joblist:
+        if username not in job.seenBy:
+            foundJobTitles.append(job.title)
+            job.seenBy.append(username)
+            jobDB.saveDatabase()
+
+    if len(foundJobTitles) == 0:
+        return
+
+    for i in range(0, len(foundJobTitles)):
+        print(f"A new job {foundJobTitles[i]} has been posted")
+
+    return
+

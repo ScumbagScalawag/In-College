@@ -73,7 +73,7 @@ class Experience:
         )
     # Convert word that starts with uppercase letter and the rest is lower case.
     # or return " ".join(word.capitalize() for word in text.split())
-    def formatTextCapital(text):
+    def formatTextCapital(self, text):
         new_text = " ".join(word.capitalize() for word in text.split())
         return new_text
 
