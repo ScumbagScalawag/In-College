@@ -100,6 +100,8 @@ def printFriendSearchScreen(currentUser: Optional[User] = None) -> Optional[User
                         confirm = input("Please input y or n: ").upper()
             else:
                 print("You must be logged in to make a connection")
+                print(anyButtonToContinueMessage())
+                input("")
                 return currentUser
         # If not found, display
         else:
