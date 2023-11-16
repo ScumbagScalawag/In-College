@@ -58,6 +58,8 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
 
     currentUser = deletedJobNotification(currentUser)
 
+    print("")
+
     # profile creation notification
     if currentUser.profile.username != currentUser.username:
         print(
