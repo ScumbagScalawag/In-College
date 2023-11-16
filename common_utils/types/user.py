@@ -28,6 +28,8 @@ class User:
         profile=None,
         applicationDeleted="UNDEFINED",
         incomingMessages=[],
+        unseenUsers=[],
+        lastApplicationDate="UNDEFINED",
     ):
         self.username = username
         self.password = password
@@ -48,6 +50,8 @@ class User:
         self.profile = Profile() if profile is None else profile
         self.applicationDeleted = applicationDeleted
         self.incomingMessages = incomingMessages
+        self.unseenUsers = unseenUsers
+        self.lastApplicationDate = lastApplicationDate
 
     # WARNING: This method only copies VALUES from otherUser: user2.copyValues(user1)
     def copyValues(self, otherUser):
@@ -69,6 +73,8 @@ class User:
         self.profile.copyValues(otherUser.profile)
         self.applicationDeleted = otherUser.applicationDeleted
         self.incomingMessages = otherUser.incomingMessages.copy()
+        self.unseenUsers = otherUser.unseenUsers.copy()
+        self.lastApplicationDate = otherUser.lastApplicationDate
 
     # define what print(userObject) does
     # print(user), where user: User
@@ -110,6 +116,8 @@ class User:
             "profile": self.profile.toDict() if self.profile else None,
             "applicationDeleted": self.applicationDeleted,
             "incomingMessages": incomingMessagesDictList,
+            "unseenUsers": self.unseenUsers,
+            "lastApplicationDate": self.lastApplicationDate,
         }
 
     def hasPendingFriendRequestTo(self, username: str):
@@ -168,6 +176,8 @@ class User:
             profile=profile_obj,
             applicationDeleted=userDict.get("applicationDeleted", "UNDEFINED"),
             incomingMessages=incomingMessages,
+            unseenUsers=userDict.get("unseenUsers", []),
+            lastApplicationDate=userDict.get("lastApplicationDate", "UNDEFINED"),
         )
 
     def setLanguage(self, language: str):
@@ -241,6 +251,12 @@ class User:
 
     def appendToIncomingMessages(self, message):
         self.incomingMessages.append(message)
+
+    def appendUnseen(self, firstnlast: str):
+        self.unseenUsers.append(firstnlast)
+
+    def setLastApplicationDate(self, date: str):
+        self.lastApplicationDate = date
 
     # TEST UTILS
     # scans using all key/value pairs in expectedUserDict, then compares to user.

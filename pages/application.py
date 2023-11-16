@@ -1,10 +1,11 @@
 import json
-from datetime import datetime
+from datetime import datetime, date
 from common_utils.messages import (
     anyButtonToContinueMessage,
     invalidInputPressToContinue,
 )
 from common_utils.types.user import User
+from common_utils.types.user_database import UserDatabase
 from common_utils.types.job_database import JobDatabase
 from common_utils.utils import (
     clearScreen,
@@ -69,7 +70,14 @@ def applyToJob(jobIndex, currentUser):
                 }
             )
             jobDB.saveDatabase()
-            # saveJobDatabase(JSON_JOBS_FP, jobs)
+
+            # step for adding the most recent job application date to applying user
+            userDB = UserDatabase()
+            userDB.loadUsers()
+            currentUser = userDB.getUser(currentUser.username)
+            currentUser.setLastApplicationDate((str)(date.today()))
+            userDB.saveDatabase()            
+
             print("Application sucessfully submitted")
             print(anyButtonToContinueMessage())
             input("")
