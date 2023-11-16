@@ -27,10 +27,12 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
         splitDate = currentUser.lastApplicationDate.split("-")
         lastApplication = date((int)(splitDate[0]), (int)(splitDate[1]), (int)(splitDate[2]))
         timeDifference = date.today() - lastApplication
-        if timeDifference.days > 7 :
+        if timeDifference.days > 7:
             flag = 1
     if flag:
-        print("Remember – you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
+        print(
+            "Remember – you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!"
+        )
         print(anyButtonToContinueMessage())
         input("")
 
@@ -50,12 +52,13 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
             else:
                 print(invalidInput("y or n"))
 
-
     currentUser = deletedJobNotification(currentUser)
 
     # profile creation notification
     if currentUser.profile.username != currentUser.username:
-        print("You have not yet created a profile, would you like to go the profile creation page? (y/n)")
+        print(
+            "You have not yet created a profile, would you like to go the profile creation page? (y/n)"
+        )
         while True:
             userInput = input("")
             if userInput.lower() == "y":
@@ -68,7 +71,7 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
 
     # new job has been posted notification
     newJobCreationNotification(currentUser.username)
-    
+
     # new users notifications
     flag = 0
     for name in currentUser.unseenUsers:
@@ -81,9 +84,11 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
 
     return currentUser
 
+
 def deletedJobNotification(currentUser: Optional[User] = None) -> Optional[User]:
     if currentUser != None and currentUser.applicationDeleted != "UNDEFINED":
         print(f"A job that you applied for has been deleted ({currentUser.applicationDeleted})")
+
 
 def newJobCreationNotification(username):
     jobDB = JobDatabase()
@@ -103,4 +108,3 @@ def newJobCreationNotification(username):
         print(f"A new job {foundJobTitles[i]} has been posted")
 
     return
-
