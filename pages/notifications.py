@@ -1,13 +1,13 @@
+from datetime import date, datetime
 from typing import Optional
+
 from common_utils.messages import invalidInput
 from common_utils.types.job_database import JobDatabase
-
 from common_utils.types.user import User
 from common_utils.types.user_database import UserDatabase, manage_friend_requests
-from common_utils.utils import clearScreen, anyButtonToContinueMessage
+from common_utils.utils import anyButtonToContinueMessage, clearScreen
 from pages.inbox import printInbox
 from pages.profiles import createProfile
-from datetime import date, datetime
 
 
 def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User]:
@@ -39,6 +39,8 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
     # incoming friend request notification
     manage_friend_requests(currentUser, userDB)
 
+    print("")
+
     # unread message notification
     if currentUser.hasUnreadMessages():
         print("You have unread messages, would you like to go to inbox? (y/n)")
@@ -52,7 +54,11 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
             else:
                 print(invalidInput("y or n"))
 
+    print("")
+
     currentUser = deletedJobNotification(currentUser)
+
+    print("")
 
     # profile creation notification
     if currentUser != None:
@@ -70,8 +76,12 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
                 else:
                     print(invalidInput("y or n"))
 
+    print("")
+
     # new job has been posted notification
     currentUser = newJobCreationNotification(currentUser)
+
+    print("")
 
     # new users notifications
     if currentUser != None: 

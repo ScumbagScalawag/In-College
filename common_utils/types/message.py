@@ -51,13 +51,13 @@ def composeMessage(sender, receiver, plus):
     print("Please type your subject (Must be one line):")
     subject = input("")
     bodyList = []
-    newLine = ""
     print(
         "Please type the body of your message, it can be as many lines as you want\nType SEND on its own line at the end when done typing the message"
     )
+    newLine = input("")
     while newLine != "SEND":
-        newLine = input("")
         bodyList.append(newLine)
+        newLine = input("")
     body = ""
     for line in bodyList:
         body = body.strip(" ") + "\n" + line.strip(" ")
