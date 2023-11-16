@@ -56,6 +56,8 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
 
     print("")
 
+    currentUser = deletedJobNotification(currentUser)
+
     # profile creation notification
     if currentUser.profile.username != currentUser.username:
         print(
@@ -83,12 +85,18 @@ def printNotificationScreen(currentUser: Optional[User] = None) -> Optional[User
     for name in currentUser.unseenUsers:
         flag = 1
         print(name, "has joined InCollege")
-        # remove name from unseenUsers
+        currentUser.removeUnseen(name)
+    userDB.saveDatabase()
     if flag:
         print(anyButtonToContinueMessage())
         input("")
 
     return currentUser
+
+
+def deletedJobNotification(currentUser: Optional[User] = None) -> Optional[User]:
+    if currentUser != None and currentUser.applicationDeleted != "UNDEFINED":
+        print(f"A job that you applied for has been deleted ({currentUser.applicationDeleted})")
 
 
 def newJobCreationNotification(username):

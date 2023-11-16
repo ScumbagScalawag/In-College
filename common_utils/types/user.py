@@ -255,6 +255,9 @@ class User:
     def appendUnseen(self, firstnlast: str):
         self.unseenUsers.append(firstnlast)
 
+    def removeUnseen(self, firstnlast:str):
+        self.unseenUsers.remove(firstnlast)
+
     def setLastApplicationDate(self, date: str):
         self.lastApplicationDate = date
 
